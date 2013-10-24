@@ -12,7 +12,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Easily create organized documentation for multiple products, organized by product and by subsections within each product.
 
-=== Description ===
+== Description ==
 
 Create documentation for multiple items, for example, for multiple software products. This is for you if you need to create documentation for multiple products, and must have the docs organized neatly, by product. The main "Docs Page" will list all the products. Clicking on a product will take you to the docs only for that product.
 
