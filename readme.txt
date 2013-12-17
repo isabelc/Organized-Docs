@@ -3,10 +3,10 @@ Author URI: http://isabelcastillo.com
 Plugin URI: http://isabelcastillo.com/downloads/organized-docs-wordpress-plugin
 Contributors: isabel104
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=me%40isabelcastillo%2ecom
-Tags: documentation, docs, organized, instructions, guides, instruction, instruction guides
+Tags: documentation, docs, organize documentation, organized documentation, instruction guides, wiki
 Requires at least: 3.4
-Tested up to: 3.7.1
-Stable Tag: 1.1
+Tested up to: 3.8
+Stable Tag: 1.1.2
 License: GNU Version 2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -43,6 +43,9 @@ None yet.
 3. Single docs post with Table of Contents
 
 == Changelog ==
+= 1.1.2 =
+* Bug fix: Main Docs page query was broken.
+* Tested for WP 3.8 compatibility.
 
 = 1.1 =
 * Bug fix: slug for docs category taxonomy was broken.

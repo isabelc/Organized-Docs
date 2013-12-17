@@ -40,8 +40,7 @@ if ( have_posts() ) :
 					     echo '<ul id="organized-docs-main">';
 					     foreach ( $terms as $term ) {
 							global $Isa_Organized_Docs;
-							// if it is top level, then list it
-							if( $Isa_Organized_Docs->isa_term_top_parent_id( $term->term_id ) === $term->term_id ) {
+							if( $term->term_id == $Isa_Organized_Docs->isa_term_top_parent_id( $term->term_id ) ) {
 								echo '<li><a href="' . get_term_link( $term, 'isa_docs_category' ).'" title="' . esc_attr( $term->name ) . '">' . $term->name . '</a></li>';
 							} // end if
 					        
