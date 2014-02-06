@@ -1,16 +1,16 @@
 <?php
 /**
  * Plugin Name: Organized Docs
- * Plugin URI: http://isabelcastillo.com/downloads/organized-docs-wordpress-plugin
+ * Plugin URI: http://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
  * Description: Easily create organized documentation for multiple products, organized by product, and by subsections within each product.
- * Version: 1.1.2
+ * Version: 1.1.3
  * Author: Isabel Castillo
  * Author URI: http://isabelcastillo.com
  * License: GPL2
  * Text Domain: organized-docs
  * Domain Path: languages
  * 
- * Copyright 2013 Isabel Castillo
+ * Copyright 2013 - 2014 Isabel Castillo
  * 
  * This file is part of Organized Docs plugin.
  * 
@@ -27,6 +27,7 @@
  * You should have received a copy of the GNU General Public License
  * along with Organized Docs; if not, If not, see <http://www.gnu.org/licenses/old-licenses/gpl-2.0.html>.
  */
+
 if(!class_exists('Isa_Organized_Docs')) {
 class Isa_Organized_Docs{
 	public function __construct() {
@@ -47,7 +48,6 @@ class Isa_Organized_Docs{
 			add_filter( 'template_include', array( $this, 'docs_template' ) );
 			add_action( 'wp_loaded', array( $this, 'sidebar' ) );
 			add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
-			add_action( 'admin_head', array( $this, 'admin_docs_icon' ) );
 			add_filter( 'parse_query', array( $this, 'sort_asc' ) );
 			add_filter( 'manage_edit-isa_docs_columns', array( $this, 'manage_edit_docs_columns') );
 			add_action( 'manage_isa_docs_posts_custom_column', array( $this, 'manage_docs_columns' ), 10, 2 );
@@ -85,7 +85,7 @@ class Isa_Organized_Docs{
 	public function support_link($actions, $file) {
 	$od_path    = plugin_basename(__FILE__);
 	if(false !== strpos($file, $od_path))
-	 $actions['settings'] = '<a href="http://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin" target="_blank">'. __( 'Docs', 'organized-docs' ) . '</a>';
+	 $actions['settings'] = '<a href="http://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin" target="_blank">'. __( 'Setup Instructions', 'organized-docs' ) . '</a>';
 
 	return $actions; 
 	}
@@ -121,56 +121,6 @@ class Isa_Organized_Docs{
 		echo '<meta name="generator" content="' . get_option( 'isa_organized_docs_plugin_name' ) . ' ' . get_option( 'isa_organized_docs_plugin_version' ) . '" />' . "\n";
 	}
 
-	/**
-	 * Admin Docs Icon
-	 *
-	 * Echoes the CSS for the docs post type icon.
-	 *
-	 * @since 1.0
-	 * @global $post_type
-	 * @return void
-	*/
-	function admin_docs_icon() {
-		global $post_type;
-		$image_path  = plugins_url( 'includes/' , __FILE__ );
-		$menu_icon_url    = $image_path . 'od-menu-icon.png';
-		$screen_icon_url = $image_path . 'od-screen-icon.png';
-		$menu_icon_2x_url = $image_path . 'od-menu-icon-2x.png';
-		?>
-		<style type="text/css" media="screen">
-			body #adminmenu #menu-posts-isa_docs div.wp-menu-image { background: transparent url(<?php echo $menu_icon_url; ?>) no-repeat 7px -17px; }
-			body #adminmenu #menu-posts-isa_docs:hover div.wp-menu-image,
-			body #adminmenu #menu-posts-isa_docs.wp-has-current-submenu div.wp-menu-image { background: transparent url(<?php echo $menu_icon_url; ?>) no-repeat 7px 5px; }
-			<?php if ( ( isset( $_GET['post_type'] ) ) && ( 'isa_docs' == $_GET['post_type'] ) || ( 'isa_docs' == $post_type ) ) : ?>
-			#icon-edit { background: transparent url(<?php echo $screen_icon_url; ?>) no-repeat 2px 1px; }
-			<?php endif; ?>
-			@media
-			only screen and (-webkit-min-device-pixel-ratio: 1.5),
-			only screen and (   min--moz-device-pixel-ratio: 1.5),
-			only screen and (     -o-min-device-pixel-ratio: 3/2),
-			only screen and (        min-device-pixel-ratio: 1.5),
-			only screen and (        		 min-resolution: 1.5dppx) {
-				/* Admin Menu - 16px @2x */
-				body #adminmenu #menu-posts-isa_docs div.wp-menu-image {
-					background: transparent url(<?php echo $menu_icon_2x_url; ?>) no-repeat 7px -20px !important;
-					background-size: 16px 48px !important;
-				}
-	
-				body #adminmenu #menu-posts-isa_docs:hover div.wp-menu-image,
-				body #adminmenu #menu-posts-isa_docs.wp-menu-open div.wp-menu-image {
-					background-position: 7px 7px !important;
-				}
-	
-				/* Post Screen - 32px @2x */
-				.icon32-posts-isa_docs {
-					background: url(<?php echo $menu_icon_2x_url; ?>) no-repeat 0 0 !important;
-					background-size: 32px 32px !important;
-				}
-			}
-	
-		</style>
-		<?php
-	}
 	/** 
 	 * Add isa_docs CPT.
 	 * @since 1.0
@@ -208,7 +158,8 @@ class Isa_Organized_Docs{
 							'parent' => __( 'Parent Docs','organized-docs' ),
 						),
 			        	'supports' => array( 'title', 'editor', 'thumbnail', 'comments' ),
-						'has_archive' => true
+					'has_archive' => true,
+					'menu_icon'=> 'dashicons-book',
 			        );
 	
 		    	register_post_type( 'isa_docs' , $args );
@@ -220,9 +171,8 @@ class Isa_Organized_Docs{
 	 * @since 1.0
 	 */
 	public function enqueue() {
-		wp_register_style( 'organized-docs', plugins_url( 'includes/organized-docs.css' , __FILE__ ) );
-		wp_enqueue_style( 'organized-docs' );
-
+		wp_enqueue_style( 'organized-docs', plugins_url( 'includes/organized-docs.css' , __FILE__ ) );
+		wp_enqueue_style( 'font-awesome', '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css' );
 	}
 
 	/**
@@ -286,6 +236,7 @@ class Isa_Organized_Docs{
 			global $post;
 			$docscontent = $this->organized_docs_section_heading();
 			$docscontent .= $this->organized_docs_content_nav();
+			$docscontent .= '<p id="odd-print-button"><i class="fa fa-print"></i> <a href="javascript:window.print()" class="button">Print</a></p>';
  			$docscontent .= '<h1 class="entry-title">' . single_post_title('', false) . '</h1>';
 			$docscontent .= $content;
 			return $docscontent;
@@ -496,14 +447,22 @@ class Isa_Organized_Docs{
 			foreach( $keys_array as $key ) {
 			    if( isset( $widgets[$key] ) ) {
 
-
-
 					// only do if Twenty Thirteen is not active while key=sidebar-1
 					if ( 
-						( ( 'Twenty Thirteen' == $theme->name ) || ( 'Twenty Thirteen' == $theme->parent_theme ) ) &&
+(
+						( ( 'Twenty Thirteen' == $theme->name ) || ( 'Twenty Thirteen' == $theme->parent_theme ) || ( 'Twenty Fourteen' == $theme->name ) || ( 'Twenty Fourteen' == $theme->parent_theme ) ) &&
 						( 'sidebar-1' == $key )
-					   )
+) ||
+
+(
+						( ( 'Twenty Fourteen' == $theme->name ) || ( 'Twenty Fourteen' == $theme->parent_theme ) ) &&
+						( 'sidebar-3' == $key )
+)
+
+
+					   ) {
 							continue;
+						}
 
 
 					$widgets[$key] = $widgets['isa_organized_docs'];
@@ -539,7 +498,7 @@ class Isa_Organized_Docs{
 	}
 
 	/**
-	* gets all current registered sidebars
+	* gets all current registered sidebar ids
 	*
 	* @since 1.0
 	* @return array
