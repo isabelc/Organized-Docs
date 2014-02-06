@@ -6,7 +6,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=me%40
 Tags: documentation, docs, organize documentation, organized documentation, instruction guides, wiki
 Requires at least: 3.4
 Tested up to: 3.8.1
-Stable Tag: 1.1.3
+Stable Tag: 1.1.4
 License: GNU Version 2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -36,7 +36,7 @@ For support or to report bugs, use the support forum link above, or use [GitHub]
 6.  See [First Steps After Installing](http://isabelcastillo.com/docs/first-steps-after-installing)
 == Frequently Asked Questions ==
 
-= Why does the Table of Content widget appear multiple times on the same page? =
+= Why does the Table of Contents widget appear multiple times on the same page? =
 
 This does not happen with the default WordPress themes. For a custom solution for your theme, please see:
 
@@ -49,6 +49,9 @@ This does not happen with the default WordPress themes. For a custom solution fo
 3. Single docs post with Table of Contents
 
 == Changelog ==
+
+= 1.1.4 =
+* Maintenance: removed unused icons.
 
 = 1.1.3 =
 * Bug fix: Table of Contents Widget was showing up 3 times on Twenty Fourteen theme.
@@ -71,5 +74,5 @@ This does not happen with the default WordPress themes. For a custom solution fo
 
 == Upgrade Notice ==
 
-= 1.1.3 =
+= 1.1.4 =
 Bug fix: Table of Contents Widget was showing up 3 times on Twenty Fourteen theme.
