@@ -19,65 +19,70 @@ echo $Isa_Organized_Docs->organized_docs_content_nav();
 do_action( 'organized_docs_content_after_nav' ); 
 if ( have_posts() ) :
 	
-			// Display a list of subTerms, within a specified Terms, AND show all the posts within each of those subTerms on archive page
+		// Display a list of subTerms, within a specified Terms, AND show all the posts within each of those subTerms on archive page
 		
-			// get current term id on category or archive page
-		
+		// get current term id on category, taxonomy or archive page
+
+		if ( is_tax( 'isa_docs_category' ) ) {
+
 			$term = get_term_by( 'slug', get_query_var( 'term' ), get_query_var( 'taxonomy' ) );
+
 			$curr_termID = $term->term_id;
-			$curr_term_name	= $term->name;
+			$curr_term_name = $term->name;
 	
 			// get term children
-					
+				
 			$termchildren =  get_term_children( $curr_termID, 'isa_docs_category' );
-			if ( empty($termchildren) ) {
 
-				// if main docs page, do only top level terms
-				if( is_post_type_archive( 'isa_docs' ) ) {
-					$terms = get_terms( 'isa_docs_category' );
-					$count = count( $terms );
-					if ( $count > 0 ) {
-					     echo '<ul id="organized-docs-main">';
-					     foreach ( $terms as $term ) {
-							global $Isa_Organized_Docs;
-							if( $term->term_id == $Isa_Organized_Docs->isa_term_top_parent_id( $term->term_id ) ) {
-								echo '<li><a href="' . get_term_link( $term, 'isa_docs_category' ).'" title="' . esc_attr( $term->name ) . '">' . $term->name . '</a></li>';
-							} // end if
-					        
-						} // end foreach
-					echo '</ul>';
-					} // end if ( $count > 0 )
+		}
+		if ( empty($termchildren) ) {
 
-				} else {
-		
-					/**
-					* Not main docs page, and There are no child terms, do regular term loop to list posts within current term
-					*/
-					echo '<ul>';
-					while ( have_posts() ) {
-							the_post();
-			
-						echo '<li><a href="' . get_permalink($post->ID).'">' . get_the_title() . '</a></li>';		
-			
-					}
-					echo '</ul>';
+			// if main docs page, do only top level terms
+			if( is_post_type_archive( 'isa_docs' ) ) {
+				$terms = get_terms( 'isa_docs_category' );
+				$count = count( $terms );
+				if ( $count > 0 ) {
+				     echo '<ul id="organized-docs-main">';
+				     foreach ( $terms as $term ) {
+						global $Isa_Organized_Docs;
+						if( $term->term_id == $Isa_Organized_Docs->isa_term_top_parent_id( $term->term_id ) ) {
+							echo '<li><a href="' . get_term_link( $term, 'isa_docs_category' ).'" title="' . esc_attr( $term->name ) . '">' . $term->name . '</a></li>';
+						} // end if
+				        
+					} // end foreach
+				echo '</ul>';
+				} // end if ( $count > 0 )
 
-
-				} // end if/else is_post_type_archive( 'isa_docs' )
-		
 			} else {
+		
+				/**
+				* Not main docs page, and There are no child terms, do regular term loop to list posts within current term
+				*/
+				echo '<ul>';
+				while ( have_posts() ) {
+						the_post();
+			
+					echo '<li><a href="' . get_permalink($post->ID).'">' . get_the_title() . '</a></li>';		
+			
+				}
+				echo '</ul>';
 
-					/** 
-					* there are subTerms, do list subTerms with all its posts for each subTerm
-					*/
 
-					foreach ( $termchildren as $child ) {
-						$termobject = get_term_by( 'id', $child, 'isa_docs_category' );
-				        //Display the sub Term information
-				        echo '<h2>' . $termobject->name . '</h2>';
-				        echo '<ul>';
-						global $post;
-						$args = array(	'post_type' => 'isa_docs', 
+			} // end if/else is_post_type_archive( 'isa_docs' )
+		
+		} else {
+
+				/** 
+				* there are subTerms, do list subTerms with all its posts for each subTerm
+				*/
+
+				foreach ( $termchildren as $child ) {
+					$termobject = get_term_by( 'id', $child, 'isa_docs_category' );
+					//Display the sub Term information
+					echo '<h2>' . $termobject->name . '</h2>';
+					echo '<ul>';
+					global $post;
+					$args = array(	'post_type' => 'isa_docs', 
 										'posts_per_page' => -1,
 										'order' => 'ASC',
 										'tax_query' => array(
