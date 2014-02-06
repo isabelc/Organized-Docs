@@ -5,8 +5,8 @@ Contributors: isabel104
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=me%40isabelcastillo%2ecom
 Tags: documentation, docs, organize documentation, organized documentation, instruction guides, wiki
 Requires at least: 3.4
-Tested up to: 3.8
-Stable Tag: 1.1.2
+Tested up to: 3.8.1
+Stable Tag: 1.1.3
 License: GNU Version 2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -36,13 +36,28 @@ For support or to report bugs, use the support forum link above, or use [GitHub]
 6.  See [First Steps After Installing](http://isabelcastillo.com/docs/first-steps-after-installing)
 == Frequently Asked Questions ==
 
-None yet.
+= Why does the Table of Content widget appear multiple times on the same page? =
+
+This does not happen with the default WordPress themes. For a custom solution for your theme, please see:
+
+[Table Of Contents Widget Appears Multiple Times](http://isabelcastillo.com/docs/table-of-contents-widget-appears-multiple-times)
+
+
 == Screenshots ==
 1. Back-end Admin screen – Organized Docs WordPress Plugin
 2. All Docs For 1 Product
 3. Single docs post with Table of Contents
 
 == Changelog ==
+
+= 1.1.3 =
+* Bug fix: Table of Contents Widget was showing up 3 times on Twenty Fourteen theme.
+* New: added Print button to single docs.
+* New: added link to Setup Instructions.
+* Maintenance: added support for Twenty Fourteen Theme.
+* Maintenance: updated the icon for Docs.
+* Maintenance: removed PHP notices and errors.
+
 = 1.1.2 =
 * Bug fix: Main Docs page query was broken.
 * Tested for WP 3.8 compatibility.
@@ -53,3 +68,8 @@ None yet.
 
 = 1.0 =
 * Initial release.
+
+== Upgrade Notice ==
+
+= 1.1.3 =
+Bug fix: Table of Contents Widget was showing up 3 times on Twenty Fourteen theme.
