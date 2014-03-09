@@ -87,41 +87,13 @@ if ( have_posts() ) :
 				* there are subTerms, do list subTerms with all its posts for each subTerm
 				*/
 
-				// @todo right here we want to order them in some custom order
+				// sort $termchildren by custom subheading_sort_order numbers // @test 
 
+				$sorted_termchildren = $Isa_Organized_Docs->sort_terms( $termchildren, 'subheading_sort_order' );
 
-/*
-test get term objectts again, in order to sort them. is this object?
+				foreach ( $sorted_termchildren as $child_id => $order ) {
 
-
-// @test debug
- //  =  get_term_children( $curr_termID, 'isa_docs_category' );
-
-
-*/
-
-
-
-$sorted_termchildren = $Isa_Organized_Docs->sort_terms( $termchildren, 'subheading_sort_order' );//
-
-print_r($termchildren); // array of ids before processing
-echo '<hr />';
-
-echo 'Test $sorted_termchildren';
-echo '<br />';
-
-print_r( $sorted_termchildren );
-echo '<hr />';
-
-
-
-				// sort $termchildren by custom subheading_sort_order numbers
-
-				$sorted_termchildren = $Isa_Organized_Docs->sort_terms( $termchildren, 'subheading_sort_order' );// @test
-
-				foreach ( $sorted_termchildren as $child ) { // @test changed $termchildren into $sorted_termchildren
-
-					$termobject = get_term_by( 'id', $child[0], 'isa_docs_category' );
+					$termobject = get_term_by( 'id', $child_id, 'isa_docs_category' );
 
 
 					//Display the sub Term information
@@ -146,7 +118,7 @@ echo '<hr />';
 
 				        echo '</ul>';
 
-					} // end foreach ( $termchildren as $child ) {
+					} // end foreach ( $sorted_termchildren as $child_id => $order ) {
 			}// end if ( empty($termchildren) ) else
 		else : ?>
 			<h2><?php _e( 'Error 404 - Not Found', 'organized-docs' ); ?></h2>
