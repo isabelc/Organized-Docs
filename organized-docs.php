@@ -3,7 +3,7 @@
  * Plugin Name: Organized Docs
  * Plugin URI: http://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
  * Description: Easily create organized documentation for multiple products, organized by product, and by subsections within each product.
- * Version: 1.1.5
+ * Version: 1.1.5RC1.1
  * Author: Isabel Castillo
  * Author URI: http://isabelcastillo.com
  * License: GPL2
@@ -685,7 +685,7 @@ class Isa_Organized_Docs{
 		$ordered_terms = array();
 		$new_order_numbers = array();
 		$unordered_terms = array();
-		$no_order = array();
+		$no_order_numbers = array();
 
 		// get sort order numbers for all term ids
 		foreach ( $term_ids as $term_id ) {
@@ -705,7 +705,7 @@ class Isa_Organized_Docs{
 			} else {
 				// This catches any terms that don't have subheading_sort_order set
 				$unordered_terms[] = $term_id;
-				$no_order[] = 99999999; // need this so i have an equal number of keys and values for later
+				$no_order_numbers[] = 99999999; // need this so i have an equal number of keys and values for later
 			}
 		}
 		
@@ -731,17 +731,10 @@ class Isa_Organized_Docs{
 
 */
 
-
-
-
 			// @test add each unordered term to the end of list of terms
 
-
 				foreach ( $unordered_terms as $unordered_term ) {
-
 					array_push( $ordered_terms, $unordered_term );
-
-
 				}
 
 			// @test END. @TODO note to isa: i have not run this yet. MUST @TODO THIS WITH THE NEXT SECTION .
@@ -751,8 +744,19 @@ class Isa_Organized_Docs{
 	
 				// build values list, adding unordered terms to the end of list
 
-				$comma_order_list = implode(",", $unordered_terms);
-				array_push( $new_order_numbers, $comma_order_list );
+// @test replace				$comma_order_list = implode(",", $unordered_terms);
+// @test replace				array_push( $new_order_numbers, $comma_order_list );
+
+/************************************************************
+
+***********  instead of using the 2 lines above, do this instead. push 1 at at time:
+
+*/
+			// @test add each unordered value to the end of list of values
+
+				foreach ( $no_order_numbers as $no_order_number ) {
+					array_push( $new_order_numbers, $no_order_number );
+				}
 
 			}
 
