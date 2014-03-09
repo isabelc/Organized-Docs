@@ -1,12 +1,4 @@
-﻿article.docs-archive-template{
-	max-width:800px;
-	margin-left:auto;
-	margin-right:auto;
-	background-color:#fff;
-	padding:1em;
-}
-
-/* main docs page */
+﻿/* main docs page */
 ul#organized-docs-main,
 ul#organized-docs-main li,
 #isa-docs-main-title {
