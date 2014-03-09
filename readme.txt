@@ -1,12 +1,12 @@
 ﻿=== Organized Docs ===
 Author URI: http://isabelcastillo.com
-Plugin URI: http://isabelcastillo.com/downloads/organized-docs-wordpress-plugin
+Plugin URI: http://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
 Contributors: isabel104
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=me%40isabelcastillo%2ecom
 Tags: documentation, docs, organize documentation, organized documentation, instruction guides, wiki
 Requires at least: 3.4
 Tested up to: 3.8.1
-Stable Tag: 1.1.4
+Stable Tag: 1.1.5
 License: GNU Version 2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -19,6 +19,10 @@ Create documentation for multiple items, for example, for multiple software prod
 Each product's docs is further organized into subsections. The subsections list each individual article in that docs section. 
 
 The single docs posts will have a Docs Table of Contents widget added to the sidebar (only if your theme has a dynamic sidebar). This will show a nice Table of Contents for docs pertaining only to the product which this current single doc belongs to. 
+
+Demo [Organized Docs on Twenty Thirteen](http://smartestthemes.com/organized-docs-wordpress-plugin/docs/) theme
+
+Demo [Organized Docs on Twenty Twelve](http://smartestthemes.com/organized-docs-on-twentytwelve/docs/) theme
 
 [Setup Instructions](http://isabelcastillo.com/docs/first-steps-after-installing)
 
@@ -51,7 +55,10 @@ This does not happen with the default WordPress themes. For a custom solution fo
 == Changelog ==
 
 = 1.1.5 =
+* New: added links to 2 demos in the description.
 * Fix: PHP error notices on admin Parent column if no category was assigned.
+* TWeak: removed generator tag for less markup.
+* Maintenance: updated plugin URL in readme.
 
 = 1.1.4 =
 * Maintenance: removed unused icons.
