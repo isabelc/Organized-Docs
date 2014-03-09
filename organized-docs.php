@@ -3,7 +3,7 @@
  * Plugin Name: Organized Docs
  * Plugin URI: http://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
  * Description: Easily create organized documentation for multiple products, organized by product, and by subsections within each product.
- * Version: 1.1.4
+ * Version: 1.1.5
  * Author: Isabel Castillo
  * Author URI: http://isabelcastillo.com
  * License: GPL2
@@ -14,18 +14,13 @@
  * 
  * This file is part of Organized Docs plugin.
  * 
- * Organized Docs plugin is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
+ * Organized Docs plugin is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
  * 
- * Organized Docs plugin is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * Organized Docs plugin is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * 
- * You should have received a copy of the GNU General Public License
- * along with Organized Docs; if not, If not, see <http://www.gnu.org/licenses/old-licenses/gpl-2.0.html>.
+ * You should have received a copy of the GNU General Public License along with Organized Docs; if not, If not, see <http://www.gnu.org/licenses/old-licenses/gpl-2.0.html>.
  */
 
 if(!class_exists('Isa_Organized_Docs')) {
@@ -40,7 +35,6 @@ class Isa_Organized_Docs{
 			add_action( 'init', array( $this, 'create_docs_cpt') );
 			add_action( 'init', array( $this, 'create_docs_menu_item') );
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue') );
-			add_action( 'wp_head', array( $this, 'version' ) );
  			add_filter( 'the_title', array( $this, 'suppress_docs_title' ), 40, 2 );
 			add_filter( 'the_content', array( $this, 'single_doc_content_filter' ) ); 
 			add_action( 'widgets_init', array( $this, 'register_widgets') );
@@ -115,16 +109,6 @@ class Isa_Organized_Docs{
 		$plugin_data = get_plugin_data( __FILE__, false );
 		update_option( 'isa_organized_docs_plugin_version', $plugin_data['Version'] );
 		update_option( 'isa_organized_docs_plugin_name', $plugin_data['Name'] );
-	}
-
-	/** 
-	* Add meta generator tag with plugin name and version to head
-	*
-	* @since 1.0
-	* @return string meta element name=generator
-	*/
-	public function version(){
-		echo '<meta name="generator" content="' . get_option( 'isa_organized_docs_plugin_name' ) . ' ' . get_option( 'isa_organized_docs_plugin_version' ) . '" />' . "\n";
 	}
 
 	/** 
