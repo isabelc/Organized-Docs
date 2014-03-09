@@ -23,6 +23,19 @@
  * You should have received a copy of the GNU General Public License along with Organized Docs; if not, If not, see <http://www.gnu.org/licenses/old-licenses/gpl-2.0.html>.
  */
 
+/**
+
+@todo add order to main docs page.
+
+@todo add indie order??
+
+@todo see if indie order works on sub-heading archive page.
+
+@todo add sub-heading sort-order to the widget "table-of-contents"
+**/
+
+
+
 if(!class_exists('Isa_Organized_Docs')) {
 class Isa_Organized_Docs{
 	public function __construct() {
@@ -718,41 +731,16 @@ class Isa_Organized_Docs{
 
 				// build keys list, adding unordered terms to the end of list
 
-
-
-
-// @test replace				$comma_term_list = implode(",", $unordered_terms);
-// @test replace				array_push( $ordered_terms, $comma_term_list );
-
-
-/************************************************************
-
-***********  instead of using the 2 lines above, do this instead. push 1 at at time:
-
-*/
-
-			// @test add each unordered term to the end of list of terms
+				// add each unordered term to the end of list of terms
 
 				foreach ( $unordered_terms as $unordered_term ) {
 					array_push( $ordered_terms, $unordered_term );
 				}
 
-			// @test END. @TODO note to isa: i have not run this yet. MUST @TODO THIS WITH THE NEXT SECTION .
 
-
-				
-	
 				// build values list, adding unordered terms to the end of list
 
-// @test replace				$comma_order_list = implode(",", $unordered_terms);
-// @test replace				array_push( $new_order_numbers, $comma_order_list );
-
-/************************************************************
-
-***********  instead of using the 2 lines above, do this instead. push 1 at at time:
-
-*/
-			// @test add each unordered value to the end of list of values
+				// add each unordered value to the end of list of values
 
 				foreach ( $no_order_numbers as $no_order_number ) {
 					array_push( $new_order_numbers, $no_order_number );
@@ -770,8 +758,11 @@ class Isa_Organized_Docs{
 
 		} else {
 
-			// no items to sort to return the original array
-			return $term_ids;
+			// No items to sort, so return the original array
+			// but add the id as the key since we'll need id as key later.
+			$keys = $term_ids;
+			$values = $term_ids;
+			return array_combine($keys, $values);
 		}
 
 	}
