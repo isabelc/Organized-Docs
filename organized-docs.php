@@ -51,6 +51,12 @@ class Isa_Organized_Docs{
 			add_filter( 'parse_query', array( $this, 'sort_asc' ) );
 			add_filter( 'manage_edit-isa_docs_columns', array( $this, 'manage_edit_docs_columns') );
 			add_action( 'manage_isa_docs_posts_custom_column', array( $this, 'manage_docs_columns' ), 10, 2 );
+
+			add_action( 'isa_docs_category_add_form_fields', array( $this, 'odocs_taxonomy_new_meta_field'), 10, 2 );
+			add_action( 'isa_docs_category_edit_form_fields', array( $this, 'odocs_taxonomy_edit_meta_field'), 10, 2 );
+			add_action( 'edited_isa_docs_category', array( $this, 'save_taxonomy_custom_meta' ), 10, 2 );
+			add_action( 'create_isa_docs_category', array( $this, 'save_taxonomy_custom_meta' ), 10, 2 );
+
     }
 
 	/** 
@@ -386,7 +392,7 @@ class Isa_Organized_Docs{
 	* @since 1.0
 	*/
 	public function isa_term_top_parent_id( $termid ) {
-
+		$termParent = '';
 		while ($termid) {
 			$term = get_term( $termid, 'isa_docs_category' );
 
@@ -588,25 +594,201 @@ class Isa_Organized_Docs{
 			case 'parentcat' :
 				// get the parent cat
 				$doc_categories = wp_get_object_terms( $post_id, 'isa_docs_category' );
-				$first_cat = $doc_categories[0]; // first category
-				$curr_term_id = $first_cat->term_id;
-				$top_level_parent_term_id = $this->isa_term_top_parent_id( $curr_term_id );
-					
-				$top_term = get_term( $top_level_parent_term_id, 'isa_docs_category' );
+
+				/* @test */
+				if(!empty($doc_categories)){
+					if(!is_wp_error( $doc_categories )){
 			
-				$top_term_slug = $top_term->slug;
-				$top_term_name = $top_term->name;
 
-				$path = 'edit.php?post_type=isa_docs&isa_docs_category=' . $top_term_slug;
-				$top_term_sort_link = admin_url( $path );
-
-				echo '<a href="' . $top_term_sort_link  . '" title="' . esc_attr( $top_term_name ) . '">' . $top_term_name . '</a>';
+						$first_cat = $doc_categories[0]; // first category
+		
+						$curr_term_id = $first_cat->term_id;
+						$top_level_parent_term_id = $this->isa_term_top_parent_id( $curr_term_id );
+							
+						$top_term = get_term( $top_level_parent_term_id, 'isa_docs_category' );
+					
+						$top_term_slug = $top_term->slug;
+						$top_term_name = $top_term->name;
+		
+						$path = 'edit.php?post_type=isa_docs&isa_docs_category=' . $top_term_slug;
+						$top_term_sort_link = admin_url( $path );
+		
+						echo '<a href="' . $top_term_sort_link  . '" title="' . esc_attr( $top_term_name ) . '">' . $top_term_name . '</a>';
+					}
+				} // @test end
 			
 				break;
 			default :
 				break;
 		}
 	}
+
+
+/* @test begin */
+
+	/** 
+	 * To the "Add New Category" page for Docs categories, add a field for sort order.
+	 * @since 1.1.5
+	 */
+
+	public function odocs_taxonomy_new_meta_field() {
+		// this will add the custom meta field to the add new term page
+		?>
+		<div class="form-field">
+			<label for="term_meta[subheading_sort_order]"><?php _e( 'Sort Order Number for Sub-heading', 'organized-docs' ); ?></label>
+			<input type="text" name="term_meta[subheading_sort_order]" id="term_meta[subheading_sort_order]" value="">
+			<p class="description"><?php _e( 'If this is a Sub-heading, give this Sub-heading a number to order it under its Parent. Number 1 will appear first, while greater numbers appear lower. Numbers do not have to be consecutive; for example, you could number them like, 10, 20, 35, 45, etc. This would leave room in between to insert new docs later without having to change all current numbers. <em>Leave blank if this is is not a sub heading.</em>', 'organized-docs' ); ?></p>
+		</div>
+	<?php
+	}
+
+	/** 
+	 * To the "Edit Category" page for Docs categories, add the sort order field and populate any saved value for it.
+	 * @since 1.1.5
+	 */
+	public function odocs_taxonomy_edit_meta_field($term) {
+ 
+		// put the term ID into a variable
+		$t_id = $term->term_id;
+	 
+		// retrieve the existing value(s) for this meta field. This returns an array
+		$term_meta = get_option( "taxonomy_$t_id" ); 
+
+		$value = isset($term_meta['subheading_sort_order']) ? esc_attr( $term_meta['subheading_sort_order'] ) : '';
+
+?>
+		<tr class="form-field">
+		<th scope="row" valign="top"><label for="term_meta[subheading_sort_order]"><?php _e( 'Sort Order Number', 'organized-docs' ); ?></label></th>
+			<td>
+				<input type="text" name="term_meta[subheading_sort_order]" id="term_meta[subheading_sort_order]" value="<?php echo $value; ?>">
+				<p class="description"><?php _e( 'If this is a Sub-heading, give this Sub-heading a number to order it under its Parent. Number 1 will appear first, while greater numbers appear lower. Numbers do not have to be consecutive; for example, you could number them like, 10, 20, 35, 45, etc. This would leave room in between to insert new docs later without having to change all current numbers. <em>Leave blank if this is is not a sub heading.</em>','organized-docs' ); ?></p>
+			</td>
+		</tr>
+	<?php
+	}
+
+	/** 
+	 * Save sort order fields callback function.
+	 * @since 1.1.5
+	 */
+	public function save_taxonomy_custom_meta( $term_id ) {
+		if ( isset( $_POST['term_meta'] ) ) {
+			$t_id = $term_id;
+			$term_meta = get_option( "taxonomy_$t_id" );
+			$cat_keys = array_keys( $_POST['term_meta'] );
+			foreach ( $cat_keys as $key ) {
+				if ( isset ( $_POST['term_meta'][$key] ) ) {
+					$term_meta[$key] = $_POST['term_meta'][$key];
+				}
+			}
+			// Save the option array.
+			update_option( "taxonomy_$t_id", $term_meta );
+		}
+	}  
+
+
+
+	/**
+	 * Sort terms by a custom term_meta key
+	 * 
+	 * @param array $term_ids to sort
+	 * @param int|string $term_meta_key key that holds our custom term_meta value
+	 * @return array
+	 * @since 1.1.5
+	 */
+	public function sort_terms( $term_ids, $term_meta_key ) {
+
+		$ordered_terms = array();
+		$new_order_numbers = array();
+		$unordered_terms = array();
+		$no_order = array();
+
+		// get sort order numbers for all term ids
+		foreach ( $term_ids as $term_id ) {
+
+			if ( $taxonomy_sort = get_option( "taxonomy_$term_id" ) ) {
+	
+				$sort_value = isset($taxonomy_sort[$term_meta_key]) ? esc_attr( $taxonomy_sort[$term_meta_key] ) : '';
+	
+				if ( ! empty($sort_value) )  {
+					// have sort order
+					$ordered_terms[] = $term_id;
+					$new_order_numbers[] = ( int ) $sort_value;
+
+				}
+	
+	
+			} else {
+				// This catches any terms that don't have subheading_sort_order set
+				$unordered_terms[] = $term_id;
+				$no_order[] = 99999999; // need this so i have an equal number of keys and values for later
+			}
+		}
+		
+		// Only sort by subheading_sort_order if there are items to sort, otherwise return the original array
+		if ( count( $ordered_terms ) > 0 ) {
+
+
+			// if we have any unordered, add them to the end of list
+			if ( count( $unordered_terms ) > 0 ) {
+
+				// build keys list, adding unordered terms to the end of list
+
+
+
+
+// @test replace				$comma_term_list = implode(",", $unordered_terms);
+// @test replace				array_push( $ordered_terms, $comma_term_list );
+
+
+/************************************************************
+
+***********  instead of using the 2 lines above, do this instead. push 1 at at time:
+
+*/
+
+
+
+
+			// @test add each unordered term to the end of list of terms
+
+
+				foreach ( $unordered_terms as $unordered_term ) {
+
+					array_push( $ordered_terms, $unordered_term );
+
+
+				}
+
+			// @test END. @TODO note to isa: i have not run this yet. MUST @TODO THIS WITH THE NEXT SECTION .
+
+
+				
+	
+				// build values list, adding unordered terms to the end of list
+
+				$comma_order_list = implode(",", $unordered_terms);
+				array_push( $new_order_numbers, $comma_order_list );
+
+			}
+
+			// combine term ids with their order numbers.
+			$new_ordered_terms = array_combine($ordered_terms, $new_order_numbers);
+
+			// sort by value of order number ASC
+			asort($new_ordered_terms);
+
+			return $new_ordered_terms;
+
+		} else {
+
+			// no items to sort to return the original array
+			return $term_ids;
+		}
+
+	}
+
+
 }
 }
 $Isa_Organized_Docs = new Isa_Organized_Docs();

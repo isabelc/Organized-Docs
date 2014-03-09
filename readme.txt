@@ -50,6 +50,9 @@ This does not happen with the default WordPress themes. For a custom solution fo
 
 == Changelog ==
 
+= 1.1.5 =
+* Fix: PHP error notices on admin Parent column if no category was assigned.
+
 = 1.1.4 =
 * Maintenance: removed unused icons.
 

@@ -1,9 +1,7 @@
 <?php
 /**
  * Adds Docs Section Contents widget
- *
  * Shows list of documentation articles for 1 item (top-level docs category). Works only on single Docs.
- * 
  * @package		Organized Docs
  * @extends		WP_Widget
  * @author		Isabel Castillo <me@isabelcastillo.com>
@@ -12,12 +10,12 @@
 
 class DocsSectionContents extends WP_Widget {
 	/**
-	 * Register widget with WordPress.
+	 * Register widget
 	 */
 	public function __construct() {
 		parent::__construct(
-	 		'docs_section_contents', // Base ID
-			__( 'Organized Docs Section Contents', 'organized-docs' ), // Name
+	 		'docs_section_contents',
+			__( 'Organized Docs Section Contents', 'organized-docs' ),
 			array( 'description' => __( 'Shows list of documentation articles for 1 item (top-level docs category). Works on single Docs sidebar.', 'organized-docs' ), )
 		);
 	}
@@ -85,12 +83,8 @@ class DocsSectionContents extends WP_Widget {
 
 	/**
 	 * Sanitize widget form values as they are saved.
-	 *
-	 * @see WP_Widget::update()
-	 *
 	 * @param array $new_instance Values just sent to be saved.
 	 * @param array $old_instance Previously saved values from database.
-	 *
 	 * @return array Updated safe values to be saved.
 	 */
 	public function update( $new_instance, $old_instance ) {
@@ -101,9 +95,6 @@ class DocsSectionContents extends WP_Widget {
 
 	/**
 	 * Back-end widget form.
-	 *
-	 * @see WP_Widget::form()
-	 *
 	 * @param array $instance Previously saved values from database.
 	 */
 	public function form( $instance ) {
