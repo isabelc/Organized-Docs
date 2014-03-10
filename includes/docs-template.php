@@ -99,8 +99,30 @@ if ( have_posts() ) :
 				echo '<ul>';
 				global $post;
 
+				// For backwards compatibility before showing the nested loop, see that all Docs have a sort-order number. If not, give it a default number of 99999
+				// @todo remove this back compat in version 1.1.7
 
-				// prep nested loop
+				$args = array(	'post_type' => 'isa_docs', 
+							'posts_per_page' => -1,
+				);
+				$pre_postlist = get_posts( $args );
+
+				foreach ($pre_postlist as $pre_single_post) {
+
+					$sort_order_value_check = get_post_meta( $pre_single_post->ID, '_odocs_meta_sortorder_key', true );
+					// check if the sort order field has a value
+					if( empty( $sort_order_value_check ) ) {
+						// assign a default value of 99999
+						update_post_meta($pre_single_post->ID, '_odocs_meta_sortorder_key', 99999);
+					} 
+
+				} // end foreach
+
+				wp_reset_postdata();// @test
+
+
+
+				// prep actual nested loop for display
 
 				$args = array(	'post_type' => 'isa_docs', 
 							'posts_per_page' => -1,
