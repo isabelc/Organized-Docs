@@ -3,7 +3,7 @@
  * Plugin Name: Organized Docs
  * Plugin URI: http://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
  * Description: Easily create organized documentation for multiple products, organized by product, and by subsections within each product.
- * Version: 1.1.5RC1.2
+ * Version: 1.1.5RC1.3
  * Author: Isabel Castillo
  * Author URI: http://isabelcastillo.com
  * License: GPL2
@@ -27,13 +27,6 @@
  * You should have received a copy of the GNU General Public License
  * along with Organized Docs. If not, see <http://www.gnu.org/licenses/>.
  */
-
-/**
-@todo add sub-heading sort-order to the menu bar
-**/
-
-
-
 if(!class_exists('Isa_Organized_Docs')) {
 class Isa_Organized_Docs{
 	public function __construct() {
@@ -45,6 +38,7 @@ class Isa_Organized_Docs{
 			add_action( 'init', array( $this, 'setup_docs_taxonomy'), 0 );
 			add_action( 'init', array( $this, 'create_docs_cpt') );
 			add_action( 'init', array( $this, 'create_docs_menu_item') );
+			add_action ('init', array( $this, 'update_docs_sortorder_meta' ) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue') );
  			add_filter( 'the_title', array( $this, 'suppress_docs_title' ), 40, 2 );
 			add_filter( 'the_content', array( $this, 'single_doc_content_filter' ) ); 
@@ -113,9 +107,8 @@ class Isa_Organized_Docs{
 	* @return void
 	*/
 	public function admin_init(){
-		$plugin_data = get_plugin_data( __FILE__, false );
-		update_option( 'isa_organized_docs_plugin_version', $plugin_data['Version'] );
-		update_option( 'isa_organized_docs_plugin_name', $plugin_data['Name'] );
+
+
 	}
 
 	/** 
@@ -533,9 +526,9 @@ class Isa_Organized_Docs{
 			'show_ui'           => true,
 			'show_admin_column' => true,
 			'rewrite'			=> array(
-										'slug'		=> 'docs/category', 
-										'with_front'	=> false,
-										'hierarchical'	=> true ),
+								'slug'		=> 'docs/category', 
+								'with_front'	=> false,
+								'hierarchical'	=> true ),
 		)
 		);
 		register_taxonomy( 'isa_docs_category', array('isa_docs'), $category_args );
@@ -830,6 +823,41 @@ class Isa_Organized_Docs{
 		return $query;
 	}
 
+	/**
+	 * For backwards compatibility, give all single Docs posts a default sort-order number of 99999
+	 * @since 1.1.5
+	 * @todo remove this back compatibility in version 1.1.7
+	 */
+	public function update_docs_sortorder_meta() {
+
+		global $post;
+ 
+		// Run this update only once
+		if (	get_option( 'odocs_update_sortorder_meta' ) != 'completed' ) {
+
+			$args = array(	'post_type' => 'isa_docs', 
+						'posts_per_page' => -1,
+			);
+			$all_docs = get_posts( $args );
+	
+			foreach ($all_docs as $doc) {
+				$sort_order_value_check = get_post_meta( $doc->ID, '_odocs_meta_sortorder_key', true );
+
+				// if sort order value is empty, assign a default value
+				if( empty( $sort_order_value_check ) ) {
+					update_post_meta($doc->ID, '_odocs_meta_sortorder_key', 99999);
+				}
+			}
+			wp_reset_postdata();
+
+			// for cleanup, remove these options
+			delete_option( 'isa_organized_docs_plugin_version' );
+			delete_option( 'isa_organized_docs_plugin_name' );
+
+			update_option( 'odocs_update_sortorder_meta', 'completed' );
+		}
+
+	}
 }
 }
 $Isa_Organized_Docs = new Isa_Organized_Docs();
