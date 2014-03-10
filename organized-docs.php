@@ -64,6 +64,8 @@ class Isa_Organized_Docs{
 			add_action( 'edited_isa_docs_category', array( $this, 'save_taxonomy_custom_meta' ), 10, 2 );
 			add_action( 'create_isa_docs_category', array( $this, 'save_taxonomy_custom_meta' ), 10, 2 );
 
+			add_action( 'add_meta_boxes', array( $this, 'add_sort_order_box' ) );
+
     }
 
 	/** 
@@ -558,6 +560,7 @@ class Isa_Organized_Docs{
 		register_taxonomy_for_object_type( 'isa_docs_category', 'isa_docs' );
 	}
 
+	// @todo @test don't think i need this anymore since I think this will conflict.
 	public function sort_asc($query) {
 		if( is_tax( 'isa_docs_category' ) ) {
 		    $query->query_vars['order'] = 'ASC';
@@ -776,6 +779,99 @@ class Isa_Organized_Docs{
 		}
 
 	}
+
+	/**
+	 * Adds a sort-order meta box to the Docs edit screen.
+	 * @since 1.1.5
+	 */
+	function add_sort_order_box() {
+		add_meta_box(
+			'odocs_sectionid',
+			__( 'Sort Order', 'organized-docs' ),
+			'odocs_sort_oder_box',
+			'isa_docs',
+			'side',
+			'high'// high, core, default, low @test
+		);
+	}
+
+	/**
+	 * Prints the box content.
+	 * 
+	 * @param WP_Post $post The object for the current post/page.
+	 * @since 1.1.5
+	 */
+	function odocs_sort_oder_box( $post ) {
+	
+	  wp_nonce_field( 'odocs_sort_oder_box', 'odocs_sort_oder_box_nonce' );
+	
+	  /*
+	   * Use get_post_meta() to retrieve an existing value
+	   * from the database and use the value for the form.
+	   */
+	  $value = get_post_meta( $post->ID, '_odocs_meta_sortorder_key', true );
+	
+	  echo '<label for="odocs_single_sort_order">';
+	       _e( "Give this Doc a number to order it under its Sub-heading. Number 1 will appear first, while greater numbers appear lower. Numbers do not have to be consecutive; for example, you could number them like, 10, 20, 35, 45, etc. This would leave room in between to insert new Docs later without having to change all current numbers.", 'organized-docs' );
+	  echo '</label> ';
+	  echo '<input type="text" id="odocs_single_sort_order" name="odocs_single_sort_order" value="' . esc_attr( $value ) . '" size="25" />';
+	
+	}
+
+/**
+ * When the post is saved, saves our custom data.
+ *
+ * @param int $post_id The ID of the post being saved.
+ * @since 1.1.5
+ */
+function odocs_save_postdata( $post_id ) {
+
+  /*
+   * We need to verify this came from the our screen and with proper authorization,
+   * because save_post can be triggered at other times.
+   */
+
+  // Check if our nonce is set.
+  if ( ! isset( $_POST['odocs_sort_oder_box_nonce'] ) )
+    return $post_id;
+
+  $nonce = $_POST['odocs_sort_oder_box_nonce'];
+
+  // Verify that the nonce is valid.
+  if ( ! wp_verify_nonce( $nonce, 'odocs_sort_oder_box' ) )
+      return $post_id;
+
+  // If this is an autosave, our form has not been submitted, so we don't want to do anything.
+  if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
+      return $post_id;
+
+  // Check the user's permissions.
+  if ( 'isa_docs' == $_POST['post_type'] ) {
+
+    if ( ! current_user_can( 'edit_page', $post_id ) )
+        return $post_id;
+  
+  } else {
+
+    if ( ! current_user_can( 'edit_post', $post_id ) )
+        return $post_id;
+  }
+
+  /* OK, its safe for us to save the data now. */
+
+  // Sanitize user input.
+  $odocs_data = sanitize_text_field( $_POST['odocs_single_sort_order'] );
+
+  // Update the meta field in the database.
+  update_post_meta( $post_id, '_odocs_meta_sortorder_key', $odocs_data );
+}
+
+
+
+
+
+
+
 
 
 }
