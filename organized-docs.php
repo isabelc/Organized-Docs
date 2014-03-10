@@ -592,7 +592,6 @@ class Isa_Organized_Docs{
 				// get the parent cat
 				$doc_categories = wp_get_object_terms( $post_id, 'isa_docs_category' );
 
-				/* @test */
 				if(!empty($doc_categories)){
 					if(!is_wp_error( $doc_categories )){
 			
@@ -612,7 +611,7 @@ class Isa_Organized_Docs{
 		
 						echo '<a href="' . $top_term_sort_link  . '" title="' . esc_attr( $top_term_name ) . '">' . $top_term_name . '</a>';
 					}
-				} // @test end
+				}
 			
 				break;
 			default :
@@ -620,11 +619,8 @@ class Isa_Organized_Docs{
 		}
 	}
 
-
-/* @test begin */
-
 	/** 
-	 * To the "Add New Category" page for Docs categories, add a field for sort order.
+	 * To the "Add New Category" page for Docs categories, add sort order fields.
 	 * @since 1.1.5
 	 */
 
@@ -634,13 +630,19 @@ class Isa_Organized_Docs{
 		<div class="form-field">
 			<label for="term_meta[subheading_sort_order]"><?php _e( 'Sort Order Number for Sub-heading', 'organized-docs' ); ?></label>
 			<input type="text" name="term_meta[subheading_sort_order]" id="term_meta[subheading_sort_order]" value="">
-			<p class="description"><?php _e( 'If this is a Sub-heading, give this Sub-heading a number to order it under its Parent. Number 1 will appear first, while greater numbers appear lower. Numbers do not have to be consecutive; for example, you could number them like, 10, 20, 35, 45, etc. This would leave room in between to insert new docs later without having to change all current numbers. <em>Leave blank if this is is not a sub heading.</em>', 'organized-docs' ); ?></p>
+			<p class="description"><?php _e( 'If this is a Sub-heading, give this Sub-heading a number to order it under its Parent. Number 1 will appear first, while greater numbers appear lower. Numbers do not have to be consecutive; for example, you could number them like, 10, 20, 35, 45, etc. This would leave room in between to insert new docs later without having to change all current numbers. <em>Leave blank if this is is not a sub-heading.</em>', 'organized-docs' ); ?></p>
+		</div>
+
+		<div class="form-field">
+			<label for="term_meta[main_doc_item_sort_order]"><?php _e( 'Sort Order Number for a main Doc Item', 'organized-docs' ); ?></label>
+			<input type="text" name="term_meta[main_doc_item_sort_order]" id="term_meta[main_doc_item_sort_order]" value="">
+			<p class="description"><?php _e( 'If this is a Main Doc Item, give this item a number to order it on the main Docs page. Number 1 will appear first, while greater numbers appear lower. Numbers do not have to be consecutive; for example, you could number them like, 10, 20, 35, 45, etc. This would leave room in between to insert new Main Doc Items later without having to change all current numbers. <em>Leave blank if this is is not a Main Doc Item.</em>', 'organized-docs' ); ?></p>
 		</div>
 	<?php
 	}
 
 	/** 
-	 * To the "Edit Category" page for Docs categories, add the sort order field and populate any saved value for it.
+	 * To the "Edit Category" page for Docs categories, add sort order fields and populate any saved values for them.
 	 * @since 1.1.5
 	 */
 	public function odocs_taxonomy_edit_meta_field($term) {
@@ -651,14 +653,24 @@ class Isa_Organized_Docs{
 		// retrieve the existing value(s) for this meta field. This returns an array
 		$term_meta = get_option( "taxonomy_$t_id" ); 
 
-		$value = isset($term_meta['subheading_sort_order']) ? esc_attr( $term_meta['subheading_sort_order'] ) : '';
+		$value_sub = isset($term_meta['subheading_sort_order']) ? esc_attr( $term_meta['subheading_sort_order'] ) : '';
+		$value_main = isset($term_meta['main_doc_item_sort_order']) ? esc_attr( $term_meta['main_doc_item_sort_order'] ) : '';
 
 ?>
 		<tr class="form-field">
-		<th scope="row" valign="top"><label for="term_meta[subheading_sort_order]"><?php _e( 'Sort Order Number', 'organized-docs' ); ?></label></th>
+		<th scope="row" valign="top"><label for="term_meta[subheading_sort_order]"><?php _e( 'Sort Order Number for Sub-heading', 'organized-docs' ); ?></label></th>
 			<td>
-				<input type="text" name="term_meta[subheading_sort_order]" id="term_meta[subheading_sort_order]" value="<?php echo $value; ?>">
-				<p class="description"><?php _e( 'If this is a Sub-heading, give this Sub-heading a number to order it under its Parent. Number 1 will appear first, while greater numbers appear lower. Numbers do not have to be consecutive; for example, you could number them like, 10, 20, 35, 45, etc. This would leave room in between to insert new docs later without having to change all current numbers. <em>Leave blank if this is is not a sub heading.</em>','organized-docs' ); ?></p>
+				<input type="text" name="term_meta[subheading_sort_order]" id="term_meta[subheading_sort_order]" value="<?php echo $value_sub; ?>">
+				<p class="description"><?php _e( 'If this is a Sub-heading, give this Sub-heading a number to order it under its Parent. Number 1 will appear first, while greater numbers appear lower. Numbers do not have to be consecutive; for example, you could number them like, 10, 20, 35, 45, etc. This would leave room in between to insert new docs later without having to change all current numbers. <em>Leave blank if this is is not a sub-heading.</em>','organized-docs' ); ?></p>
+			</td>
+		</tr>
+
+
+		<tr class="form-field">
+		<th scope="row" valign="top"><label for="term_meta[main_doc_item_sort_order]"><?php _e( 'Sort Order Number for a main Doc Item', 'organized-docs' ); ?></label></th>
+			<td>
+				<input type="text" name="term_meta[main_doc_item_sort_order]" id="term_meta[main_doc_item_sort_order]" value="<?php echo $value_main; ?>">
+				<p class="description"><?php _e( 'If this is a Main Doc Item, give this item a number to order it on the main Docs page. Number 1 will appear first, while greater numbers appear lower. Numbers do not have to be consecutive; for example, you could number them like, 10, 20, 35, 45, etc. This would leave room in between to insert new Main Doc Items later without having to change all current numbers. <em>Leave blank if this is is not a Main Doc Item.</em>','organized-docs' ); ?></p>
 			</td>
 		</tr>
 	<?php
