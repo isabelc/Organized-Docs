@@ -44,18 +44,30 @@ if ( have_posts() ) :
 				// this is main docs page
 
 				$terms = get_terms( 'isa_docs_category' );
-				$count = count( $terms );
+
+					
+				// need simple array of term ids to sort... @test
+				$term_ids = array();
+				foreach ( $terms as $single_term_object ) {
+
+					$term_ids[] = $single_term_object->term_id;
+
+				}
+
+				// sort terms by custom sort-order meta @test
+				$sorted_term_ids = $Isa_Organized_Docs->sort_terms( $term_ids, 'main_doc_item_sort_order' );
+
+				$count = count( $sorted_term_ids );
 				if ( $count > 0 ) {
 				     echo '<ul id="organized-docs-main">';
-				     foreach ( $terms as $term ) {
+				     foreach ( $sorted_term_ids as $sorted_term_id => $sorted_term_id_order ) {
 
-						global $Isa_Organized_Docs;
+// @test remove redundant						global $Isa_Organized_Docs;
 
-						if( $term->term_id == $Isa_Organized_Docs->isa_term_top_parent_id( $term->term_id ) ) {
-
+						if( $sorted_term_id == $Isa_Organized_Docs->isa_term_top_parent_id( $sorted_term_id ) ) {
 							// this is a top parent
-							echo '<li><a href="' . get_term_link( $term, 'isa_docs_category' ).'" title="' . esc_attr( $term->name ) . '">' . $term->name . '</a></li>';
-
+							$top_parent_term = get_term( $sorted_term_id, 'isa_docs_category');
+							echo '<li><a href="' . get_term_link( $sorted_term_id, 'isa_docs_category' ).'" title="' . esc_attr( $top_parent_term->name ) . '">' . $top_parent_term->name . '</a></li>';
 						} // end if
 				        
 					} // end foreach
@@ -87,14 +99,12 @@ if ( have_posts() ) :
 				* there are subTerms, do list subTerms with all its posts for each subTerm
 				*/
 
-				// sort $termchildren by custom subheading_sort_order numbers // @test 
-
+				// sort $termchildren by custom subheading_sort_order numbers
 				$sorted_termchildren = $Isa_Organized_Docs->sort_terms( $termchildren, 'subheading_sort_order' );
 
 				foreach ( $sorted_termchildren as $child_id => $order ) {
 
 					$termobject = get_term_by( 'id', $child_id, 'isa_docs_category' );
-
 
 					//Display the sub Term information
 					echo '<h2>' . $termobject->name . '</h2>';
