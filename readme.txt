@@ -4,8 +4,8 @@ Plugin URI: http://isabelcastillo.com/docs/category/organized-docs-wordpress-plu
 Contributors: isabel104
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=me%40isabelcastillo%2ecom
 Tags: documentation, docs, organize documentation, organized documentation, instruction guides, wiki
-Requires at least: 3.4
-Tested up to: 3.8.1
+Requires at least: 3.7
+Tested up to: 3.9
 Stable Tag: 1.1.5
 License: GNU Version 2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -55,10 +55,13 @@ This does not happen with the default WordPress themes. For a custom solution fo
 == Changelog ==
 
 = 1.1.5 =
-* New: added links to 2 demos in the description.
+* New: added sort order for Top-level Doc Items, and for Sub-headings, and for individual Doc articles.
+* New: uninstall.php to remove docs, taxonomies, and custom term options upon uninstall.
 * Fix: PHP error notices on admin Parent column if no category was assigned.
-* TWeak: removed generator tag for less markup.
+* Tweak: removed generator tag for less markup.
+* Tweak: added links to 2 demos in the description.
 * Maintenance: updated plugin URL in readme.
+* Maintenance: tested and passed for WP 3.9 compatibility.
 
 = 1.1.4 =
 * Maintenance: removed unused icons.
@@ -83,6 +86,9 @@ This does not happen with the default WordPress themes. For a custom solution fo
 * Initial release.
 
 == Upgrade Notice ==
+
+= 1.1.5 =
+New: set custom sort order for Top-level Doc Items, Sub-headings, and individual articles.
 
 = 1.1.4 =
 Bug fix: Table of Contents Widget was showing up 3 times on Twenty Fourteen theme.
