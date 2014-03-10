@@ -67,7 +67,10 @@ class DocsSectionContents extends WP_Widget {
 										'field' => 'id',
 										'terms' => $termobject->term_id
 										)
-									)
+									),
+						'orderby' => 'meta_value_num',
+						'meta_key' => '_odocs_meta_sortorder_key',
+						'order' => 'ASC'
 				);
 			$postlist = get_posts( $args );
 			foreach ( $postlist as $single_post ) {
