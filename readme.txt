@@ -6,7 +6,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=me%40
 Tags: documentation, docs, organize documentation, organized documentation, instruction guides, wiki
 Requires at least: 3.7
 Tested up to: 3.9
-Stable Tag: 1.1.5
+Stable Tag: 1.1.6
 License: GNU Version 2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -54,6 +54,9 @@ This does not happen with the default WordPress themes. For a custom solution fo
 
 == Changelog ==
 
+= 1.1.6 =
+* Fix: give default order to sub-headings. PLEASE UPDATE NOW.
+
 = 1.1.5 =
 * New: added sort order for Top-level Doc Items, and for Sub-headings, and for individual Doc articles.
 * New: uninstall.php to remove docs, taxonomies, and custom term options upon uninstall.
@@ -62,6 +65,7 @@ This does not happen with the default WordPress themes. For a custom solution fo
 * Tweak: added links to 2 demos in the description.
 * Maintenance: updated plugin URL in readme.
 * Maintenance: tested and passed for WP 3.9 compatibility.
+* Maintenance: Removed CSS styling for docs-template for better compatibility with Twenty Fourteen Theme. See http://isabelcastillo.com/docs/page-is-too-wide-and-not-centered-since-updating-to-1-1-5
 
 = 1.1.4 =
 * Maintenance: removed unused icons.
@@ -86,6 +90,9 @@ This does not happen with the default WordPress themes. For a custom solution fo
 * Initial release.
 
 == Upgrade Notice ==
+
+= 1.1.6 =
+Fix: Give default order to sub-headings. New: set custom sort order.
 
 = 1.1.5 =
 New: set custom sort order for Top-level Doc Items, Sub-headings, and individual articles.
