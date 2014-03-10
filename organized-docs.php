@@ -55,7 +55,8 @@ class Isa_Organized_Docs{
 			add_filter( 'template_include', array( $this, 'docs_template' ) );
 			add_action( 'wp_loaded', array( $this, 'sidebar' ) );
 			add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
-			add_filter( 'parse_query', array( $this, 'sort_asc' ) );
+// @test remove. what r the effects			add_filter( 'parse_query', array( $this, 'sort_asc' ) );
+			add_filter( 'parse_query', array( $this, 'sort_single_docs' ) );// @test
 			add_filter( 'manage_edit-isa_docs_columns', array( $this, 'manage_edit_docs_columns') );
 			add_action( 'manage_isa_docs_posts_custom_column', array( $this, 'manage_docs_columns' ), 10, 2 );
 
@@ -259,7 +260,7 @@ class Isa_Organized_Docs{
 		}
 	    return $template;
 
-	} // end docs_template()
+	}
 
 	/**
 	 * Returns the top category item as a heading for docs. Fetched one way from docs main archive, a different way from taxonomy 'isa_docs_download', and fetched yet a different way from single.
@@ -841,12 +842,26 @@ class Isa_Organized_Docs{
 		}
 			
 		/* OK, its safe for us to save the data now. */
-			
-		// Sanitize user input.
 		$odocs_data = sanitize_text_field( $_POST['odocs_single_sort_order'] );
-			
-		// Update the meta field in the database.
 		update_post_meta( $post_id, '_odocs_meta_sortorder_key', $odocs_data );
+	}
+
+
+	/**
+	 * Sort Single Docs on the regular archive page by sort order number key
+	 * @uses is_post_type_archive()
+	 * @uses is_main_query()
+	 * @since 1.1.5
+	 */
+	function sort_single_docs($query) {
+		if( is_post_type_archive('isa_docs') && $query->is_main_query() && isset( $query->query_vars['meta_key'] ) ) {// @test does leaving !is_admin() out make some disappear from admin???
+
+		$query->query_vars['orderby'] = 'meta_value_num';
+		$query->query_vars['meta_key'] = '_odocs_meta_sortorder_key';
+		$query->query_vars['order'] = 'ASC';
+
+		}
+		return $query;
 	}
 
 }
