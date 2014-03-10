@@ -3,7 +3,7 @@
  * Plugin Name: Organized Docs
  * Plugin URI: http://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
  * Description: Easily create organized documentation for multiple products, organized by product, and by subsections within each product.
- * Version: 1.1.5RC1.1
+ * Version: 1.1.5RC1.2
  * Author: Isabel Castillo
  * Author URI: http://isabelcastillo.com
  * License: GPL2
@@ -25,13 +25,9 @@
 
 /**
 
-@todo add order to main docs page.
-
-@todo add indie order??
-
-@todo see if indie order works on sub-heading archive page.
-
-@todo add sub-heading sort-order to the widget "table-of-contents"
+@todo add indiv order??
+@todo see if indiv order works on sub-heading archive page.
+@todo add sub-heading sort-order to the menu bar
 **/
 
 
@@ -854,7 +850,7 @@ class Isa_Organized_Docs{
 	 * @since 1.1.5
 	 */
 	function sort_single_docs($query) {
-		if( is_post_type_archive('isa_docs') && $query->is_main_query() && isset( $query->query_vars['meta_key'] ) ) {// @test does leaving !is_admin() out make some disappear from admin???
+		if( is_tax('isa_docs_category') && $query->is_main_query() && isset( $query->query_vars['meta_key'] ) ) {// @test does leaving !is_admin() out make some disappear from admin???
 
 		$query->query_vars['orderby'] = 'meta_value_num';
 		$query->query_vars['meta_key'] = '_odocs_meta_sortorder_key';
