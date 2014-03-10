@@ -1,10 +1,8 @@
 <?php
 /*
  * Template Name: Organized Docs
- *
  * The template for displaying Organized Docs Archive pages, and the Docs main page, but not single Docs.
- * 
- * @package		Organized Docs
+ * @package	Organized Docs
  * @since		1.0
  */
 get_header(); ?>
@@ -31,9 +29,7 @@ if ( have_posts() ) :
 		$curr_term_name = $term->name;
 	
 		// get term children
-				
 		$termchildren =  get_term_children( $curr_termID, 'isa_docs_category' );
-
 	}
 	if ( empty($termchildren) ) {
 
@@ -50,7 +46,7 @@ if ( have_posts() ) :
 				$term_ids[] = $single_term_object->term_id;
 			}
 
-			// sort terms by custom sort-order meta @test
+			// sort terms by custom sort-order meta
 			$sorted_term_ids = $Isa_Organized_Docs->sort_terms( $term_ids, 'main_doc_item_sort_order' );
 
 			$count = count( $sorted_term_ids );
@@ -72,12 +68,8 @@ if ( have_posts() ) :
 			// Not main docs page, and there are no child terms, do regular term loop to list posts within current term
 			echo '<ul>';
 			while ( have_posts() ) {
-					the_post();
-
-					// @todo must do sort order for single doc articles			
-
-					echo '<li><a href="' . get_permalink($post->ID).'">' . get_the_title() . '</a></li>';		
-	
+				the_post();
+				echo '<li><a href="' . get_permalink($post->ID).'">' . get_the_title() . '</a></li>';		
 			}
 			echo '</ul>';
 
@@ -99,31 +91,7 @@ if ( have_posts() ) :
 				echo '<ul>';
 				global $post;
 
-				// For backwards compatibility before showing the nested loop, see that all Docs have a sort-order number. If not, give it a default number of 99999
-				// @todo remove this back compat in version 1.1.7
-
-				$args = array(	'post_type' => 'isa_docs', 
-							'posts_per_page' => -1,
-				);
-				$pre_postlist = get_posts( $args );
-
-				foreach ($pre_postlist as $pre_single_post) {
-
-					$sort_order_value_check = get_post_meta( $pre_single_post->ID, '_odocs_meta_sortorder_key', true );
-					// check if the sort order field has a value
-					if( empty( $sort_order_value_check ) ) {
-						// assign a default value of 99999
-						update_post_meta($pre_single_post->ID, '_odocs_meta_sortorder_key', 99999);
-					} 
-
-				} // end foreach
-
-				wp_reset_postdata();// @test
-
-
-
-				// prep actual nested loop for display
-
+				// prep nested loop
 				$args = array(	'post_type' => 'isa_docs', 
 							'posts_per_page' => -1,
 							'tax_query' => array(
@@ -134,7 +102,7 @@ if ( have_posts() ) :
 									)
 								),
 							'orderby' => 'meta_value_num',
-							'meta_key' => '_odocs_meta_sortorder_key',// @test
+							'meta_key' => '_odocs_meta_sortorder_key',
 							'order' => 'ASC' 
 				);
 
