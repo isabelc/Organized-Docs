@@ -6,7 +6,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=me%40
 Tags: documentation, docs, organize documentation, organized documentation, instruction guides, wiki
 Requires at least: 3.7
 Tested up to: 3.9
-Stable Tag: 1.1.6
+Stable Tag: 1.1.6.1
 License: GNU Version 2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -54,6 +54,9 @@ This does not happen with the default WordPress themes. For a custom solution fo
 
 == Changelog ==
 
+= 1.1.6.1 =
+Bug fix: Custom sort-order for Categories was not saving.
+
 = 1.1.6 =
 * Fix: give default order to sub-headings. PLEASE UPDATE NOW.
 
@@ -90,6 +93,9 @@ This does not happen with the default WordPress themes. For a custom solution fo
 * Initial release.
 
 == Upgrade Notice ==
+
+= 1.1.6.1 =
+Bug fix: Custom sort-order for Categories was not saving.
 
 = 1.1.6 =
 Fix: Give default order to sub-headings. New: set custom sort order.

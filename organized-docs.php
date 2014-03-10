@@ -3,7 +3,7 @@
  * Plugin Name: Organized Docs
  * Plugin URI: http://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
  * Description: Easily create organized documentation for multiple products, organized by product, and by subsections within each product.
- * Version: 1.1.6
+ * Version: 1.1.6.1
  * Author: Isabel Castillo
  * Author URI: http://isabelcastillo.com
  * License: GPL2
@@ -651,7 +651,9 @@ class Isa_Organized_Docs{
 		if ( isset( $_POST['term_meta'] ) ) {
 			$t_id = $term_id;
 			$term_meta = get_option( "taxonomy_$t_id" );
+
 			$cat_keys = array_keys( $_POST['term_meta'] );
+
 			foreach ( $cat_keys as $key ) {
 				if ( isset ( $_POST['term_meta'][$key] ) ) {
 					$term_meta[$key] = $_POST['term_meta'][$key];
@@ -826,24 +828,33 @@ class Isa_Organized_Docs{
 
 	/**
 	 * For backwards compatibility, give all Docs taxonomy terms a default sort-order number
-	 * @since 1.1.5
-	 * @todo remove this back compatibility in version 1.1.7
+	 * @since 1.1.6.1
+	 * @todo remove this back compatibility in version 1.1.8
 	 */
 	public function update_custom_tax_terms_meta(){
 
 		global $wpdb;
 
 		// Run this update only once
-		if (	get_option( 'odocs_update_custom_tax_terms_meta' ) != 'completed' ) {
+		if (	get_option( 'odocs_bugfix_update_term_meta' ) != 'completed' ) {
 
 			$terms = get_terms( 'isa_docs_category' );
 
 			foreach ($terms as $term) {
+
 				$t_id = $term->term_id;
-				update_option( "taxonomy_$t_id", 9999999 );
+				$term_meta = array(
+								'subheading_sort_order' => 999999,
+								'main_doc_item_sort_order' => 999999
+				);
+
+				// Save the option array.
+				update_option( "taxonomy_$t_id", $term_meta );
 			}
 
-			update_option( 'odocs_update_custom_tax_terms_meta', 'completed' );
+			delete_option( 'odocs_update_custom_tax_terms_meta' );
+
+			update_option( 'odocs_bugfix_update_term_meta', 'completed' );
 		}
 		
 	}
