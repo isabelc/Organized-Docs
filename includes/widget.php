@@ -48,9 +48,13 @@ class DocsSectionContents extends WP_Widget {
 		// get term children
 		$termchildren =  get_term_children( $top_level_parent_term_id, 'isa_docs_category' );
 	
-		foreach ( $termchildren as $child ) {
+		// sort $termchildren by custom subheading_sort_order numbers
+		$sorted_termchildren = $Isa_Organized_Docs->sort_terms( $termchildren, 'subheading_sort_order' );
+		foreach ( $sorted_termchildren as $child_id => $order ) {
 
-			$termobject = get_term_by( 'id', $child, 'isa_docs_category' );
+// @test remove		foreach ( $termchildren as $child ) {
+
+			$termobject = get_term_by( 'id', $child_id, 'isa_docs_category' );
 			//Display the sub Term information, in open widget container
 			echo '<aside class="widget well"><h3 class="widget-title">' . $termobject->name . '</h3>';
 			echo '<ul>';
@@ -71,11 +75,11 @@ class DocsSectionContents extends WP_Widget {
 			foreach ( $postlist as $single_post ) {
 					echo '<li';
 					if( $single_post->ID == $current_single_postID ) 
-						echo ' class="organized-docs-active-side-item"';	// @test end
+						echo ' class="organized-docs-active-side-item"';
 					echo '><a href="' . get_permalink( $single_post->ID ) . '" title="' . esc_attr( $single_post->post_title ) . '">' . $single_post->post_title . '</a></li>';   
 			}  
 					echo '</ul></aside>';
-		} // end foreach ( $termchildren
+		} // end foreach ( $sorted_termchildren
 		
 		echo $after_widget;
 
