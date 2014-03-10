@@ -24,9 +24,6 @@
  */
 
 /**
-
-@todo add indiv order??
-@todo see if indiv order works on sub-heading archive page.
 @todo add sub-heading sort-order to the menu bar
 **/
 
@@ -328,11 +325,10 @@ class Isa_Organized_Docs{
 		
 			// need regular current term id, only used to compare w/ top level term id later
 			$taxonomy = get_query_var( 'taxonomy' );
-		    $queried_object = get_queried_object();
-		    $curr_term_id =  (int) $queried_object->term_id;
+			$queried_object = get_queried_object();
+			$curr_term_id =  (int) $queried_object->term_id;
 			$top_level_parent_term_id = $this->isa_term_top_parent_id( $curr_term_id );
 		
-
 		} else { // if is single, get top level term id on single
 				global $post;
 				$doc_categories = wp_get_object_terms( $post->ID, 'isa_docs_category' );
@@ -347,25 +343,20 @@ class Isa_Organized_Docs{
 		
 		/** proceed with getting children of top level term, not simply children of current term, unless, of course, the current term is a top level parent **/
 		
-		// get term children
-					
+		// get term children and sort them by custom sort oder
 		$termchildren =  get_term_children( $top_level_parent_term_id, 'isa_docs_category' );
+		$sorted_termchildren = $this->sort_terms( $termchildren, 'subheading_sort_order' );
 	
-		foreach ( $termchildren as $child ) { 
+		foreach ( $sorted_termchildren as $sorted_termchild_id => $sorted_termchild_order ) { 
 
-				$termobject = get_term_by( 'id', $child, 'isa_docs_category' );
-
-		        $docs_menu .= '<li class="menu-item';
+				$termobject = get_term_by( 'id', $sorted_termchild_id, 'isa_docs_category' );
+				$docs_menu .= '<li class="menu-item';
 		
 				// if current term id matches an id of a child term in menu, then give it active class
-		
 				if ( $termobject->term_id == $curr_term_id_as_int ) {
-								
 					$docs_menu .= ' active-docs-item current_page_item';
-						
-			} // if no match, proceed without class
-		
-			$docs_menu .= '"><a href="' . get_term_link( $termobject ) . '" title="' . esc_attr( $termobject->name ) . '">' . $termobject->name . '</a></li>';
+				}
+				$docs_menu .= '"><a href="' . get_term_link( $termobject ) . '" title="' . esc_attr( $termobject->name ) . '">' . $termobject->name . '</a></li>';
 		
 		}		
 		
@@ -770,7 +761,7 @@ class Isa_Organized_Docs{
 	 * Adds a sort-order meta box to the Docs edit screen.
 	 * @since 1.1.5
 	 */
-	function add_sort_order_box() {
+	public function add_sort_order_box() {
 		add_meta_box(
 			'odocs_sectionid',
 			__( 'Sort Order', 'organized-docs' ),
@@ -849,7 +840,7 @@ class Isa_Organized_Docs{
 	 * @uses is_main_query()
 	 * @since 1.1.5
 	 */
-	function sort_single_docs($query) {
+	public function sort_single_docs($query) {
 		if( is_tax('isa_docs_category') && $query->is_main_query() && isset( $query->query_vars['meta_key'] ) ) {// @test does leaving !is_admin() out make some disappear from admin???
 
 		$query->query_vars['orderby'] = 'meta_value_num';
