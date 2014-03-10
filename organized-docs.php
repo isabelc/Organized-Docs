@@ -53,11 +53,9 @@ class Isa_Organized_Docs{
 			add_filter( 'template_include', array( $this, 'docs_template' ) );
 			add_action( 'wp_loaded', array( $this, 'sidebar' ) );
 			add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
-// @test remove. what r the effects			add_filter( 'parse_query', array( $this, 'sort_asc' ) );
-			add_filter( 'parse_query', array( $this, 'sort_single_docs' ) );// @test
+			add_filter( 'parse_query', array( $this, 'sort_single_docs' ) );
 			add_filter( 'manage_edit-isa_docs_columns', array( $this, 'manage_edit_docs_columns') );
 			add_action( 'manage_isa_docs_posts_custom_column', array( $this, 'manage_docs_columns' ), 10, 2 );
-
 			add_action( 'isa_docs_category_add_form_fields', array( $this, 'odocs_taxonomy_new_meta_field'), 10, 2 );
 			add_action( 'isa_docs_category_edit_form_fields', array( $this, 'odocs_taxonomy_edit_meta_field'), 10, 2 );
 			add_action( 'edited_isa_docs_category', array( $this, 'save_taxonomy_custom_meta' ), 10, 2 );
@@ -544,13 +542,6 @@ class Isa_Organized_Docs{
 		register_taxonomy_for_object_type( 'isa_docs_category', 'isa_docs' );
 	}
 
-	// @todo @test don't think i need this anymore since I think this will conflict.
-	public function sort_asc($query) {
-		if( is_tax( 'isa_docs_category' ) ) {
-		    $query->query_vars['order'] = 'ASC';
-	    }
-    }
-
 	/**
 	 * Add Parent column to Docs admin
 	 * @since 1.0
@@ -581,8 +572,6 @@ class Isa_Organized_Docs{
 
 				if(!empty($doc_categories)){
 					if(!is_wp_error( $doc_categories )){
-			
-
 						$first_cat = $doc_categories[0]; // first category
 		
 						$curr_term_id = $first_cat->term_id;
@@ -615,15 +604,14 @@ class Isa_Organized_Docs{
 		// this will add the custom meta field to the add new term page
 		?>
 		<div class="form-field">
+			<label for="term_meta[main_doc_item_sort_order]"><?php _e( 'Sort Order Number for a Top-level Item', 'organized-docs' ); ?></label>
+			<input type="text" name="term_meta[main_doc_item_sort_order]" id="term_meta[main_doc_item_sort_order]" value="">
+			<p class="description"><?php _e( 'If this is a Top-level Item (a main Docs Item, i.e. the item that has docs), give this item a number to order it on the main Docs page. Number 1 will appear first, while greater numbers appear lower. Numbers do not have to be consecutive; for example, you could number them like, 10, 20, 35, 45, etc. This would leave room in between to insert new Top-level Items later without having to change all current numbers. <em>Leave blank if this is is not a Top-level Item.</em>', 'organized-docs' ); ?></p>
+		</div>
+		<div class="form-field">
 			<label for="term_meta[subheading_sort_order]"><?php _e( 'Sort Order Number for Sub-heading', 'organized-docs' ); ?></label>
 			<input type="text" name="term_meta[subheading_sort_order]" id="term_meta[subheading_sort_order]" value="">
 			<p class="description"><?php _e( 'If this is a Sub-heading, give this Sub-heading a number to order it under its Parent. Number 1 will appear first, while greater numbers appear lower. Numbers do not have to be consecutive; for example, you could number them like, 10, 20, 35, 45, etc. This would leave room in between to insert new docs later without having to change all current numbers. <em>Leave blank if this is is not a sub-heading.</em>', 'organized-docs' ); ?></p>
-		</div>
-
-		<div class="form-field">
-			<label for="term_meta[main_doc_item_sort_order]"><?php _e( 'Sort Order Number for a Top-level Item', 'organized-docs' ); ?></label>
-			<input type="text" name="term_meta[main_doc_item_sort_order]" id="term_meta[main_doc_item_sort_order]" value="">
-			<p class="description"><?php _e( 'If this is a Main Doc Item (a top-level item), give this item a number to order it on the main Docs page. Number 1 will appear first, while greater numbers appear lower. Numbers do not have to be consecutive; for example, you could number them like, 10, 20, 35, 45, etc. This would leave room in between to insert new Main Doc Items later without having to change all current numbers. <em>Leave blank if this is is not a Main Doc Item.</em>', 'organized-docs' ); ?></p>
 		</div>
 	<?php
 	}
@@ -645,17 +633,17 @@ class Isa_Organized_Docs{
 
 ?>
 		<tr class="form-field">
+		<th scope="row" valign="top"><label for="term_meta[main_doc_item_sort_order]"><?php _e( 'Sort Order Number for a Top-level Item', 'organized-docs' ); ?></label></th>
+			<td>
+				<input type="text" name="term_meta[main_doc_item_sort_order]" id="term_meta[main_doc_item_sort_order]" value="<?php echo $value_main; ?>">
+				<p class="description"><?php _e( 'If this is a Top-level Item (a main Docs Item, i.e. the item that has docs), give this item a number to order it on the main Docs page. Number 1 will appear first, while greater numbers appear lower. Numbers do not have to be consecutive; for example, you could number them like, 10, 20, 35, 45, etc. This would leave room in between to insert new Top-level Items later without having to change all current numbers. <em>Leave blank if this is is not a Top-level Item.</em>','organized-docs' ); ?></p>
+			</td>
+		</tr>
+		<tr class="form-field">
 		<th scope="row" valign="top"><label for="term_meta[subheading_sort_order]"><?php _e( 'Sort Order Number for Sub-heading', 'organized-docs' ); ?></label></th>
 			<td>
 				<input type="text" name="term_meta[subheading_sort_order]" id="term_meta[subheading_sort_order]" value="<?php echo $value_sub; ?>">
 				<p class="description"><?php _e( 'If this is a Sub-heading, give this Sub-heading a number to order it under its Parent. Number 1 will appear first, while greater numbers appear lower. Numbers do not have to be consecutive; for example, you could number them like, 10, 20, 35, 45, etc. This would leave room in between to insert new docs later without having to change all current numbers. <em>Leave blank if this is is not a sub-heading.</em>','organized-docs' ); ?></p>
-			</td>
-		</tr>
-		<tr class="form-field">
-		<th scope="row" valign="top"><label for="term_meta[main_doc_item_sort_order]"><?php _e( 'Sort Order Number for a Top-level Item', 'organized-docs' ); ?></label></th>
-			<td>
-				<input type="text" name="term_meta[main_doc_item_sort_order]" id="term_meta[main_doc_item_sort_order]" value="<?php echo $value_main; ?>">
-				<p class="description"><?php _e( 'If this is a Main Doc Item (a top-level item), give this item a number to order it on the main Docs page. Number 1 will appear first, while greater numbers appear lower. Numbers do not have to be consecutive; for example, you could number them like, 10, 20, 35, 45, etc. This would leave room in between to insert new Main Doc Items later without having to change all current numbers. <em>Leave blank if this is is not a Main Doc Item.</em>','organized-docs' ); ?></p>
 			</td>
 		</tr>
 	<?php
@@ -761,7 +749,7 @@ class Isa_Organized_Docs{
 			array( $this, 'odocs_sort_oder_box' ),
 			'isa_docs',
 			'side',
-			'core'// high, core, default, low @test
+			'core'
 		);
 	}
 
@@ -834,12 +822,10 @@ class Isa_Organized_Docs{
 	 * @since 1.1.5
 	 */
 	public function sort_single_docs($query) {
-		if( is_tax('isa_docs_category') && $query->is_main_query() && isset( $query->query_vars['meta_key'] ) ) {// @test does leaving !is_admin() out make some disappear from admin???
-
-		$query->query_vars['orderby'] = 'meta_value_num';
-		$query->query_vars['meta_key'] = '_odocs_meta_sortorder_key';
-		$query->query_vars['order'] = 'ASC';
-
+		if( is_tax('isa_docs_category') && $query->is_main_query() && isset( $query->query_vars['meta_key'] ) ) {
+			$query->query_vars['orderby'] = 'meta_value_num';
+			$query->query_vars['meta_key'] = '_odocs_meta_sortorder_key';
+			$query->query_vars['order'] = 'ASC';
 		}
 		return $query;
 	}
