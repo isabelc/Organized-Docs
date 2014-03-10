@@ -12,15 +12,20 @@
  * 
  * Copyright 2013 - 2014 Isabel Castillo
  * 
- * This file is part of Organized Docs plugin.
+ * This file is part of Organized Docs.
  * 
- * Organized Docs plugin is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
- * 
- * Organized Docs plugin is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License along with Organized Docs; if not, If not, see <http://www.gnu.org/licenses/old-licenses/gpl-2.0.html>.
+ * Organized Docs is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * any later version.
+ *
+ * Organized Docs is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Organized Docs. If not, see <http://www.gnu.org/licenses/>.
  */
 
 /**
@@ -692,46 +697,35 @@ class Isa_Organized_Docs{
 
 		// get sort order numbers for all term ids
 		foreach ( $term_ids as $term_id ) {
-
 			if ( $taxonomy_sort = get_option( "taxonomy_$term_id" ) ) {
-	
+
+				// get sort value
 				$sort_value = isset($taxonomy_sort[$term_meta_key]) ? esc_attr( $taxonomy_sort[$term_meta_key] ) : '';
-	
 				if ( ! empty($sort_value) )  {
-					// have sort order
+					// has sort order
 					$ordered_terms[] = $term_id;
 					$new_order_numbers[] = ( int ) $sort_value;
-
+				} else {
+					// sort value is empty
+					$unordered_terms[] = $term_id;
+					$no_order_numbers[] = 99999999; // need this in order to have equal count of keys and values for later
 				}
 	
-	
-			} else {
-				// This catches any terms that don't have subheading_sort_order set
-				$unordered_terms[] = $term_id;
-				$no_order_numbers[] = 99999999; // need this so i have an equal number of keys and values for later
 			}
 		}
 		
-		// Only sort by subheading_sort_order if there are items to sort, otherwise return the original array
+		// Only sort by sort order if there are items to sort, otherwise return the original array
 		if ( count( $ordered_terms ) > 0 ) {
-
 
 			// if we have any unordered, add them to the end of list
 			if ( count( $unordered_terms ) > 0 ) {
 
 				// build keys list, adding unordered terms to the end of list
-
-				// add each unordered term to the end of list of terms
-
 				foreach ( $unordered_terms as $unordered_term ) {
 					array_push( $ordered_terms, $unordered_term );
 				}
 
-
-				// build values list, adding unordered terms to the end of list
-
-				// add each unordered value to the end of list of values
-
+				// build values list, adding unordered term values to the end of list
 				foreach ( $no_order_numbers as $no_order_number ) {
 					array_push( $new_order_numbers, $no_order_number );
 				}
@@ -743,7 +737,6 @@ class Isa_Organized_Docs{
 
 			// sort by value of order number ASC
 			asort($new_ordered_terms);
-
 			return $new_ordered_terms;
 
 		} else {
@@ -773,7 +766,7 @@ class Isa_Organized_Docs{
 	}
 
 	/**
-	 * Prints the box content.
+	 * Prints the sort-order meta box content.
 	 * @param WP_Post $post The object for the current post/page.
 	 * @since 1.1.5
 	 */
