@@ -2,10 +2,10 @@
 /**
  * Adds Docs Section Contents widget
  * Shows list of documentation articles for 1 item (top-level docs category). Works only on single Docs.
- * @package		Organized Docs
- * @extends		WP_Widget
- * @author		Isabel Castillo <me@isabelcastillo.com>
- * @license		http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package	Organized Docs
+ * @extends	WP_Widget
+ * @author	Isabel Castillo <me@isabelcastillo.com>
+ * @licens	http://opensource.org/licenses/gpl-license.php GNU Public License
  */
 
 class DocsSectionContents extends WP_Widget {
@@ -50,10 +50,8 @@ class DocsSectionContents extends WP_Widget {
 	
 		// sort $termchildren by custom subheading_sort_order numbers
 		$sorted_termchildren = $Isa_Organized_Docs->sort_terms( $termchildren, 'subheading_sort_order' );
+
 		foreach ( $sorted_termchildren as $child_id => $order ) {
-
-// @test remove		foreach ( $termchildren as $child ) {
-
 			$termobject = get_term_by( 'id', $child_id, 'isa_docs_category' );
 			//Display the sub Term information, in open widget container
 			echo '<aside class="widget well"><h3 class="widget-title">' . $termobject->name . '</h3>';
@@ -64,11 +62,11 @@ class DocsSectionContents extends WP_Widget {
 						'posts_per_page' => -1,
 						'order' => 'ASC',
 						'tax_query' => array(
-										array(
-											'taxonomy' => 'isa_docs_category',
-											'field' => 'id',
-											'terms' => $termobject->term_id
-											)
+									array(
+										'taxonomy' => 'isa_docs_category',
+										'field' => 'id',
+										'terms' => $termobject->term_id
+										)
 									)
 				);
 			$postlist = get_posts( $args );
@@ -83,7 +81,7 @@ class DocsSectionContents extends WP_Widget {
 		
 		echo $after_widget;
 
-	}// end widget
+	}
 
 	/**
 	 * Sanitize widget form values as they are saved.
