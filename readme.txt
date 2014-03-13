@@ -1,12 +1,10 @@
 ﻿=== Organized Docs ===
-Author URI: http://isabelcastillo.com
-Plugin URI: http://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
 Contributors: isabel104
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=me%40isabelcastillo%2ecom
 Tags: documentation, docs, organize documentation, organized documentation, instruction guides, wiki
 Requires at least: 3.7
 Tested up to: 3.9
-Stable Tag: 1.1.6.1
+Stable Tag: 1.1.7
 License: GNU Version 2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -54,6 +52,10 @@ This does not happen with the default WordPress themes. For a custom solution fo
 
 == Changelog ==
 
+= 1.1.7 =
+* Fix: Docs would not display if custom sort-order was not set. Now, it is not necessary to set a custom sort oder. It remains optional.
+* Maintenance: removed script to give subheadings a default order since no longer needed.
+
 = 1.1.6.1 =
 Bug fix: Custom sort-order for Categories was not saving.
 
@@ -93,6 +95,9 @@ Bug fix: Custom sort-order for Categories was not saving.
 * Initial release.
 
 == Upgrade Notice ==
+
+= 1.1.7 =
+Fix: Docs would not display if sort-order was not set. Now, it is not necessary to set custom sort oder. 
 
 = 1.1.6.1 =
 Bug fix: Custom sort-order for Categories was not saving.
