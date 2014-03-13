@@ -3,7 +3,7 @@
  * Plugin Name: Organized Docs
  * Plugin URI: http://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
  * Description: Easily create organized documentation for multiple products, organized by product, and by subsections within each product.
- * Version: 1.1.6.1
+ * Version: 1.1.7
  * Author: Isabel Castillo
  * Author URI: http://isabelcastillo.com
  * License: GPL2
@@ -38,8 +38,7 @@ class Isa_Organized_Docs{
 			add_action( 'init', array( $this, 'setup_docs_taxonomy'), 0 );
 			add_action( 'init', array( $this, 'create_docs_cpt') );
 			add_action( 'init', array( $this, 'create_docs_menu_item') );
-			add_action ('init', array( $this, 'update_docs_sortorder_meta' ) );
-			add_action ('init', array( $this, 'update_custom_tax_terms_meta' ) );
+			add_action ('init', array( $this, 'uupdate_docs_sortorder_post_meta' ) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue') );
  			add_filter( 'the_title', array( $this, 'suppress_docs_title' ), 40, 2 );
 			add_filter( 'the_content', array( $this, 'single_doc_content_filter' ) ); 
@@ -644,7 +643,7 @@ class Isa_Organized_Docs{
 	}
 
 	/** 
-	 * Save sort order fields callback function.
+	 * Save taxonomy sort order fields callback function.
 	 * @since 1.1.5
 	 */
 	public function save_taxonomy_custom_meta( $term_id ) {
@@ -805,9 +804,10 @@ class Isa_Organized_Docs{
 				return $post_id;
 		}
 			
-		/* OK, its safe for us to save the data now. */
+		// OK, its safe for us to save the data now.
 		$odocs_data = sanitize_text_field( $_POST['odocs_single_sort_order'] );
-		update_post_meta( $post_id, '_odocs_meta_sortorder_key', $odocs_data );
+		$odocs_sortorder = empty($odocs_data) ? $odocs_data : 999999;
+		update_post_meta( $post_id, '_odocs_meta_sortorder_key', $odocs_sortorder );
 	}
 
 
@@ -827,49 +827,16 @@ class Isa_Organized_Docs{
 	}
 
 	/**
-	 * For backwards compatibility, give all Docs taxonomy terms a default sort-order number
-	 * @since 1.1.6.1
-	 * @todo remove this back compatibility in version 1.1.8
-	 */
-	public function update_custom_tax_terms_meta(){
-
-		global $wpdb;
-
-		// Run this update only once
-		if (	get_option( 'odocs_bugfix_update_term_meta' ) != 'completed' ) {
-
-			$terms = get_terms( 'isa_docs_category' );
-
-			foreach ($terms as $term) {
-
-				$t_id = $term->term_id;
-				$term_meta = array(
-								'subheading_sort_order' => 999999,
-								'main_doc_item_sort_order' => 999999
-				);
-
-				// Save the option array.
-				update_option( "taxonomy_$t_id", $term_meta );
-			}
-
-			delete_option( 'odocs_update_custom_tax_terms_meta' );
-
-			update_option( 'odocs_bugfix_update_term_meta', 'completed' );
-		}
-		
-	}
-
-	/**
 	 * For backwards compatibility, give all single Docs posts a default sort-order number of 99999
-	 * @since 1.1.5
-	 * @todo remove this back compatibility in version 1.1.7
+	 * @since 1.1.7
+	 * @todo remove this back compatibility in version 1.1.9
 	 */
-	public function update_docs_sortorder_meta() {
+	public function update_docs_sortorder_post_meta() {
 
 		global $post;
  
 		// Run this update only once
-		if (	get_option( 'odocs_update_sortorder_meta' ) != 'completed' ) {
+		if (	get_option( 'odocs_update_sortorder_post_meta' ) != 'completed' ) {
 
 			$args = array(	'post_type' => 'isa_docs', 
 						'posts_per_page' => -1,
@@ -889,8 +856,11 @@ class Isa_Organized_Docs{
 			// for cleanup, remove these options
 			delete_option( 'isa_organized_docs_plugin_version' );
 			delete_option( 'isa_organized_docs_plugin_name' );
+			delete_option( 'odocs_update_custom_tax_terms_meta' );
+			delete_option( 'odocs_bugfix_update_term_meta' );
+			delete_option( 'odocs_update_sortorder_meta' );
 
-			update_option( 'odocs_update_sortorder_meta', 'completed' );
+			update_option( 'odocs_update_sortorder_post_meta', 'completed' );
 		}
 
 	}
