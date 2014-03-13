@@ -3,7 +3,7 @@
  * Plugin Name: Organized Docs
  * Plugin URI: http://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
  * Description: Easily create organized documentation for multiple products, organized by product, and by subsections within each product.
- * Version: 1.1.7
+ * Version: 1.1.8
  * Author: Isabel Castillo
  * Author URI: http://isabelcastillo.com
  * License: GPL2
@@ -38,7 +38,7 @@ class Isa_Organized_Docs{
 			add_action( 'init', array( $this, 'setup_docs_taxonomy'), 0 );
 			add_action( 'init', array( $this, 'create_docs_cpt') );
 			add_action( 'init', array( $this, 'create_docs_menu_item') );
-			add_action ('init', array( $this, 'uupdate_docs_sortorder_post_meta' ) );
+			add_action ('init', array( $this, 'update_docs_sort_order_post_meta' ) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue') );
  			add_filter( 'the_title', array( $this, 'suppress_docs_title' ), 40, 2 );
 			add_filter( 'the_content', array( $this, 'single_doc_content_filter' ) ); 
@@ -828,10 +828,10 @@ class Isa_Organized_Docs{
 
 	/**
 	 * For backwards compatibility, give all single Docs posts a default sort-order number of 99999
-	 * @since 1.1.7
-	 * @todo remove this back compatibility in version 1.1.9
+	 * @since 1.1.8
+	 * @todo remove this back compatibility in version 1.2.0
 	 */
-	public function update_docs_sortorder_post_meta() {
+	public function update_docs_sort_order_post_meta() {
 
 		global $post;
  
