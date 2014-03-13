@@ -3,7 +3,7 @@
  * Plugin Name: Organized Docs
  * Plugin URI: http://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
  * Description: Easily create organized documentation for multiple products, organized by product, and by subsections within each product.
- * Version: 1.1.8
+ * Version: 1.1.9
  * Author: Isabel Castillo
  * Author URI: http://isabelcastillo.com
  * License: GPL2
@@ -33,7 +33,7 @@ class Isa_Organized_Docs{
 			if( ! defined('ISA_ORGANIZED_DOCS_PATH')) {
 				define( 'ISA_ORGANIZED_DOCS_PATH', plugin_dir_path(__FILE__) );
 			}
-			add_action( 'admin_init', array( $this, 'admin_init' ) );
+			add_action( 'admin_init', array( $this, 'settings_api_init' ) );
 			add_filter( 'plugin_action_links', array( $this, 'support_link' ), 2, 2 );
 			add_action( 'init', array( $this, 'setup_docs_taxonomy'), 0 );
 			add_action( 'init', array( $this, 'create_docs_cpt') );
@@ -56,7 +56,7 @@ class Isa_Organized_Docs{
 			add_action( 'create_isa_docs_category', array( $this, 'save_taxonomy_custom_meta' ), 10, 2 );
 			add_action( 'add_meta_boxes', array( $this, 'add_sort_order_box' ) );
 			add_action( 'save_post', array( $this, 'save_postdata' ) );
-
+			add_action('admin_menu', array( $this, 'submenu_page' ) );
     }
 
 	/** 
@@ -100,15 +100,6 @@ class Isa_Organized_Docs{
 
 	public function load_textdomain() {
 		load_plugin_textdomain( 'organized-docs', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-	}
-	/** 
-	* Store plugin name and version as options
-	* @since 1.0
-	* @return void
-	*/
-	public function admin_init(){
-
-
 	}
 
 	/** 
@@ -806,7 +797,7 @@ class Isa_Organized_Docs{
 			
 		// OK, its safe for us to save the data now.
 		$odocs_data = sanitize_text_field( $_POST['odocs_single_sort_order'] );
-		$odocs_sortorder = empty($odocs_data) ? $odocs_data : 999999;
+		$odocs_sortorder = empty($odocs_data) ? 999999 : $odocs_data;
 		update_post_meta( $post_id, '_odocs_meta_sortorder_key', $odocs_sortorder );
 	}
 
@@ -824,6 +815,71 @@ class Isa_Organized_Docs{
 			$query->query_vars['order'] = 'ASC';
 		}
 		return $query;
+	}
+
+
+	/**
+	 * Add submenu page
+	 * @since 1.1.9
+	 */
+
+	public function submenu_page() {
+		add_submenu_page( 'edit.php?post_type=isa_docs', __( 'Organized Docs Settings', 'organized-docs' ), __('Settings', 'organized-docs'), 'manage_options', 'organized-docs-settings', array( $this, 'settings_page_callback' ) ); 
+	}
+
+	/**
+	 * HTML output for the submenu page
+	 * @since 1.1.9
+	 */
+	public function settings_page_callback() {
+		echo '<div class="wrap"><div id="icon-tools" class="icon32"></div>';
+			echo '<h2>' . __( 'Organized Docs Settings', 'organized-docs' ) . '</h2>'; ?>
+			<form method="POST" action="options.php">
+			<?php
+			settings_fields( 'organized-docs-settings' );
+			do_settings_sections( 'organized-docs-settings' );
+			submit_button(); ?>
+			</form>
+		<?php echo '</div>';
+	}
+
+	/**
+	 * Add the setting to remove data on uninstall
+	 * @since 1.1.9
+	 */
+	public function settings_api_init() {
+	 	
+	 	add_settings_section(
+			'od_main_setting_section',
+			__( 'Uninstall Settings', 'organized-docs' ),
+			array( $this, 'main_setting_section_callback' ),
+			'organized-docs-settings'
+		);
+ 	
+	 	add_settings_field(
+			'od_delete_data_on_uninstall',
+			__( 'Remove Data on Uninstall?', 'organized-docs' ),
+			array( $this, 'delete_data_setting_callback' ),
+			'organized-docs-settings',
+			'od_main_setting_section'
+		);
+	 	register_setting( 'organized-docs-settings', 'od_delete_data_on_uninstall' );
+	}
+
+	/**
+	 * Main Settings section callback
+	 * @since 1.1.9
+	 */
+	public function main_setting_section_callback() {
+ 		echo '<p>' . __('These settings refer to when you uninstall (delete) the plugin. This does not refer to simply deactivating the plugin.', 'organized-docs') . '</p>';
+	}
+
+	/**
+	 * Callback function for setting to remove data on uninstall
+	 * @since 1.1.9
+	 */
+	public function delete_data_setting_callback() {
+		echo '<input name="od_delete_data_on_uninstall" id="od_delete_data_on_uninstall" type="checkbox" value="1" class="code" ' . checked( 1, get_option( 'od_delete_data_on_uninstall' ), false ) . ' /> ' . __( 'Check this box if you would like Organized Docs to completely remove all of its data when the plugin is deleted. This would include all Docs posts, Docs categories, subheadings, and sort order numbers.', 'organized-docs' );
 	}
 
 	/**
