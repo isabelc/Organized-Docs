@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=me%40
 Tags: documentation, docs, organize documentation, organized documentation, instruction guides, wiki
 Requires at least: 3.7
 Tested up to: 3.9
-Stable Tag: 1.1.7
+Stable Tag: 1.1.8
 License: GNU Version 2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -51,6 +51,8 @@ This does not happen with the default WordPress themes. For a custom solution fo
 3. Single docs post with Table of Contents
 
 == Changelog ==
+= 1.1.8 =
+* Fix: Typo in function name stopped script from assigning default sort-order to existing posts.
 
 = 1.1.7 =
 * Fix: Docs would not display if custom sort-order was not set. Now, it is not necessary to set a custom sort oder. It remains optional.
@@ -95,6 +97,8 @@ Bug fix: Custom sort-order for Categories was not saving.
 * Initial release.
 
 == Upgrade Notice ==
+= 1.1.8 =
+Fix: Typo in function name stopped script from assigning default sort-order to existing posts.
 
 = 1.1.7 =
 Fix: Docs would not display if sort-order was not set. Now, it is not necessary to set custom sort oder. 
