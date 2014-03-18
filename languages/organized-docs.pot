@@ -1,0 +1,261 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Organized Docs\n"
+"POT-Creation-Date: 2014-03-18 10:00-0500\n"
+"PO-Revision-Date: 2014-03-18 10:01-0500\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.3\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_x;_ex\n"
+"X-Poedit-SearchPath-0: C:\\Users\\Isabel\\Documents\\my_web_sites\\chema\\wp-"
+"content\\plugins\\Organized-Docs\n"
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:91
+msgid "Setup Instructions"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:113
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:126
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:166
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:176
+msgid "Docs"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:114
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:127
+msgid "Doc"
+msgstr ""
+
+#. translators: URL slug
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:121
+msgid "docs"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:128
+msgid "Add New"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:129
+msgid "Add New Doc"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:130
+msgid "All Docs"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:131
+msgid "Edit"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:132
+msgid "Edit Doc"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:133
+msgid "New Doc"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:134
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:135
+msgid "View Doc"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:136
+msgid "Search Docs"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:137
+msgid "No docs found"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:138
+msgid "No docs found in Trash"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:139
+msgid "Parent Docs"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:220
+msgid "Print"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:391
+msgid "Docs Widget Area"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:392
+msgid "Sidebar for single Organized Docs article"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:499
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:509
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:536
+msgid "Categories"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:500
+msgid "Category"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:501
+msgid "Search Categories"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:502
+msgid "All Categories"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:503
+msgid "Parent Category"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:504
+msgid "Parent Category:"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:505
+msgid "Edit Category"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:506
+msgid "Update Category"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:507
+msgid "Add New Category"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:508
+msgid "New Category Name"
+msgstr ""
+
+#. translators: URL slug
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:519
+msgid "docs/category"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:535
+msgid "Name"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:537
+msgid "Parent"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:539
+msgid "Date"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:589
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:618
+msgid "Sort Order Number for a Top-level Item"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:591
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:621
+msgid ""
+"If this is a Top-level Item (a main Docs Item, i.e. the item that has docs), "
+"give this item a number to order it on the main Docs page. Number 1 will "
+"appear first, while greater numbers appear lower. Numbers do not have to be "
+"consecutive; for example, you could number them like, 10, 20, 35, 45, etc. "
+"This would leave room in between to insert new Top-level Items later without "
+"having to change all current numbers."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:591
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:621
+msgid "Leave blank if this is is not a Top-level Item."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:594
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:625
+msgid "Sort Order Number for Sub-heading"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:596
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:628
+msgid ""
+"If this is a Sub-heading, give this Sub-heading a number to order it under "
+"its Parent. Number 1 will appear first, while greater numbers appear lower. "
+"Numbers do not have to be consecutive; for example, you could number them "
+"like, 10, 20, 35, 45, etc. This would leave room in between to insert new "
+"sub-headings later without having to change all current numbers."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:596
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:628
+msgid "Leave blank if this is is not a sub-heading."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:733
+msgid "Sort Order"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:757
+msgid ""
+"Give this Doc a number to order it under its Sub-heading. Number 1 will "
+"appear first, while greater numbers appear lower. Numbers do not have to be "
+"consecutive; for example, you could number them like, 10, 20, 35, 45, etc. "
+"This would leave room in between to insert new Docs later without having to "
+"change all current numbers."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:826
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:835
+msgid "Organized Docs Settings"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:826
+msgid "Settings"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:853
+msgid "Uninstall Settings"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:860
+msgid "Remove Data on Uninstall?"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:873
+msgid ""
+"These settings refer to when you uninstall (delete) the plugin. This does "
+"not refer to simply deactivating the plugin."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:881
+msgid ""
+"Check this box if you would like Organized Docs to completely remove all of "
+"its data when the plugin is deleted. This would include all Docs posts, Docs "
+"categories, subheadings, and sort order numbers."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/includes/docs-template.php:77
+msgid "Error 404 - Not Found"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/includes/widget.php:18
+msgid "Organized Docs Section Contents"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/includes/widget.php:19
+msgid ""
+"Shows list of documentation articles for 1 item (top-level docs category). "
+"Works on single Docs sidebar."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/includes/widget.php:111
+msgid "Table of Contents"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/includes/widget.php:113
+msgid "Title:"
+msgstr ""
