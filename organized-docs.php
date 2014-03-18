@@ -922,14 +922,14 @@ class Isa_Organized_Docs{
 
 	}
 	/** @test
-	 * For backwards compatibility, give all single Docs posts a default sort-order number of 99999
+
 	 * @uses is_single()
 	 * @since 1.2.0
 	 */
 
 	public function get_docs_single_template($single_template) {
 	     global $post;
-		if ( is_single() && $post->post_type == 'custom-post-type' ) {
+		if ( is_single() && $post->post_type == 'isa_docs' ) {
 	          $single_template = dirname( __FILE__ ) . '/includes/single-docs.php';
 	     }
 	     return $single_template;
