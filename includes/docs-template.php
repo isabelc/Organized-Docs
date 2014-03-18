@@ -65,7 +65,6 @@ do_action( 'organized_docs_content_after_nav' );
 		} else {
 		
 			// Not main docs page, and there are no child terms, do regular term loop to list posts within current term
-
 			if ( have_posts() ) :
 			echo '<ul>';
 			while ( have_posts() ) {
