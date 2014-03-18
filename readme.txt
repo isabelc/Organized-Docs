@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=me%40
 Tags: documentation, docs, organize documentation, organized documentation, instruction guides, wiki
 Requires at least: 3.7
 Tested up to: 3.9
-Stable Tag: 1.1.9
+Stable Tag: 1.1.10
 License: GNU Version 2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -51,6 +51,11 @@ This does not happen with the default WordPress themes. For a custom solution fo
 3. Single docs post with Table of Contents
 
 == Changelog ==
+
+= 1.1.10 =
+* New: added .pot file for localization.
+* Maintenance: reset option to update all docs posts with default sort order.
+* Maintenance: removed warning from array_combine when docs category terms are missing.
 
 = 1.1.9 =
 * New: option to delete all Docs data upon uninstall.
