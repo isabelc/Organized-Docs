@@ -26,17 +26,12 @@ function delete_custom_terms($taxonomy){
 			$terms = $wpdb->get_results($query);
 
 			foreach ($terms as $term) {
-		
 				$t_id = $term->term_id;
-		
 				wp_delete_term( $t_id, $taxonomy );
-		
 				delete_option( "taxonomy_$t_id" );
 			}
 
-
 		} // end foreach blog_id
-
 
 	} else {
 
@@ -60,7 +55,6 @@ function delete_custom_terms($taxonomy){
 		}
 
 	}
-
 }
 
 global $wpdb;
