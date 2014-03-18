@@ -3,7 +3,7 @@
  * Plugin Name: Organized Docs
  * Plugin URI: http://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
  * Description: Easily create organized documentation for multiple products, organized by product, and by subsections within each product.
- * Version: 1.1.10
+ * Version: 1.1.10-rc-2.2
  * Author: Isabel Castillo
  * Author URI: http://isabelcastillo.com
  * License: GPL2
@@ -217,7 +217,7 @@ class Isa_Organized_Docs{
 			global $post;
 			$docscontent = $this->organized_docs_section_heading();
 			$docscontent .= $this->organized_docs_content_nav();
-			$docscontent .= '<p id="odd-print-button"><i class="fa fa-print"></i> <a href="javascript:window.print()" class="button">Print</a></p>';
+			$docscontent .= '<p id="odd-print-button"><i class="fa fa-print"></i> <a href="javascript:window.print()" class="button">' . __( 'Print', 'organized-docs' ) . '</a></p>';
  			$docscontent .= '<h1 class="entry-title">' . single_post_title('', false) . '</h1>';
 			$docscontent .= $content;
 			return $docscontent;
@@ -255,8 +255,8 @@ class Isa_Organized_Docs{
 			// get top level parent term on custom taxonomy archive
 			$heading = '<h2 id="isa-docs-item-title" class="entry-title">';
 			$taxonomy = get_query_var( 'taxonomy' );
-		    $queried_object = get_queried_object();
-		    $curr_term_id =  (int) $queried_object->term_id;
+			$queried_object = get_queried_object();
+			$curr_term_id =  (int) $queried_object->term_id;
 
 			$top_level_parent_term_id = $this->isa_term_top_parent_id( $curr_term_id );
 			$top_term = get_term( $top_level_parent_term_id, 'isa_docs_category' );
@@ -266,8 +266,6 @@ class Isa_Organized_Docs{
 		
 			$heading .= '<a href="' . $top_term_link  . '" title="' . esc_attr( $top_term_name ) . '">' . $top_term_name . '</a>';
 			$heading .= '</h2>';
-
-
 
 		} elseif ( is_post_type_archive( 'isa_docs' ) ) { 
 			$heading = apply_filters( 'od_docs_main_title', '<h1 id="isa-docs-main-title" class="entry-title">Docs</h1>' );
@@ -573,7 +571,6 @@ class Isa_Organized_Docs{
 						echo '<a href="' . $top_term_sort_link  . '" title="' . esc_attr( $top_term_name ) . '">' . $top_term_name . '</a>';
 					}
 				}
-			
 				break;
 			default :
 				break;
@@ -685,7 +682,6 @@ class Isa_Organized_Docs{
 					$unordered_terms[] = $term_id;
 					$no_order_numbers[] = 99999999; // need this in order to have equal count of keys and values for later
 				}
-	
 			}
 		}
 		
