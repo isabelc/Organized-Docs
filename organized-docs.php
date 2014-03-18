@@ -884,14 +884,14 @@ class Isa_Organized_Docs{
 	/**
 	 * For backwards compatibility, give all single Docs posts a default sort-order number of 99999
 	 * @since 1.1.8
-	 * @todo remove this back compatibility in version 1.2.0
+	 * @todo remove this back compatibility in version 1.2.1
 	 */
 	public function update_docs_sort_order_post_meta() {
 
 		global $post;
  
 		// Run this update only once
-		if (	get_option( 'odocs_update_sortorder_post_meta' ) != 'completed' ) {
+		if (	get_option( 'odocs_update_sortorder_postmeta' ) != 'completed' ) {
 
 			$args = array(	'post_type' => 'isa_docs', 
 						'posts_per_page' => -1,
@@ -914,8 +914,9 @@ class Isa_Organized_Docs{
 			delete_option( 'odocs_update_custom_tax_terms_meta' );
 			delete_option( 'odocs_bugfix_update_term_meta' );
 			delete_option( 'odocs_update_sortorder_meta' );
+			delete_option(	'odocs_update_sortorder_post_meta' );
 
-			update_option( 'odocs_update_sortorder_post_meta', 'completed' );
+			update_option( 'odocs_update_sortorder_postmeta', 'completed' );
 		}
 
 	}
