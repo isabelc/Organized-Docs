@@ -3,7 +3,7 @@
  * Plugin Name: Organized Docs
  * Plugin URI: http://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
  * Description: Easily create organized documentation for multiple products, organized by product, and by subsections within each product.
- * Version: 1.1.10
+ * Version: 1.2.0-rc-1
  * Author: Isabel Castillo
  * Author URI: http://isabelcastillo.com
  * License: GPL2
@@ -57,6 +57,7 @@ class Isa_Organized_Docs{
 			add_action( 'add_meta_boxes', array( $this, 'add_sort_order_box' ) );
 			add_action( 'save_post', array( $this, 'save_postdata' ) );
 			add_action('admin_menu', array( $this, 'submenu_page' ) );
+			add_filter( 'single_template', array( $this, 'get_docs_single_template' ) ) ;
     }
 
 	/** 
@@ -398,7 +399,7 @@ class Isa_Organized_Docs{
 	}
 
 	/** 
-	* Switch out default sidebar for our custom Docs sidebar, only on single Docs. Exclude sidebar-1 for Twenty Thirteen theme to avoid having footer show a duplicate Docs widget.
+	* Switch out default sidebar for our custom Docs sidebar, only on single Docs. Exclude sidebar-1 for Twenty Thirteen and sideber-3 for Twenty Fourteen theme to avoid having footer show a duplicate Docs widget.
 	* @todo Rather than exclude sidebar-1, may possibly have to exclude some custom widget id for custom themes
 	* @uses is_single()
 	* @uses get_post_type()
@@ -444,7 +445,7 @@ class Isa_Organized_Docs{
 
 		    return $widgets;
 		} else {
-			// not on singe Docs, get regular sidebar
+			// not on single Docs, get regular sidebar
 		    return $widgets;
 		}
 	}
@@ -920,6 +921,23 @@ class Isa_Organized_Docs{
 		}
 
 	}
+	/** @test
+	 * For backwards compatibility, give all single Docs posts a default sort-order number of 99999
+	 * @uses is_single()
+	 * @since 1.2.0
+	 */
+
+	public function get_docs_single_template($single_template) {
+	     global $post;
+		if ( is_single() && $post->post_type == 'custom-post-type' ) {
+	          $single_template = dirname( __FILE__ ) . '/includes/single-docs.php';
+	     }
+	     return $single_template;
+	}
+	 
+
+ 
+
 }
 }
 $Isa_Organized_Docs = new Isa_Organized_Docs();
