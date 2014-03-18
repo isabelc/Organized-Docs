@@ -117,7 +117,7 @@ class Isa_Organized_Docs{
 			        	'capability_type' => 'post',
 			        	'hierarchical' => false,
 			        	'rewrite' => array(
-// @test							'slug' => __( 'docs', 'organized-docs' ),
+/* translators: URL slug */
 							'slug' => _x( 'docs', 'URL slug', 'organized-docs' ),
 							'with_front' => false,
 						),
@@ -515,7 +515,7 @@ class Isa_Organized_Docs{
 			'show_ui'           => true,
 			'show_admin_column' => true,
 			'rewrite'			=> array(
-// @test								'slug'		=> 'docs/category',
+/* translators: URL slug */
 						'slug' => _x( 'docs/category', 'URL slug', 'organized-docs' ),
 						'with_front'	=> false,
 						'hierarchical'	=> true ),
@@ -588,12 +588,12 @@ class Isa_Organized_Docs{
 		<div class="form-field">
 			<label for="term_meta[main_doc_item_sort_order]"><?php _e( 'Sort Order Number for a Top-level Item', 'organized-docs' ); ?></label>
 			<input type="text" name="term_meta[main_doc_item_sort_order]" id="term_meta[main_doc_item_sort_order]" value="">
-			<p class="description"><?php _e( 'If this is a Top-level Item (a main Docs Item, i.e. the item that has docs), give this item a number to order it on the main Docs page. Number 1 will appear first, while greater numbers appear lower. Numbers do not have to be consecutive; for example, you could number them like, 10, 20, 35, 45, etc. This would leave room in between to insert new Top-level Items later without having to change all current numbers. <em>Leave blank if this is is not a Top-level Item.</em>', 'organized-docs' ); ?></p>
+			<p class="description"><?php _e( 'If this is a Top-level Item (a main Docs Item, i.e. the item that has docs), give this item a number to order it on the main Docs page. Number 1 will appear first, while greater numbers appear lower. Numbers do not have to be consecutive; for example, you could number them like, 10, 20, 35, 45, etc. This would leave room in between to insert new Top-level Items later without having to change all current numbers.', 'organized-docs' ) . ' <em>' . _e( 'Leave blank if this is is not a Top-level Item.', 'organized-docs' ) . '</em>'; ?></p>
 		</div>
 		<div class="form-field">
 			<label for="term_meta[subheading_sort_order]"><?php _e( 'Sort Order Number for Sub-heading', 'organized-docs' ); ?></label>
 			<input type="text" name="term_meta[subheading_sort_order]" id="term_meta[subheading_sort_order]" value="">
-			<p class="description"><?php _e( 'If this is a Sub-heading, give this Sub-heading a number to order it under its Parent. Number 1 will appear first, while greater numbers appear lower. Numbers do not have to be consecutive; for example, you could number them like, 10, 20, 35, 45, etc. This would leave room in between to insert new sub-headings later without having to change all current numbers. <em>Leave blank if this is is not a sub-heading.</em>', 'organized-docs' ); ?></p>
+			<p class="description"><?php _e( 'If this is a Sub-heading, give this Sub-heading a number to order it under its Parent. Number 1 will appear first, while greater numbers appear lower. Numbers do not have to be consecutive; for example, you could number them like, 10, 20, 35, 45, etc. This would leave room in between to insert new sub-headings later without having to change all current numbers.', 'organized-docs' ) . ' <em>' . _e( 'Leave blank if this is is not a sub-heading.', 'organized-docs' ) . '</em>'; ?></p>
 		</div>
 	<?php
 	}
@@ -618,14 +618,14 @@ class Isa_Organized_Docs{
 		<th scope="row" valign="top"><label for="term_meta[main_doc_item_sort_order]"><?php _e( 'Sort Order Number for a Top-level Item', 'organized-docs' ); ?></label></th>
 			<td>
 				<input type="text" name="term_meta[main_doc_item_sort_order]" id="term_meta[main_doc_item_sort_order]" value="<?php echo $value_main; ?>">
-				<p class="description"><?php _e( 'If this is a Top-level Item (a main Docs Item, i.e. the item that has docs), give this item a number to order it on the main Docs page. Number 1 will appear first, while greater numbers appear lower. Numbers do not have to be consecutive; for example, you could number them like, 10, 20, 35, 45, etc. This would leave room in between to insert new Top-level Items later without having to change all current numbers. <em>Leave blank if this is is not a Top-level Item.</em>','organized-docs' ); ?></p>
+				<p class="description"><?php _e( 'If this is a Top-level Item (a main Docs Item, i.e. the item that has docs), give this item a number to order it on the main Docs page. Number 1 will appear first, while greater numbers appear lower. Numbers do not have to be consecutive; for example, you could number them like, 10, 20, 35, 45, etc. This would leave room in between to insert new Top-level Items later without having to change all current numbers.', 'organized-docs' ) . ' <em>' . _e( 'Leave blank if this is is not a Top-level Item.', 'organized-docs' ) . '</em>'; ?></p>
 			</td>
 		</tr>
 		<tr class="form-field">
 		<th scope="row" valign="top"><label for="term_meta[subheading_sort_order]"><?php _e( 'Sort Order Number for Sub-heading', 'organized-docs' ); ?></label></th>
 			<td>
 				<input type="text" name="term_meta[subheading_sort_order]" id="term_meta[subheading_sort_order]" value="<?php echo $value_sub; ?>">
-				<p class="description"><?php _e( 'If this is a Sub-heading, give this Sub-heading a number to order it under its Parent. Number 1 will appear first, while greater numbers appear lower. Numbers do not have to be consecutive; for example, you could number them like, 10, 20, 35, 45, etc. This would leave room in between to insert new sub-headings later without having to change all current numbers. <em>Leave blank if this is is not a sub-heading.</em>','organized-docs' ); ?></p>
+				<p class="description"><?php _e( 'If this is a Sub-heading, give this Sub-heading a number to order it under its Parent. Number 1 will appear first, while greater numbers appear lower. Numbers do not have to be consecutive; for example, you could number them like, 10, 20, 35, 45, etc. This would leave room in between to insert new sub-headings later without having to change all current numbers.', 'organized-docs' ) . ' <em>'. _e( 'Leave blank if this is is not a sub-heading.', 'organized-docs' ) . '</em>'; ?></p>
 			</td>
 		</tr>
 	<?php
