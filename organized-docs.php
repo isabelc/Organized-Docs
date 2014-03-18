@@ -3,7 +3,7 @@
  * Plugin Name: Organized Docs
  * Plugin URI: http://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
  * Description: Easily create organized documentation for multiple products, organized by product, and by subsections within each product.
- * Version: 1.1.10-rc.1
+ * Version: 1.1.10
  * Author: Isabel Castillo
  * Author URI: http://isabelcastillo.com
  * License: GPL2
@@ -117,9 +117,9 @@ class Isa_Organized_Docs{
 			        	'capability_type' => 'post',
 			        	'hierarchical' => false,
 			        	'rewrite' => array(
-								'slug' => __( 'docs', 'organized-docs' ),
-								'with_front' => false,
-	
+// @test							'slug' => __( 'docs', 'organized-docs' ),
+							'slug' => _x( 'docs', 'URL slug', 'organized-docs' ),
+							'with_front' => false,
 						),
 			        	'exclude_from_search' => false,
 		        		'labels' => array(
@@ -381,7 +381,7 @@ class Isa_Organized_Docs{
 		include ISA_ORGANIZED_DOCS_PATH . 'includes/widget.php';
 		register_widget('DocsSectionContents');
 	
-	} // end register_widget
+	}
 
 	/**
 	 * register sidebar for docs
@@ -513,13 +513,14 @@ class Isa_Organized_Docs{
 		
 		$category_args = apply_filters( 'isa_docs_category_args', array(
 			'hierarchical'		=> true,
-			'labels'			=>	apply_filters('isa_docs_category_labels', $category_labels),
+			'labels'			=> apply_filters('isa_docs_category_labels', $category_labels),
 			'show_ui'           => true,
 			'show_admin_column' => true,
 			'rewrite'			=> array(
-								'slug'		=> 'docs/category', 
-								'with_front'	=> false,
-								'hierarchical'	=> true ),
+// @test								'slug'		=> 'docs/category',
+						'slug' => _x( 'docs/category', 'URL slug', 'organized-docs' ),
+						'with_front'	=> false,
+						'hierarchical'	=> true ),
 		)
 		);
 		register_taxonomy( 'isa_docs_category', array('isa_docs'), $category_args );
