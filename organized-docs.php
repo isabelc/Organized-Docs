@@ -3,7 +3,7 @@
  * Plugin Name: Organized Docs
  * Plugin URI: http://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
  * Description: Easily create organized documentation for multiple products, organized by product, and by subsections within each product.
- * Version: 1.2.0
+ * Version: 1.2.1-RC-3
  * Author: Isabel Castillo
  * Author URI: http://isabelcastillo.com
  * License: GPL2
@@ -230,6 +230,43 @@ class Isa_Organized_Docs{
 
  			$docscontent .= '<h1 class="entry-title">' . single_post_title('', false) . '</h1>';
 			$docscontent .= $content;
+
+			// begin Docs prev/next post navigation
+			$term_list = wp_get_post_terms($post->ID, 'isa_docs_category', array("fields" => "slugs"));
+			// get_posts in same custom taxonomy
+			$postlist_args = array(
+				'posts_per_page'		=> -1,
+				'orderby'				=> 'meta_value_num',
+				'meta_key'			=> '_odocs_meta_sortorder_key',
+				'order'				=> 'ASC',
+				'post_type'			=> 'isa_docs',
+				'isa_docs_category' => $term_list[0]
+			); 
+			$postlist = get_posts( $postlist_args );
+				
+			// get ids of posts retrieved from get_posts
+			$ids = array();
+			foreach ($postlist as $thepost) {
+			   $ids[] = $thepost->ID;
+			}
+				
+			// get and echo previous and next post in the same taxonomy        
+			$thisindex = array_search($post->ID, $ids);
+			$previd = $ids[$thisindex-1];
+			$nextid = $ids[$thisindex+1];
+
+
+			$docscontent .= '<nav class="navigation post-navigation" role="navigation"><h1 class="screen-reader-text">' . __( 'Post navigation', 'organized-docs' ) . '</h1><div class="nav-links">';
+
+			if ( !empty($previd) ) {
+				$docscontent .= '<span class="meta-nav"><a rel="prev" href="' . get_permalink($previd). '">' . __( 'Previous', 'organized-docs' ) . '</a></span>';
+			}
+			if ( !empty($nextid) ) {
+				$docscontent .= '<span class="meta-nav"><a rel="next" href="' . get_permalink($nextid). '">' . __( 'Next', 'organized-docs' ) . '</a></span>';
+
+			$docscontent .= '</div></nav>';
+
+			}
 			return $docscontent;
 		} else {
 			return $content;
@@ -999,6 +1036,20 @@ class Isa_Organized_Docs{
 		echo '<label for="od_delete_data_on_uninstall"><input name="od_delete_data_on_uninstall" id="od_delete_data_on_uninstall" type="checkbox" value="1" class="code" ' . checked( 1, get_option( 'od_delete_data_on_uninstall' ), false ) . ' /> ' . __( 'Check this box if you would like Organized Docs to completely remove all of its data when the plugin is deleted. This would include all Docs posts, Docs categories, subheadings, and sort order numbers.', 'organized-docs' ) . '</label>';
 	}
 
+	/**
+	 * Dynamic CSS based on settings and themes
+	 * @since 1.2.1
+	 */
+	public function dynamic_css() {
+
+		$theme = wp_get_theme();
+
+		echo '<style>';
+		if( ( 'Twenty Fourteen' == $theme->name ) || ( 'Twenty Fourteen' == $theme->parent_theme ) ) {
+			echo 'body.single-isa_docs .entry-content {max-width: 100%;margin-right: 0px;}';
+		}
+		echo '</style>';
+	}
 
 	/**
 	 * For backwards compatibility, give all single Docs posts a default sort-order number of 99999
