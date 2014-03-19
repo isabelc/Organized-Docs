@@ -3,7 +3,7 @@
  * Plugin Name: Organized Docs
  * Plugin URI: http://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
  * Description: Easily create organized documentation for multiple products, organized by product, and by subsections within each product.
- * Version: 1.2.0-rc-2
+ * Version: 1.2.0-rc-3
  * Author: Isabel Castillo
  * Author URI: http://isabelcastillo.com
  * License: GPL2
@@ -188,7 +188,6 @@ class Isa_Organized_Docs{
 		add_filter('wp_nav_menu_items', array( $this, 'docs_menu_link' ), 10, 2);
 		add_filter( 'wp_page_menu', array( $this, 'docs_page_menu_link' ), 95 );
 	}
-	
 	/**
 	 * Remove default title on single Docs, to add it later below the docs menu
 	 *
@@ -1024,3 +1023,7 @@ class Isa_Organized_Docs{
 $Isa_Organized_Docs = new Isa_Organized_Docs();
 register_deactivation_hook(__FILE__, array('Isa_Organized_Docs', 'deactivate')); 
 register_activation_hook(__FILE__, array('Isa_Organized_Docs', 'activate'));
+
+if( defined('ISA_ORGANIZED_DOCS_PATH') ) {
+	include_once plugin_dir_path(__FILE__) . 'includes/custom.php';
+}
