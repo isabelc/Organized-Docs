@@ -3,7 +3,7 @@
  * Plugin Name: Organized Docs
  * Plugin URI: http://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
  * Description: Easily create organized documentation for multiple products, organized by product, and by subsections within each product.
- * Version: 1.2.0-rc-1
+ * Version: 1.2.0-rc-2
  * Author: Isabel Castillo
  * Author URI: http://isabelcastillo.com
  * License: GPL2
@@ -57,12 +57,7 @@ class Isa_Organized_Docs{
 			add_action( 'add_meta_boxes', array( $this, 'add_sort_order_box' ) );
 			add_action( 'save_post', array( $this, 'save_postdata' ) );
 			add_action('admin_menu', array( $this, 'submenu_page' ) );
-// @todo			add_filter( 'single_template', array( $this, 'get_docs_single_template' ) ) ;
-
 			add_action( 'wp_head', array( $this, 'custom_style' ), 9999 );// @test
-
-
-
     }
 
 	/** 
@@ -391,7 +386,7 @@ class Isa_Organized_Docs{
 	 * register sidebar for docs
 	 * @since 1.0
 	 */
-	function sidebar(){
+	public function sidebar(){
 		register_sidebar(array(
 	        'id' => 'isa_organized_docs',
 	        'name' => __( 'Docs Widget Area', 'organized-docs' ),
@@ -403,7 +398,32 @@ class Isa_Organized_Docs{
 	    ));
 	}
 
-	/** 
+
+	/**
+	* Get custom sidebar ids to exclude from settings
+	* @since @todo
+	*/
+
+	public function get_custom_sidebar_ids(){
+
+		$ids_list = get_option('od_sidebar_ids_to_exclude');
+
+		$ids_array = explode(',', $ids_list);
+
+		// trim
+
+		$ids_array_trimmed = array();
+
+		foreach ($ids_array as $id) {
+
+			$ids_array_trimmed[] = trim($id);
+
+		}
+
+		return $ids_array_trimmed;
+	}
+
+	/** @todo edit comments
 	* Switch out default sidebar for our custom Docs sidebar, only on single Docs. Exclude sidebar-1 for Twenty Thirteen and sideber-3 for Twenty Fourteen theme to avoid having footer show a duplicate Docs widget.
 	* @todo Rather than exclude sidebar-1, may possibly have to exclude some custom widget id for custom themes
 	* @uses is_single()
@@ -442,6 +462,23 @@ class Isa_Organized_Docs{
 							continue;
 						}
 
+					$continue = '';
+
+					// exclude custom sidebar ids
+					$exclude_ids = $this->get_custom_sidebar_ids();
+					if ( $exclude_ids ) {
+						foreach ($exclude_ids as $exclude_id) {
+					
+							if ( $exclude_id == $key ) {
+								$continue = true;
+							}
+						}
+
+					}
+
+					if ( $continue ) {
+							continue;
+					}
 
 					$widgets[$key] = $widgets['isa_organized_docs'];
 
@@ -859,7 +896,7 @@ class Isa_Organized_Docs{
 			__( 'Main Settings', 'organized-docs' ),
 			array( $this, 'main_setting_section_callback' ),
 			'organized-docs-settings'
-		);// @test
+		);
 
 	 	add_settings_section(
 			'od_uninstall_setting_section',
@@ -894,8 +931,7 @@ class Isa_Organized_Docs{
 	 * @since @todo
 	 */
 	public function main_setting_section_callback() {
- 		echo '<p>' . __('These are the main settings.', 'organized-docs') . '</p>';
-//		return true;// @test
+		return true;
 	}
 
 	/**
@@ -912,10 +948,8 @@ class Isa_Organized_Docs{
 	 */
 	public function exclude_sidebars_setting_callback() {
 
-// @test do i need class="code"
 		$value = get_option('od_sidebar_ids_to_exclude');
-
-		echo '<input name="od_sidebar_ids_to_exclude" id="od_sidebar_ids_to_exclude" type="text" value="' . esc_textarea( $value ). '" class="code" /> ' . sprintf(__( 'If the Table of Contents widget appears multiple times on the single Docs page, enter your "sidebar IDs" to exclude here, separated by a comma. See %s.', 'organized-docs' ), '<a href="http://isabelcastillo.com/docs/table-of-contents-widget-appears-multiple-times">http://isabelcastillo.com/docs/table-of-contents-widget-appears-multiple-times</a>';
+		echo '<input name="od_sidebar_ids_to_exclude" id="od_sidebar_ids_to_exclude" type="text" value="' . esc_textarea( $value ). '" class="regular-text" /><p class="description">' . __( 'If the Table of Contents widget appears multiple times on the single Docs page, enter your "sidebar IDs" to exclude here, separated by a comma.', 'organized-docs' ) . '</p>';
 	}
 
 	/**
@@ -923,7 +957,7 @@ class Isa_Organized_Docs{
 	 * @since 1.1.9
 	 */
 	public function delete_data_setting_callback() {
-		echo '<input name="od_delete_data_on_uninstall" id="od_delete_data_on_uninstall" type="checkbox" value="1" class="code" ' . checked( 1, get_option( 'od_delete_data_on_uninstall' ), false ) . ' /> ' . __( 'Check this box if you would like Organized Docs to completely remove all of its data when the plugin is deleted. This would include all Docs posts, Docs categories, subheadings, and sort order numbers.', 'organized-docs' );
+		echo '<label for="od_delete_data_on_uninstall"><input name="od_delete_data_on_uninstall" id="od_delete_data_on_uninstall" type="checkbox" value="1" class="code" ' . checked( 1, get_option( 'od_delete_data_on_uninstall' ), false ) . ' /> ' . __( 'Check this box if you would like Organized Docs to completely remove all of its data when the plugin is deleted. This would include all Docs posts, Docs categories, subheadings, and sort order numbers.', 'organized-docs' ) . '</label>';
 	}
 
 	/**
@@ -984,40 +1018,6 @@ class Isa_Organized_Docs{
 		}
 
 	}
-	/** @test
-
-	 * @uses is_single()
-	 * @since 1.2.0
-	 */
-
-	public function get_docs_single_template($single_template) {
-	     global $post;
-		if ( is_single() && $post->post_type == 'isa_docs' ) {
-	          $single_template = dirname( __FILE__ ) . '/includes/single-docs.php';
-	     }
-	     return $single_template;
-	}
-	 
-/*
-
-@todo or try 
-add_filter( 'template_include', 'portfolio_page_template', 99 );
-
-function portfolio_page_template( $template ) {
-
-	if ( is_page( 'portfolio' )  ) {
-		$new_template = locate_template( array( 'portfolio-page-template.php' ) );
-		if ( '' != $new_template ) {
-			return $new_template ;
-		}
-	}
-
-	return $template;
-}
-
-
-*/
- 
 
 }
 }
