@@ -1,4 +1,6 @@
 ﻿/* main docs page */
+/* @todo test this on 2014 */
+.isa-docs-archive-content{margin:36px;}
 #isa-docs-main-title{margin-top:1em;}
 ul#organized-docs-main,
 ul#organized-docs-main li,
@@ -25,7 +27,7 @@ ul#organized-docs-main li a{text-decoration:none;}
 #isa-docs-item-title{
 	background-color: rgb(247, 245, 231);
 	margin: 0.5em 0 0 0;
-	padding-left:20px;
+	padding-left:36px;
 	padding-top: 7px;
 }
 
@@ -58,7 +60,7 @@ ul#organized-docs-main li a{text-decoration:none;}
 }
 #organized-docs-menu > ul {
     margin: 0px;
-    padding: 0px 40px 0px 0px;
+    padding: 0px 40px 0px 16px;
 }
 #organized-docs-menu li {
     display: inline-block;
