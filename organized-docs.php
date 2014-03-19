@@ -1060,20 +1060,17 @@ class Isa_Organized_Docs{
 	/**
 	 * For backwards compatibility, give all single Docs posts a default sort-order number of 99999
 	 * @since 1.1.8
-	 * @todo remove this back compatibility in version 1.2.1
+	 * @todo remove this back compatibility in version 1.2.3
 	 */
 	public function update_docs_sort_order_post_meta() {
-
 		global $post;
- 
 		// Run this update only once
 		if (	get_option( 'odocs_update_sortorder_postmeta' ) != 'completed' ) {
-
 			$args = array(	'post_type' => 'isa_docs', 
-						'posts_per_page' => -1,
+				'posts_per_page' => -1,
 			);
 			$all_docs = get_posts( $args );
-	
+
 			foreach ($all_docs as $doc) {
 				$sort_order_value_check = get_post_meta( $doc->ID, '_odocs_meta_sortorder_key', true );
 
