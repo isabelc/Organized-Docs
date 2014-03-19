@@ -57,6 +57,8 @@ class Isa_Organized_Docs{
 			add_action( 'add_meta_boxes', array( $this, 'add_sort_order_box' ) );
 			add_action( 'save_post', array( $this, 'save_postdata' ) );
 			add_action('admin_menu', array( $this, 'submenu_page' ) );
+			add_action('wp_head', array( $this, 'dynamic_css' ) );
+
     }
 
 	/** 
@@ -1047,6 +1049,10 @@ class Isa_Organized_Docs{
 		echo '<style>';
 		if( ( 'Twenty Fourteen' == $theme->name ) || ( 'Twenty Fourteen' == $theme->parent_theme ) ) {
 			echo 'body.single-isa_docs .entry-content {max-width: 100%;margin-right: 0px;}';
+		}
+
+		if( ( 'Twenty Twelve' == $theme->name ) || ( 'Twenty Twelve' == $theme->parent_theme ) ) {
+			echo '.nav-single {display:none;}.post-navigation .nav-links a {margin-top:3em;display:block;}';
 		}
 		echo '</style>';
 	}
