@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=me%40
 Tags: documentation, docs, organize documentation, organized documentation, instruction guides, wiki
 Requires at least: 3.7
 Tested up to: 3.9
-Stable Tag: 1.1.10
+Stable Tag: 1.2.0
 License: GNU Version 2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -51,6 +51,13 @@ This does not happen with the default WordPress themes. For a custom solution fo
 3. Single docs post with Table of Contents
 
 == Changelog ==
+
+= 1.2.0 =
+* New: option to hide custom sidebar IDs to avoid multiple Table of Contents widgets.
+* New: option to hide printer icon and print link.
+* New: Navigate throught next and previous docs. If you are not using Twenty Fourteen theme, call twentyfourteen_post_nav() in your single.php to use this feature.
+* Tweak: better styling and padding for compatibility with Twenty Fourteen theme. 
+* Maintenance: updated .pot file.
 
 = 1.1.10 =
 * New: added .pot file for localization.
@@ -107,6 +114,8 @@ Bug fix: Custom sort-order for Categories was not saving.
 * Initial release.
 
 == Upgrade Notice ==
+= 1.2.0 =
+New: option to hide custom sidebar IDs to avoid multiple Table of Contents widgets.
 
 = 1.1.9 =
 Fix 1 line which caused posts to save order number as 99999 and ignore the custom number.

@@ -3,7 +3,7 @@
  * Plugin Name: Organized Docs
  * Plugin URI: http://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
  * Description: Easily create organized documentation for multiple products, organized by product, and by subsections within each product.
- * Version: 1.2.0-rc-3
+ * Version: 1.2.0
  * Author: Isabel Castillo
  * Author URI: http://isabelcastillo.com
  * License: GPL2
@@ -57,7 +57,6 @@ class Isa_Organized_Docs{
 			add_action( 'add_meta_boxes', array( $this, 'add_sort_order_box' ) );
 			add_action( 'save_post', array( $this, 'save_postdata' ) );
 			add_action('admin_menu', array( $this, 'submenu_page' ) );
-			add_action( 'wp_head', array( $this, 'custom_style' ), 9999 );// @test
     }
 
 	/** 
@@ -217,7 +216,18 @@ class Isa_Organized_Docs{
 			global $post;
 			$docscontent = $this->organized_docs_section_heading();
 			$docscontent .= $this->organized_docs_content_nav();
-			$docscontent .= '<p id="odd-print-button"><i class="fa fa-print"></i> <a href="javascript:window.print()" class="button">' . __( 'Print', 'organized-docs' ) . '</a></p>';
+
+			if ( ! get_option('od_hide_print_link') ) {
+				$docscontent .= '<p id="odd-print-button">';
+
+				if ( ! get_option('od_hide_printer_icon') ) {
+					$docscontent .= '<i class="fa fa-print"></i> ';
+				}
+
+				$docscontent .= '<a href="javascript:window.print()" class="button">' . __( 'Print', 'organized-docs' ) . '</a></p>';
+
+			}
+
  			$docscontent .= '<h1 class="entry-title">' . single_post_title('', false) . '</h1>';
 			$docscontent .= $content;
 			return $docscontent;
@@ -400,7 +410,7 @@ class Isa_Organized_Docs{
 
 	/**
 	* Get custom sidebar ids to exclude from settings
-	* @since @todo
+	* @since 1.2.0
 	*/
 
 	public function get_custom_sidebar_ids(){
@@ -422,11 +432,11 @@ class Isa_Organized_Docs{
 		return $ids_array_trimmed;
 	}
 
-	/** @todo edit comments
-	* Switch out default sidebar for our custom Docs sidebar, only on single Docs. Exclude sidebar-1 for Twenty Thirteen and sideber-3 for Twenty Fourteen theme to avoid having footer show a duplicate Docs widget.
-	* @todo Rather than exclude sidebar-1, may possibly have to exclude some custom widget id for custom themes
+	/**
+	* Switch out default sidebar for our custom Docs sidebar, only on single Docs. Exclude sidebar-1 for Twenty Thirteen, sideber-3 for Twenty Fourteen theme, and any custom excluded sidebars from settings to avoid showing duplicate Table of Contents widgets.
 	* @uses is_single()
 	* @uses get_post_type()
+	* @uses get_custom_sidebar_ids()
 	* @since 1.0
 	* @return void
 	*/
@@ -903,8 +913,6 @@ class Isa_Organized_Docs{
 			array( $this, 'uninstall_setting_section_callback' ),
 			'organized-docs-settings'
 		);
-
-
 	 	add_settings_field(
 			'od_sidebar_ids_to_exclude',
 			__( 'Sidebar IDs To Exclude', 'organized-docs' ),
@@ -914,6 +922,23 @@ class Isa_Organized_Docs{
 		);
 	 	register_setting( 'organized-docs-settings', 'od_sidebar_ids_to_exclude' );
 
+	 	add_settings_field(
+			'od_hide_printer_icon',
+			__( 'Remove Printer Icon', 'organized-docs' ),
+			array( $this, 'hide_printer_icon_setting_callback' ),
+			'organized-docs-settings',
+			'od_main_setting_section'
+		);
+	 	register_setting( 'organized-docs-settings', 'od_hide_printer_icon' );
+
+	 	add_settings_field(
+			'od_hide_print_link',
+			__( 'Remove Print Link', 'organized-docs' ),
+			array( $this, 'hide_print_link_setting_callback' ),
+			'organized-docs-settings',
+			'od_main_setting_section'
+		);
+	 	register_setting( 'organized-docs-settings', 'od_hide_print_link' );
 	 	add_settings_field(
 			'od_delete_data_on_uninstall',
 			__( 'Remove Data on Uninstall?', 'organized-docs' ),
@@ -927,7 +952,7 @@ class Isa_Organized_Docs{
 
 	/**
 	 * Main Settings section callback
-	 * @since @todo
+	 * @since 1.2.0
 	 */
 	public function main_setting_section_callback() {
 		return true;
@@ -943,7 +968,7 @@ class Isa_Organized_Docs{
 
 	/**
 	 * Callback function for setting to exclude sidebar ids
-	 * @since @todo
+	 * @since 1.2.0
 	 */
 	public function exclude_sidebars_setting_callback() {
 
@@ -952,6 +977,21 @@ class Isa_Organized_Docs{
 	}
 
 	/**
+	 * Callback function for setting to hide printer icon
+	 * @since 1.2.0
+	 */
+	public function hide_printer_icon_setting_callback() {
+		echo '<label for="od_hide_printer_icon"><input name="od_hide_printer_icon" id="od_hide_printer_icon" type="checkbox" value="1" class="code" ' . checked( 1, get_option( 'od_hide_printer_icon' ), false ) . ' /> ' . __( 'Check this box to remove only the printer icon from single Docs, but leave the Print link.', 'organized-docs' ) . '</label>';
+	}
+
+	/**
+	 * Callback function for setting to hide print link
+	 * @since 1.2.0
+	 */
+	public function hide_print_link_setting_callback() {
+		echo '<label for="od_hide_print_link"><input name="od_hide_print_link" id="od_hide_print_link" type="checkbox" value="1" class="code" ' . checked( 1, get_option( 'od_hide_print_link' ), false ) . ' /> ' . __( 'Check this box to remove the Print link altogether from single Docs.', 'organized-docs' ) . '</label>';
+	}
+	/**
 	 * Callback function for setting to remove data on uninstall
 	 * @since 1.1.9
 	 */
@@ -959,24 +999,6 @@ class Isa_Organized_Docs{
 		echo '<label for="od_delete_data_on_uninstall"><input name="od_delete_data_on_uninstall" id="od_delete_data_on_uninstall" type="checkbox" value="1" class="code" ' . checked( 1, get_option( 'od_delete_data_on_uninstall' ), false ) . ' /> ' . __( 'Check this box if you would like Organized Docs to completely remove all of its data when the plugin is deleted. This would include all Docs posts, Docs categories, subheadings, and sort order numbers.', 'organized-docs' ) . '</label>';
 	}
 
-	/**
-	 * 
-	 * @since @todo
-	 */
-
-	public function custom_style() {
-
-		echo '<style>';
-
-		if ( get_option('smartestb_header_color') ) {
-			// header#mast, #primary-navigation.toggled-on .menu-bar {background:<?php echo get_option('smartestb_header_color'); }
-		
-		}
-		
-		echo '</style>';
-		
-		//.docs-archive-template .entry-content{max-width:700px;margin-left:auto;margin-right:auto;}
-	}
 
 	/**
 	 * For backwards compatibility, give all single Docs posts a default sort-order number of 99999
