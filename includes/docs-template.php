@@ -13,8 +13,10 @@ get_header(); ?>
 <div class="entry-content">
 <?php global $Isa_Organized_Docs;
 echo $Isa_Organized_Docs->organized_docs_section_heading();
-echo $Isa_Organized_Docs->organized_docs_content_nav();
-do_action( 'organized_docs_content_after_nav' ); 
+echo $Isa_Organized_Docs->organized_docs_content_nav(); ?>
+
+<div class="isa-docs-archive-content">
+	<?php do_action( 'organized_docs_content_after_nav' ); 
 	
 	// Display a list of subTerms, within a specified Term, AND show all the posts within each of those subTerms on archive page
 		
@@ -122,7 +124,8 @@ do_action( 'organized_docs_content_after_nav' );
 			} // end foreach ( $sorted_termchildren as $child_id => $order )
 
 		}// end check for empty $termchildren
-		do_action( 'organized_docs_content_bottom' ); ?>
+	do_action( 'organized_docs_content_bottom' ); ?>
+</div><!-- .isa-docs-archive-content -->
 </div><!-- .entry-content -->
 </article>
 </div><!-- #content -->
