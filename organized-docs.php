@@ -1052,7 +1052,7 @@ class Isa_Organized_Docs{
 		}
 
 		if( ( 'Twenty Twelve' == $theme->name ) || ( 'Twenty Twelve' == $theme->parent_theme ) ) {
-			echo '.nav-single {display:none;}.post-navigation .nav-links a {margin-top:3em;display:block;}';
+			echo '.nav-single {display:none;}';
 		}
 		echo '</style>';
 	}
