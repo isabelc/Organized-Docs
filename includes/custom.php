@@ -1,15 +1,7 @@
 <?php
-
-/**
- * Override Twenty Thirteen navigation for Docs
- * @todo remove this in 2016
- */
-function twentythirteen_post_nav() {
-	twentyfourteen_post_nav();
-}
-
 /**
  * Override Twenty Fourteen navigation for Docs
+ * @since 1.2.0
  */
 function twentyfourteen_post_nav() {
 	
@@ -37,4 +29,13 @@ function twentyfourteen_post_nav() {
 		</div><!-- .nav-links -->
 	</nav><!-- .navigation -->
 	<?php
+}
+
+/**
+ * Override Twenty Thirteen navigation for Docs
+ * @since 1.2.1
+ * @todo remove this in 2016
+ */
+function twentythirteen_post_nav() {
+	twentyfourteen_post_nav();
 }
