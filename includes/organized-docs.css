@@ -93,7 +93,32 @@ body.single-isa_docs header.entry-header{display:none;}
 }
 /* end compatibilty for Twenty Twelve */
 
+/* nav For non-default-WP themes */
 .post-navigation .nav-links a {margin-top:1em;display:block;}
+.screen-reader-text {
+	clip: rect(1px, 1px, 1px, 1px);
+	position: absolute !important;
+}
+.screen-reader-text:focus {
+	background-color: #f1f1f1;
+	border-radius: 3px;
+	box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
+	clip: auto !important;
+	color: #21759b;
+	display: block;
+	font-size: 14px;
+	font-weight: bold;
+	height: auto;
+	line-height: normal;
+	padding: 15px 23px 14px;
+	position: absolute;
+	left: 5px;
+	top: 5px;
+	text-decoration: none;
+	width: auto;
+	z-index: 100000; /* Above WP toolbar */
+}
+
 
 p#odd-print-button{
 	text-align:right;
