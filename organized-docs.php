@@ -259,7 +259,7 @@ class Isa_Organized_Docs{
 		if ( is_tax( 'isa_docs_category' ) ) {
 		
 			// get top level parent term on custom taxonomy archive
-			$heading = '<div class="isa-docs-title-bar"><h2 id="isa-docs-item-title" class="entry-title">';
+			$heading = '<h2 id="isa-docs-item-title" class="entry-title">';
 			$taxonomy = get_query_var( 'taxonomy' );
 			$queried_object = get_queried_object();
 			$curr_term_id =  (int) $queried_object->term_id;
@@ -271,10 +271,10 @@ class Isa_Organized_Docs{
 			$top_term_name = $top_term->name;
 		
 			$heading .= '<a href="' . $top_term_link  . '" title="' . esc_attr( $top_term_name ) . '">' . $top_term_name . '</a>';
-			$heading .= '</h2></div>';
+			$heading .= '</h2>';
 
 		} elseif ( is_post_type_archive( 'isa_docs' ) ) { 
-			$heading = apply_filters( 'od_docs_main_title', '<div class="isa-docs-title-bar"><h1 id="isa-docs-main-title" class="entry-title">Docs</h1></div>' );
+			$heading = apply_filters( 'od_docs_main_title', '<h1 id="isa-docs-main-title" class="entry-title">Docs</h1>' );
 
 		} elseif ( is_single() ) {
 
@@ -856,27 +856,66 @@ class Isa_Organized_Docs{
 	 	
 	 	add_settings_section(
 			'od_main_setting_section',
-			__( 'Uninstall Settings', 'organized-docs' ),
+			__( 'Main Settings', 'organized-docs' ),
 			array( $this, 'main_setting_section_callback' ),
 			'organized-docs-settings'
+		);// @test
+
+	 	add_settings_section(
+			'od_uninstall_setting_section',
+			__( 'Uninstall Settings', 'organized-docs' ),
+			array( $this, 'uninstall_setting_section_callback' ),
+			'organized-docs-settings'
 		);
- 	
+
+
+	 	add_settings_field(
+			'od_sidebar_ids_to_exclude',
+			__( 'Sidebar IDs To Exclude', 'organized-docs' ),
+			array( $this, 'exclude_sidebars_setting_callback' ),
+			'organized-docs-settings',
+			'od_main_setting_section'
+		);
+	 	register_setting( 'organized-docs-settings', 'od_sidebar_ids_to_exclude' );
+
 	 	add_settings_field(
 			'od_delete_data_on_uninstall',
 			__( 'Remove Data on Uninstall?', 'organized-docs' ),
 			array( $this, 'delete_data_setting_callback' ),
 			'organized-docs-settings',
-			'od_main_setting_section'
+			'od_uninstall_setting_section'
 		);
 	 	register_setting( 'organized-docs-settings', 'od_delete_data_on_uninstall' );
+
 	}
 
 	/**
 	 * Main Settings section callback
-	 * @since 1.1.9
+	 * @since @todo
 	 */
 	public function main_setting_section_callback() {
- 		echo '<p>' . __('These settings refer to when you uninstall (delete) the plugin. This does not refer to simply deactivating the plugin.', 'organized-docs') . '</p>';
+ 		echo '<p>' . __('These are the main settings.', 'organized-docs') . '</p>';
+//		return true;// @test
+	}
+
+	/**
+	 * Uninstall Settings section callback
+	 * @since 1.1.9
+	 */
+	public function uninstall_setting_section_callback() {
+ 		echo '<p>' . __('This setting refers to when you uninstall (delete) the plugin. This does not refer to simply deactivating the plugin.', 'organized-docs') . '</p>';
+	}
+
+	/**
+	 * Callback function for setting to exclude sidebar ids
+	 * @since @todo
+	 */
+	public function exclude_sidebars_setting_callback() {
+
+// @test do i need class="code"
+		$value = get_option('od_sidebar_ids_to_exclude');
+
+		echo '<input name="od_sidebar_ids_to_exclude" id="od_sidebar_ids_to_exclude" type="text" value="' . esc_textarea( $value ). '" class="code" /> ' . sprintf(__( 'If the Table of Contents widget appears multiple times on the single Docs page, enter your "sidebar IDs" to exclude here, separated by a comma. See %s.', 'organized-docs' ), '<a href="http://isabelcastillo.com/docs/table-of-contents-widget-appears-multiple-times">http://isabelcastillo.com/docs/table-of-contents-widget-appears-multiple-times</a>';
 	}
 
 	/**
