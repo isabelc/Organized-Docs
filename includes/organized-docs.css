@@ -93,6 +93,8 @@ body.single-isa_docs header.entry-header{display:none;}
 }
 /* end compatibilty for Twenty Twelve */
 
+.post-navigation .nav-links a {margin-top:1em;display:block;}
+
 p#odd-print-button{
 	text-align:right;
 }
