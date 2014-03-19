@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Organized Docs\n"
-"POT-Creation-Date: 2014-03-18 10:00-0500\n"
-"PO-Revision-Date: 2014-03-18 10:01-0500\n"
+"POT-Creation-Date: 2014-03-19 13:33-0500\n"
+"PO-Revision-Date: 2014-03-19 13:34-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -83,84 +83,84 @@ msgstr ""
 msgid "Parent Docs"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:220
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:227
 msgid "Print"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:391
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:401
 msgid "Docs Widget Area"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:392
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:402
 msgid "Sidebar for single Organized Docs article"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:499
-#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:509
-#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:536
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:551
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:561
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:588
 msgid "Categories"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:500
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:552
 msgid "Category"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:501
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:553
 msgid "Search Categories"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:502
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:554
 msgid "All Categories"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:503
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:555
 msgid "Parent Category"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:504
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:556
 msgid "Parent Category:"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:505
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:557
 msgid "Edit Category"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:506
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:558
 msgid "Update Category"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:507
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:559
 msgid "Add New Category"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:508
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:560
 msgid "New Category Name"
 msgstr ""
 
 #. translators: URL slug
-#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:519
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:571
 msgid "docs/category"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:535
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:587
 msgid "Name"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:537
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:589
 msgid "Parent"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:539
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:591
 msgid "Date"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:589
-#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:618
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:641
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:670
 msgid "Sort Order Number for a Top-level Item"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:591
-#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:621
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:643
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:673
 msgid ""
 "If this is a Top-level Item (a main Docs Item, i.e. the item that has docs), "
 "give this item a number to order it on the main Docs page. Number 1 will "
@@ -170,18 +170,18 @@ msgid ""
 "having to change all current numbers."
 msgstr ""
 
-#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:591
-#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:621
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:643
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:673
 msgid "Leave blank if this is is not a Top-level Item."
 msgstr ""
 
-#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:594
-#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:625
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:646
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:677
 msgid "Sort Order Number for Sub-heading"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:596
-#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:628
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:648
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:680
 msgid ""
 "If this is a Sub-heading, give this Sub-heading a number to order it under "
 "its Parent. Number 1 will appear first, while greater numbers appear lower. "
@@ -190,16 +190,16 @@ msgid ""
 "sub-headings later without having to change all current numbers."
 msgstr ""
 
-#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:596
-#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:628
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:648
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:680
 msgid "Leave blank if this is is not a sub-heading."
 msgstr ""
 
-#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:733
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:785
 msgid "Sort Order"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:757
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:809
 msgid ""
 "Give this Doc a number to order it under its Sub-heading. Number 1 will "
 "appear first, while greater numbers appear lower. Numbers do not have to be "
@@ -208,37 +208,93 @@ msgid ""
 "change all current numbers."
 msgstr ""
 
-#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:826
-#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:835
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:878
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:887
 msgid "Organized Docs Settings"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:826
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:878
 msgid "Settings"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:853
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:905
+msgid "Main Settings"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:912
 msgid "Uninstall Settings"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:860
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:918
+msgid "Sidebar IDs To Exclude"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:927
+msgid "Remove Printer Icon"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:936
+msgid "Remove Print Link"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:944
 msgid "Remove Data on Uninstall?"
 msgstr ""
 
-#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:873
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:966
 msgid ""
-"These settings refer to when you uninstall (delete) the plugin. This does "
-"not refer to simply deactivating the plugin."
+"This setting refers to when you uninstall (delete) the plugin. This does not "
+"refer to simply deactivating the plugin."
 msgstr ""
 
-#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:881
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:976
+msgid ""
+"If the Table of Contents widget appears multiple times on the single Docs "
+"page, enter your \"sidebar IDs\" to exclude here, separated by a comma."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:984
+msgid ""
+"Check this box to remove only the printer icon from single Docs, but leave "
+"the Print link."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:992
+msgid "Check this box to remove the Print link altogether from single Docs."
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/organized-docs.php:999
 msgid ""
 "Check this box if you would like Organized Docs to completely remove all of "
 "its data when the plugin is deleted. This would include all Docs posts, Docs "
 "categories, subheadings, and sort order numbers."
 msgstr ""
 
-#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/includes/docs-template.php:77
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/includes/custom.php:16
+msgid "Post navigation"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/includes/custom.php:20
+msgid "<span class=\"meta-nav\">Published In</span>%title"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/includes/custom.php:50
+msgid "Previous"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/includes/custom.php:53
+msgid "Next"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/includes/custom.php:57
+msgid "<span class=\"meta-nav\">Previous Post</span>%title"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/includes/custom.php:58
+msgid "<span class=\"meta-nav\">Next Post</span>%title"
+msgstr ""
+
+#: C:\Users\Isabel\Documents\my_web_sites\chema\wp-content\plugins\Organized-Docs/includes/docs-template.php:79
 msgid "Error 404 - Not Found"
 msgstr ""
 
