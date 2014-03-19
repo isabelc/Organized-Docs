@@ -38,7 +38,7 @@ class Isa_Organized_Docs{
 			add_action( 'init', array( $this, 'setup_docs_taxonomy'), 0 );
 			add_action( 'init', array( $this, 'create_docs_cpt') );
 			add_action( 'init', array( $this, 'create_docs_menu_item') );
-			add_action ('init', array( $this, 'update_docs_sort_order_post_meta' ) );
+			add_action( 'init', array( $this, 'update_docs_sort_order_post_meta' ) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue') );
  			add_filter( 'the_title', array( $this, 'suppress_docs_title' ), 40, 2 );
 			add_filter( 'the_content', array( $this, 'single_doc_content_filter' ) ); 
@@ -57,7 +57,12 @@ class Isa_Organized_Docs{
 			add_action( 'add_meta_boxes', array( $this, 'add_sort_order_box' ) );
 			add_action( 'save_post', array( $this, 'save_postdata' ) );
 			add_action('admin_menu', array( $this, 'submenu_page' ) );
-			add_filter( 'single_template', array( $this, 'get_docs_single_template' ) ) ;
+// @todo			add_filter( 'single_template', array( $this, 'get_docs_single_template' ) ) ;
+
+			add_action( 'wp_head', array( $this, 'custom_style' ), 9999 );// @test
+
+
+
     }
 
 	/** 
@@ -254,7 +259,7 @@ class Isa_Organized_Docs{
 		if ( is_tax( 'isa_docs_category' ) ) {
 		
 			// get top level parent term on custom taxonomy archive
-			$heading = '<h2 id="isa-docs-item-title" class="entry-title">';
+			$heading = '<div class="isa-docs-title-bar"><h2 id="isa-docs-item-title" class="entry-title">';
 			$taxonomy = get_query_var( 'taxonomy' );
 			$queried_object = get_queried_object();
 			$curr_term_id =  (int) $queried_object->term_id;
@@ -266,10 +271,10 @@ class Isa_Organized_Docs{
 			$top_term_name = $top_term->name;
 		
 			$heading .= '<a href="' . $top_term_link  . '" title="' . esc_attr( $top_term_name ) . '">' . $top_term_name . '</a>';
-			$heading .= '</h2>';
+			$heading .= '</h2></div>';
 
 		} elseif ( is_post_type_archive( 'isa_docs' ) ) { 
-			$heading = apply_filters( 'od_docs_main_title', '<h1 id="isa-docs-main-title" class="entry-title">Docs</h1>' );
+			$heading = apply_filters( 'od_docs_main_title', '<div class="isa-docs-title-bar"><h1 id="isa-docs-main-title" class="entry-title">Docs</h1></div>' );
 
 		} elseif ( is_single() ) {
 
@@ -883,6 +888,25 @@ class Isa_Organized_Docs{
 	}
 
 	/**
+	 * 
+	 * @since @todo
+	 */
+
+	public function custom_style() {
+
+		echo '<style>';
+
+		if ( get_option('smartestb_header_color') ) {
+			// header#mast, #primary-navigation.toggled-on .menu-bar {background:<?php echo get_option('smartestb_header_color'); }
+		
+		}
+		
+		echo '</style>';
+		
+		//.docs-archive-template .entry-content{max-width:700px;margin-left:auto;margin-right:auto;}
+	}
+
+	/**
 	 * For backwards compatibility, give all single Docs posts a default sort-order number of 99999
 	 * @since 1.1.8
 	 * @todo remove this back compatibility in version 1.2.1
@@ -935,7 +959,25 @@ class Isa_Organized_Docs{
 	     return $single_template;
 	}
 	 
+/*
 
+@todo or try 
+add_filter( 'template_include', 'portfolio_page_template', 99 );
+
+function portfolio_page_template( $template ) {
+
+	if ( is_page( 'portfolio' )  ) {
+		$new_template = locate_template( array( 'portfolio-page-template.php' ) );
+		if ( '' != $new_template ) {
+			return $new_template ;
+		}
+	}
+
+	return $template;
+}
+
+
+*/
  
 
 }
