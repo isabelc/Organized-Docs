@@ -51,36 +51,39 @@ class DocsSectionContents extends WP_Widget {
 		// sort $termchildren by custom subheading_sort_order numbers
 		$sorted_termchildren = $Isa_Organized_Docs->sort_terms( $termchildren, 'subheading_sort_order' );
 
-		foreach ( $sorted_termchildren as $child_id => $order ) {
-			$termobject = get_term_by( 'id', $child_id, 'isa_docs_category' );
-			//Display the sub Term information, in open widget container
-			echo '<aside class="widget well"><h3 class="widget-title">' . $termobject->name . '</h3>';
-			echo '<ul>';
-			// nest a loop through each child cat's posts
-			global $post;
-			$args = array(	'post_type' => 'isa_docs', 
-						'posts_per_page' => -1,
-						'order' => 'ASC',
-						'tax_query' => array(
-									array(
-										'taxonomy' => 'isa_docs_category',
-										'field' => 'id',
-										'terms' => $termobject->term_id
-										)
-									),
-						'orderby' => 'meta_value_num',
-						'meta_key' => '_odocs_meta_sortorder_key',
-						'order' => 'ASC'
-				);
-			$postlist = get_posts( $args );
-			foreach ( $postlist as $single_post ) {
-					echo '<li';
-					if( $single_post->ID == $current_single_postID ) 
-						echo ' class="organized-docs-active-side-item"';
-					echo '><a href="' . get_permalink( $single_post->ID ) . '" title="' . esc_attr( $single_post->post_title ) . '">' . $single_post->post_title . '</a></li>';   
-			}  
-					echo '</ul></aside>';
-		} // end foreach ( $sorted_termchildren
+		if ($sorted_termchildren) {
+	
+			foreach ( $sorted_termchildren as $child_id => $order ) {
+				$termobject = get_term_by( 'id', $child_id, 'isa_docs_category' );
+				//Display the sub Term information, in open widget container
+				echo '<aside class="widget well"><h3 class="widget-title">' . $termobject->name . '</h3>';
+				echo '<ul>';
+				// nest a loop through each child cat's posts
+				global $post;
+				$args = array(	'post_type' => 'isa_docs', 
+							'posts_per_page' => -1,
+							'order' => 'ASC',
+							'tax_query' => array(
+										array(
+											'taxonomy' => 'isa_docs_category',
+											'field' => 'id',
+											'terms' => $termobject->term_id
+											)
+										),
+							'orderby' => 'meta_value_num',
+							'meta_key' => '_odocs_meta_sortorder_key',
+							'order' => 'ASC'
+					);
+				$postlist = get_posts( $args );
+				foreach ( $postlist as $single_post ) {
+						echo '<li';
+						if( $single_post->ID == $current_single_postID ) 
+							echo ' class="organized-docs-active-side-item"';
+						echo '><a href="' . get_permalink( $single_post->ID ) . '" title="' . esc_attr( $single_post->post_title ) . '">' . $single_post->post_title . '</a></li>';   
+				}  
+						echo '</ul></aside>';
+			} // end foreach ( $sorted_termchildren
+		}
 		
 		echo $after_widget;
 
