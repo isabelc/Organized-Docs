@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=me%40
 Tags: documentation, docs, organize documentation, organized documentation, instruction guides, wiki
 Requires at least: 3.7
 Tested up to: 3.9
-Stable Tag: 1.2.0
+Stable Tag: 1.2.2
 License: GNU Version 2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -51,6 +51,10 @@ This does not happen with the default WordPress themes. For a custom solution fo
 3. Single docs post with Table of Contents
 
 == Changelog ==
+
+= 1.2.2 =
+* Fix: 2 files were not synced to svn: custom.php and the localization file.
+* New: option to use title anchor text on Docs post nav links, instead of 'next' and 'previous'.
 
 = 1.2.0 =
 * New: option to hide custom sidebar IDs to avoid multiple Table of Contents widgets.
@@ -114,6 +118,9 @@ Bug fix: Custom sort-order for Categories was not saving.
 * Initial release.
 
 == Upgrade Notice ==
+= 1.2.2 =
+Fix: custom.php file was not synced to svn.
+
 = 1.2.0 =
 New: option to hide custom sidebar IDs to avoid multiple Table of Contents widgets.
 
