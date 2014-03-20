@@ -58,7 +58,7 @@ class Isa_Organized_Docs{
 			add_action( 'save_post', array( $this, 'save_postdata' ) );
 			add_action('admin_menu', array( $this, 'submenu_page' ) );
 			add_action('wp_head', array( $this, 'dynamic_css' ) );
-
+			add_filter( 'the_posts', array( $this, 'close_comments' ) );
     }
 
 	/** 
@@ -970,7 +970,6 @@ class Isa_Organized_Docs{
 			'od_main_setting_section'
 		);
 	 	register_setting( 'organized-docs-settings', 'od_sidebar_ids_to_exclude' );
-
 	 	add_settings_field(
 			'od_hide_printer_icon',
 			__( 'Remove Printer Icon', 'organized-docs' ),
@@ -979,7 +978,6 @@ class Isa_Organized_Docs{
 			'od_single_post_setting_section'
 		);
 	 	register_setting( 'organized-docs-settings', 'od_hide_printer_icon' );
-
 	 	add_settings_field(
 			'od_hide_print_link',
 			__( 'Remove Print Link', 'organized-docs' ),
@@ -988,7 +986,6 @@ class Isa_Organized_Docs{
 			'od_single_post_setting_section'
 		);
 	 	register_setting( 'organized-docs-settings', 'od_hide_print_link' );
-
 	 	add_settings_field(
 			'od_title_on_nav_links',
 			__( 'Title on nav links?', 'organized-docs' ),
@@ -997,7 +994,24 @@ class Isa_Organized_Docs{
 			'od_single_post_setting_section'
 		);
 	 	register_setting( 'organized-docs-settings', 'od_title_on_nav_links' );
+	 	add_settings_field(
+			'od_enable_manage_comments',
+			__( 'Enable Comments Control', 'organized-docs' ),
+			array( $this, 'enable_manage_comments_setting_callback' ),
+			'organized-docs-settings',
+			'od_single_post_setting_section'
+		);
+	 	register_setting( 'organized-docs-settings', 'od_enable_manage_comments' );
 
+
+	 	add_settings_field(
+			'od_close_comments',
+			__( 'Disable Comments on Single Docs?', 'organized-docs' ),
+			array( $this, 'close_comments_setting_callback' ),
+			'organized-docs-settings',
+			'od_single_post_setting_section'
+		);
+	 	register_setting( 'organized-docs-settings', 'od_close_comments' );
 	 	add_settings_field(
 			'od_delete_data_on_uninstall',
 			__( 'Remove Data on Uninstall?', 'organized-docs' ),
@@ -1019,7 +1033,7 @@ class Isa_Organized_Docs{
 
 	/**
 	 * Single Docs Posts Settings section callback
-	 * @since 1.2.1
+	 * @since 1.2.2
 	 */
 	public function single_setting_section_callback() {
 		echo '<p>' . __('These settings are for the single Docs posts.', 'organized-docs') . '</p>';
@@ -1061,10 +1075,32 @@ class Isa_Organized_Docs{
 
 	/**
 	 * Callback function for setting to show title on nav links
-	 * @since 1.2.1
+	 * @since 1.2.2
 	 */
 	public function title_nav_links_setting_callback() {
 		echo '<label for="od_title_on_nav_links"><input name="od_title_on_nav_links" id="od_title_on_nav_links" type="checkbox" value="1" class="code" ' . checked( 1, get_option( 'od_title_on_nav_links' ), false ) . ' /> ' . __( 'Check this box to show the post titles instead of "Previous" and "Next" on the nav links on the bottom of single Docs.', 'organized-docs' ) . '</label>';
+	}
+
+	/**
+	 * Callback function for setting to enable comments control
+	 * @since 1.2.2
+	 */
+	public function enable_manage_comments_setting_callback() {
+		echo '<label for="od_enable_manage_comments"><input name="od_enable_manage_comments" id="od_enable_manage_comments" type="checkbox" value="1" class="code" ' . checked( 1, get_option( 'od_enable_manage_comments' ), false ) . ' /> ' . __( 'Check this box to turn on the ability to use the next option. This is here because managing comments is heavy. You should turn this off after you see that your next option has taken effect.', 'organized-docs' ) . '</label>';
+
+	}
+
+	/**
+	 * Callback function for setting to disable comments
+	 * @since 1.2.2
+	 */
+	public function close_comments_setting_callback() {
+
+		$html = '<input type="radio" id="od_close_comments_false" name="od_close_comments" value="1"' . checked( 1, get_option( 'od_close_comments' ), false ) . '/>';
+		$html .= '<label for="od_close_comments_false">No</label><br /><br/ >';
+		$html .= '<input type="radio" id="od_close_comments_true" name="od_close_comments" value="2"' . checked( 2, get_option( 'od_close_comments' ), false ) . '/>';
+		$html .= '<label for="od_close_comments_true">Yes</label>';
+		echo $html;
 	}
 
 	/**
@@ -1080,18 +1116,38 @@ class Isa_Organized_Docs{
 	 * @since 1.2.1
 	 */
 	public function dynamic_css() {
-
 		$theme = wp_get_theme();
-
 		echo '<style>';
 		if( ( 'Twenty Fourteen' == $theme->name ) || ( 'Twenty Fourteen' == $theme->parent_theme ) ) {
 			echo 'body.single-isa_docs .entry-content {max-width: 100%;margin-right: 0px;}';
 		}
-
 		if( ( 'Twenty Twelve' == $theme->name ) || ( 'Twenty Twelve' == $theme->parent_theme ) ) {
 			echo '.nav-single {display:none;}';
 		}
 		echo '</style>';
+	}
+
+	/**
+	 * Close comments on Docs
+	 * @since 1.2.2
+	 */
+	function close_comments( $posts ) {
+		if ( !is_single() || ! get_option( 'od_enable_manage_comments' ) ) {
+			return $posts;
+		}
+		if ( 'isa_docs' == get_post_type($posts[0]->ID) ) {
+
+			if ( get_option( 'od_close_comments' ) == 2 ) {
+				$status = 'closed';
+			} else {
+				$status = 'open';
+			}
+
+			$posts[0]->comment_status = $status;
+			$posts[0]->ping_status    = $status;
+			wp_update_post( $posts[0] );
+		}
+		return $posts;
 	}
 
 	/**
