@@ -55,6 +55,8 @@ This does not happen with the default WordPress themes. For a custom solution fo
 = 1.2.2 =
 * Fix: 2 files were not synced to svn: custom.php and the localization file.
 * New: option to use title anchor text on Docs post nav links, instead of 'next' and 'previous'.
+* New: option to disable comments on Docs.
+* Maintenance: updated .pot file.
 
 = 1.2.0 =
 * New: option to hide custom sidebar IDs to avoid multiple Table of Contents widgets.
