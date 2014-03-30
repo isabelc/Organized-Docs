@@ -3,7 +3,7 @@
  * Plugin Name: Organized Docs
  * Plugin URI: http://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
  * Description: Easily create organized documentation for multiple products, organized by product, and by subsections within each product.
- * Version: 1.2.2
+ * Version: 1.2.3
  * Author: Isabel Castillo
  * Author URI: http://isabelcastillo.com
  * License: GPL2
@@ -763,20 +763,24 @@ class Isa_Organized_Docs{
 
 		// get sort order numbers for all term ids
 		foreach ( $term_ids as $term_id ) {
-			if ( $taxonomy_sort = get_option( "taxonomy_$term_id" ) ) {
 
+			$sort_value = '';
+			if ( $taxonomy_sort = get_option( "taxonomy_$term_id" ) ) {
 				// get sort value
 				$sort_value = isset($taxonomy_sort[$term_meta_key]) ? esc_attr( $taxonomy_sort[$term_meta_key] ) : '';
-				if ( ! empty($sort_value) )  {
-					// has sort order
-					$ordered_terms[] = $term_id;
-					$new_order_numbers[] = ( int ) $sort_value;
-				} else {
-					// sort value is empty
-					$unordered_terms[] = $term_id;
-					$no_order_numbers[] = 99999999; // need this in order to have equal count of keys and values for later
-				}
 			}
+
+			if ( ! empty($sort_value) )  {
+				// has sort order
+				$ordered_terms[] = $term_id;
+				$new_order_numbers[] = ( int ) $sort_value;
+			} else {
+				// sort value is empty
+				$unordered_terms[] = $term_id;
+				$no_order_numbers[] = 99999999; // need this in order to have equal count of keys and values for later
+			}
+
+
 		}
 		
 		// Only sort by sort order if there are items to sort, otherwise return the original array
