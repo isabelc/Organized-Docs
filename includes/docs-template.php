@@ -98,6 +98,25 @@ echo $Isa_Organized_Docs->organized_docs_content_nav(); ?>
 				echo '<ul>';
 				global $post;
 
+				// @test orderby custom option
+				
+				$single_sort_by = get_option('od_single_sort_by');
+				$single_sort_by_order = get_option('od_single_sort_by_order');// @todo make option
+				
+				if ( 'date' == $single_sort_by ) {
+					$orderby = 'date';
+				} elseif ( 'title - alphabetical' == $single_sort_by ) {
+					$orderby = 'title';
+				} else {
+					$orderby = 'meta_value_num';
+				}
+			
+				if ( 'descending' == single_sort_by_order ) {
+					$orderby_order = 'DESC';
+				} else {
+					$orderby_order = 'ASC';
+				}
+
 				// prep nested loop
 				$args = array(	'post_type' => 'isa_docs', 
 							'posts_per_page' => -1,
@@ -108,9 +127,9 @@ echo $Isa_Organized_Docs->organized_docs_content_nav(); ?>
 										'terms' => $termobject->term_id
 									)
 								),
-							'orderby' => 'meta_value_num',
-							'meta_key' => '_odocs_meta_sortorder_key',
-							'order' => 'ASC' 
+							'orderby' => $orderby,// @test
+							'meta_key' => '_odocs_meta_sortorder_key',// @test does this hurt when not needed
+							'order' => $orderby_order// @test
 				);
 
 				$postlist = get_posts( $args );

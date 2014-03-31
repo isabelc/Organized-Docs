@@ -236,6 +236,9 @@ class Isa_Organized_Docs{
 			// begin Docs prev/next post navigation
 			$term_list = wp_get_post_terms($post->ID, 'isa_docs_category', array("fields" => "slugs"));
 			// get_posts in same custom taxonomy
+
+// @todo sort terms by chosen order, whether date, alphabetical, or sort number.
+
 			$postlist_args = array(
 				'posts_per_page'		=> -1,
 				'orderby'				=> 'meta_value_num',
@@ -779,8 +782,6 @@ class Isa_Organized_Docs{
 				$unordered_terms[] = $term_id;
 				$no_order_numbers[] = 99999999; // need this in order to have equal count of keys and values for later
 			}
-
-
 		}
 		
 		// Only sort by sort order if there are items to sort, otherwise return the original array
@@ -907,6 +908,9 @@ class Isa_Organized_Docs{
 	 */
 	public function sort_single_docs($query) {
 		if( is_tax('isa_docs_category') && $query->is_main_query() && isset( $query->query_vars['meta_key'] ) ) {
+
+			// @todo sort by chosen option, whether date or alphabetical or custom number
+
 			$query->query_vars['orderby'] = 'meta_value_num';
 			$query->query_vars['meta_key'] = '_odocs_meta_sortorder_key';
 			$query->query_vars['order'] = 'ASC';
@@ -941,7 +945,7 @@ class Isa_Organized_Docs{
 	}
 
 	/**
-	 * Add the setting to remove data on uninstall
+	 * Add the settings
 	 * @since 1.1.9
 	 */
 	public function settings_api_init() {
@@ -1016,6 +1020,17 @@ class Isa_Organized_Docs{
 			'od_single_post_setting_section'
 		);
 	 	register_setting( 'organized-docs-settings', 'od_close_comments' );
+
+	 	add_settings_field( // @todo @new
+			'od_single_sort_by',
+			__( 'Sort Single Docs By ...', 'organized-docs' ),
+			array( $this, 'single_sort_by_setting_callback' ),
+			'organized-docs-settings',
+			'od_single_post_setting_section'
+		);
+	 	register_setting( 'organized-docs-settings', 'od_single_sort_by' );
+
+
 	 	add_settings_field(
 			'od_delete_data_on_uninstall',
 			__( 'Remove Data on Uninstall?', 'organized-docs' ),
@@ -1107,6 +1122,23 @@ class Isa_Organized_Docs{
 		echo $html;
 	}
 
+
+	/** @test
+	 * Callback function for setting to sort single docs
+	 * @since 1.2.3
+	 */
+	public function single_sort_by_setting_callback() {
+		$selected = get_option('od_single_sort_by');
+		$items = array("custom sort order number", "title - alphabetical", "date");
+		echo "<select id = 'od_single_sort_by' name = 'od_single_sort_by'>";
+		foreach($items as $item) {
+			$selected = ( $selected == $item ) ? 'selected="selected"' : '';
+			echo "<option value='$item' $selected>$item</option>";
+		}
+		echo "</select>";
+		echo '<p class="description">Choose how to sort single docs.</p>';
+	}
+
 	/**
 	 * Callback function for setting to remove data on uninstall
 	 * @since 1.1.9
@@ -1135,7 +1167,7 @@ class Isa_Organized_Docs{
 	 * Close comments on Docs
 	 * @since 1.2.2
 	 */
-	function close_comments( $posts ) {
+	public function close_comments( $posts ) {
 		if ( !is_single() || ! get_option( 'od_enable_manage_comments' ) ) {
 			return $posts;
 		}
@@ -1188,9 +1220,7 @@ class Isa_Organized_Docs{
 
 			update_option( 'odocs_update_sortorder_postmeta', 'completed' );
 		}
-
 	}
-
 }
 }
 $Isa_Organized_Docs = new Isa_Organized_Docs();
