@@ -1122,19 +1122,20 @@ class Isa_Organized_Docs{
 		echo $html;
 	}
 
-
 	/** @test
 	 * Callback function for setting to sort single docs
 	 * @since 1.2.3
 	 */
 	public function single_sort_by_setting_callback() {
-		$selected = get_option('od_single_sort_by');
+		$selected_option = get_option('od_single_sort_by');
 		$items = array("custom sort order number", "title - alphabetical", "date");
 		echo "<select id = 'od_single_sort_by' name = 'od_single_sort_by'>";
+
 		foreach($items as $item) {
-			$selected = ( $selected == $item ) ? 'selected="selected"' : '';
+			$selected = ( $selected_option == $item ) ? ' selected = "selected"' : '';// @todo not working, after i fix this mark commit with Fixes #11.
 			echo "<option value='$item' $selected>$item</option>";
 		}
+
 		echo "</select>";
 		echo '<p class="description">Choose how to sort single docs.</p>';
 	}
