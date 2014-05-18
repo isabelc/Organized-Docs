@@ -1,0 +1,129 @@
+﻿/* main docs page */
+.isa-docs-archive-content{margin:36px;}
+#isa-docs-main-title{margin-top:1em;}
+ul#organized-docs-main,
+ul#organized-docs-main li,
+#isa-docs-main-title {
+    /* reset */
+    padding-left:0;margin-left:0;
+    padding-left:1em;
+}
+ul#organized-docs-main, 
+.docs-archive-template ul, 
+.docs-archive-template .entry-content ul{
+	list-style:none;
+}
+ul#organized-docs-main li{
+    font-size:1.5em;
+    line-height:1.5em;
+}
+.docs-archive-template li{ 
+    line-height:1.9em;
+}
+ul#organized-docs-main li a{text-decoration:none;}
+
+/* Docs top item title */
+#isa-docs-item-title{
+	background-color: rgb(247, 245, 231);
+	margin: 0.5em 0 0 0;
+	padding-left:36px;
+	padding-top: 7px;
+}
+
+#isa-docs-item-title a{
+	text-decoration:none;
+}
+
+/* Table of contents widget */
+.organized-docs-active-side-item > a {
+		color: rgb(234, 150, 41);
+		font-style: italic;font-weight:bold;
+}
+
+/* Highlight Docs Main Menu item on all Docs pages */
+.tax-isa_docs_category .nav-menu .docs > a,
+.single-isa_docs .nav-menu .docs > a {
+	color: rgb(188, 54, 10);
+	font-style: italic;
+}
+
+/* single - Twenty Fourteen Theme compatibility */
+body.single-isa_docs .site-content .entry-content {padding-top:0;}
+body.single-isa_docs #isa-docs-item-title{margin-top:0;}
+body.single-isa_docs header.entry-header{display:none;}
+
+/**
+ * Docs Menu Bar
+ * For Twenty Twelve compatibility. It uses default Twenty Thirteen styles, so can remove this with 2013.
+ */
+#organized-docs-menu {
+    background-color: rgb(247, 245, 231);
+	margin: 0px auto 2em 0px;
+    max-width: 1600px;
+    width: 100%;
+}
+#organized-docs-menu > ul {
+    margin: 0px;
+    padding: 0px 40px 0px 16px;
+}
+#organized-docs-menu li {
+    display: inline-block;
+    position: relative;
+}
+.entry-content #organized-docs-menu li {
+   	margin:0;
+}
+#organized-docs-menu li a{
+	color: rgb(20, 20, 18);
+	display: block;
+	font-size: 15px;
+	line-height: 1;
+	padding: 15px 20px;
+	text-decoration: none;
+}
+#organized-docs-menu li a.active-docs-item,
+#organized-docs-menu li.current_page_item > a {
+		color: rgb(188, 54, 10);
+	font-style: italic;
+}
+#organized-docs-menu li a:hover{
+	background-color: rgb(34, 14, 16);
+	color: rgb(255, 255, 255);
+    font-style: italic;
+}
+/* end compatibilty for Twenty Twelve */
+
+/* nav For non-default-WP themes */
+.post-navigation .nav-links a {margin-top:1em;display:block;}
+.screen-reader-text {
+	clip: rect(1px, 1px, 1px, 1px);
+	position: absolute !important;
+}
+.screen-reader-text:focus {
+	background-color: #f1f1f1;
+	border-radius: 3px;
+	box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
+	clip: auto !important;
+	color: #21759b;
+	display: block;
+	font-size: 14px;
+	font-weight: bold;
+	height: auto;
+	line-height: normal;
+	padding: 15px 23px 14px;
+	position: absolute;
+	left: 5px;
+	top: 5px;
+	text-decoration: none;
+	width: auto;
+	z-index: 100000;
+}
+p#odd-print-button{
+	text-align:right;
+}
+@media print {
+	.comments-link,p#odd-print-button  {
+		display:none;
+	}
+	a, h1 a {text-decoration:none;}
+}
