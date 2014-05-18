@@ -20,25 +20,22 @@ class DocsSectionContents extends WP_Widget {
 		);
 	}
 
-
 	/**
 	 * Front-end display of widget.
-	 *
 	 * @param array $args     Widget arguments.
 	 * @param array $instance Saved values from database.
 	 */
 	public function widget( $args, $instance ) {
 		extract( $args );
 		
+		if ( ! is_singular('isa_docs') )
+			return;
 		$title = apply_filters('widget_title', $instance['title']);
-
 		echo $before_widget;
 		if ( ! empty( $title ) )
 			echo '<h3 class="widget-title">'. $title . '</h3>';
-		
 		// get current term id
 		global $post, $Isa_Organized_Docs;
-
 		$current_single_postID = $post->ID;// to highlight current item below
 		$doc_categories = wp_get_object_terms( $post->ID, 'isa_docs_category' );
 		$first_term = $doc_categories[0];
