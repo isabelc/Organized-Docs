@@ -48,6 +48,7 @@ This is no longer an issue since version 2.0.
 == Changelog ==
 = 2.0.2 =
 * Fix: mobile styling.
+* New: option to disable the Docs Menu Link that get automatically added to your site. You can still add your own link in Appearance: Menus.
 
 = 2.0.1 =
 * NOTE: Please see changes for version 2.0.
