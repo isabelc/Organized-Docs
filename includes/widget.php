@@ -51,14 +51,11 @@ class DocsSectionContents extends WP_Widget {
 				$termobject = get_term_by( 'id', $child_id, 'isa_docs_category' );
 				//Display the sub Term information, in open widget container ?>
 				<aside class="widget well"><h3 class="widget-title"><?php echo $termobject->name; ?></h3><?php
-				
-				// @test only list all posts if not disabled with setting
+				// only list all posts if not disabled with setting
 				if( ! get_option('od_disable_list_each_single' ) ) { ?>
-			
 				<ul><?php
 				// nest a loop through each child cat's posts
 				global $post;
-			
 				// orderby custom option
 				$single_sort_by = get_option('od_single_sort_by');
 				$orderby_order = get_option('od_single_sort_order');
@@ -70,7 +67,6 @@ class DocsSectionContents extends WP_Widget {
 				} else {
 					$orderby = 'meta_value_num';
 				}
-				
 				$args = array(	'post_type' => 'isa_docs', 
 							'posts_per_page' => -1,
 							'order' => 'ASC',

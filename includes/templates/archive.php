@@ -12,8 +12,8 @@ get_header(); ?>
 	<div class="entry-content">
 	<?php global $Isa_Organized_Docs;
 	echo $Isa_Organized_Docs->organized_docs_section_heading();
-	echo $Isa_Organized_Docs->organized_docs_content_nav(); ?>
-
+	echo $Isa_Organized_Docs->organized_docs_content_nav();
+	wp_enqueue_style('organized-docs');	?>
 	<div class="isa-docs-archive-content">
 	<?php do_action( 'organized_docs_main_content_after_nav' ); 
 	

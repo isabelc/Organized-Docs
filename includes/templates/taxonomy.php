@@ -12,7 +12,8 @@ get_header(); ?>
 <div class="entry-content">
 <?php global $Isa_Organized_Docs;
 echo $Isa_Organized_Docs->organized_docs_section_heading();
-echo $Isa_Organized_Docs->organized_docs_content_nav(); ?>
+echo $Isa_Organized_Docs->organized_docs_content_nav();
+wp_enqueue_style('organized-docs'); ?>
 
 <div class="isa-docs-archive-content">
 	<?php do_action( 'organized_docs_content_after_nav' ); 
@@ -58,13 +59,11 @@ echo $Isa_Organized_Docs->organized_docs_content_nav(); ?>
 			//Display the sub Term information ?>
 			<h2><?php echo $termobject->name; ?></h2>
 			<?php
-			// @test only list all posts if not disabled with setting
+			// only list all posts if not disabled with setting
 			if( ! get_option('od_disable_list_each_single') ) { ?>
-			
 				<ul><?php
 				global $post;
 				// orderby custom option
-					
 				$single_sort_by = get_option('od_single_sort_by');
 				$orderby_order = get_option('od_single_sort_order');
 					

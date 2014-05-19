@@ -11,6 +11,7 @@ global $Isa_Organized_Docs; ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<?php echo $Isa_Organized_Docs->organized_docs_section_heading();
 	echo $Isa_Organized_Docs->organized_docs_content_nav();
+	wp_enqueue_style('organized-docs');
 	if ( ! get_option('od_hide_print_link') ) { ?>
 		<p id="odd-print-button">
 		<?php if ( ! get_option('od_hide_printer_icon') ) {

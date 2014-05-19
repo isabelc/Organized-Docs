@@ -47,7 +47,7 @@ class Isa_Organized_Docs{
 			add_action( 'init', array( $this, 'create_docs_cpt') );
 			add_action( 'init', array( $this, 'create_docs_menu_item') );
 			add_action( 'init', array( $this, 'update_docs_sort_order_post_meta' ) );
-			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue') );
+			add_action( 'wp_enqueue_scripts', array( $this, 'register_style') );
 			add_action( 'widgets_init', array( $this, 'register_widgets') );
 			add_filter( 'template_include', array( $this, 'docs_template' ) );
 			add_action( 'wp_loaded', array( $this, 'sidebar' ) );
@@ -146,8 +146,8 @@ class Isa_Organized_Docs{
 	/** 
 	 * Add stylesheet
 	 */
-	public function enqueue() {
-		wp_enqueue_style( 'organized-docs', plugins_url( 'includes/organized-docs.css' , __FILE__ ) );
+	public function register_style() {
+		wp_register_style( 'organized-docs', plugins_url( 'includes/organized-docs.css' , __FILE__ ) );
 	}
 
 	/**
@@ -871,9 +871,8 @@ class Isa_Organized_Docs{
 	public function rewrite_docs_slug_setting_callback() {
 		echo '<input name="od_rewrite_docs_slug" id="od_rewrite_docs_slug" value="' . get_option('od_rewrite_docs_slug'). '" type="text" class="regular-text" /><p class="description">' . __( 'Change the default Docs slug from "docs" to something you prefer. Leave blank for default. To see this change, refresh permalinks and clear all caches. To refresh permalinks, go to Settings - Permalinks, and click Save Changes twice.', 'organized-docs' );
 	}
-
 	/**
-	 * Callback function for setting to not list each single post @test
+	 * Callback function for setting to not list each single post
 	 * @since 2.0
 	 */
 	public function disable_list_each_single_setting_callback() {
