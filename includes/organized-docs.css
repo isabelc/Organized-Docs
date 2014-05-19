@@ -172,6 +172,74 @@ body.single-isa_docs .entry-content {
     font-style: italic;
 }
 /* end compatibilty for Twenty Twelve */
+@media screen and (max-device-width:768px){
+    
+    ul#organized-docs-main, ul#organized-docs-main li, #isa-docs-main-title {
+        margin-left: 0px;
+        padding-left: 0;
+    }
+    
+    #isa-docs-main-title {
+        margin: 0;
+        padding: 0;
+    }
+
+    .post-type-archive-isa_docs #primary,
+    .tax-isa_docs_category #primary,
+    .single-isa_docs #primary{
+        clear:both;
+    }
+
+    .isa-docs-archive-content {
+       margin:10px;
+    }
+
+    /* main */
+    .tax-isa_docs_category .site-content {
+       margin-right: 0%;
+    }
+    .tax-isa_docs_category .site-content .entry-content {
+       max-width: 100%;
+    }
+    
+    /* single */
+    .single-isa_docs #primary {
+        padding-top:1em;
+    }
+    
+    .single-isa_docs #content {
+        margin: 0;
+        width: 100% !important;
+        display: block;
+    }
+    
+    #odd-print-button,
+    .single-isa_docs .entry-title,
+    .single-isa_docs .entry-content
+    {
+        margin: 15px;
+    }
+    
+    .single-isa_docs .post-navigation {
+       margin: 64px 15px;
+    }
+    
+    .single-isa_docs #content-sidebar {
+        width: 90%;
+        display: block;
+        margin:0 auto;
+    }
+    .single-isa_docs #content-sidebar li.widget_docs_section_contents{
+        
+        margin-left:0;
+        
+    }
+  
+    .single-isa_docs #content-sidebar aside.widget li{
+        line-height:2em;
+    }
+}
+
 @media print {
 	.comments-link,p#odd-print-button  {
 		display:none;

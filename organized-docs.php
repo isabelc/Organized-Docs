@@ -1004,9 +1004,10 @@ class Isa_Organized_Docs{
 			echo '.single-isa_docs #content {margin: 0  !important;padding:0;width: 68% !important;}';
 		}
 		if( ( 'Twenty Fourteen' == $theme->name ) || ( 'Twenty Fourteen' == $theme->parent_theme ) ) {
-			echo 'body.single-isa_docs .type-isa_docs{margin: 0 0 0 15%;}.tax-isa_docs_category .content-area,.post-type-archive-isa_docs .content-area{padding-top: 0px;}';
+			echo 'body.single-isa_docs .type-isa_docs{margin: 0 0 0 15%;}.tax-isa_docs_category .content-area,.post-type-archive-isa_docs .content-area{padding-top: 0px;}@media screen and (max-device-width:768px){body.single-isa_docs .type-isa_docs {margin: 0;}}';
 		}
-		echo '</style>';
+		echo "</style><script>jQuery( document ).ready( function( jQuery ) {var supportsTouch = false;
+	if ('ontouchstart' in window) {supportsTouch = true;} else if(window.navigator.msPointerEnabled) {supportsTouch = true;}if ( supportsTouch ) {evt = window.navigator.msPointerEnabled ? 'MSPointerDown' : 'touchstart';} else {evt = 'click';}jQuery( '.menu-toggle' ).on( evt, function() {jQuery( '#organized-docs-menu' ).toggleClass( 'toggled-on' );});});</script>";
 	}
 	/**
 	 * Close comments on Docs
