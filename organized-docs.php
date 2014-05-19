@@ -997,14 +997,14 @@ class Isa_Organized_Docs{
 	 * Dynamic CSS based on settings and themes
 	 * @since 1.2.1
 	 */
-	public function dynamic_css() { // @todo @test
+	public function dynamic_css() {
 		$theme = wp_get_theme();
 		echo '<style>';
-		if( ( 'Twenty Fourteen' == $theme->name ) || ( 'Twenty Fourteen' == $theme->parent_theme ) ) {
-			echo 'body.single-isa_docs .entry-content {max-width: 100%;margin-right: 0px;}';
-		}
 		if( ( 'Twenty Twelve' == $theme->name ) || ( 'Twenty Twelve' == $theme->parent_theme ) ) {
-			echo '.nav-single {display:none;}';
+			echo '.single-isa_docs #content {margin: 0  !important;padding:0;width: 68% !important;}';
+		}
+		if( ( 'Twenty Fourteen' == $theme->name ) || ( 'Twenty Fourteen' == $theme->parent_theme ) ) {
+			echo 'body.single-isa_docs .type-isa_docs{margin: 0 0 0 15%;}.tax-isa_docs_category .content-area,.post-type-archive-isa_docs .content-area{padding-top: 0px;}';
 		}
 		echo '</style>';
 	}
