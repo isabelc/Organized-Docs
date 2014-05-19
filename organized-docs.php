@@ -3,7 +3,7 @@
  * Plugin Name: Organized Docs
  * Plugin URI: http://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
  * Description: Easily create organized documentation for multiple products, organized by product, and by subsections within each product.
- * Version: 2.0-rc-1.2
+ * Version: 2.0-rc-1.6
  * Author: Isabel Castillo
  * Author URI: http://isabelcastillo.com
  * License: GPL2
@@ -65,7 +65,6 @@ class Isa_Organized_Docs{
 			add_action('wp_head', array( $this, 'dynamic_css' ) );
 			add_filter( 'the_posts', array( $this, 'close_comments' ) );
     }
-
 	/** 
 	* Only upon plugin activation, flush rewrite rules for custom post types.
 	*/
@@ -75,7 +74,6 @@ class Isa_Organized_Docs{
 		self::create_docs_cpt();
 		flush_rewrite_rules();
 	}
-
 	/** 
 	* Upon plugin deactivation, flush rewrite rules
 	*/
@@ -83,7 +81,6 @@ class Isa_Organized_Docs{
 		global $wp_rewrite;
 		$wp_rewrite->flush_rules();
 	}
-
 	/** 
 	* display support link on plugin page
 	* @return void
@@ -103,49 +100,47 @@ class Isa_Organized_Docs{
 	public function load_textdomain() {
 		load_plugin_textdomain( 'organized-docs', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 	}
-
 	/** 
 	 * Add isa_docs CPT.
 	 */
-	
 	public function create_docs_cpt() {
-
-			    	$args = array(
-			        	'label' => __( 'Docs','organized-docs' ),
-			        	'singular_label' => __('Doc','organized-docs'),
-			        	'public' => true,
-			        	'show_ui' => true,
-			        	'capability_type' => 'post',
-			        	'hierarchical' => false,
-			        	'rewrite' => array(
+		$slug_rewrite = get_option('od_rewrite_docs_slug');
+		// slugify
 /* translators: URL slug */
-							'slug' => _x( 'docs', 'URL slug', 'organized-docs' ),
-							'with_front' => false,
-						),
-			        	'exclude_from_search' => false,
-		        		'labels' => array(
-							'name' => __( 'Docs','organized-docs' ),
-							'singular_name' => __( 'Doc','organized-docs' ),
-							'add_new' => __( 'Add New','organized-docs' ),
-							'add_new_item' => __( 'Add New Doc','organized-docs' ),
-							'all_items' => __( 'All Docs','organized-docs' ),
-							'edit' => __( 'Edit','organized-docs' ),
-							'edit_item' => __( 'Edit Doc','organized-docs' ),
-							'new_item' => __( 'New Doc','organized-docs' ),
-							'view' => __( 'View Doc','organized-docs' ),
-							'view_item' => __( 'View Doc','organized-docs' ),
-							'search_items' => __( 'Search Docs','organized-docs' ),
-							'not_found' => __( 'No docs found','organized-docs' ),
-							'not_found_in_trash' => __( 'No docs found in Trash','organized-docs' ),
-							'parent' => __( 'Parent Docs','organized-docs' ),
-						),
-			        	'supports' => array( 'title', 'editor', 'thumbnail', 'comments' ),
-					'has_archive' => true,
-					'menu_icon'=> 'dashicons-book',
-			        );
-	
-		    	register_post_type( 'isa_docs' , $args );
-	
+		$slug = $slug_rewrite ? sanitize_title($slug_rewrite) : _x( 'docs', 'URL slug', 'organized-docs' );
+		$args = array(
+		      	'label' => __( 'Docs','organized-docs' ),
+		      	'singular_label' => __('Doc','organized-docs'),
+		      	'public' => true,
+		      	'show_ui' => true,
+		      	'capability_type' => 'post',
+		      	'hierarchical' => false,
+		      	'rewrite' => array(
+						'slug' => $slug,
+						'with_front' => false,
+					),
+	        	'exclude_from_search' => false,
+        		'labels' => array(
+						'name' => __( 'Docs','organized-docs' ),
+						'singular_name' => __( 'Doc','organized-docs' ),
+						'add_new' => __( 'Add New','organized-docs' ),
+						'add_new_item' => __( 'Add New Doc','organized-docs' ),
+						'all_items' => __( 'All Docs','organized-docs' ),
+						'edit' => __( 'Edit','organized-docs' ),
+						'edit_item' => __( 'Edit Doc','organized-docs' ),
+						'new_item' => __( 'New Doc','organized-docs' ),
+						'view' => __( 'View Doc','organized-docs' ),
+						'view_item' => __( 'View Doc','organized-docs' ),
+						'search_items' => __( 'Search Docs','organized-docs' ),
+						'not_found' => __( 'No docs found','organized-docs' ),
+						'not_found_in_trash' => __( 'No docs found in Trash','organized-docs' ),
+						'parent' => __( 'Parent Docs','organized-docs' ),
+					),
+	        	'supports' => array( 'title', 'editor', 'thumbnail', 'comments' ),
+				'has_archive' => true,
+				'menu_icon'=> 'dashicons-book',
+	        );
+    	register_post_type( 'isa_docs' , $args );
 	} // end create_docs_cpt
 
 	/** 
@@ -385,17 +380,18 @@ class Isa_Organized_Docs{
 			'new_item_name' => __( 'New Category Name', 'organized-docs' ),
 			'menu_name' => __( 'Categories', 'organized-docs' ),
 		);
-		
+		$custom_slug = get_option('od_rewrite_docs_slug');
+/* translators: URL slug */
+		$docs_slug = $custom_slug ? sanitize_title($custom_slug) . '/category'  : _x( 'docs/category', 'URL slug', 'organized-docs' );
 		$category_args = apply_filters( 'isa_docs_category_args', array(
 			'hierarchical'		=> true,
 			'labels'			=> apply_filters('isa_docs_category_labels', $category_labels),
 			'show_ui'           => true,
 			'show_admin_column' => true,
 			'rewrite'			=> array(
-/* translators: URL slug */
-						'slug' => _x( 'docs/category', 'URL slug', 'organized-docs' ),
-						'with_front'	=> false,
-						'hierarchical'	=> true ),
+					'slug' => $docs_slug,
+					'with_front'	=> false,
+					'hierarchical'	=> true ),
 		)
 		);
 		register_taxonomy( 'isa_docs_category', array('isa_docs'), $category_args );
@@ -741,20 +737,26 @@ class Isa_Organized_Docs{
 			array( $this, 'main_setting_section_callback' ),
 			'organized-docs-settings'
 		);
-
 	 	add_settings_section(
 			'od_single_post_setting_section',
 			__( 'Single Post Settings', 'organized-docs' ),
 			array( $this, 'single_setting_section_callback' ),
 			'organized-docs-settings'
 		);
-
 	 	add_settings_section(
 			'od_uninstall_setting_section',
 			__( 'Uninstall Settings', 'organized-docs' ),
 			array( $this, 'uninstall_setting_section_callback' ),
 			'organized-docs-settings'
 		);
+		add_settings_field(
+			'od_rewrite_docs_slug',
+			__( 'Change The Main Docs Slug', 'organized-docs' ),
+			array( $this, 'rewrite_docs_slug_setting_callback' ),
+			'organized-docs-settings',
+			'od_main_setting_section'
+		);
+	 	register_setting( 'organized-docs-settings', 'od_rewrite_docs_slug' );
 	 	add_settings_field(
 			'od_hide_printer_icon',
 			__( 'Remove Printer Icon', 'organized-docs' ),
@@ -848,7 +850,6 @@ class Isa_Organized_Docs{
 	public function single_setting_section_callback() {
 		echo '<p>' . __('These settings are for the single Docs posts.', 'organized-docs') . '</p>';
 	}
-
 	/**
 	 * Uninstall Settings section callback
 	 * @since 1.1.9
@@ -856,7 +857,13 @@ class Isa_Organized_Docs{
 	public function uninstall_setting_section_callback() {
  		echo '<p>' . __('This setting refers to when you uninstall (delete) the plugin. This does not refer to simply deactivating the plugin.', 'organized-docs') . '</p>';
 	}
-
+	/**
+	 * Callback function for setting to change Docs slug
+	 * @since 2.0
+	 */
+	public function rewrite_docs_slug_setting_callback() {
+		echo '<input name="od_rewrite_docs_slug" id="od_rewrite_docs_slug" value="' . get_option('od_rewrite_docs_slug'). '" type="text" class="regular-text" /><p class="description">' . __( 'Change the default Docs slug from "docs" to something you prefer. Leave blank for default. To see this change, refresh permalinks and clear all caches. To refresh permalinks, go to Settings - Permalinks, and click Save Changes twice.', 'organized-docs' );
+	}
 	/**
 	 * Callback function for setting to hide printer icon
 	 * @since 1.2.0
@@ -864,7 +871,6 @@ class Isa_Organized_Docs{
 	public function hide_printer_icon_setting_callback() {
 		echo '<label for="od_hide_printer_icon"><input name="od_hide_printer_icon" id="od_hide_printer_icon" type="checkbox" value="1" class="code" ' . checked( 1, get_option( 'od_hide_printer_icon' ), false ) . ' /> ' . __( 'Check this box to remove only the printer icon from single Docs, but leave the Print link.', 'organized-docs' ) . '</label>';
 	}
-
 	/**
 	 * Callback function for setting to hide print link
 	 * @since 1.2.0
@@ -1028,7 +1034,6 @@ class Isa_Organized_Docs{
 	}
 }
 }
-// @test singleton $Isa_Organized_Docs = new Isa_Organized_Docs();
 $Isa_Organized_Docs = Isa_Organized_Docs::get_instance();
 register_deactivation_hook(__FILE__, array('Isa_Organized_Docs', 'deactivate')); 
 register_activation_hook(__FILE__, array('Isa_Organized_Docs', 'activate'));
