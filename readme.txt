@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=me%40
 Tags: documentation, docs, organize documentation, organized documentation, instruction guides, wiki
 Requires at least: 3.7
 Tested up to: 3.9.1
-Stable Tag: 1.2.3
+Stable Tag: 2.0
 License: GNU Version 2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -52,7 +52,8 @@ This does not happen with the default WordPress themes. For a custom solution fo
 
 == Changelog ==
 
-= 1.2.3 =
+= 2.0 =
+* New: new template files eliminate the need to hijack sidebars. Easily make your custom docs templates by adding a folder named organized-docs to your theme. In that folder, you can add a custom single.php, taxonomy.php, archive.php, and sidebar.php. See our new templates directory to copy the originals.
 * Fix: a subheading without a sort order number would not display in some instances.
 
 = 1.2.2 =

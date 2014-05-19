@@ -3,7 +3,7 @@
  * Plugin Name: Organized Docs
  * Plugin URI: http://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
  * Description: Easily create organized documentation for multiple products, organized by product, and by subsections within each product.
- * Version: 1.2.3
+ * Version: 2.0-rc-1.1
  * Author: Isabel Castillo
  * Author URI: http://isabelcastillo.com
  * License: GPL2
@@ -40,10 +40,7 @@ class Isa_Organized_Docs{
 			add_action( 'init', array( $this, 'create_docs_menu_item') );
 			add_action( 'init', array( $this, 'update_docs_sort_order_post_meta' ) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue') );
- 			add_filter( 'the_title', array( $this, 'suppress_docs_title' ), 40, 2 );
-			add_filter( 'the_content', array( $this, 'single_doc_content_filter' ) ); 
 			add_action( 'widgets_init', array( $this, 'register_widgets') );
-			add_filter( 'sidebars_widgets', array( $this, 'sidebar_switch' ) );
 			add_filter( 'template_include', array( $this, 'docs_template' ) );
 			add_action( 'wp_loaded', array( $this, 'sidebar' ) );
 			add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
@@ -68,7 +65,6 @@ class Isa_Organized_Docs{
 
 		self::setup_docs_taxonomy();
 		self::create_docs_cpt();
-		// Clear the permalinks
 		flush_rewrite_rules();
 	}
 
@@ -149,6 +145,8 @@ class Isa_Organized_Docs{
 	 */
 	public function enqueue() {
 		wp_enqueue_style( 'organized-docs', plugins_url( 'includes/organized-docs.css' , __FILE__ ) );
+		
+		// @todo enqueue in footer, also don't load if option disabled
 		wp_enqueue_style( 'font-awesome', '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css' );
 	}
 
@@ -181,108 +179,37 @@ class Isa_Organized_Docs{
 		add_filter( 'wp_page_menu', array( $this, 'docs_page_menu_link' ), 95 );
 	}
 	/**
-	 * Remove default title on single Docs, to add it later below the docs menu
-	 *
-	 * @uses is_single()
-	 * @uses get_post_type()
-	 * @uses in_the_loop()
+	 * Get the custom template if is set
+	 * @since 1.2.3
 	 */
-	function suppress_docs_title( $title, $id ) {
-
-	    if ( is_single() && ( 'isa_docs' == get_post_type() ) && in_the_loop() ) {
-	        return '';
-	    }
-	    return $title;
-	}
-
-	/**
-	 * Add isa-docs-item-title and submenu to content for isa_docs custom post type Single 
-	 *
-	 * @uses is_single()
-	 * @uses get_post_type()
-	 */
-	public function single_doc_content_filter( $content ) {
-
-	    if ( is_single() && ( 'isa_docs' == get_post_type() ) ) {
-			global $post;
-			$docscontent = $this->organized_docs_section_heading();
-			$docscontent .= $this->organized_docs_content_nav();
-
-			if ( ! get_option('od_hide_print_link') ) {
-				$docscontent .= '<p id="odd-print-button">';
-
-				if ( ! get_option('od_hide_printer_icon') ) {
-					$docscontent .= '<i class="fa fa-print"></i> ';
-				}
-
-				$docscontent .= '<a href="javascript:window.print()" class="button">' . __( 'Print', 'organized-docs' ) . '</a></p>';
-
-			}
-
- 			$docscontent .= '<h1 class="entry-title">' . single_post_title('', false) . '</h1>';
-			$docscontent .= $content;
-
-			// begin Docs prev/next post navigation
-			$term_list = wp_get_post_terms($post->ID, 'isa_docs_category', array("fields" => "slugs"));
-			// get_posts in same custom taxonomy
-
-// @todo sort terms by chosen order, whether date, alphabetical, or sort number.
-
-			$postlist_args = array(
-				'posts_per_page'		=> -1,
-				'orderby'				=> 'meta_value_num',
-				'meta_key'			=> '_odocs_meta_sortorder_key',
-				'order'				=> 'ASC',
-				'post_type'			=> 'isa_docs',
-				'isa_docs_category' => $term_list[0]
-			); 
-			$postlist = get_posts( $postlist_args );
-				
-			// get ids of posts retrieved from get_posts
-
-			$ids = array();
-			$titles = array();
-			foreach ($postlist as $thepost) : setup_postdata( $thepost );
-				$ids[] = $thepost->ID;
-				$titles[] = $thepost->post_title;
-			endforeach; 
-			wp_reset_postdata();
-			
-			// get and echo previous and next post in the same taxonomy        
-			$thisindex = array_search($post->ID, $ids);
-			$previd = $ids[$thisindex-1];
-			$nextid = $ids[$thisindex+1];
-
-			$anchor_prev = get_option( 'od_title_on_nav_links' ) ? $titles[$thisindex-1] : __( 'Previous', 'organized-docs' );
-			$anchor_next = get_option( 'od_title_on_nav_links' ) ? $titles[$thisindex+1] : __( 'Next', 'organized-docs' );
-			$docscontent .= '<nav class="navigation post-navigation" role="navigation"><h1 class="screen-reader-text">' . __( 'Post navigation', 'organized-docs' ) . '</h1><div class="nav-links">';
-
-			if ( !empty($previd) ) {
-				$docscontent .= '<span class="meta-nav"><a rel="prev" href="' . get_permalink($previd). '">' . $anchor_prev . '</a></span>';
-			}
-			if ( !empty($nextid) ) {
-				$docscontent .= '<span class="meta-nav"><a rel="next" href="' . get_permalink($nextid). '">' . $anchor_next . '</a></span>';
-			$docscontent .= '</div></nav>';
-			}
-			return $docscontent;
+	 
+	function get_template_hierarchy( $template ) {
+	 
+		$template_slug = rtrim( $template, '.php' );
+		$template = $template_slug . '.php';
+	 
+		// Check if a custom template exists in the theme folder, if not, load the plugin template file
+		if ( $theme_file = locate_template( 'organized-docs/' . $template ) ) {
+			$file = $theme_file;
 		} else {
-			return $content;
+			$file = dirname( __FILE__ ) . '/includes/templates/' . $template;
 		}
+		return $file;
 	}
-
+	
 	/**
-	 * Make docs archive use our docs template
+	 * Returns template file
 	 */
 	public function docs_template( $template ) {
-		if( is_tax( 'isa_docs_category' ) || is_post_type_archive( 'isa_docs' ) ) {
-			if ( file_exists( get_stylesheet_directory() . '/taxonomy-isa_docs_category.php' ) ) {
-				return get_stylesheet_directory() . '/taxonomy-isa_docs_category.php';
-			} else {
-				return plugin_dir_path( __FILE__ ) . 'includes/docs-template.php';
-			}
+		if ( is_tax( 'isa_docs_category' ) ) {
+			return $this->get_template_hierarchy( 'taxonomy' );
+		} elseif ( is_post_type_archive( 'isa_docs' ) ) {
+			return $this->get_template_hierarchy( 'archive' );
+		} elseif (is_singular('isa_docs')) {
+			return $this->get_template_hierarchy( 'single' );
+		} else {
+			return $template;		
 		}
-	    return $template;
-
 	}
 
 	/**
@@ -430,140 +357,9 @@ class Isa_Organized_Docs{
 	        'description' => __( 'Sidebar for single Organized Docs article', 'organized-docs' ),
 	        'before_widget' => '<li id="%1$s" class="widget %2$s">',
 	        'after_widget' => '</li>',
-	        'before_title' => '<h3 class="widgettitle">',
+	        'before_title' => '<h3 class="widget-title">',
 	        'after_title' => '</h3>'
 	    ));
-	}
-
-
-	/**
-	* Get custom sidebar ids to exclude from settings
-	* @since 1.2.0
-	*/
-
-	public function get_custom_sidebar_ids(){
-
-		$ids_list = get_option('od_sidebar_ids_to_exclude');
-
-		$ids_array = explode(',', $ids_list);
-
-		// trim
-
-		$ids_array_trimmed = array();
-
-		foreach ($ids_array as $id) {
-
-			$ids_array_trimmed[] = trim($id);
-
-		}
-
-		return $ids_array_trimmed;
-	}
-
-	/**
-	* Switch out default sidebar for our custom Docs sidebar, only on single Docs. Exclude sidebar-1 for Twenty Thirteen, sideber-3 for Twenty Fourteen theme, and any custom excluded sidebars from settings to avoid showing duplicate Table of Contents widgets.
-	* @uses is_single()
-	* @uses get_post_type()
-	* @uses get_custom_sidebar_ids()
-	* @return void
-	*/
-
-	public function sidebar_switch($widgets) {
-
-		$theme = wp_get_theme();
-
-	    if ( is_single() &&
-			( 'isa_docs' == get_post_type() ) &&
-			isset( $widgets['isa_organized_docs'] )
-		 ) {
-
-			$keys_array = $this->list_sidebar_ids();
-			foreach( $keys_array as $key ) {
-			    if( isset( $widgets[$key] ) ) {
-
-					// only do if Twenty Thirteen is not active while key=sidebar-1
-					if ( 
-(
-						( ( 'Twenty Thirteen' == $theme->name ) || ( 'Twenty Thirteen' == $theme->parent_theme ) || ( 'Twenty Fourteen' == $theme->name ) || ( 'Twenty Fourteen' == $theme->parent_theme ) ) &&
-						( 'sidebar-1' == $key )
-) ||
-
-(
-						( ( 'Twenty Fourteen' == $theme->name ) || ( 'Twenty Fourteen' == $theme->parent_theme ) ) &&
-						( 'sidebar-3' == $key )
-)
-
-
-					   ) {
-							continue;
-						}
-
-					$continue = '';
-
-					// exclude custom sidebar ids
-					$exclude_ids = $this->get_custom_sidebar_ids();
-					if ( $exclude_ids ) {
-						foreach ($exclude_ids as $exclude_id) {
-					
-							if ( $exclude_id == $key ) {
-								$continue = true;
-							}
-						}
-
-					}
-
-					if ( $continue ) {
-							continue;
-					}
-
-					$widgets[$key] = $widgets['isa_organized_docs'];
-
-				} // end if( isset( $widgets[$key] )
-			}// end foreach( $keys_array
-
-		    return $widgets;
-		} else {
-			// not on single Docs, get regular sidebar
-		    return $widgets;
-		}
-	}
-
-	/**
-	 * get all current registered sidebars
-	 * @return array
-	 */
-	
-	public function get_all_sidebars(){
-			
-			global $wp_registered_sidebars;		
-			$allsidebars = $wp_registered_sidebars;
-			ksort($allsidebars);
-			$themesidebars = array();
-			foreach( $allsidebars as $key => $sb ){
-					$themesidebars[$key] = $sb;
-			}
-			
-			return $themesidebars;
-	}
-
-	/**
-	* gets all current registered sidebar ids
-	* @return array
-	*/
-	public function list_sidebar_ids(){
-	
-		$allsidebars_array = $this->get_all_sidebars();
-		$theme_sidebar_ids = array();
-		foreach( $allsidebars_array as $key => $values ){
-	
-			// exclude 'isa_organized_docs', grab the id's of the rest
-			if ( $key != 'isa_organized_docs' ) {
-				// add this id to array
-				$theme_sidebar_ids[] = $key;
-			}
-		}
-	
-		return $theme_sidebar_ids;
 	}
 
 	/**
@@ -948,14 +744,6 @@ class Isa_Organized_Docs{
 			'organized-docs-settings'
 		);
 	 	add_settings_field(
-			'od_sidebar_ids_to_exclude',
-			__( 'Sidebar IDs To Exclude', 'organized-docs' ),
-			array( $this, 'exclude_sidebars_setting_callback' ),
-			'organized-docs-settings',
-			'od_main_setting_section'
-		);
-	 	register_setting( 'organized-docs-settings', 'od_sidebar_ids_to_exclude' );
-	 	add_settings_field(
 			'od_hide_printer_icon',
 			__( 'Remove Printer Icon', 'organized-docs' ),
 			array( $this, 'hide_printer_icon_setting_callback' ),
@@ -1041,16 +829,6 @@ class Isa_Organized_Docs{
 	 */
 	public function uninstall_setting_section_callback() {
  		echo '<p>' . __('This setting refers to when you uninstall (delete) the plugin. This does not refer to simply deactivating the plugin.', 'organized-docs') . '</p>';
-	}
-
-	/**
-	 * Callback function for setting to exclude sidebar ids
-	 * @since 1.2.0
-	 */
-	public function exclude_sidebars_setting_callback() {
-
-		$value = get_option('od_sidebar_ids_to_exclude');
-		echo '<input name="od_sidebar_ids_to_exclude" id="od_sidebar_ids_to_exclude" type="text" value="' . esc_textarea( $value ). '" class="regular-text" /><p class="description">' . __( 'If the Table of Contents widget appears multiple times on the single Docs page, enter your "sidebar IDs" to exclude here, separated by a comma.', 'organized-docs' ) . '</p>';
 	}
 
 	/**
@@ -1167,7 +945,7 @@ class Isa_Organized_Docs{
 	/**
 	 * For backwards compatibility, give all single Docs posts a default sort-order number of 99999
 	 * @since 1.1.8
-	 * @todo remove this back compatibility in version 1.2.3
+	 * @todo remove this back compatibility in version 2.1
 	 */
 	public function update_docs_sort_order_post_meta() {
 		global $post;
@@ -1204,7 +982,3 @@ class Isa_Organized_Docs{
 $Isa_Organized_Docs = new Isa_Organized_Docs();
 register_deactivation_hook(__FILE__, array('Isa_Organized_Docs', 'deactivate')); 
 register_activation_hook(__FILE__, array('Isa_Organized_Docs', 'activate'));
-
-if( defined('ISA_ORGANIZED_DOCS_PATH') ) {
-	include_once plugin_dir_path(__FILE__) . 'includes/custom.php';
-}
