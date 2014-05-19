@@ -16,13 +16,13 @@ Create documentation for multiple items, for example, for multiple software prod
 
 Each product's docs is further organized into subsections. The subsections list each individual article in that docs section. 
 
-The single docs posts will have a Docs Table of Contents widget added to the sidebar (only if your theme has a dynamic sidebar). This will show a nice Table of Contents for docs pertaining only to the product which this current single doc belongs to. 
+The single docs posts will have a Docs Table of Contents widget added to the sidebar. This will show a Table of Contents for docs pertaining only to the product which this current single doc belongs to. 
 
 Demo [Organized Docs on Twenty Thirteen](http://smartestthemes.com/organized-docs-wordpress-plugin/docs/) theme
 
 Demo [Organized Docs on Twenty Twelve](http://smartestthemes.com/organized-docs-on-twentytwelve/docs/) theme
 
-[Setup Instructions](http://isabelcastillo.com/docs/first-steps-after-installing)
+[Setup Instructions](http://isabelcastillo.com/docs/how-to-set-up-categories)
 
 [Documentation](http://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin)
 
@@ -33,17 +33,12 @@ For support or to report bugs, use the support forum link above, or use [GitHub]
 1.  Download the plugin file (`.zip`).
 2.  In your WordPress dashboard, go to "Plugins -> Add New", and click "Upload".
 3.  Upload the plugin file and activate it.
-4.  In your WordPress dashboard, go to **"Appearance -> Widgets"**.
-5.  Drag the "**Organized Docs Section Contents**" widget to the "**Docs Widget Area**". If you change your WordPress theme, this step must be done again.
-6.  See [First Steps After Installing](http://isabelcastillo.com/docs/first-steps-after-installing)
+4.  See [How To Set Up Categories For Docs](http://isabelcastillo.com/docs/how-to-set-up-categories)
 == Frequently Asked Questions ==
 
 = Why does the Table of Contents widget appear multiple times on the same page? =
 
-This does not happen with the default WordPress themes. For a custom solution for your theme, please see:
-
-[Table Of Contents Widget Appears Multiple Times](http://isabelcastillo.com/docs/table-of-contents-widget-appears-multiple-times)
-
+This is no longer an issue since version 2.0.
 
 == Screenshots ==
 1. Back-end Admin screen – Organized Docs WordPress Plugin
@@ -53,12 +48,22 @@ This does not happen with the default WordPress themes. For a custom solution fo
 == Changelog ==
 
 = 2.0 =
+* NOTE: This update has many changes, including style changes, so, please read this entire changelog section.
 * New: new template files eliminate the need to hijack sidebars. Easily make your custom docs templates by adding a folder named organized-docs to your theme. In that folder, you can add a custom single.php, taxonomy.php, archive.php, and sidebar.php. See our new templates directory to copy the originals.
 * New: option to set custom sort order for single docs. You can sort alphabetically, by date, or by custom sort order number. You can also choose to sort in ascending or descending order.
-* New: option to not load Font Awesome stylesheet if your theme, or other plugin, already loads it. This will increase your page load speed.
-* Tweak: load style in footer for increased page load speed. And load it only on Docs pages.
-* Tweak: use singleton class.
+* New: option to NOT list each single docs post on the top-level item page, nor in the Table of Contents sidebar. Enable this option if you want to list only the subheadings.
+* New: option to change the main Docs slug. For example, you could change it to books.
+* New: od_docs_main_title filter now returns only text, not html h1 element. If you are hooking this filter, please update it to return just the text.
+* New: option to not load Font Awesome stylesheet if your theme, or other plugin, already loads it. Checking this will increase your page load speed. If left unchecked, it will only load Font Awesome on single Docs, in the footer, and only if you use the printer icon.
+* New: Docs now include schema.org microdata for TechArticle on single Docs, and microdata for CollectionPage on Docs archives pages. There is an option to disable microdata.
 * Fix: a subheading without a sort order number would not display in some instances.
+* Tweak: changed h2 page title element on Docs archive pages to h1. You may need to adjust size.
+* Tweak: load styles in footer for increased page load speed. And load it only on Docs pages.
+* Tweak: use singleton class.
+* Tweak: no longer hiding the single docs title.
+* Tweak: no longer necessary to manually drag the Table of Contents widget over to the Docs Widget Area.
+* Tweak: Table of Contents widget will not give error if not on single docs page anymore. This makes it safe to add this widget anywhere, for example, when using your own custom templates with your own sidebar areas.
+* Tweak: updated .pot language file.
 
 = 1.2.2 =
 * Fix: 2 files were not synced to svn: custom.php and the localization file.
@@ -128,6 +133,7 @@ Bug fix: Custom sort-order for Categories was not saving.
 * Initial release.
 
 == Upgrade Notice ==
+
 = 1.2.2 =
 Fix: custom.php file was not synced to svn.
 

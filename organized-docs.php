@@ -3,7 +3,7 @@
  * Plugin Name: Organized Docs
  * Plugin URI: http://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
  * Description: Easily create organized documentation for multiple products, organized by product, and by subsections within each product.
- * Version: 2.0-rc-1.8
+ * Version: 2.0
  * Author: Isabel Castillo
  * Author URI: http://isabelcastillo.com
  * License: GPL2
@@ -877,7 +877,7 @@ class Isa_Organized_Docs{
 	 * @since 2.0
 	 */
 	public function rewrite_docs_slug_setting_callback() {
-		echo '<input name="od_rewrite_docs_slug" id="od_rewrite_docs_slug" value="' . get_option('od_rewrite_docs_slug'). '" type="text" class="regular-text" /><p class="description">' . __( 'Change the default Docs slug from "docs" to something you prefer. Leave blank for default. To see this change, refresh permalinks and clear all caches. To refresh permalinks, go to Settings - Permalinks, and click Save Changes twice.', 'organized-docs' );
+		echo '<input name="od_rewrite_docs_slug" id="od_rewrite_docs_slug" value="' . get_option('od_rewrite_docs_slug'). '" type="text" class="regular-text" /><p class="description">' . __( 'Change the default Docs slug from "docs" to something you prefer. Leave blank for default. Every time you change this option, you must refresh permalinks and clear all caches to see the effects. To refresh permalinks, go to Settings - Permalinks, and click Save Changes twice.', 'organized-docs' );
 	}
 	/**
 	 * Callback function for setting to not list each single post
