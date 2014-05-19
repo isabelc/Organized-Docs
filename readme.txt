@@ -46,9 +46,12 @@ This is no longer an issue since version 2.0.
 3. Single docs post with Table of Contents
 
 == Changelog ==
+
 = 2.0.2 =
-* Fix: mobile styling.
+* Fix: improved styling for mobile devices.
 * New: option to disable the Docs Menu Link that get automatically added to your site. You can still add your own link in Appearance: Menus.
+* Tweak: changed category label from just Category to Docs Category for better usability.
+* Tweak: minified CSS for faster page load speed.
 
 = 2.0.1 =
 * NOTE: Please see changes for version 2.0.
