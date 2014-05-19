@@ -40,7 +40,12 @@ if ( ! get_option('od_disable_microdata') ) {
 
 	<div class="entry-content" <?php if($article_body) echo $article_body; ?>>
 		<?php
-		echo wpautop( $post->post_content );
+		// @test replace echo wpautop( $post->post_content );
+		
+		$content = apply_filters( 'the_content', $post->post_content );
+		$content = str_replace( ']]>', ']]&gt;', $content );// @test
+		echo $content;
+
 		wp_link_pages( array(
 			'before'      => '<div class="page-links"><span class="page-links-title">' . __( 'Pages:', 'organized-docs' ) . '</span>',
 			'after'       => '</div>',
