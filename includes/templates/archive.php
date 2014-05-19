@@ -2,11 +2,10 @@
 /*
 * The template for displaying the Docs main page
 * @package	Organized Docs
-* @since 1.2.3
+* @since 2.0
 */
 get_header(); ?>
-<!-- @test this is new templates/archive.php -->
-<section id="primary" class="content-area"><!-- was div#primary @test -->
+<section id="primary" class="content-area">
 <div id="content" class="site-content" role="main">
 <article <?php post_class('docs-archive-template'); ?>>
 	<?php do_action( 'organized_docs_main_content_before' ); ?>

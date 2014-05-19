@@ -2,7 +2,7 @@
 /**
  * The Docs Sidebar for Single Docs
  * @package	Organized Docs
- * @since 1.2.3
+ * @since 2.0
  */
 ?>
 <div id="content-sidebar" class="content-sidebar widget-area" role="complementary"><ul>

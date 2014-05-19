@@ -2,11 +2,10 @@
 /*
 * The template for displaying Docs category taxonomy archives
 * @package	Organized Docs
-* @since 1.2.3
+* @since 2.0
 */
 get_header(); ?>
-<!-- @test this is new templates/taxonomy.php -->
-<section id="primary" class="content-area"><!-- was div#primary @test -->
+<section id="primary" class="content-area">
 <div id="content" class="site-content" role="main">
 <article <?php post_class('docs-archive-template'); ?>>
 <?php do_action( 'organized_docs_content_before' ); ?>
@@ -64,7 +63,7 @@ echo $Isa_Organized_Docs->organized_docs_content_nav(); ?>
 			// orderby custom option
 				
 			$single_sort_by = get_option('od_single_sort_by');
-			$single_sort_by_order = get_option('od_single_sort_by_order');// @todo make option
+			$orderby_order = get_option('od_single_sort_order');
 				
 			if ( 'date' == $single_sort_by ) {
 				$orderby = 'date';
@@ -74,12 +73,6 @@ echo $Isa_Organized_Docs->organized_docs_content_nav(); ?>
 				$orderby = 'meta_value_num';
 			}
 			
-			if ( 'descending' == single_sort_by_order ) {
-				$orderby_order = 'DESC';
-			} else {
-				$orderby_order = 'ASC';
-			}
-
 			// prep nested loop
 			$args = array(	'post_type' => 'isa_docs', 
 						'posts_per_page' => -1,
@@ -90,13 +83,11 @@ echo $Isa_Organized_Docs->organized_docs_content_nav(); ?>
 									'terms' => $termobject->term_id
 								)
 							),
-						'orderby' => $orderby,// @test
-						'meta_key' => '_odocs_meta_sortorder_key',// @test does this hurt when not needed
-						'order' => $orderby_order// @test
+						'orderby' => $orderby,
+						'meta_key' => '_odocs_meta_sortorder_key',
+						'order' => $orderby_order
 			);
-
 			$postlist = get_posts( $args );
-
 			foreach ( $postlist as $single_post ) {
 				echo '<li><a href="'.get_permalink($single_post->ID).'" title="' . esc_attr( $single_post->post_title ) .'">'.$single_post->post_title.'</a></li>';   
 			}  

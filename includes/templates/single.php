@@ -2,7 +2,7 @@
 /**
  * The template for displaying Organized Docs Single posts.
  * @package	Organized Docs
- * @since 1.2.3
+ * @since 2.0
  */
 get_header(); 
 global $Isa_Organized_Docs; ?>
@@ -40,30 +40,24 @@ global $Isa_Organized_Docs; ?>
 	$term_list = wp_get_post_terms($post->ID, 'isa_docs_category', array("fields" => "slugs"));
 	// get_posts in same custom taxonomy
 
-	// @test sort terms by chosen orderby
-		$single_sort_by = get_option('od_single_sort_by');
-		$single_sort_by_order = get_option('od_single_sort_by_order');// @todo make option
+	// sort terms by chosen orderby
+	$single_sort_by = get_option('od_single_sort_by');
+	$orderby_order = get_option('od_single_sort_order');
 			
-		if ( 'date' == $single_sort_by ) {
-			$orderby = 'date';
-		} elseif ( 'title - alphabetical' == $single_sort_by ) {
-			$orderby = 'title';
-		} else {
-			$orderby = 'meta_value_num';
-		}
-			
-		if ( 'descending' == single_sort_by_order ) {
-			$orderby_order = 'DESC';
-		} else {
-			$orderby_order = 'ASC';
-		}
+	if ( 'date' == $single_sort_by ) {
+		$orderby = 'date';
+	} elseif ( 'title - alphabetical' == $single_sort_by ) {
+		$orderby = 'title';
+	} else {
+		$orderby = 'meta_value_num';
+	}
 			
 	$postlist_args = array(
-			'posts_per_page'		=> -1,
-			'orderby'				=> $orderby,
-			'meta_key'			=> '_odocs_meta_sortorder_key',
-			'order'				=> $orderby_order,
+			'posts_per_page'	=> -1,
 			'post_type'			=> 'isa_docs',
+			'meta_key'			=> '_odocs_meta_sortorder_key',
+			'orderby'			=> $orderby,
+			'order'				=> $orderby_order,
 			'isa_docs_category' => $term_list[0]
 	); 
 	$postlist = get_posts( $postlist_args );

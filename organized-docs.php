@@ -180,7 +180,7 @@ class Isa_Organized_Docs{
 	}
 	/**
 	 * Get the custom template if is set
-	 * @since 1.2.3
+	 * @since 2.0
 	 */
 	 
 	function get_template_hierarchy( $template ) {
@@ -681,7 +681,7 @@ class Isa_Organized_Docs{
 
 			// orderby custom option
 			$single_sort_by = get_option('od_single_sort_by');
-			$single_sort_by_order = get_option('od_single_sort_by_order');// @todo make option
+			$orderby_order = get_option('od_single_sort_order');
 				
 			if ( 'date' == $single_sort_by ) {
 				$orderby = 'date';
@@ -689,12 +689,6 @@ class Isa_Organized_Docs{
 				$orderby = 'title';
 			} else {
 				$orderby = 'meta_value_num';
-			}
-			
-			if ( 'descending' == single_sort_by_order ) {
-				$orderby_order = 'DESC';
-			} else {
-				$orderby_order = 'ASC';
 			}
 			
 			$query->query_vars['orderby'] = $orderby;
@@ -788,8 +782,6 @@ class Isa_Organized_Docs{
 			'od_single_post_setting_section'
 		);
 	 	register_setting( 'organized-docs-settings', 'od_enable_manage_comments' );
-
-
 	 	add_settings_field(
 			'od_close_comments',
 			__( 'Disable Comments on Single Docs?', 'organized-docs' ),
@@ -799,7 +791,7 @@ class Isa_Organized_Docs{
 		);
 	 	register_setting( 'organized-docs-settings', 'od_close_comments' );
 
-	 	add_settings_field( // @todo @new
+	 	add_settings_field(
 			'od_single_sort_by',
 			__( 'Sort Single Docs By ...', 'organized-docs' ),
 			array( $this, 'single_sort_by_setting_callback' ),
@@ -808,7 +800,15 @@ class Isa_Organized_Docs{
 		);
 	 	register_setting( 'organized-docs-settings', 'od_single_sort_by' );
 
-
+		add_settings_field(
+			'od_single_sort_order',
+			__( 'Sort Order', 'organized-docs' ),
+			array( $this, 'single_sort_order_setting_callback' ),
+			'organized-docs-settings',
+			'od_single_post_setting_section'
+		);
+	 	register_setting( 'organized-docs-settings', 'od_single_sort_order' );
+		
 	 	add_settings_field(
 			'od_delete_data_on_uninstall',
 			__( 'Remove Data on Uninstall?', 'organized-docs' ),
@@ -892,7 +892,7 @@ class Isa_Organized_Docs{
 
 	/**
 	 * Callback function for setting to sort single docs
-	 * @since 1.2.3
+	 * @since 2.0
 	 */
 	public function single_sort_by_setting_callback() {
 		$selected_option = get_option('od_single_sort_by');
@@ -906,6 +906,23 @@ class Isa_Organized_Docs{
 
 		echo "</select>";
 		echo '<p class="description">Choose how to sort single docs.</p>';
+	}
+	
+	/**
+	 * Callback function for setting for sort order
+	 * @since 2.0
+	 */
+	public function single_sort_order_setting_callback() {
+		$selected_option = get_option('od_single_sort_order');
+		$items = array("ASC", "DESC");
+		echo "<select id = 'od_single_sort_order' name = 'od_single_sort_order'>";
+
+		foreach($items as $item) {
+			$selected = ( $selected_option == $item ) ? ' selected = "selected"' : '';
+			echo "<option value='$item' $selected>$item</option>";
+		}
+		echo "</select>";
+		echo '<p class="description">Choose ascending or descending sort order.</p>';
 	}
 
 	/**
