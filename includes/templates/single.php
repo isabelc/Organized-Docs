@@ -40,13 +40,13 @@ if ( ! get_option('od_disable_microdata') ) {
 
 	<div class="entry-content" <?php if($article_body) echo $article_body; ?>>
 		<?php
-			the_content();
-			wp_link_pages( array(
-				'before'      => '<div class="page-links"><span class="page-links-title">' . __( 'Pages:', 'organized-docs' ) . '</span>',
-				'after'       => '</div>',
-				'link_before' => '<span>',
-				'link_after'  => '</span>',
-			) );
+		echo wpautop( $post->post_content );
+		wp_link_pages( array(
+			'before'      => '<div class="page-links"><span class="page-links-title">' . __( 'Pages:', 'organized-docs' ) . '</span>',
+			'after'       => '</div>',
+			'link_before' => '<span>',
+			'link_after'  => '</span>',
+		) );
 		?>
 	</div><!-- .entry-content -->
 	
