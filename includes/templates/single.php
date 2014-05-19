@@ -10,7 +10,7 @@ $schema = '';
 $itemprop_name = '';
 $article_body = '';
 	
-if ( ! get_option('od_disable_tech_microdata') ) {
+if ( ! get_option('od_disable_microdata') ) {
 	$schema = ' itemscope itemtype="http://schema.org/TechArticle"';
 	$itemprop_name = ' itemprop="name"';
 	$article_body = ' itemprop="articleBody"';

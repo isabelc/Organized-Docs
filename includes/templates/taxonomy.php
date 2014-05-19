@@ -4,8 +4,20 @@
 * @package	Organized Docs
 * @since 2.0
 */
-get_header(); ?>
-<section id="primary" class="content-area">
+get_header();
+
+$schema = '';
+$schema_inner = '';
+$itemprop_name = '';
+	
+if ( ! get_option('od_disable_microdata') ) {
+	$schema = ' itemscope itemtype="http://schema.org/CollectionPage"';
+	
+	$schema_inner = ' itemscope itemtype="http://schema.org/TechArticle"';
+	$itemprop_name = ' itemprop="name"';
+
+} ?>
+<section id="primary" class="content-area" <?php if($schema) echo $schema; ?>>
 <div id="content" class="site-content" role="main">
 <article <?php post_class('docs-archive-template'); ?>>
 <?php do_action( 'organized_docs_content_before' ); ?>
@@ -20,25 +32,23 @@ wp_enqueue_style('organized-docs'); ?>
 	
 	// Display a list of subTerms, within a specified Term, AND show all the posts within each of those subTerms on archive page
 		
-	// get current term id on category, taxonomy or archive page
+	// get current term id on docs category taxonomy page
 
-	if ( is_tax( 'isa_docs_category' ) ) {
+	$term = get_term_by( 'slug', get_query_var( 'term' ), get_query_var( 'taxonomy' ) );
 
-		$term = get_term_by( 'slug', get_query_var( 'term' ), get_query_var( 'taxonomy' ) );
-
-		$curr_termID = $term->term_id;
-		$curr_term_name = $term->name;
+	$curr_termID = $term->term_id;
+	$curr_term_name = $term->name;
 	
-		// get term children
-		$termchildren =  get_term_children( $curr_termID, 'isa_docs_category' );
-	}
+	// get term children
+	$termchildren =  get_term_children( $curr_termID, 'isa_docs_category' );
+
 	if ( empty($termchildren) ) {
 		// there are no child terms, do regular term loop to list posts within current term
 		if ( have_posts() ) : ?>
 			<ul>
 			<?php while ( have_posts() ) {
 				the_post(); ?>
-				<li><a href="<?php echo get_permalink($post->ID); ?>"><?php echo get_the_title(); ?></a></li>
+				<li <?php if($schema_inner) echo $schema_inner; ?>><a href="<?php echo get_permalink($post->ID); ?>" <?php if($itemprop_name) echo $itemprop_name; ?>><?php echo get_the_title(); ?></a></li>
 			<?php } ?>
 			</ul><?php
 	 	else : ?>
@@ -91,7 +101,7 @@ wp_enqueue_style('organized-docs'); ?>
 				);
 				$postlist = get_posts( $args );
 				foreach ( $postlist as $single_post ) { ?>
-					<li><a href="<?php echo get_permalink($single_post->ID); ?>" title="<?php echo esc_attr( $single_post->post_title ); ?>"><?php echo $single_post->post_title; ?></a></li>
+					<li <?php if($schema_inner) echo $schema_inner; ?>><a href="<?php echo get_permalink($single_post->ID); ?>" title="<?php echo esc_attr( $single_post->post_title ); ?>" <?php if($itemprop_name) echo $itemprop_name; ?>><?php echo $single_post->post_title; ?></a></li>
 				<?php } ?>
 				</ul><?php
 			}

@@ -8,7 +8,7 @@ get_header();
 
 $schema = '';
 $itemprop_name = '';
-if ( ! get_option('od_disable_tech_microdata') ) { // @todo make option
+if ( ! get_option('od_disable_microdata') ) {
 	$schema = ' itemscope itemtype="http://schema.org/CollectionPage"';
 	$itemprop_name = ' itemprop="name"';
 }

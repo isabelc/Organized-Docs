@@ -3,7 +3,7 @@
  * Plugin Name: Organized Docs
  * Plugin URI: http://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
  * Description: Easily create organized documentation for multiple products, organized by product, and by subsections within each product.
- * Version: 2.0-rc-1.7
+ * Version: 2.0-rc-1.8
  * Author: Isabel Castillo
  * Author URI: http://isabelcastillo.com
  * License: GPL2
@@ -220,7 +220,12 @@ class Isa_Organized_Docs{
 		if ( is_tax( 'isa_docs_category' ) ) {
 	
 			// get top level parent term on custom taxonomy archive
-			$heading = '<h2 id="isa-docs-item-title" class="entry-title">';
+			$heading = '<h1 id="isa-docs-item-title" class="entry-title"';
+			if ( ! get_option('od_disable_microdata') ) {
+				$heading .= ' itemprop="name"';
+			}
+			$heading .= '>';
+			
 			$taxonomy = get_query_var( 'taxonomy' );
 			$queried_object = get_queried_object();
 			$curr_term_id =  (int) $queried_object->term_id;
@@ -232,7 +237,7 @@ class Isa_Organized_Docs{
 			$top_term_name = $top_term->name;
 		
 			$heading .= '<a href="' . $top_term_link  . '" title="' . esc_attr( $top_term_name ) . '">' . $top_term_name . '</a>';
-			$heading .= '</h2>';
+			$heading .= '</h1>';
 
 		} elseif ( is_single() ) {
 
@@ -760,6 +765,14 @@ class Isa_Organized_Docs{
 			'od_main_setting_section'
 		);
 	 	register_setting( 'organized-docs-settings', 'od_disable_list_each_single' );
+		add_settings_field(
+			'od_disable_microdata',
+			__( 'Disable Microdata', 'organized-docs' ),
+			array( $this, 'disable_microdata_setting_callback' ),
+			'organized-docs-settings',
+			'od_main_setting_section'
+		);
+	 	register_setting( 'organized-docs-settings', 'od_disable_microdata' );
 	 	add_settings_field(
 			'od_hide_printer_icon',
 			__( 'Remove Printer Icon', 'organized-docs' ),
@@ -873,7 +886,13 @@ class Isa_Organized_Docs{
 	public function disable_list_each_single_setting_callback() {
 		echo '<label for="od_disable_list_each_single"><input name="od_disable_list_each_single" id="od_disable_list_each_single" type="checkbox" value="1" class="code" ' . checked( 1, get_option( 'od_disable_list_each_single' ), false ) . ' /> ' . __( 'Check this box if you do NOT want to list each individual title on the top-level item page, nor in the Table of Contents sidebar. This will leave only the subheadings listed.', 'organized-docs' ) . '</label>';
 	}
-	
+	/**
+	 * Callback function for setting to disable microdata
+	 * @since 2.0
+	 */
+	public function disable_microdata_setting_callback() {
+		echo '<label for="od_disable_microdata"><input name="od_disable_microdata" id="od_disable_microdata" type="checkbox" value="1" class="code" ' . checked( 1, get_option( 'od_disable_microdata' ), false ) . ' /> ' . __( 'Check this box to disable the schema.org microdata. Default adds TechArticle to single Docs, and CollectionPage to Docs archives.', 'organized-docs' ) . '</label>';
+	}
 	/**
 	 * Callback function for setting to hide printer icon
 	 * @since 1.2.0
