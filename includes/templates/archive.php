@@ -1,6 +1,6 @@
 <?php
 /*
-* The template for displaying the Docs main page
+* The template for displaying the main Docs page
 * @package	Organized Docs
 * @since 2.0
 */
