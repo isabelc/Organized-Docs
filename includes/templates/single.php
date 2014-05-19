@@ -13,8 +13,11 @@ global $Isa_Organized_Docs; ?>
 	echo $Isa_Organized_Docs->organized_docs_content_nav();
 	if ( ! get_option('od_hide_print_link') ) { ?>
 		<p id="odd-print-button">
-		<?php if ( ! get_option('od_hide_printer_icon') ) { ?>
-			<i class="fa fa-print"></i>
+		<?php if ( ! get_option('od_hide_printer_icon') ) {
+					if ( ! get_option( 'od_dont_load_fa' ) ) {
+						wp_enqueue_style( 'font-awesome','//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css' );
+					} ?>
+					<i class="fa fa-print"></i>
 		<?php } ?>
 		<a href="javascript:window.print()" class="button"><?php _e( 'Print', 'organized-docs' ); ?></a>
 		</p>
