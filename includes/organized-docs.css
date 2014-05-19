@@ -172,6 +172,11 @@ body.single-isa_docs .entry-content {
     font-style: italic;
 }
 /* end compatibilty for Twenty Twelve */
+
+.menu-toggle {
+	display:none; /* @test */
+}
+
 @media screen and (max-device-width:768px){
     
     ul#organized-docs-main, ul#organized-docs-main li, #isa-docs-main-title {
@@ -238,6 +243,38 @@ body.single-isa_docs .entry-content {
     .single-isa_docs #content-sidebar aside.widget li{
         line-height:2em;
     }
+}
+
+
+
+
+/* @test */
+@media screen and (max-device-width:600px){
+
+	.menu-toggle {
+		cursor: pointer;
+		font-size: 0px;
+		height: 46px;
+		margin: 0px;
+		overflow: hidden;
+		text-align: center;
+		width: 64px;
+		display: block;
+		z-index: 999;
+		border: 0px none;
+	}
+	.menu-toggle:before {
+		display: inline-block;
+		text-decoration: inherit;
+		vertical-align: text-bottom;
+		font-family: FontAwesome;
+		color: #000;
+		content: "";
+		font-size: 46px;
+		margin-top: 0px;
+		font-style: normal;
+		font-weight: 400;
+	}
 }
 
 @media print {
