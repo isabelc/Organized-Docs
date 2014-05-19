@@ -671,22 +671,35 @@ class Isa_Organized_Docs{
 		$odocs_sortorder = empty($odocs_data) ? 999999 : $odocs_data;
 		update_post_meta( $post_id, '_odocs_meta_sortorder_key', $odocs_sortorder );
 	}
-
-
 	/**
-	 * Sort Single Docs on the regular archive page by sort order number key
-	 * @uses is_post_type_archive()
-	 * @uses is_main_query()
+	 * Sort Single Docs on the regular archive page by custom chosen order
+	 * @uses is_tax()
 	 * @since 1.1.5
 	 */
 	public function sort_single_docs($query) {
 		if( is_tax('isa_docs_category') && $query->is_main_query() && isset( $query->query_vars['meta_key'] ) ) {
 
-			// @todo sort by chosen option, whether date or alphabetical or custom number
-
-			$query->query_vars['orderby'] = 'meta_value_num';
+			// orderby custom option
+			$single_sort_by = get_option('od_single_sort_by');
+			$single_sort_by_order = get_option('od_single_sort_by_order');// @todo make option
+				
+			if ( 'date' == $single_sort_by ) {
+				$orderby = 'date';
+			} elseif ( 'title - alphabetical' == $single_sort_by ) {
+				$orderby = 'title';
+			} else {
+				$orderby = 'meta_value_num';
+			}
+			
+			if ( 'descending' == single_sort_by_order ) {
+				$orderby_order = 'DESC';
+			} else {
+				$orderby_order = 'ASC';
+			}
+			
+			$query->query_vars['orderby'] = $orderby;
 			$query->query_vars['meta_key'] = '_odocs_meta_sortorder_key';
-			$query->query_vars['order'] = 'ASC';
+			$query->query_vars['order'] = $orderby_order;
 		}
 		return $query;
 	}
@@ -877,7 +890,7 @@ class Isa_Organized_Docs{
 		echo $html;
 	}
 
-	/** @test
+	/**
 	 * Callback function for setting to sort single docs
 	 * @since 1.2.3
 	 */
@@ -887,7 +900,7 @@ class Isa_Organized_Docs{
 		echo "<select id = 'od_single_sort_by' name = 'od_single_sort_by'>";
 
 		foreach($items as $item) {
-			$selected = ( $selected_option == $item ) ? ' selected = "selected"' : '';// @todo not working, after i fix this mark commit with Fixes #11.
+			$selected = ( $selected_option == $item ) ? ' selected = "selected"' : '';
 			echo "<option value='$item' $selected>$item</option>";
 		}
 

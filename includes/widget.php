@@ -57,6 +57,25 @@ class DocsSectionContents extends WP_Widget {
 				echo '<ul>';
 				// nest a loop through each child cat's posts
 				global $post;
+				
+				
+				// orderby custom option
+				$single_sort_by = get_option('od_single_sort_by');
+				$single_sort_by_order = get_option('od_single_sort_by_order');// @todo make option
+				
+				if ( 'date' == $single_sort_by ) {
+					$orderby = 'date';
+				} elseif ( 'title - alphabetical' == $single_sort_by ) {
+					$orderby = 'title';
+				} else {
+					$orderby = 'meta_value_num';
+				}
+				
+				if ( 'descending' == single_sort_by_order ) {
+					$orderby_order = 'DESC';
+				} else {
+					$orderby_order = 'ASC';
+				}
 				$args = array(	'post_type' => 'isa_docs', 
 							'posts_per_page' => -1,
 							'order' => 'ASC',
@@ -67,9 +86,9 @@ class DocsSectionContents extends WP_Widget {
 											'terms' => $termobject->term_id
 											)
 										),
-							'orderby' => 'meta_value_num',
+							'orderby' => $orderby,
 							'meta_key' => '_odocs_meta_sortorder_key',
-							'order' => 'ASC'
+							'order' => $orderby_order
 					);
 				$postlist = get_posts( $args );
 				foreach ( $postlist as $single_post ) {

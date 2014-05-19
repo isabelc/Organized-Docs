@@ -8,22 +8,16 @@ get_header();
 global $Isa_Organized_Docs; ?>
 <div id="primary">
 <div id="content" role="main">
-<!-- @test this is new templates/single.php -->
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-
 	<?php echo $Isa_Organized_Docs->organized_docs_section_heading();
 	echo $Isa_Organized_Docs->organized_docs_content_nav();
 	if ( ! get_option('od_hide_print_link') ) { ?>
-		
 		<p id="odd-print-button">
-		
 		<?php if ( ! get_option('od_hide_printer_icon') ) { ?>
 			<i class="fa fa-print"></i>
 		<?php } ?>
-		
 		<a href="javascript:window.print()" class="button"><?php _e( 'Print', 'organized-docs' ); ?></a>
 		</p>
-
 	<?php } ?>
 	
 	<header class="entry-header">
@@ -45,12 +39,30 @@ global $Isa_Organized_Docs; ?>
 	<?php /* begin Docs prev/next post navigation */
 	$term_list = wp_get_post_terms($post->ID, 'isa_docs_category', array("fields" => "slugs"));
 	// get_posts in same custom taxonomy
-	// @todo sort terms by chosen order, whether date, alphabetical, or sort number.
+
+	// @test sort terms by chosen orderby
+		$single_sort_by = get_option('od_single_sort_by');
+		$single_sort_by_order = get_option('od_single_sort_by_order');// @todo make option
+			
+		if ( 'date' == $single_sort_by ) {
+			$orderby = 'date';
+		} elseif ( 'title - alphabetical' == $single_sort_by ) {
+			$orderby = 'title';
+		} else {
+			$orderby = 'meta_value_num';
+		}
+			
+		if ( 'descending' == single_sort_by_order ) {
+			$orderby_order = 'DESC';
+		} else {
+			$orderby_order = 'ASC';
+		}
+			
 	$postlist_args = array(
 			'posts_per_page'		=> -1,
-			'orderby'				=> 'meta_value_num',
+			'orderby'				=> $orderby,
 			'meta_key'			=> '_odocs_meta_sortorder_key',
-			'order'				=> 'ASC',
+			'order'				=> $orderby_order,
 			'post_type'			=> 'isa_docs',
 			'isa_docs_category' => $term_list[0]
 	); 
@@ -83,13 +95,9 @@ global $Isa_Organized_Docs; ?>
 		<span class="meta-nav"><a rel="next" href="<?php echo get_permalink($nextid); ?>"><?php echo $anchor_next; ?></a></span>
 	<?php } ?>
 	</div></nav>
-	<!-- end nav -->
-
 </article><!-- #post-## -->
 </div><!-- #content -->
-<?php // @test
-$sidebar = $Isa_Organized_Docs->get_template_hierarchy( 'sidebar' );
+<?php $sidebar = $Isa_Organized_Docs->get_template_hierarchy( 'sidebar' );
 include_once $sidebar; ?>
-
 </div><!-- #primary -->
 <?php get_footer();
