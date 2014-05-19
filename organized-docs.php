@@ -142,12 +142,16 @@ class Isa_Organized_Docs{
 	        );
     	register_post_type( 'isa_docs' , $args );
 	} // end create_docs_cpt
-
 	/** 
-	 * Add stylesheet
+	 * Add stylesheet and nav.js
 	 */
 	public function register_style() {
 		wp_register_style( 'organized-docs', plugins_url( 'includes/organized-docs.css' , __FILE__ ) );
+		
+		/* @test in footer */
+		if( is_tax('isa_docs_category') || is_post_type_archive('isa_docs') || is_singular('isa_docs')){
+			wp_enqueue_script('od-nav', plugins_url( 'includes/nav.js', __FILE__ ), array('jquery'), false, true);
+		}
 	}
 	/**
 	 * adds Docs menu item to wp_menu_nav
@@ -269,7 +273,7 @@ class Isa_Organized_Docs{
 		if ( is_post_type_archive( 'isa_docs' ) ) 
 			return;
 
-		$docs_menu = '<div id="organized-docs-menu" class="navbar nav-menu"><ul>';
+		$docs_menu = '<div id="organized-docs-menu" class="navbar nav-menu"><div class="menu-toggle"></div><ul>';// @test toggle
 
 		if ( is_tax( 'isa_docs_category' ) ) {
 		
@@ -1006,8 +1010,7 @@ class Isa_Organized_Docs{
 		if( ( 'Twenty Fourteen' == $theme->name ) || ( 'Twenty Fourteen' == $theme->parent_theme ) ) {
 			echo 'body.single-isa_docs .type-isa_docs{margin: 0 0 0 15%;}.tax-isa_docs_category .content-area,.post-type-archive-isa_docs .content-area{padding-top: 0px;}@media screen and (max-device-width:768px){body.single-isa_docs .type-isa_docs {margin: 0;}}';
 		}
-		echo "</style><script>jQuery( document ).ready( function( jQuery ) {var supportsTouch = false;
-	if ('ontouchstart' in window) {supportsTouch = true;} else if(window.navigator.msPointerEnabled) {supportsTouch = true;}if ( supportsTouch ) {evt = window.navigator.msPointerEnabled ? 'MSPointerDown' : 'touchstart';} else {evt = 'click';}jQuery( '.menu-toggle' ).on( evt, function() {jQuery( '#organized-docs-menu' ).toggleClass( 'toggled-on' );});});</script>";
+		echo "</style>";
 	}
 	/**
 	 * Close comments on Docs
