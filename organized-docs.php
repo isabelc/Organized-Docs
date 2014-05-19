@@ -986,7 +986,6 @@ class Isa_Organized_Docs{
 		echo "</select>";
 		echo '<p class="description">Choose ascending or descending sort order.</p>';
 	}
-
 	/**
 	 * Callback function for setting to remove data on uninstall
 	 * @since 1.1.9
@@ -994,12 +993,11 @@ class Isa_Organized_Docs{
 	public function delete_data_setting_callback() {
 		echo '<label for="od_delete_data_on_uninstall"><input name="od_delete_data_on_uninstall" id="od_delete_data_on_uninstall" type="checkbox" value="1" class="code" ' . checked( 1, get_option( 'od_delete_data_on_uninstall' ), false ) . ' /> ' . __( 'Check this box if you would like Organized Docs to completely remove all of its data when the plugin is deleted. This would include all Docs posts, Docs categories, subheadings, and sort order numbers.', 'organized-docs' ) . '</label>';
 	}
-
 	/**
 	 * Dynamic CSS based on settings and themes
 	 * @since 1.2.1
 	 */
-	public function dynamic_css() {
+	public function dynamic_css() { // @todo @test
 		$theme = wp_get_theme();
 		echo '<style>';
 		if( ( 'Twenty Fourteen' == $theme->name ) || ( 'Twenty Fourteen' == $theme->parent_theme ) ) {
@@ -1010,7 +1008,6 @@ class Isa_Organized_Docs{
 		}
 		echo '</style>';
 	}
-
 	/**
 	 * Close comments on Docs
 	 * @since 1.2.2

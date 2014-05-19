@@ -2,7 +2,7 @@
 Contributors: isabel104
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=me%40isabelcastillo%2ecom
 Tags: documentation, docs, organize documentation, organized documentation, instruction guides, wiki
-Requires at least: 3.7
+Requires at least: 3.9
 Tested up to: 3.9.1
 Stable Tag: 2.0
 License: GNU Version 2
@@ -56,7 +56,9 @@ This is no longer an issue since version 2.0.
 * New: option to change the page title on the main Docs page.
 * New: option to not load Font Awesome stylesheet if your theme, or other plugin, already loads it. Checking this will increase your page load speed. If left unchecked, it will only load Font Awesome on single Docs, in the footer, and only if you use the printer icon.
 * New: Docs now include schema.org microdata for TechArticle on single Docs, and microdata for CollectionPage on Docs archives pages. There is an option to disable microdata.
+* New: If you are NOT using Twenty Fourteen theme, and you did insert a call to twentyfourteen_post_nav() in order use single Docs navigation, please note that it is no longer necessary since we have a new template system. So, you can remove your call to twentyfourteen_post_nav().
 * Fix: a subheading without a sort order number would not display in some instances.
+* Fix: no longer overriding the _post_nav for the default WP themes.
 * Deprecated: od_docs_main_title filter is deprecated and no longer needed since an option to change the main Docs title is now added. Also, this filter while in legacy-use returns only text, not HTML h1 element. If you are hooking this filter, please update it to return just the text, or remove it altogether in favor of the new option.
 * Tweak: changed h2 page title element on Docs archive pages to h1. You may need to adjust size.
 * Tweak: load styles in footer for increased page load speed. And load it only on Docs pages.
@@ -75,7 +77,7 @@ This is no longer an issue since version 2.0.
 = 1.2.0 =
 * New: option to hide custom sidebar IDs to avoid multiple Table of Contents widgets.
 * New: option to hide printer icon and print link.
-* New: Navigate throught next and previous docs. If you are not using Twenty Fourteen theme, call twentyfourteen_post_nav() in your single.php to use this feature.
+* New: Navigate through next and previous docs. If you are not using Twenty Fourteen theme, call twentyfourteen_post_nav() in your single.php to use this feature.
 * Tweak: better styling and padding for compatibility with Twenty Fourteen theme. 
 * Maintenance: updated .pot file.
 

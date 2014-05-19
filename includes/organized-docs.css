@@ -52,7 +52,6 @@ ul#organized-docs-main li a{text-decoration:none;}
 body.single-isa_docs .site-content .entry-content {padding-top:0;}
 body.single-isa_docs #isa-docs-item-title{margin-top:0;}
 
-
 /**
  * Docs Menu Bar
  * For Twenty Twelve compatibility. It uses default Twenty Thirteen styles, so can remove this if using 2013 theme.
@@ -101,9 +100,9 @@ body.single-isa_docs #isa-docs-item-title{margin-top:0;}
 	margin:0 auto;
 }
 .single-isa_docs #content {
-    margin: 0 0 0 3%;
+    margin: 0 0 0 10%;
     padding:0;
-    width: 65%;
+    width: 58%;
     display:inline-block;
 	vertical-align: top;
 }
