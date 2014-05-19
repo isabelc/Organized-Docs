@@ -19,7 +19,10 @@ if ( ! get_option('od_disable_microdata') ) {
 	<?php do_action( 'organized_docs_main_content_before' ); ?>
 	<div class="entry-content">
 	<h1 id="isa-docs-main-title" class="entry-title" <?php if($itemprop_name) echo $itemprop_name; ?>>
-		<?php echo apply_filters( 'od_docs_main_title', 'Docs' ); ?>
+		<?php 
+		$custom_title = get_option('od_change_main_docs_title');
+		$page_title = $custom_title ? sanitize_text_field( $custom_title ) : __('Docs', 'organized-docs');
+		echo apply_filters( 'od_docs_main_title', $page_title ); ?>
 	</h1>
 	<?php wp_enqueue_style('organized-docs'); ?>
 	

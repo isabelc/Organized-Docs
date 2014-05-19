@@ -53,10 +53,11 @@ This is no longer an issue since version 2.0.
 * New: option to set custom sort order for single docs. You can sort alphabetically, by date, or by custom sort order number. You can also choose to sort in ascending or descending order.
 * New: option to NOT list each single docs post on the top-level item page, nor in the Table of Contents sidebar. Enable this option if you want to list only the subheadings.
 * New: option to change the main Docs slug. For example, you could change it to books.
-* New: od_docs_main_title filter now returns only text, not html h1 element. If you are hooking this filter, please update it to return just the text.
+* New: option to change the page title on the main Docs page.
 * New: option to not load Font Awesome stylesheet if your theme, or other plugin, already loads it. Checking this will increase your page load speed. If left unchecked, it will only load Font Awesome on single Docs, in the footer, and only if you use the printer icon.
 * New: Docs now include schema.org microdata for TechArticle on single Docs, and microdata for CollectionPage on Docs archives pages. There is an option to disable microdata.
 * Fix: a subheading without a sort order number would not display in some instances.
+* Deprecated: od_docs_main_title filter is deprecated and no longer needed since an option to change the main Docs title is now added. Also, this filter while in legacy-use returns only text, not HTML h1 element. If you are hooking this filter, please update it to return just the text, or remove it altogether in favor of the new option.
 * Tweak: changed h2 page title element on Docs archive pages to h1. You may need to adjust size.
 * Tweak: load styles in footer for increased page load speed. And load it only on Docs pages.
 * Tweak: use singleton class.

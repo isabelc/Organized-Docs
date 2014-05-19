@@ -149,31 +149,30 @@ class Isa_Organized_Docs{
 	public function register_style() {
 		wp_register_style( 'organized-docs', plugins_url( 'includes/organized-docs.css' , __FILE__ ) );
 	}
-
 	/**
 	 * adds Docs menu item to wp_menu_nav
 	 */
-	
 	function docs_menu_link($items, $args) {
 		$newitems = $items;
-		$newitems .= '<li class="docs"><a title="'. __('Docs', 'organized-docs') . '" href="'. get_post_type_archive_link( 'isa_docs' ) .'">' . __( apply_filters( 'organized_docs_menu_label', 'Docs' ), 'organized-docs' ) . '</a></li>';
+		$custom_title = get_option('od_change_main_docs_title');
+		$docs_title = $custom_title ? sanitize_text_field( $custom_title ) : __('Docs', 'organized-docs');
+		$newitems .= '<li class="docs"><a title="'. esc_attr($docs_title) . '" href="'. get_post_type_archive_link( 'isa_docs' ) .'">' . apply_filters( 'organized_docs_menu_label',$docs_title ) . '</a></li>';
 		return $newitems;
 	}
-
 	/** 
 	 * Adds Docs menu item to wp_page_menu.
 	 */
 	public function docs_page_menu_link( $menu ) {
 		$newmenu = $menu;
-		$newitems = '<li class="docs"><a title="'. __('Docs', 'organized-docs') . '" href="'. get_post_type_archive_link( 'isa_docs' ) .'">'. __( apply_filters( 'organized_docs_menu_label', 'Docs' ), 'organized-docs' ) . '</a></li>';
+		$custom_title = get_option('od_change_main_docs_title');
+		$docs_title = $custom_title ? sanitize_text_field( $custom_title ) : __('Docs', 'organized-docs');
+		$newitems = '<li class="docs"><a title="'. esc_attr( $docs_title ) . '" href="'. get_post_type_archive_link( 'isa_docs' ) .'">'. apply_filters( 'organized_docs_menu_label',$docs_title ) . '</a></li>';
 	    $newmenu = str_replace( '</ul></div>', $newitems . '</ul></div>', $newmenu );
 	    return $newmenu;
 	}
-
 	/**
 	 * Allow the creation of the docs menu item
 	 */
-	
 	public function create_docs_menu_item() {
 		add_filter('wp_nav_menu_items', array( $this, 'docs_menu_link' ), 10, 2);
 		add_filter( 'wp_page_menu', array( $this, 'docs_page_menu_link' ), 95 );
@@ -182,7 +181,6 @@ class Isa_Organized_Docs{
 	 * Get the custom template if is set
 	 * @since 2.0
 	 */
-	 
 	function get_template_hierarchy( $template ) {
 	 
 		$template_slug = rtrim( $template, '.php' );
@@ -196,7 +194,6 @@ class Isa_Organized_Docs{
 		}
 		return $file;
 	}
-	
 	/**
 	 * Returns template file
 	 */
@@ -758,6 +755,14 @@ class Isa_Organized_Docs{
 		);
 	 	register_setting( 'organized-docs-settings', 'od_rewrite_docs_slug' );
 		add_settings_field(
+			'od_change_main_docs_title',
+			__( 'Change The Main Docs Page Title', 'organized-docs' ),
+			array( $this, 'change_main_docs_title_setting_callback' ),
+			'organized-docs-settings',
+			'od_main_setting_section'
+		);
+	 	register_setting( 'organized-docs-settings', 'od_change_main_docs_title' );
+		add_settings_field(
 			'od_disable_list_each_single',
 			__( 'Do Not List Each Single Title', 'organized-docs' ),
 			array( $this, 'disable_list_each_single_setting_callback' ),
@@ -830,7 +835,6 @@ class Isa_Organized_Docs{
 			'od_single_post_setting_section'
 		);
 	 	register_setting( 'organized-docs-settings', 'od_single_sort_by' );
-
 		add_settings_field(
 			'od_single_sort_order',
 			__( 'Sort Order', 'organized-docs' ),
@@ -839,7 +843,6 @@ class Isa_Organized_Docs{
 			'od_single_post_setting_section'
 		);
 	 	register_setting( 'organized-docs-settings', 'od_single_sort_order' );
-		
 	 	add_settings_field(
 			'od_delete_data_on_uninstall',
 			__( 'Remove Data on Uninstall?', 'organized-docs' ),
@@ -849,7 +852,6 @@ class Isa_Organized_Docs{
 		);
 	 	register_setting( 'organized-docs-settings', 'od_delete_data_on_uninstall' );
 	}
-
 	/**
 	 * Main Settings section callback
 	 * @since 1.2.0
@@ -857,7 +859,6 @@ class Isa_Organized_Docs{
 	public function main_setting_section_callback() {
 		return true;
 	}
-
 	/**
 	 * Single Docs Posts Settings section callback
 	 * @since 1.2.2
@@ -878,6 +879,13 @@ class Isa_Organized_Docs{
 	 */
 	public function rewrite_docs_slug_setting_callback() {
 		echo '<input name="od_rewrite_docs_slug" id="od_rewrite_docs_slug" value="' . get_option('od_rewrite_docs_slug'). '" type="text" class="regular-text" /><p class="description">' . __( 'Change the default Docs slug from "docs" to something you prefer. Leave blank for default. Every time you change this option, you must refresh permalinks and clear all caches to see the effects. To refresh permalinks, go to Settings - Permalinks, and click Save Changes twice.', 'organized-docs' );
+	}
+	/**
+	 * Callback function for setting to change Docs slug
+	 * @since 2.0
+	 */
+	public function change_main_docs_title_setting_callback() {
+		echo '<input name="od_change_main_docs_title" id="od_change_main_docs_title" value="' . get_option('od_change_main_docs_title'). '" type="text" class="regular-text" /><p class="description">' . __( 'Change the page title that is displayed on the main Docs page. Leave blank for default "Docs".', 'organized-docs' );
 	}
 	/**
 	 * Callback function for setting to not list each single post
