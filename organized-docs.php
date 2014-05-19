@@ -173,8 +173,10 @@ class Isa_Organized_Docs{
 	 * Allow the creation of the docs menu item
 	 */
 	public function create_docs_menu_item() {
-		add_filter('wp_nav_menu_items', array( $this, 'docs_menu_link' ), 10, 2);
-		add_filter( 'wp_page_menu', array( $this, 'docs_page_menu_link' ), 95 );
+		if (! get_option('od_disable_menu_link')) {
+			add_filter('wp_nav_menu_items', array( $this, 'docs_menu_link' ), 10, 2);
+			add_filter( 'wp_page_menu', array( $this, 'docs_page_menu_link' ), 95 );
+		}
 	}
 	/**
 	 * Get the custom template if is set
@@ -694,8 +696,6 @@ class Isa_Organized_Docs{
 		}
 		return $query;
 	}
-
-
 	/**
 	 * Add submenu page
 	 * @since 1.1.9
@@ -704,7 +704,6 @@ class Isa_Organized_Docs{
 	public function submenu_page() {
 		add_submenu_page( 'edit.php?post_type=isa_docs', __( 'Organized Docs Settings', 'organized-docs' ), __('Settings', 'organized-docs'), 'manage_options', 'organized-docs-settings', array( $this, 'settings_page_callback' ) ); 
 	}
-
 	/**
 	 * HTML output for the submenu page
 	 * @since 1.1.9
@@ -777,6 +776,14 @@ class Isa_Organized_Docs{
 			'od_main_setting_section'
 		);
 	 	register_setting( 'organized-docs-settings', 'od_disable_microdata' );
+		add_settings_field(
+			'od_disable_menu_link',
+			__( 'Disable Docs Menu Link', 'organized-docs' ),
+			array( $this, 'disable_menu_link_setting_callback' ),
+			'organized-docs-settings',
+			'od_main_setting_section'
+		);
+	 	register_setting( 'organized-docs-settings', 'od_disable_menu_link' );
 	 	add_settings_field(
 			'od_hide_printer_icon',
 			__( 'Remove Printer Icon', 'organized-docs' ),
@@ -899,6 +906,13 @@ class Isa_Organized_Docs{
 	 */
 	public function disable_microdata_setting_callback() {
 		echo '<label for="od_disable_microdata"><input name="od_disable_microdata" id="od_disable_microdata" type="checkbox" value="1" class="code" ' . checked( 1, get_option( 'od_disable_microdata' ), false ) . ' /> ' . __( 'Check this box to disable the schema.org microdata. Default adds TechArticle to single Docs, and CollectionPage to Docs archives.', 'organized-docs' ) . '</label>';
+	}
+	/**
+	 * Callback function for setting to disable menu link
+	 * @since 2.0.2
+	 */
+	public function disable_menu_link_setting_callback() {
+		echo '<label for="od_disable_menu_link"><input name="od_disable_menu_link" id="od_disable_menu_link" type="checkbox" value="1" class="code" ' . checked( 1, get_option( 'od_disable_menu_link' ), false ) . ' /> ' . __( 'Check this box to disable the Docs menu link that gets automatically added to your menu. You can still add your own link in Appearances -> Menus.', 'organized-docs' ) . '</label>';
 	}
 	/**
 	 * Callback function for setting to hide printer icon
