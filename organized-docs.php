@@ -812,7 +812,7 @@ class Isa_Organized_Docs{
 	 * @since 1.2.0
 	 */
 	public function main_setting_section_callback() {
-		return true;
+		echo '<p>' . __('This section is pending future options.', 'organized-docs') . '</p>';
 	}
 
 	/**
