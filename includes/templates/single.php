@@ -5,8 +5,17 @@
  * @since 2.0
  */
 get_header(); 
-global $Isa_Organized_Docs; ?>
-<div id="primary">
+global $Isa_Organized_Docs; 
+$schema = '';
+$itemprop_name = '';
+$article_body = '';
+	
+if ( ! get_option('od_disable_tech_microdata') ) {
+	$schema = ' itemscope itemtype="http://schema.org/TechArticle"';
+	$itemprop_name = ' itemprop="name"';
+	$article_body = ' itemprop="articleBody"';
+} ?>
+<div id="primary" <?php if($schema) echo $schema; ?>>
 <div id="content" role="main">
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<?php echo $Isa_Organized_Docs->organized_docs_section_heading();
@@ -25,10 +34,10 @@ global $Isa_Organized_Docs; ?>
 	<?php } ?>
 	
 	<header class="entry-header">
-	<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
+	<h1 class="entry-title" <?php if($itemprop_name) echo $itemprop_name; ?>><?php the_title(); ?></h1>
 	</header><!-- .entry-header -->
 
-	<div class="entry-content">
+	<div class="entry-content" <?php if($article_body) echo $article_body; ?>>
 		<?php
 			the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'twentyfourteen' ) );
 			wp_link_pages( array(

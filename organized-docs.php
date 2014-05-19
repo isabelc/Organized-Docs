@@ -213,14 +213,12 @@ class Isa_Organized_Docs{
 	}
 
 	/**
-	 * Returns the top category item as a heading for docs. Fetched one way from docs main archive, a different way from taxonomy 'isa_docs_download', and fetched yet a different way from single.
+	 * Returns the top category item as a heading for docs category taxonomy archives and for docs single pages. Fetched one way from single docs, and a different way from taxonomy archives.
 	 */
 	public function organized_docs_section_heading() {
-
 		global $post, $data;
-
 		if ( is_tax( 'isa_docs_category' ) ) {
-		
+	
 			// get top level parent term on custom taxonomy archive
 			$heading = '<h2 id="isa-docs-item-title" class="entry-title">';
 			$taxonomy = get_query_var( 'taxonomy' );
@@ -235,9 +233,6 @@ class Isa_Organized_Docs{
 		
 			$heading .= '<a href="' . $top_term_link  . '" title="' . esc_attr( $top_term_name ) . '">' . $top_term_name . '</a>';
 			$heading .= '</h2>';
-
-		} elseif ( is_post_type_archive( 'isa_docs' ) ) { 
-			$heading = apply_filters( 'od_docs_main_title', '<h1 id="isa-docs-main-title" class="entry-title">Docs</h1>' );
 
 		} elseif ( is_single() ) {
 

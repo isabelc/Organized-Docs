@@ -4,16 +4,25 @@
 * @package	Organized Docs
 * @since 2.0
 */
-get_header(); ?>
-<section id="primary" class="content-area">
+get_header(); 
+
+$schema = '';
+$itemprop_name = '';
+if ( ! get_option('od_disable_tech_microdata') ) { // @todo make option
+	$schema = ' itemscope itemtype="http://schema.org/CollectionPage"';
+	$itemprop_name = ' itemprop="name"';
+}
+?>
+<section id="primary" class="content-area" <?php if($schema) echo $schema; ?>>
 <div id="content" class="site-content" role="main">
 <article <?php post_class('docs-archive-template'); ?>>
 	<?php do_action( 'organized_docs_main_content_before' ); ?>
 	<div class="entry-content">
-	<?php global $Isa_Organized_Docs;
-	echo $Isa_Organized_Docs->organized_docs_section_heading();
-	echo $Isa_Organized_Docs->organized_docs_content_nav();
-	wp_enqueue_style('organized-docs');	?>
+	<h1 id="isa-docs-main-title" class="entry-title" <?php if($itemprop_name) echo $itemprop_name; ?>>
+		<?php echo apply_filters( 'od_docs_main_title', 'Docs' ); ?>
+	</h1>
+	<?php wp_enqueue_style('organized-docs'); ?>
+	
 	<div class="isa-docs-archive-content">
 	<?php do_action( 'organized_docs_main_content_after_nav' ); 
 	
@@ -32,6 +41,7 @@ get_header(); ?>
 	}
 
 	// sort terms by custom sort-order meta
+	global $Isa_Organized_Docs;
 	$sorted_term_ids = $Isa_Organized_Docs->sort_terms( $term_ids, 'main_doc_item_sort_order' );
 
 	$count = count( $sorted_term_ids );
