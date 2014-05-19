@@ -364,17 +364,17 @@ class Isa_Organized_Docs{
 	 */
 	public function setup_docs_taxonomy() {
 		$category_labels = array(
-			'name' => __( 'Categories', 'organized-docs' ),
-			'singular_name' =>__( 'Category', 'organized-docs' ),
-			'search_items' => __( 'Search Categories', 'organized-docs' ),
-			'all_items' => __( 'All Categories', 'organized-docs' ),
-			'parent_item' => __( 'Parent Category', 'organized-docs' ),
-			'parent_item_colon' => __( 'Parent Category:', 'organized-docs' ),
-			'edit_item' => __( 'Edit Category', 'organized-docs' ),
-			'update_item' => __( 'Update Category', 'organized-docs' ),
-			'add_new_item' => __( 'Add New Category', 'organized-docs' ),
-			'new_item_name' => __( 'New Category Name', 'organized-docs' ),
-			'menu_name' => __( 'Categories', 'organized-docs' ),
+			'name' => __( 'Docs Categories', 'organized-docs' ),
+			'singular_name' =>__( 'Docs Category', 'organized-docs' ),
+			'search_items' => __( 'Search Docs Categories', 'organized-docs' ),
+			'all_items' => __( 'All Docs Categories', 'organized-docs' ),
+			'parent_item' => __( 'Docs Parent Category', 'organized-docs' ),
+			'parent_item_colon' => __( 'Docs Parent Category:', 'organized-docs' ),
+			'edit_item' => __( 'Edit Docs Category', 'organized-docs' ),
+			'update_item' => __( 'Update Docs Category', 'organized-docs' ),
+			'add_new_item' => __( 'Add New Docs Category', 'organized-docs' ),
+			'new_item_name' => __( 'New Docs Category Name', 'organized-docs' ),
+			'menu_name' => __( 'Docs Categories', 'organized-docs' ),
 		);
 		$custom_slug = get_option('od_rewrite_docs_slug');
 /* translators: URL slug */
