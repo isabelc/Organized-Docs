@@ -54,7 +54,9 @@ This does not happen with the default WordPress themes. For a custom solution fo
 
 = 2.0 =
 * New: new template files eliminate the need to hijack sidebars. Easily make your custom docs templates by adding a folder named organized-docs to your theme. In that folder, you can add a custom single.php, taxonomy.php, archive.php, and sidebar.php. See our new templates directory to copy the originals.
-* New: option to set custom sort order for single docs.
+* New: option to set custom sort order for single docs. You can sort alphabetically, by date, or by custom sort order number. You can also choose to sort in ascending or descending order.
+* New: option to not load Font Awesome stylesheet if your theme, or other plugin, already loads it. This will increase your page load speed.
+* Tweak: use singleton class.
 * Fix: a subheading without a sort order number would not display in some instances.
 
 = 1.2.2 =
