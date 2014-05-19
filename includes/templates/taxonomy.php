@@ -33,13 +33,13 @@ echo $Isa_Organized_Docs->organized_docs_content_nav(); ?>
 	}
 	if ( empty($termchildren) ) {
 		// there are no child terms, do regular term loop to list posts within current term
-		if ( have_posts() ) :
-			echo '<ul>';
-			while ( have_posts() ) {
-				the_post();
-				echo '<li><a href="' . get_permalink($post->ID).'">' . get_the_title() . '</a></li>';		
-			}
-			echo '</ul>';
+		if ( have_posts() ) : ?>
+			<ul>
+			<?php while ( have_posts() ) {
+				the_post(); ?>
+				<li><a href="<?php echo get_permalink($post->ID); ?>"><?php echo get_the_title(); ?></a></li>
+			<?php } ?>
+			</ul><?php
 	 	else : ?>
 			<h2><?php _e( 'Error 404 - Not Found', 'organized-docs' ); ?></h2>
 			<?php 
@@ -55,43 +55,47 @@ echo $Isa_Organized_Docs->organized_docs_content_nav(); ?>
 
 			$termobject = get_term_by( 'id', $child_id, 'isa_docs_category' );
 
-			//Display the sub Term information
-			echo '<h2>' . $termobject->name . '</h2>';
-			echo '<ul>';
-			global $post;
-
-			// orderby custom option
-				
-			$single_sort_by = get_option('od_single_sort_by');
-			$orderby_order = get_option('od_single_sort_order');
-				
-			if ( 'date' == $single_sort_by ) {
-				$orderby = 'date';
-			} elseif ( 'title - alphabetical' == $single_sort_by ) {
-				$orderby = 'title';
-			} else {
-				$orderby = 'meta_value_num';
-			}
+			//Display the sub Term information ?>
+			<h2><?php echo $termobject->name; ?></h2>
+			<?php
+			// @test only list all posts if not disabled with setting
+			if( ! get_option('od_disable_list_each_single') ) { ?>
 			
-			// prep nested loop
-			$args = array(	'post_type' => 'isa_docs', 
-						'posts_per_page' => -1,
-						'tax_query' => array(
-								array(
-									'taxonomy' => 'isa_docs_category',
-									'field' => 'id',
-									'terms' => $termobject->term_id
-								)
-							),
-						'orderby' => $orderby,
-						'meta_key' => '_odocs_meta_sortorder_key',
-						'order' => $orderby_order
-			);
-			$postlist = get_posts( $args );
-			foreach ( $postlist as $single_post ) {
-				echo '<li><a href="'.get_permalink($single_post->ID).'" title="' . esc_attr( $single_post->post_title ) .'">'.$single_post->post_title.'</a></li>';   
-			}  
-	        echo '</ul>';
+				<ul><?php
+				global $post;
+				// orderby custom option
+					
+				$single_sort_by = get_option('od_single_sort_by');
+				$orderby_order = get_option('od_single_sort_order');
+					
+				if ( 'date' == $single_sort_by ) {
+					$orderby = 'date';
+				} elseif ( 'title - alphabetical' == $single_sort_by ) {
+					$orderby = 'title';
+				} else {
+					$orderby = 'meta_value_num';
+				}
+				
+				// prep nested loop
+				$args = array(	'post_type' => 'isa_docs', 
+							'posts_per_page' => -1,
+							'tax_query' => array(
+									array(
+										'taxonomy' => 'isa_docs_category',
+										'field' => 'id',
+										'terms' => $termobject->term_id
+									)
+								),
+							'orderby' => $orderby,
+							'meta_key' => '_odocs_meta_sortorder_key',
+							'order' => $orderby_order
+				);
+				$postlist = get_posts( $args );
+				foreach ( $postlist as $single_post ) { ?>
+					<li><a href="<?php echo get_permalink($single_post->ID); ?>" title="<?php echo esc_attr( $single_post->post_title ); ?>"><?php echo $single_post->post_title; ?></a></li>
+				<?php } ?>
+				</ul><?php
+			}
 		} // end foreach ( $sorted_termchildren as $child_id => $order )
 
 	}// end check for empty $termchildren

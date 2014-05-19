@@ -3,7 +3,7 @@
  * Plugin Name: Organized Docs
  * Plugin URI: http://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
  * Description: Easily create organized documentation for multiple products, organized by product, and by subsections within each product.
- * Version: 2.0-rc-1.6
+ * Version: 2.0-rc-1.7
  * Author: Isabel Castillo
  * Author URI: http://isabelcastillo.com
  * License: GPL2
@@ -757,6 +757,14 @@ class Isa_Organized_Docs{
 			'od_main_setting_section'
 		);
 	 	register_setting( 'organized-docs-settings', 'od_rewrite_docs_slug' );
+		add_settings_field(
+			'od_disable_list_each_single',
+			__( 'Do Not List Each Single Title', 'organized-docs' ),
+			array( $this, 'disable_list_each_single_setting_callback' ),
+			'organized-docs-settings',
+			'od_main_setting_section'
+		);
+	 	register_setting( 'organized-docs-settings', 'od_disable_list_each_single' );
 	 	add_settings_field(
 			'od_hide_printer_icon',
 			__( 'Remove Printer Icon', 'organized-docs' ),
@@ -832,7 +840,6 @@ class Isa_Organized_Docs{
 			'od_uninstall_setting_section'
 		);
 	 	register_setting( 'organized-docs-settings', 'od_delete_data_on_uninstall' );
-
 	}
 
 	/**
@@ -840,7 +847,7 @@ class Isa_Organized_Docs{
 	 * @since 1.2.0
 	 */
 	public function main_setting_section_callback() {
-		echo '<p>' . __('This section is pending future options.', 'organized-docs') . '</p>';
+		return true;
 	}
 
 	/**
@@ -864,6 +871,15 @@ class Isa_Organized_Docs{
 	public function rewrite_docs_slug_setting_callback() {
 		echo '<input name="od_rewrite_docs_slug" id="od_rewrite_docs_slug" value="' . get_option('od_rewrite_docs_slug'). '" type="text" class="regular-text" /><p class="description">' . __( 'Change the default Docs slug from "docs" to something you prefer. Leave blank for default. To see this change, refresh permalinks and clear all caches. To refresh permalinks, go to Settings - Permalinks, and click Save Changes twice.', 'organized-docs' );
 	}
+
+	/**
+	 * Callback function for setting to not list each single post @test
+	 * @since 2.0
+	 */
+	public function disable_list_each_single_setting_callback() {
+		echo '<label for="od_disable_list_each_single"><input name="od_disable_list_each_single" id="od_disable_list_each_single" type="checkbox" value="1" class="code" ' . checked( 1, get_option( 'od_disable_list_each_single' ), false ) . ' /> ' . __( 'Check this box if you do NOT want to list each individual title on the top-level item page, nor in the Table of Contents sidebar. This will leave only the subheadings listed.', 'organized-docs' ) . '</label>';
+	}
+	
 	/**
 	 * Callback function for setting to hide printer icon
 	 * @since 1.2.0

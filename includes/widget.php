@@ -7,11 +7,8 @@
  * @author	Isabel Castillo <me@isabelcastillo.com>
  * @licens	http://opensource.org/licenses/gpl-license.php GNU Public License
  */
-
 class DocsSectionContents extends WP_Widget {
-	/**
-	 * Register widget
-	 */
+	/** Register widget */
 	public function __construct() {
 		parent::__construct(
 	 		'docs_section_contents',
@@ -52,9 +49,13 @@ class DocsSectionContents extends WP_Widget {
 	
 			foreach ( $sorted_termchildren as $child_id => $order ) {
 				$termobject = get_term_by( 'id', $child_id, 'isa_docs_category' );
-				//Display the sub Term information, in open widget container
-				echo '<aside class="widget well"><h3 class="widget-title">' . $termobject->name . '</h3>';
-				echo '<ul>';
+				//Display the sub Term information, in open widget container ?>
+				<aside class="widget well"><h3 class="widget-title"><?php echo $termobject->name; ?></h3><?php
+				
+				// @test only list all posts if not disabled with setting
+				if( ! get_option('od_disable_list_each_single' ) ) { ?>
+			
+				<ul><?php
 				// nest a loop through each child cat's posts
 				global $post;
 			
@@ -90,8 +91,10 @@ class DocsSectionContents extends WP_Widget {
 						if( $single_post->ID == $current_single_postID ) 
 							echo ' class="organized-docs-active-side-item"';
 						echo '><a href="' . get_permalink( $single_post->ID ) . '" title="' . esc_attr( $single_post->post_title ) . '">' . $single_post->post_title . '</a></li>';   
-				}  
-						echo '</ul></aside>';
+				} ?>
+				</ul>
+				<?php } ?>
+				</aside><?php
 			} // end foreach ( $sorted_termchildren
 		}
 		
