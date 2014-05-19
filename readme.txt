@@ -18,7 +18,7 @@ Each product's docs is further organized into subsections. The subsections list 
 
 The single docs posts will have a Docs Table of Contents widget added to the sidebar. This will show a Table of Contents for docs pertaining only to the product which this current single doc belongs to. 
 
-Demo [Organized Docs on Twenty Thirteen](http://smartestthemes.com/organized-docs-wordpress-plugin/docs/) theme
+Demo [Organized Docs on Twenty Fourteen](http://smartestthemes.com/organized-docs-wordpress-plugin/docs/) theme
 
 Demo [Organized Docs on Twenty Twelve](http://smartestthemes.com/organized-docs-on-twentytwelve/docs/) theme
 
@@ -62,6 +62,7 @@ This is no longer an issue since version 2.0.
 * Deprecated: od_docs_main_title filter is deprecated and no longer needed since an option to change the main Docs title is now added. Also, this filter while in legacy-use returns only text, not HTML h1 element. If you are hooking this filter, please update it to return just the text, or remove it altogether in favor of the new option.
 * Tweak: changed h2 page title element on Docs archive pages to h1. You may need to adjust size.
 * Tweak: load styles in footer for increased page load speed. And load it only on Docs pages.
+* Tweak: updated styles for Twenty Fourteen, Twenty Thirteen, and Twenty Twelve themes.
 * Tweak: use singleton class.
 * Tweak: no longer hiding the single docs title.
 * Tweak: no longer necessary to manually drag the Table of Contents widget over to the Docs Widget Area.
@@ -136,6 +137,8 @@ Bug fix: Custom sort-order for Categories was not saving.
 * Initial release.
 
 == Upgrade Notice ==
+= 2.0 =
+NOTE: This update has many changes, including style changes, so, please read changelog.
 
 = 1.2.2 =
 Fix: custom.php file was not synced to svn.
