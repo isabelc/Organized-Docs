@@ -71,8 +71,8 @@ global $Isa_Organized_Docs; ?>
 	$previd = $ids[$thisindex-1];
 	$nextid = $ids[$thisindex+1];
 
-	$anchor_prev = get_option( 'od_title_on_nav_links' ) ? $titles[$thisindex-1] : __( 'Previous', 'organized-docs' );
-	$anchor_next = get_option( 'od_title_on_nav_links' ) ? $titles[$thisindex+1] : __( 'Next', 'organized-docs' ); ?>
+	$anchor_prev = get_option( 'od_title_on_nav_links' ) ? '&larr; ' . $titles[$thisindex-1] : __( '&larr; Previous', 'organized-docs' );
+	$anchor_next = get_option( 'od_title_on_nav_links' ) ? $titles[$thisindex+1] . ' &rarr;' : __( 'Next &rarr;', 'organized-docs' ); ?>
 	
 	<nav class="navigation post-navigation" role="navigation"><h1 class="screen-reader-text"><?php _e( 'Post navigation', 'organized-docs' ); ?></h1><div class="nav-links">
 

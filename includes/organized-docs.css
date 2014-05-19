@@ -50,11 +50,11 @@ ul#organized-docs-main li a{text-decoration:none;}
 /* single - Twenty Fourteen Theme compatibility */
 body.single-isa_docs .site-content .entry-content {padding-top:0;}
 body.single-isa_docs #isa-docs-item-title{margin-top:0;}
-body.single-isa_docs header.entry-header{display:none;}
+
 
 /**
  * Docs Menu Bar
- * For Twenty Twelve compatibility. It uses default Twenty Thirteen styles, so can remove this with 2013.
+ * For Twenty Twelve compatibility. It uses default Twenty Thirteen styles, so can remove this if using 2013 theme.
  */
 #organized-docs-menu {
     background-color: rgb(247, 245, 231);
@@ -91,10 +91,36 @@ body.single-isa_docs header.entry-header{display:none;}
 	color: rgb(255, 255, 255);
     font-style: italic;
 }
-/* end compatibilty for Twenty Twelve */
+/* end compatibilty for Twenty Thirteen */
+
+.single-isa_docs #primary {
+	width:100%;
+	position:relative;
+	display:block;
+	margin:0 auto;
+}
+.single-isa_docs #content {
+    margin: 0 0 0 3%;
+    padding:0;
+    width: 65%;
+    display:inline-block;
+	vertical-align: top;
+}
+
+.single-isa_docs #content-sidebar {
+    margin: 0 3%;
+    padding:0;
+    width: 24%;
+    display:inline-block;
+	vertical-align: top;
+	
+}
+.single-isa_docs #content-sidebar li {list-style:none;}
+.single-isa_docs #content-sidebar .widget_docs_section_contents li {list-style:disc;}
 
 /* nav For non-default-WP themes */
-.post-navigation .nav-links a {margin-top:1em;display:block;}
+.single-isa_docs .post-navigation {margin-top:64px}
+.single-isa_docs .post-navigation .nav-links a {margin-top:1em;display:block;}
 .screen-reader-text {
 	clip: rect(1px, 1px, 1px, 1px);
 	position: absolute !important;
