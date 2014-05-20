@@ -3,7 +3,7 @@
  * Plugin Name: Organized Docs
  * Plugin URI: http://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
  * Description: Easily create organized documentation for multiple products, organized by product, and by subsections within each product.
- * Version: 2.0.2
+ * Version: 2.0.3
  * Author: Isabel Castillo
  * Author URI: http://isabelcastillo.com
  * License: GPL2
@@ -296,20 +296,24 @@ class Isa_Organized_Docs{
 		
 		// get term children and sort them by custom sort oder
 		$termchildren =  get_term_children( $top_level_parent_term_id, 'isa_docs_category' );
-		$sorted_termchildren = $this->sort_terms( $termchildren, 'subheading_sort_order' );
-	
-		foreach ( $sorted_termchildren as $sorted_termchild_id => $sorted_termchild_order ) { 
+		if($termchildren) {
+			$sorted_termchildren = $this->sort_terms( $termchildren, 'subheading_sort_order' );
+			if($sorted_termchildren) {
+			
+				foreach ( $sorted_termchildren as $sorted_termchild_id => $sorted_termchild_order ) { 
 
-				$termobject = get_term_by( 'id', $sorted_termchild_id, 'isa_docs_category' );
-				$docs_menu .= '<li class="menu-item';
-		
-				// if current term id matches an id of a child term in menu, then give it active class
-				if ( $termobject->term_id == $curr_term_id_as_int ) {
-					$docs_menu .= ' active-docs-item current_page_item';
+					$termobject = get_term_by( 'id', $sorted_termchild_id, 'isa_docs_category' );
+					$docs_menu .= '<li class="menu-item';
+			
+					// if current term id matches an id of a child term in menu, then give it active class
+					if ( $termobject->term_id == $curr_term_id_as_int ) {
+						$docs_menu .= ' active-docs-item current_page_item';
+					}
+					$docs_menu .= '"><a href="' . get_term_link( $termobject ) . '" title="' . esc_attr( $termobject->name ) . '">' . $termobject->name . '</a></li>';
+			
 				}
-				$docs_menu .= '"><a href="' . get_term_link( $termobject ) . '" title="' . esc_attr( $termobject->name ) . '">' . $termobject->name . '</a></li>';
-		
-		}		
+			}
+		}
 		
 		$docs_menu .= '</ul></div>';
 
@@ -1084,28 +1088,23 @@ class Isa_Organized_Docs{
 			$titles[] = $thepost->post_title;
 		endforeach; 
 		wp_reset_postdata();
-				
 		// get and echo previous and next post in the same taxonomy        
 		$thisindex = array_search($post->ID, $ids);
-		$previd = $ids[$thisindex-1];
-		$nextid = $ids[$thisindex+1];
-
-		$anchor_prev = get_option( 'od_title_on_nav_links' ) ? '&larr; ' . $titles[$thisindex-1] : __( '&larr; Previous', 'organized-docs' );
-		$anchor_next = get_option( 'od_title_on_nav_links' ) ? $titles[$thisindex+1] . ' &rarr;' : __( 'Next &rarr;', 'organized-docs' );
-		
+		$previd = isset($ids[$thisindex-1]) ? $ids[$thisindex-1] : '';
+		$nextid = isset($ids[$thisindex+1]) ? $ids[$thisindex+1] : '';
+		$titleon = get_option( 'od_title_on_nav_links' );
 		$out = '<nav class="navigation post-navigation" role="navigation"><h1 class="screen-reader-text">' . __( 'Post navigation', 'organized-docs' ). '</h1><div class="nav-links">';
-
 		if ( !empty($previd) ) {
+			$anchor_prev = $titleon ? '&larr; ' . $titles[$thisindex-1] : __( '&larr; Previous', 'organized-docs' );
 			$out .= '<span class="meta-nav"><a rel="prev" href="' . get_permalink($previd) . '">' . $anchor_prev. '</a></span>';
 		}
 		if ( !empty($nextid) ) {
+			$anchor_next = $titleon ? $titles[$thisindex+1] . ' &rarr;' : __( 'Next &rarr;', 'organized-docs' );
 			$out .= '<span class="meta-nav"><a rel="next" href="' . get_permalink($nextid) . '">' . $anchor_next . '</a></span>';
 		}
 		$out .= '</div></nav>';
-		
 		echo $out;
 	}
-
 	/**
 	 * For backwards compatibility, give all single Docs posts a default sort-order number of 99999
 	 * @since 1.1.8
