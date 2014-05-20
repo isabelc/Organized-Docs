@@ -52,6 +52,8 @@ This is no longer an issue since version 2.0.
 * Tweak: put back missing comments into single template.
 * Tweak: taller line-height on main docs page.
 * Tweak: eliminated a PHP notice that was triggered in organized_docs_content_nav when sub-categories were not assigned.
+* Tweak: eliminated 2 PHP notices that were triggered in organized_docs_post_nav.
+* Tweak: updated `.pot` translation file.
 
 = 2.0.2 =
 * Fix: improved styling for mobile devices.
