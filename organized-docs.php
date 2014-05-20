@@ -1043,6 +1043,68 @@ class Isa_Organized_Docs{
 		}
 		return $posts;
 	}
+	
+	/**
+	* Displays prev/next nav links for single docs
+	* @since 2.0.3
+	*/
+	
+	public function organized_docs_post_nav() {
+		global $post;
+		$term_list = wp_get_post_terms($post->ID, 'isa_docs_category', array("fields" => "slugs"));
+		// get_posts in same custom taxonomy
+
+		// sort terms by chosen orderby
+		$single_sort_by = get_option('od_single_sort_by');
+		$orderby_order = get_option('od_single_sort_order');
+				
+		if ( 'date' == $single_sort_by ) {
+			$orderby = 'date';
+		} elseif ( 'title - alphabetical' == $single_sort_by ) {
+			$orderby = 'title';
+		} else {
+			$orderby = 'meta_value_num';
+		}
+				
+		$postlist_args = array(
+				'posts_per_page'	=> -1,
+				'post_type'			=> 'isa_docs',
+				'meta_key'			=> '_odocs_meta_sortorder_key',
+				'orderby'			=> $orderby,
+				'order'				=> $orderby_order,
+				'isa_docs_category' => $term_list[0]
+		); 
+		$postlist = get_posts( $postlist_args );
+					
+		// get ids of posts retrieved from get_posts
+		$ids = array();
+		$titles = array();
+		foreach ($postlist as $thepost) : setup_postdata( $thepost );
+			$ids[] = $thepost->ID;
+			$titles[] = $thepost->post_title;
+		endforeach; 
+		wp_reset_postdata();
+				
+		// get and echo previous and next post in the same taxonomy        
+		$thisindex = array_search($post->ID, $ids);
+		$previd = $ids[$thisindex-1];
+		$nextid = $ids[$thisindex+1];
+
+		$anchor_prev = get_option( 'od_title_on_nav_links' ) ? '&larr; ' . $titles[$thisindex-1] : __( '&larr; Previous', 'organized-docs' );
+		$anchor_next = get_option( 'od_title_on_nav_links' ) ? $titles[$thisindex+1] . ' &rarr;' : __( 'Next &rarr;', 'organized-docs' );
+		
+		$out = '<nav class="navigation post-navigation" role="navigation"><h1 class="screen-reader-text">' . __( 'Post navigation', 'organized-docs' ). '</h1><div class="nav-links">';
+
+		if ( !empty($previd) ) {
+			$out .= '<span class="meta-nav"><a rel="prev" href="' . get_permalink($previd) . '">' . $anchor_prev. '</a></span>';
+		}
+		if ( !empty($nextid) ) {
+			$out .= '<span class="meta-nav"><a rel="next" href="' . get_permalink($nextid) . '">' . $anchor_next . '</a></span>';
+		}
+		$out .= '</div></nav>';
+		
+		echo $out;
+	}
 
 	/**
 	 * For backwards compatibility, give all single Docs posts a default sort-order number of 99999
