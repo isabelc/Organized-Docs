@@ -215,6 +215,7 @@ class Isa_Organized_Docs{
 	 */
 	public function organized_docs_section_heading() {
 		global $post, $data;
+		$heading = '';
 		if ( is_tax( 'isa_docs_category' ) ) {
 	
 			// get top level parent term on custom taxonomy archive
@@ -242,21 +243,21 @@ class Isa_Organized_Docs{
 			// get top level parent term on single
 
 			$doc_categories = wp_get_object_terms( $post->ID, 'isa_docs_category' );
-			$first_cat = $doc_categories[0]; // first category
-			$curr_term_id = $first_cat->term_id;
-			$top_level_parent_term_id = $this->isa_term_top_parent_id( $curr_term_id );
-		
-			$top_term = get_term( $top_level_parent_term_id, 'isa_docs_category' );
-		
-			$top_term_link = get_term_link( $top_term );
-			$top_term_name = $top_term->name;
-		
-			$heading = '<h2 id="isa-docs-item-title">';
-			$heading .= '<a href="' . $top_term_link  . '" title="' . esc_attr( $top_term_name ) . '">' . $top_term_name . '</a>';
-			$heading .= '</h2>';			
-		
+			if ( $doc_categories ) {
+				$first_cat = $doc_categories[0]; // first category
+				$curr_term_id = $first_cat->term_id;
+				$top_level_parent_term_id = $this->isa_term_top_parent_id( $curr_term_id );
+			
+				$top_term = get_term( $top_level_parent_term_id, 'isa_docs_category' );
+			
+				$top_term_link = get_term_link( $top_term );
+				$top_term_name = $top_term->name;
+			
+				$heading = '<h2 id="isa-docs-item-title">';
+				$heading .= '<a href="' . $top_term_link  . '" title="' . esc_attr( $top_term_name ) . '">' . $top_term_name . '</a>';
+				$heading .= '</h2>';
+			}
 		}
-	
 		return $heading;
 
 	} // end organized_docs_section_title()
@@ -270,28 +271,30 @@ class Isa_Organized_Docs{
 		if ( is_post_type_archive( 'isa_docs' ) ) 
 			return;
 
-		$docs_menu = '<div id="organized-docs-menu" class="navbar nav-menu"><ul>';
-
 		if ( is_tax( 'isa_docs_category' ) ) {
 		
 			// need regular current term id, only used to compare w/ top level term id later
 			$taxonomy = get_query_var( 'taxonomy' );
 			$queried_object = get_queried_object();
-			$curr_term_id =  (int) $queried_object->term_id;
+			$curr_term_id = (int) $queried_object->term_id;
 			$top_level_parent_term_id = $this->isa_term_top_parent_id( $curr_term_id );
 		
-		} else { // if is single, get top level term id on single
-				global $post;
-				$doc_categories = wp_get_object_terms( $post->ID, 'isa_docs_category' );
+		} else { // is single, get top level term id on single
+			global $post;
+			$doc_categories = wp_get_object_terms( $post->ID, 'isa_docs_category' );
+			if ($doc_categories) {
 				$first_cat = $doc_categories[0]; // first category
-				$curr_term_id = $first_cat->term_id;
+				$curr_term_id = (int)$first_cat->term_id;
 				// need regular current cat id, only used to compare w/ top level cat id
 				$top_level_parent_term_id = $this->isa_term_top_parent_id( $curr_term_id );
+			} else {
+				// cat is not assigned
+				return;
+			}
 		}
 				
-		/** make sure current term id is integer. will be compared to child cats in menu below */
-		$curr_term_id_as_int = (int)$curr_term_id;
-		
+		$docs_menu = '<div id="organized-docs-menu" class="navbar nav-menu"><ul>';
+						
 		/** proceed with getting children of top level term, not simply children of current term, unless, of course, the current term is a top level parent **/
 		
 		// get term children and sort them by custom sort oder
@@ -306,7 +309,7 @@ class Isa_Organized_Docs{
 					$docs_menu .= '<li class="menu-item';
 			
 					// if current term id matches an id of a child term in menu, then give it active class
-					if ( $termobject->term_id == $curr_term_id_as_int ) {
+					if ( $termobject->term_id == $curr_term_id ) {
 						$docs_menu .= ' active-docs-item current_page_item';
 					}
 					$docs_menu .= '"><a href="' . get_term_link( $termobject ) . '" title="' . esc_attr( $termobject->name ) . '">' . $termobject->name . '</a></li>';
@@ -1056,6 +1059,11 @@ class Isa_Organized_Docs{
 	public function organized_docs_post_nav() {
 		global $post;
 		$term_list = wp_get_post_terms($post->ID, 'isa_docs_category', array("fields" => "slugs"));
+		
+		if ( ! $term_list ) {
+			return;
+		}
+		
 		// get_posts in same custom taxonomy
 
 		// sort terms by chosen orderby

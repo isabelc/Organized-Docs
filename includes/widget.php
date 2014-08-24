@@ -23,25 +23,33 @@ class DocsSectionContents extends WP_Widget {
 	 * @param array $instance Saved values from database.
 	 */
 	public function widget( $args, $instance ) {
-		extract( $args );
-		
+	
 		if ( ! is_singular('isa_docs') )
 			return;
-		$title = apply_filters('widget_title', $instance['title']);
-		echo $before_widget;
-		if ( ! empty( $title ) )
+		
+		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Table of Contents', 'organized-docs' ) : $instance['title'], $instance, $this->id_base );		
+		echo $args['before_widget'];
+		if ( $title ) {
 			echo '<h3 class="widget-title">'. $title . '</h3>';
+		}
 		// get current term id
 		global $post, $Isa_Organized_Docs;
 		$current_single_postID = $post->ID;// to highlight current item below
+		
 		$doc_categories = wp_get_object_terms( $post->ID, 'isa_docs_category' );
+		
+		if ( ! $doc_categories ) {
+			// cat has not been assigned
+			return;
+		}
+			
 		$first_term = $doc_categories[0];
 		$curr_term_id = $first_term->term_id;
 		$top_level_parent_term_id = $Isa_Organized_Docs->isa_term_top_parent_id( $curr_term_id );
 
 		// get term children
 		$termchildren =  get_term_children( $top_level_parent_term_id, 'isa_docs_category' );
-	
+		
 		// sort $termchildren by custom subheading_sort_order numbers
 		$sorted_termchildren = $Isa_Organized_Docs->sort_terms( $termchildren, 'subheading_sort_order' );
 
@@ -67,7 +75,7 @@ class DocsSectionContents extends WP_Widget {
 				} else {
 					$orderby = 'meta_value_num';
 				}
-				$args = array(	'post_type' => 'isa_docs', 
+				$query_args = array(	'post_type' => 'isa_docs', 
 							'posts_per_page' => -1,
 							'order' => 'ASC',
 							'tax_query' => array(
@@ -81,7 +89,7 @@ class DocsSectionContents extends WP_Widget {
 							'meta_key' => '_odocs_meta_sortorder_key',
 							'order' => $orderby_order
 					);
-				$postlist = get_posts( $args );
+				$postlist = get_posts( $query_args );
 				foreach ( $postlist as $single_post ) {
 						echo '<li';
 						if( $single_post->ID == $current_single_postID ) 
@@ -91,11 +99,9 @@ class DocsSectionContents extends WP_Widget {
 				</ul>
 				<?php } ?>
 				</aside><?php
-			} // end foreach ( $sorted_termchildren
+			}
 		}
-		
-		echo $after_widget;
-
+		echo $args['after_widget'];
 	}
 
 	/**
@@ -115,13 +121,7 @@ class DocsSectionContents extends WP_Widget {
 	 * @param array $instance Previously saved values from database.
 	 */
 	public function form( $instance ) {
-		
-		if ( isset( $instance[ 'title' ] ) ) {
-			$title = $instance[ 'title' ];
-		}
-		else {
-			$title = __( 'Table of Contents', 'organized-docs' );
-		} ?>
+		$title = empty( $instance[ 'title' ] ) ? __( 'Table of Contents', 'organized-docs' ) : $instance[ 'title' ]; ?>
 		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'organized-docs' ); ?></label> 
 		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" /></p>
 		<?php 
