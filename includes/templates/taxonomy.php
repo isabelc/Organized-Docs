@@ -42,6 +42,7 @@ wp_enqueue_style('organized-docs'); ?>
 	// get term children
 	$termchildren =  get_term_children( $curr_termID, 'isa_docs_category' );
 
+	
 	if ( empty($termchildren) ) {
 		// there are no child terms, do regular term loop to list posts within current term
 		if ( have_posts() ) : ?>
@@ -56,9 +57,12 @@ wp_enqueue_style('organized-docs'); ?>
 			<?php 
 		endif;
 	} else {
-
+	
 		// there are subTerms, do list subTerms with all its posts for each subTerm
-
+		?>
+		<script>jQuery(document).ready(function(){jQuery( "h2.docs-sub-heading" ).click(function() {jQuery(this).next().slideToggle();}).next().hide();});</script>
+		<?php
+	
 		// sort $termchildren by custom subheading_sort_order numbers
 		$sorted_termchildren = $Isa_Organized_Docs->sort_terms( $termchildren, 'subheading_sort_order' );
 
@@ -66,10 +70,12 @@ wp_enqueue_style('organized-docs'); ?>
 
 			$termobject = get_term_by( 'id', $child_id, 'isa_docs_category' );
 
-			//Display the sub Term information ?>
-			<h2><?php echo $termobject->name; ?></h2>
+			//Display the sub Term information 
+			?>
+			<h2 class="docs-sub-heading"><?php echo $termobject->name; ?></h2>
 			<?php
-			// only list all posts if not disabled with setting
+			// only list all posts if not disabled with setting 
+				// @todo this setting will be changed to either link to sub-heading page, or else toggle the list of articles
 			if( ! get_option('od_disable_list_each_single') ) { ?>
 				<ul><?php
 				global $post;
