@@ -3,8 +3,8 @@ Contributors: isabel104
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=me%40isabelcastillo%2ecom
 Tags: documentation, docs, organize documentation, organized documentation, instruction guides, wiki
 Requires at least: 3.9
-Tested up to: 3.9.1
-Stable Tag: 2.0.3
+Tested up to: 4.0
+Stable Tag: 2.0.4
 License: GNU Version 2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -46,6 +46,11 @@ This is no longer an issue since version 2.0.
 3. Single docs post with Table of Contents
 
 == Changelog ==
+
+= 2.0.4 =
+* Fix - remove several PHP warnings that occurred when viewing a single Doc while a category was not assigned to the Doc.
+* Tweak - updated the URL for Setup Instructions.
+* Maintenance - updated the Table of Contents widget to work with the WordPress 4.0 customizer.
 
 = 2.0.3 =
 * Tweak: moved  prev/next nav links for single docs to a template tag for easier-to-customize template files.
@@ -155,6 +160,9 @@ Bug fix: Custom sort-order for Categories was not saving.
 * Initial release.
 
 == Upgrade Notice ==
+= 2.0.4 =
+Removed several PHP warnings that occurred when viewing a single Doc while a category was not assigned to the Doc.
+
 = 2.0.1 =
 Fix: filter the content on single docs. NOTE Please see changes for version 2.0.
 
