@@ -51,6 +51,7 @@ This is no longer an issue since version 2.0.
 * Fix - remove several PHP warnings that occurred when viewing a single Doc while a category was not assigned to the Doc.
 * Tweak - updated the URL for Setup Instructions.
 * Maintenance - updated the Table of Contents widget to work with the WordPress 4.0 customizer.
+* Maintenance - updated .pot translation file.
 
 = 2.0.3 =
 * Tweak: moved  prev/next nav links for single docs to a template tag for easier-to-customize template files.
