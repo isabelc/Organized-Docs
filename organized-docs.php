@@ -995,9 +995,9 @@ class Isa_Organized_Docs{
 	public function close_comments_setting_callback() {
 
 		$html = '<input type="radio" id="od_close_comments_false" name="od_close_comments" value="1"' . checked( 1, get_option( 'od_close_comments' ), false ) . '/>';
-		$html .= '<label for="od_close_comments_false">No</label><br /><br/ >';
+		$html .= '<label for="od_close_comments_false">' . __( 'No', 'organized-docs' ) . '</label><br /><br/ >';
 		$html .= '<input type="radio" id="od_close_comments_true" name="od_close_comments" value="2"' . checked( 2, get_option( 'od_close_comments' ), false ) . '/>';
-		$html .= '<label for="od_close_comments_true">Yes</label>';// @todo localize string!!!
+		$html .= '<label for="od_close_comments_true">' . __( 'Yes', 'organized-docs' ) . '</label>';
 		echo $html;
 	}
 
@@ -1008,13 +1008,17 @@ class Isa_Organized_Docs{
 	public function list_toggle_setting_callback() {
 		$selected_option = get_option('od_list_toggle');
 		
-		$items = array("list", "hide", "toggle");
+		$items = array(
+			"list"		=> __( 'list', 'organized-docs' ),
+			"hide"		=> __( 'hide', 'organized-docs' ),
+			"toggle"	=> __( 'toggle', 'organized-docs' )
+			);
 		
 		echo "<select id='od_list_toggle' name='od_list_toggle'>";
 
-		foreach($items as $item) {
-			$selected = ( $selected_option == $item ) ? ' selected = "selected"' : '';
-			echo "<option value='$item' $selected>$item</option>";
+		foreach($items as $key => $val) {
+			$selected = ( $selected_option == $key ) ? ' selected = "selected"' : '';
+			echo "<option value='$key' $selected>$val</option>";
 		}
 		echo '</select><p class="description">' . __('On the top-level category pages, choose whether to list each article under its sub-heading, or hide the list of articles and only show sub-headings, or toggle the list when clicking a sub-heading.', 'organized-docs') . '</p>';// @todo make new .pot file.
 
@@ -1026,11 +1030,15 @@ class Isa_Organized_Docs{
 	 */
 	public function widget_list_toggle_setting_callback() {
 		$selected_option = get_option('od_widget_list_toggle');
-		$items = array("list", "hide", "toggle");
+		$items = array(
+			"list"		=> __( 'list', 'organized-docs' ),
+			"hide"		=> __( 'hide', 'organized-docs' ),
+			"toggle"	=> __( 'toggle', 'organized-docs' ));		
+		
 		echo "<select id='od_widget_list_toggle' name='od_widget_list_toggle'>";
-		foreach($items as $item) {
-			$selected = ( $selected_option == $item ) ? ' selected = "selected"' : '';
-			echo "<option value='$item' $selected>$item</option>";
+		foreach($items as $key => $val) {
+			$selected = ( $selected_option == $key ) ? ' selected = "selected"' : '';
+			echo "<option value='$key' $selected>$val</option>";
 		}
 		echo '</select><p class="description">' . __('In the Table of Contents widget, choose whether to list each article under its sub-heading, or hide the list of articles and only show sub-headings, or toggle the list when clicking a sub-heading.', 'organized-docs') . '</p>';
 	}
@@ -1041,16 +1049,18 @@ class Isa_Organized_Docs{
 	 */
 	public function single_sort_by_setting_callback() {
 		$selected_option = get_option('od_single_sort_by');
-		$items = array("custom sort order number", "title - alphabetical", "date");
+		$items = array(
+				"custom sort order number"	=> __( 'custom sort order number', 'organized-docs' ),
+				"title - alphabetical"		=> __( 'title - alphabetical', 'organized-docs' ),
+				"date"						=> __( 'date', 'organized-docs' ) );
+
 		echo "<select id = 'od_single_sort_by' name = 'od_single_sort_by'>";
 
-		foreach($items as $item) {
-			$selected = ( $selected_option == $item ) ? ' selected = "selected"' : '';
-			echo "<option value='$item' $selected>$item</option>";
+		foreach($items as $key => $val) {
+			$selected = ( $selected_option == $key ) ? ' selected = "selected"' : '';
+			echo "<option value='$key' $selected>$val</option>";
 		}
-
-		echo "</select>";
-		echo '<p class="description">Choose how to sort single docs.</p>';// @todo localize string!!!
+		echo '</select><p class="description">' . __( 'Choose how to sort single docs.', 'organized-docs' ) . '</p>';
 	}
 	
 	/**
@@ -1067,7 +1077,7 @@ class Isa_Organized_Docs{
 			echo "<option value='$item' $selected>$item</option>";
 		}
 		echo "</select>";
-		echo '<p class="description">Choose ascending or descending sort order.</p>';// @todo localize string!!!
+		echo '<p class="description">' . __( 'Choose ascending or descending sort order.', 'organized-docs' ) . '</p>';
 	}
 	/**
 	 * Callback function for setting to remove data on uninstall
