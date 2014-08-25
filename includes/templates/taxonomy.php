@@ -59,10 +59,12 @@ wp_enqueue_style('organized-docs'); ?>
 	} else {
 	
 		// there are subTerms, do list subTerms with all its posts for each subTerm
-		?>
-		<script>jQuery(document).ready(function(){jQuery( "h2.docs-sub-heading" ).click(function() {jQuery(this).next().slideToggle();}).next().hide();});</script>
-		<?php
-	
+		
+		$list_each = get_option('od_list_toggle');
+		if ( 'toggle' == $list_each ) {
+			echo $Isa_Organized_Docs->inline_js();
+		}
+		
 		// sort $termchildren by custom subheading_sort_order numbers
 		$sorted_termchildren = $Isa_Organized_Docs->sort_terms( $termchildren, 'subheading_sort_order' );
 
@@ -74,9 +76,9 @@ wp_enqueue_style('organized-docs'); ?>
 			?>
 			<h2 class="docs-sub-heading"><?php echo $termobject->name; ?></h2>
 			<?php
-			// only list all posts if not disabled with setting 
-				// @todo this setting will be changed to either link to sub-heading page, or else toggle the list of articles
-			if( ! get_option('od_disable_list_each_single') ) { ?>
+			// only list all posts if not hidden by option
+			
+			if( $list_each != 'hide' ) { ?>
 				<ul><?php
 				global $post;
 				// orderby custom option

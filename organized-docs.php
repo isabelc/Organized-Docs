@@ -738,12 +738,24 @@ class Isa_Organized_Docs{
 			array( $this, 'main_setting_section_callback' ),
 			'organized-docs-settings'
 		);
+		add_settings_section(
+			'od_toplevel_setting_section',
+			__( 'Top Level Category Pages', 'organized-docs' ),
+			array( $this, 'toplevel_setting_section_callback' ),
+			'organized-docs-settings'
+		);
 	 	add_settings_section(
 			'od_single_post_setting_section',
 			__( 'Single Post Settings', 'organized-docs' ),
 			array( $this, 'single_setting_section_callback' ),
 			'organized-docs-settings'
 		);
+		add_settings_section(
+			'od_widget_setting_section',
+			__( 'Table of Contents Widget', 'organized-docs' ),
+			array( $this, 'widget_setting_section_callback' ),
+			'organized-docs-settings'
+		);		
 	 	add_settings_section(
 			'od_uninstall_setting_section',
 			__( 'Uninstall Settings', 'organized-docs' ),
@@ -766,14 +778,6 @@ class Isa_Organized_Docs{
 			'od_main_setting_section'
 		);
 	 	register_setting( 'organized-docs-settings', 'od_change_main_docs_title' );
-		add_settings_field(
-			'od_disable_list_each_single',
-			__( 'Do Not List Each Single Title', 'organized-docs' ),
-			array( $this, 'disable_list_each_single_setting_callback' ),
-			'organized-docs-settings',
-			'od_main_setting_section'
-		);
-	 	register_setting( 'organized-docs-settings', 'od_disable_list_each_single' );
 		add_settings_field(
 			'od_disable_microdata',
 			__( 'Disable Microdata', 'organized-docs' ),
@@ -838,7 +842,14 @@ class Isa_Organized_Docs{
 			'od_single_post_setting_section'
 		);
 	 	register_setting( 'organized-docs-settings', 'od_close_comments' );
-
+	 	add_settings_field(
+			'od_list_toggle',
+			__( 'List Each Single Title?', 'organized-docs' ),
+			array( $this, 'list_toggle_setting_callback' ),
+			'organized-docs-settings',
+			'od_toplevel_setting_section'
+		);
+	 	register_setting( 'organized-docs-settings', 'od_list_toggle' );
 	 	add_settings_field(
 			'od_single_sort_by',
 			__( 'Sort Single Docs By ...', 'organized-docs' ),
@@ -863,6 +874,14 @@ class Isa_Organized_Docs{
 			'od_uninstall_setting_section'
 		);
 	 	register_setting( 'organized-docs-settings', 'od_delete_data_on_uninstall' );
+	 	add_settings_field(
+			'od_widget_list_toggle',
+			__( 'List Each Single Title?', 'organized-docs' ),
+			array( $this, 'widget_list_toggle_setting_callback' ),
+			'organized-docs-settings',
+			'od_widget_setting_section'
+		);
+	 	register_setting( 'organized-docs-settings', 'od_widget_list_toggle' );
 	}
 	/**
 	 * Main Settings section callback
@@ -871,6 +890,15 @@ class Isa_Organized_Docs{
 	public function main_setting_section_callback() {
 		return true;
 	}
+	
+	/**
+	 * Top Level Category Pages Settings section callback
+	 * @since 2.0.4
+	 */
+	public function toplevel_setting_section_callback() {
+		echo '<p>' . __('These settings are for the top-level item pages. These are pages which list all Docs for that top-level item.', 'organized-docs') . '</p>';
+	}
+	
 	/**
 	 * Single Docs Posts Settings section callback
 	 * @since 1.2.2
@@ -878,6 +906,14 @@ class Isa_Organized_Docs{
 	public function single_setting_section_callback() {
 		echo '<p>' . __('These settings are for the single Docs posts.', 'organized-docs') . '</p>';
 	}
+	/**
+	 * Widget Settings section callback
+	 * @since 2.0.4
+	 */
+	public function widget_setting_section_callback() {
+		return true;
+	}
+	
 	/**
 	 * Uninstall Settings section callback
 	 * @since 1.1.9
@@ -899,13 +935,7 @@ class Isa_Organized_Docs{
 	public function change_main_docs_title_setting_callback() {
 		echo '<input name="od_change_main_docs_title" id="od_change_main_docs_title" value="' . get_option('od_change_main_docs_title'). '" type="text" class="regular-text" /><p class="description">' . __( 'Change the page title that is displayed on the main Docs page. Leave blank for default "Docs".', 'organized-docs' );
 	}
-	/**
-	 * Callback function for setting to not list each single post
-	 * @since 2.0
-	 */
-	public function disable_list_each_single_setting_callback() {
-		echo '<label for="od_disable_list_each_single"><input name="od_disable_list_each_single" id="od_disable_list_each_single" type="checkbox" value="1" class="code" ' . checked( 1, get_option( 'od_disable_list_each_single' ), false ) . ' /> ' . __( 'Check this box if you do NOT want to list each individual title on the top-level item page, nor in the Table of Contents sidebar. This will leave only the subheadings listed.', 'organized-docs' ) . '</label>';
-	}
+	
 	/**
 	 * Callback function for setting to disable microdata
 	 * @since 2.0
@@ -967,10 +997,44 @@ class Isa_Organized_Docs{
 		$html = '<input type="radio" id="od_close_comments_false" name="od_close_comments" value="1"' . checked( 1, get_option( 'od_close_comments' ), false ) . '/>';
 		$html .= '<label for="od_close_comments_false">No</label><br /><br/ >';
 		$html .= '<input type="radio" id="od_close_comments_true" name="od_close_comments" value="2"' . checked( 2, get_option( 'od_close_comments' ), false ) . '/>';
-		$html .= '<label for="od_close_comments_true">Yes</label>';
+		$html .= '<label for="od_close_comments_true">Yes</label>';// @todo localize string!!!
 		echo $html;
 	}
 
+	/**
+	 * Callback function for setting to list, toggle, or hide individual articles on a top level category page.
+	 * @since 2.0.4
+	 */
+	public function list_toggle_setting_callback() {
+		$selected_option = get_option('od_list_toggle');
+		
+		$items = array("list", "hide", "toggle");
+		
+		echo "<select id='od_list_toggle' name='od_list_toggle'>";
+
+		foreach($items as $item) {
+			$selected = ( $selected_option == $item ) ? ' selected = "selected"' : '';
+			echo "<option value='$item' $selected>$item</option>";
+		}
+		echo '</select><p class="description">' . __('On the top-level category pages, choose whether to list each article under its sub-heading, or hide the list of articles and only show sub-headings, or toggle the list when clicking a sub-heading.', 'organized-docs') . '</p>';// @todo make new .pot file.
+
+	}
+	
+	/**
+	 * Callback function for setting to list, toggle, or hide individual articles in widget.
+	 * @since 2.0.4
+	 */
+	public function widget_list_toggle_setting_callback() {
+		$selected_option = get_option('od_widget_list_toggle');
+		$items = array("list", "hide", "toggle");
+		echo "<select id='od_widget_list_toggle' name='od_widget_list_toggle'>";
+		foreach($items as $item) {
+			$selected = ( $selected_option == $item ) ? ' selected = "selected"' : '';
+			echo "<option value='$item' $selected>$item</option>";
+		}
+		echo '</select><p class="description">' . __('In the Table of Contents widget, choose whether to list each article under its sub-heading, or hide the list of articles and only show sub-headings, or toggle the list when clicking a sub-heading.', 'organized-docs') . '</p>';
+	}
+	
 	/**
 	 * Callback function for setting to sort single docs
 	 * @since 2.0
@@ -986,7 +1050,7 @@ class Isa_Organized_Docs{
 		}
 
 		echo "</select>";
-		echo '<p class="description">Choose how to sort single docs.</p>';
+		echo '<p class="description">Choose how to sort single docs.</p>';// @todo localize string!!!
 	}
 	
 	/**
@@ -1003,7 +1067,7 @@ class Isa_Organized_Docs{
 			echo "<option value='$item' $selected>$item</option>";
 		}
 		echo "</select>";
-		echo '<p class="description">Choose ascending or descending sort order.</p>';
+		echo '<p class="description">Choose ascending or descending sort order.</p>';// @todo localize string!!!
 	}
 	/**
 	 * Callback function for setting to remove data on uninstall
@@ -1112,6 +1176,18 @@ class Isa_Organized_Docs{
 		$out .= '</div></nav>';
 		echo $out;
 	}
+
+	/**
+	* Small inline js for optional toggle. Will only be included if toggle option is enabled.
+	* @return string
+	* @since 2.0.4
+	*/
+	public function inline_js() {
+		$js = '<script>jQuery(document).ready(function(){jQuery( ".docs-sub-heading" ).click(function() {jQuery(this).next().slideToggle();}).next().hide();});</script>';
+		
+		return $js;
+	}
+	
 	/**
 	 * For backwards compatibility, give all single Docs posts a default sort-order number of 99999
 	 * @since 1.1.8
@@ -1120,7 +1196,7 @@ class Isa_Organized_Docs{
 	public function update_docs_sort_order_post_meta() {
 		global $post;
 		// Run this update only once
-		if (	get_option( 'odocs_update_sortorder_postmeta' ) != 'completed' ) {
+		if ( get_option( 'odocs_update_sortorder_postmeta' ) != 'completed' ) {
 			$args = array(	'post_type' => 'isa_docs', 
 				'posts_per_page' => -1,
 			);
@@ -1142,9 +1218,23 @@ class Isa_Organized_Docs{
 			delete_option( 'odocs_update_custom_tax_terms_meta' );
 			delete_option( 'odocs_bugfix_update_term_meta' );
 			delete_option( 'odocs_update_sortorder_meta' );
-			delete_option(	'odocs_update_sortorder_post_meta' );
-
+			delete_option( 'odocs_update_sortorder_post_meta' );
+			
 			update_option( 'odocs_update_sortorder_postmeta', 'completed' );
+		}
+		
+		/* Backwards compatibility for those who already enabled option to hide each article.
+		 *  Migrate the option to the new hide/list/toggle option.
+		 */
+	 
+		// Run this update only once
+		if ( get_option( 'odocs_update_disable_list_each' ) != 'completed' ) {
+			if ( get_option('od_disable_list_each_single') ) {
+				update_option( 'od_list_toggle', 'hide' );
+				update_option( 'od_widget_list_toggle', 'hide' );
+			}
+			delete_option( 'od_disable_list_each_single' );
+			update_option( 'odocs_update_disable_list_each', 'completed' );
 		}
 	}
 }

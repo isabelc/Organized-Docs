@@ -52,15 +52,22 @@ class DocsSectionContents extends WP_Widget {
 		
 		// sort $termchildren by custom subheading_sort_order numbers
 		$sorted_termchildren = $Isa_Organized_Docs->sort_terms( $termchildren, 'subheading_sort_order' );
+		
+		$list_each = get_option('od_widget_list_toggle');
+		if ( 'toggle' == $list_each ) {
+			echo $Isa_Organized_Docs->inline_js();
+		}
 
 		if ($sorted_termchildren) {
 	
 			foreach ( $sorted_termchildren as $child_id => $order ) {
 				$termobject = get_term_by( 'id', $child_id, 'isa_docs_category' );
+				
 				//Display the sub Term information, in open widget container ?>
-				<aside class="widget well"><h3 class="widget-title"><?php echo $termobject->name; ?></h3><?php
+				<aside class="widget well"><h3 class="widget-title docs-sub-heading"><?php echo $termobject->name; ?></h3><?php
+				
 				// only list all posts if not disabled with setting
-				if( ! get_option('od_disable_list_each_single' ) ) { ?>
+				if( $list_each != 'hide' ) { ?>
 				<ul><?php
 				// nest a loop through each child cat's posts
 				global $post;
