@@ -48,6 +48,8 @@ This is no longer an issue since version 2.0.
 == Changelog ==
 
 = 2.0.4 =
+* New - option to toggle the list of individual Docs articles on the top-level category pages.
+* New - option to toggle the list of individual Docs articles in the Table of Contents widget.
 * Fix - remove several PHP warnings that occurred when viewing a single Doc while a category was not assigned to the Doc.
 * Tweak - updated the URL for Setup Instructions.
 * Maintenance - updated the Table of Contents widget to work with the WordPress 4.0 customizer.
