@@ -3,7 +3,7 @@ Contributors: isabel104
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=me%40isabelcastillo%2ecom
 Tags: documentation, docs, organize documentation, organized documentation, instruction guides, wiki
 Requires at least: 3.9
-Tested up to: 4.0
+Tested up to: 4.2
 Stable Tag: 2.0.4
 License: GNU Version 2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -18,9 +18,7 @@ Each product's docs is further organized into subsections. The subsections list 
 
 The single docs posts will have a Docs Table of Contents widget added to the sidebar. This will show a Table of Contents for docs pertaining only to the product which this current single doc belongs to. 
 
-Demo [Organized Docs on Twenty Fourteen](http://smartestthemes.com/organized-docs-wordpress-plugin/docs/) theme
-
-Demo [Organized Docs on Twenty Twelve](http://smartestthemes.com/organized-docs-on-twentytwelve/docs/) theme
+Demo [Organized Docs on a default WordPress theme](http://smartestthemes.com/organized-docs-wordpress-plugin/docs/)
 
 [Setup Instructions](http://isabelcastillo.com/docs/how-to-set-up-categories)
 
