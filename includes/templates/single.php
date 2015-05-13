@@ -20,7 +20,7 @@ if ( ! get_option('od_disable_microdata') ) {
 <div id="content" role="main">
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<?php 
-	echo $Isa_Organized_Docs->organized_docs_section_heading();
+	echo $Isa_Organized_Docs->organized_docs_single_section_heading();
 	echo $Isa_Organized_Docs->organized_docs_content_nav();
 	wp_enqueue_style('organized-docs');
 	if ( ! get_option('od_hide_print_link') ) { ?>

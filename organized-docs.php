@@ -209,58 +209,59 @@ class Isa_Organized_Docs{
 		}
 	}
 
-	/**
-	 * Returns the top category item as a heading for docs category taxonomy archives and for docs single pages. Fetched one way from single docs, and a different way from taxonomy archives.
-	 */
-	public function organized_docs_section_heading() {
-		global $post, $data;
-		$heading = '';
-		if ( is_tax( 'isa_docs_category' ) ) {
-	
-			// get top level parent term on custom taxonomy archive
-			$heading = '<h1 id="isa-docs-item-title" class="entry-title"';
-			if ( ! get_option('od_disable_microdata') ) {
-				$heading .= ' itemprop="name"';
-			}
-			$heading .= '>';
-			
-			$taxonomy = get_query_var( 'taxonomy' );
-			$queried_object = get_queried_object();
-			$curr_term_id =  (int) $queried_object->term_id;
 
+	/**
+	 * Returns the top category item as a heading for docs single posts.
+	 */
+	public function organized_docs_single_section_heading() {
+		global $post;// @test w/out $data
+		$heading = '';
+		// get top level parent term on single
+
+		$doc_categories = wp_get_object_terms( $post->ID, 'isa_docs_category' );
+		if ( $doc_categories ) {
+			$first_cat = $doc_categories[0]; // first category
+			$curr_term_id = $first_cat->term_id;
 			$top_level_parent_term_id = $this->isa_term_top_parent_id( $curr_term_id );
+			
 			$top_term = get_term( $top_level_parent_term_id, 'isa_docs_category' );
 		
 			$top_term_link = get_term_link( $top_term );
 			$top_term_name = $top_term->name;
 		
-			$heading .= '<a href="' . $top_term_link  . '" title="' . esc_attr( $top_term_name ) . '">' . $top_term_name . '</a>';
-			$heading .= '</h1>';
-
-		} elseif ( is_single() ) {
-
-			// get top level parent term on single
-
-			$doc_categories = wp_get_object_terms( $post->ID, 'isa_docs_category' );
-			if ( $doc_categories ) {
-				$first_cat = $doc_categories[0]; // first category
-				$curr_term_id = $first_cat->term_id;
-				$top_level_parent_term_id = $this->isa_term_top_parent_id( $curr_term_id );
-			
-				$top_term = get_term( $top_level_parent_term_id, 'isa_docs_category' );
-			
-				$top_term_link = get_term_link( $top_term );
-				$top_term_name = $top_term->name;
-			
-				$heading = '<h2 id="isa-docs-item-title">';
-				$heading .= '<a href="' . $top_term_link  . '" title="' . esc_attr( $top_term_name ) . '">' . $top_term_name . '</a>';
-				$heading .= '</h2>';
-			}
+			$heading .= '<a href="' . $top_term_link  . '" title="' . esc_attr( $top_term_name ) . '"><h2 id="isa-docs-item-title">' . $top_term_name . '</h2></a>';
 		}
+	
 		return $heading;
 
-	} // end organized_docs_section_title()
+	}
 
+	/**
+	 * Returns the top category item as a heading for docs category taxonomy archives.
+	 */
+	public function organized_docs_archive_section_heading() {
+		// get top level parent term on custom taxonomy archive
+		$taxonomy = get_query_var( 'taxonomy' );
+		$queried_object = get_queried_object();
+		$curr_term_id =  (int) $queried_object->term_id;
+		$top_level_parent_term_id = $this->isa_term_top_parent_id( $curr_term_id );
+		$top_term = get_term( $top_level_parent_term_id, 'isa_docs_category' );
+	
+		$top_term_link = get_term_link( $top_term );
+		$top_term_name = empty( $top_term->name ) ? '' : $top_term->name;
+	
+		$heading = '<a href="' . $top_term_link  . '" title="' . esc_attr( $top_term_name ) . '">';
+
+		$heading .= '<h1 id="isa-docs-item-title" class="entry-title"';
+		if ( ! get_option('od_disable_microdata') ) {
+			$heading .= ' itemprop="name"';
+		}
+		$heading .= '>';
+		$heading .= $top_term_name . '</h1></a>';
+	
+		return $heading;
+
+	}
 
 	/**
 	 * Returns dynamic menu for Docs. Lists only subterms of top level parent of current term, on Docs taxonomy archive and on Docs single, but nothing on the main Docs parent archive.  

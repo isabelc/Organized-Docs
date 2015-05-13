@@ -2,8 +2,8 @@
 Contributors: isabel104
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=me%40isabelcastillo%2ecom
 Tags: documentation, docs, organize documentation, organized documentation, instruction guides, wiki
-Requires at least: 3.9
-Tested up to: 4.2
+Requires at least: 4.0
+Tested up to: 4.2.2
 Stable Tag: 2.0.4
 License: GNU Version 2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -44,6 +44,11 @@ This is no longer an issue since version 2.0.
 3. Single docs post with Table of Contents
 
 == Changelog ==
+
+= 2.1 =
+* New - The CSS styles for the active menu item in the Table of Contents widget has changed to be more neutral. Previously, a different text color was applied to `.organized-docs-active-side-item > a`. Now, instead of a text color, a gray background color is given.
+
+* New - The CSS styles for the active menu item in the Docs navigation menu bar has changed to be more neutral. Previously, a different text color was applied to `#organized-docs-menu li a.active-docs-item` and to `#organized-docs-menu li.current_page_item > a`. Now, instead of a text color, a gray background color is given.
 
 = 2.0.4 =
 * New - option to toggle the list of individual Docs articles on the top-level category pages.
