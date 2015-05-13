@@ -10,7 +10,7 @@
  * Text Domain: organized-docs
  * Domain Path: languages
  * 
- * Copyright 2013 - 2014 Isabel Castillo
+ * Copyright 2013 - 2015 Isabel Castillo
  * 
  * This file is part of Organized Docs.
  * 
