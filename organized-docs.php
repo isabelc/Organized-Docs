@@ -3,7 +3,7 @@
  * Plugin Name: Organized Docs
  * Plugin URI: http://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
  * Description: Easily create organized documentation for multiple products, organized by product, and by subsections within each product.
- * Version: 2.1-beta3
+ * Version: 2.1-beta4
  * Author: Isabel Castillo
  * Author URI: http://isabelcastillo.com
  * License: GPL2
@@ -214,7 +214,7 @@ class Isa_Organized_Docs{
 	 * Returns the top category item as a heading for docs single posts.
 	 */
 	public function organized_docs_single_section_heading() {
-		global $post;// @test w/out $data
+		global $post;
 		$heading = '';
 		// get top level parent term on single
 
@@ -1073,7 +1073,7 @@ class Isa_Organized_Docs{
 		echo '<label for="od_delete_data_on_uninstall"><input name="od_delete_data_on_uninstall" id="od_delete_data_on_uninstall" type="checkbox" value="1" class="code" ' . checked( 1, get_option( 'od_delete_data_on_uninstall' ), false ) . ' /> ' . __( 'Check this box if you would like Organized Docs to completely remove all of its data when the plugin is deleted. This would include all Docs posts, Docs categories, subheadings, and sort order numbers.', 'organized-docs' ) . '</label>';
 	}
 	/**
-	 * Dynamic CSS based on settings and themes @todo test on old themes what is needed here.
+	 * Optionally add CSS for 2013 and 2014 theme compat. @todo test on old themes what is needed here.
 	 * @since 1.2.1
 	 */
 	public function dynamic_css() {
@@ -1082,7 +1082,7 @@ class Isa_Organized_Docs{
 			echo '<style>.single-isa_docs #content {margin: 0  !important;padding:0;width: 68% !important;}</style>';
 		}
 		if( ( 'Twenty Fourteen' == $theme->name ) || ( 'Twenty Fourteen' == $theme->parent_theme ) ) {
-			echo '<style>body.single-isa_docs .type-isa_docs{margin: 0 0 0 15%;}.tax-isa_docs_category .content-area,.post-type-archive-isa_docs .content-area{padding-top: 0px;}@media screen and (max-device-width:768px){body.single-isa_docs .type-isa_docs {margin: 0;}}</style>';
+			echo '<style>#docs-content-sidebar .widget a,#docs-content-sidebar .widget-title{color:inherit}#docs-content-sidebar .widget-title{border-top:5px solid #000;font-weight:900;margin:0 0 18px;padding-top:7px}.single-isa_docs #docs-content-sidebar .widget_docs_section_contents>.widget-title{padding-top:7px}.single-isa_docs #docs-primary{margin:0 0 0 20% !important}#isa-docs-item-title{margin:0 !important}@media screen and (max-device-width:768px){body.single-isa_docs #docs-primary {margin: 0 !important;}body.single-isa_docs #docs-content-sidebar ul {margin-left:0;}.single-isa_docs #docs-content-sidebar .widget.well {padding-left:0;}}</style>';
 		}
 	}
 	/**
