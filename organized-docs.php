@@ -1073,17 +1073,25 @@ class Isa_Organized_Docs{
 		echo '<label for="od_delete_data_on_uninstall"><input name="od_delete_data_on_uninstall" id="od_delete_data_on_uninstall" type="checkbox" value="1" class="code" ' . checked( 1, get_option( 'od_delete_data_on_uninstall' ), false ) . ' /> ' . __( 'Check this box if you would like Organized Docs to completely remove all of its data when the plugin is deleted. This would include all Docs posts, Docs categories, subheadings, and sort order numbers.', 'organized-docs' ) . '</label>';
 	}
 	/**
-	 * Optionally add CSS for 2013 and 2014 theme compat. @todo test on old themes what is needed here.
+	 * Optionally add theme compat CSS for 2012, 2013, and 2014.
 	 * @since 1.2.1
 	 */
 	public function dynamic_css() {
 		$theme = wp_get_theme();
-		if( ( 'Twenty Twelve' == $theme->name ) || ( 'Twenty Twelve' == $theme->parent_theme ) ) {
-			echo '<style>.single-isa_docs #content {margin: 0  !important;padding:0;width: 68% !important;}</style>';
-		}
-		if( ( 'Twenty Fourteen' == $theme->name ) || ( 'Twenty Fourteen' == $theme->parent_theme ) ) {
+
+		if( ( 'Twenty Fifteen' == $theme->name ) || ( 'Twenty Fifteen' == $theme->parent_theme ) ) {
+			echo '<style>.widget_docs_section_contents >h3 {border-bottom: 1px solid rgba(51, 51, 51, 0.1)}</style>';
+		} 
+		elseif( ( 'Twenty Fourteen' == $theme->name ) || ( 'Twenty Fourteen' == $theme->parent_theme ) ) {
 			echo '<style>#docs-content-sidebar .widget a,#docs-content-sidebar .widget-title{color:inherit}#docs-content-sidebar .widget-title{border-top:5px solid #000;font-weight:900;margin:0 0 18px;padding-top:7px}.single-isa_docs #docs-content-sidebar .widget_docs_section_contents>.widget-title{padding-top:7px}.single-isa_docs #docs-primary{margin:0 0 0 20% !important}#isa-docs-item-title{margin:0 !important}@media screen and (max-device-width:768px){body.single-isa_docs #docs-primary {margin: 0 !important;}body.single-isa_docs #docs-content-sidebar ul {margin-left:0;}.single-isa_docs #docs-content-sidebar .widget.well {padding-left:0;}}</style>';
 		}
+		elseif( ( 'Twenty Thirteen' == $theme->name ) || ( 'Twenty Thirteen' == $theme->parent_theme ) ) {
+			echo '<style>.post-type-archive-isa_docs #docs-content,.tax-isa_docs_category #docs-content{margin:0 auto;max-width:604px;width:100%}#docs-content #isa-docs-main-title{margin-top:0}.single-isa_docs #docs-content #isa-docs-item-title{margin-top:20px}#docs-content #isa-docs-item-title,#docs-content #organized-docs-menu{background-color:rgba(247,245,231,.7)}#docs-content-sidebar .widget_docs_section_contents{padding:20px}#docs-primary #docs-content-sidebar .widget_docs_section_contents>.widget-title{padding-top:0}@media screen and (max-device-width:768px){#docs-content-sidebar>ul{padding-left:0}#organized-docs-menu ul{display:block}}</style>';
+		}
+		elseif( ( 'Twenty Twelve' == $theme->name ) || ( 'Twenty Twelve' == $theme->parent_theme ) ) {
+			echo '<style>#docs-content #isa-docs-item-title,#docs-content #isa-docs-main-title{margin-top:0}.docs-sub-heading{line-height:1.9}.docs-entry-content{line-height:1.62}#docs-content .entry-title{font-size:28px;line-height:1.9}#docs-primary #docs-content-sidebar .widget_docs_section_contents>.widget-title{padding-top:0}#docs-content-sidebar .widget_docs_section_contents{padding:0 30px}#docs-content .post-navigation a{margin:36px 0}</style>';
+		}
+
 	}
 	/**
 	 * Close comments on Docs
