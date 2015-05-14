@@ -1093,14 +1093,12 @@ class Isa_Organized_Docs{
 	 */
 	public function dynamic_css() {
 		$theme = wp_get_theme();
-		echo '<style>';
 		if( ( 'Twenty Twelve' == $theme->name ) || ( 'Twenty Twelve' == $theme->parent_theme ) ) {
-			echo '.single-isa_docs #content {margin: 0  !important;padding:0;width: 68% !important;}';
+			echo '<style>.single-isa_docs #content {margin: 0  !important;padding:0;width: 68% !important;}</style>';
 		}
 		if( ( 'Twenty Fourteen' == $theme->name ) || ( 'Twenty Fourteen' == $theme->parent_theme ) ) {
-			echo 'body.single-isa_docs .type-isa_docs{margin: 0 0 0 15%;}.tax-isa_docs_category .content-area,.post-type-archive-isa_docs .content-area{padding-top: 0px;}@media screen and (max-device-width:768px){body.single-isa_docs .type-isa_docs {margin: 0;}}';
+			echo '<style>body.single-isa_docs .type-isa_docs{margin: 0 0 0 15%;}.tax-isa_docs_category .content-area,.post-type-archive-isa_docs .content-area{padding-top: 0px;}@media screen and (max-device-width:768px){body.single-isa_docs .type-isa_docs {margin: 0;}}</style>';
 		}
-		echo "</style>";
 	}
 	/**
 	 * Close comments on Docs
