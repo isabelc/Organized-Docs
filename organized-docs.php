@@ -811,14 +811,6 @@ class Isa_Organized_Docs{
 			'od_single_post_setting_section'
 		);
 	 	register_setting( 'organized-docs-settings', 'od_hide_print_link' );
-		add_settings_field(
-			'od_dont_load_fa',
-			__( 'Don\'t Load Font Awesome Again', 'organized-docs' ),
-			array( $this, 'dont_load_fa_setting_callback' ),
-			'organized-docs-settings',
-			'od_single_post_setting_section'
-		);
-	 	register_setting( 'organized-docs-settings', 'od_dont_load_fa' );
 	 	add_settings_field(
 			'od_title_on_nav_links',
 			__( 'Title on nav links?', 'organized-docs' ),
@@ -964,13 +956,6 @@ class Isa_Organized_Docs{
 	 */
 	public function hide_print_link_setting_callback() {
 		echo '<label for="od_hide_print_link"><input name="od_hide_print_link" id="od_hide_print_link" type="checkbox" value="1" class="code" ' . checked( 1, get_option( 'od_hide_print_link' ), false ) . ' /> ' . __( 'Check this box to remove the Print link altogether from single Docs.', 'organized-docs' ) . '</label>';
-	}
-	/**
-	 * Callback function for setting to not load Font Awesome
-	 * @since 2.0
-	 */
-	public function dont_load_fa_setting_callback() {
-		echo '<label for="od_dont_load_fa"><input name="od_dont_load_fa" id="od_dont_load_fa" type="checkbox" value="1" class="code" ' . checked( 1, get_option( 'od_dont_load_fa' ), false ) . ' /> ' . __( 'Check this box if you already load the Font Awesome stylesheet in your theme (or other plugin). We don\'t want to load duplicates!', 'organized-docs' ) . '</label>';
 	}
 	/**
 	 * Callback function for setting to show title on nav links

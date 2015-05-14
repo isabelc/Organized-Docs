@@ -47,6 +47,7 @@ This is no longer an issue since version 2.0.
 
 = 2.1 =
 * New - The CSS have been rewritten to leave a more neutral for the Docs nav menu and the Table of Contents widget. The entire layout has been made compatible with Twenty Fifteen theme. Please see the documentation, under What's New, for a list of all CSS changes.
+* Tweak - Use an HTML entity for the print icon instead of Font Awesome. There is no more option to include Font Awesome.
 * Fix - dynamic_css() sas adding empty style tag to head in some cases.
 
 = 2.0.4 =
