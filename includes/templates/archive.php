@@ -13,11 +13,11 @@ if ( ! get_option('od_disable_microdata') ) {
 	$itemprop_name = ' itemprop="name"';
 }
 ?>
-<section id="primary" class="content-area" <?php if($schema) echo $schema; ?>>
-<div id="content" class="site-content" role="main">
+<section id="docs-primary" class="docs-content-area" <?php if($schema) echo $schema; ?>>
+<div id="docs-content" class="docs-site-content" role="main">
 <article <?php post_class('docs-archive-template'); ?>>
 	<?php do_action( 'organized_docs_main_content_before' ); ?>
-	<div class="entry-content">
+	<div class="docs-entry-content">
 	<h1 id="isa-docs-main-title" class="entry-title" <?php if($itemprop_name) echo $itemprop_name; ?>>
 		<?php 
 		$custom_title = get_option('od_change_main_docs_title');
@@ -62,8 +62,8 @@ if ( ! get_option('od_disable_microdata') ) {
 	} // end if ( $count > 0 
 	do_action( 'organized_docs_main_content_bottom' ); ?>
 	</div><!-- .isa-docs-archive-content -->
-	</div><!-- .entry-content -->
+	</div><!-- .docs-entry-content -->
 </article>
-</div><!-- #content -->
-</section><!-- #primary -->
+</div><!-- #docs-content -->
+</section><!-- #docs-primary -->
 <?php get_footer();

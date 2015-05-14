@@ -16,8 +16,8 @@ if ( ! get_option('od_disable_microdata') ) {
 	$itemprop_name = ' itemprop="name"';
 	$article_body = ' itemprop="articleBody"';
 } ?>
-<div id="primary" <?php if($schema) echo $schema; ?>>
-<div id="content" role="main">
+<div id="docs-primary" <?php if($schema) echo $schema; ?>>
+<div id="docs-content" role="main">
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<?php 
 	echo $Isa_Organized_Docs->organized_docs_single_section_heading();
@@ -35,11 +35,11 @@ if ( ! get_option('od_disable_microdata') ) {
 		</p>
 	<?php } ?>
 	
-	<header class="entry-header">
+	<header class="docs-entry-header">
 	<h1 class="entry-title" <?php if($itemprop_name) echo $itemprop_name; ?>><?php the_title(); ?></h1>
 	</header>
 
-	<div class="entry-content" <?php if($article_body) echo $article_body; ?>>
+	<div class="docs-entry-content" <?php if($article_body) echo $article_body; ?>>
 		<?php
 		$content = apply_filters( 'the_content', $post->post_content );
 		$content = str_replace( ']]>', ']]&gt;', $content );
@@ -52,7 +52,7 @@ if ( ! get_option('od_disable_microdata') ) {
 			'link_after'  => '</span>',
 		) );
 		?>
-	</div><!-- .entry-content -->
+	</div><!-- .docs-entry-content -->
 	<?php $Isa_Organized_Docs->organized_docs_post_nav(); 
 	// If comments are open or we have at least one comment, load up the comment template.
 	if ( comments_open() || get_comments_number() ) {
@@ -60,8 +60,8 @@ if ( ! get_option('od_disable_microdata') ) {
 	}
 	?>
 </article><!-- #post-## -->
-</div><!-- #content -->
+</div><!-- #docs-content -->
 <?php $sidebar = $Isa_Organized_Docs->get_template_hierarchy( 'sidebar' );
 include_once $sidebar; ?>
-</div><!-- #primary -->
+</div><!-- #docs-primary -->
 <?php get_footer();

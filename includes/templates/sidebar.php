@@ -5,7 +5,7 @@
  * @since 2.0
  */
 ?>
-<div id="content-sidebar" class="content-sidebar widget-area" role="complementary"><ul>
+<div id="docs-content-sidebar" class="docs-content-sidebar widget-area" role="complementary"><ul>
 <?php if( ! dynamic_sidebar( 'isa_organized_docs' ) ) {
 		the_widget('DocsSectionContents', array('title' => 'Table of Contents'), array(
 			'before_widget' => '<li id="docs_section_contents-1" class="widget widget_docs_section_contents">',

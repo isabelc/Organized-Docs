@@ -46,9 +46,7 @@ This is no longer an issue since version 2.0.
 == Changelog ==
 
 = 2.1 =
-* New - The CSS styles for the active menu item in the Table of Contents widget has changed to be more neutral. Previously, a different text color was applied to `.organized-docs-active-side-item > a`. Now, instead of a text color, a gray background color is given.
-
-* New - The CSS styles for the active menu item in the Docs navigation menu bar has changed to be more neutral. Previously, a different text color was applied to `#organized-docs-menu li a.active-docs-item` and to `#organized-docs-menu li.current_page_item > a`. Now, instead of a text color, a gray background color is given.
+* New - The CSS have been rewritten to leave a more neutral for the Docs nav menu and the Table of Contents widget. The entire layout has been made compatible with Twenty Fifteen theme. Please see the documentation, under What's New, for a list of all CSS changes.
 
 = 2.0.4 =
 * New - option to toggle the list of individual Docs articles on the top-level category pages.
