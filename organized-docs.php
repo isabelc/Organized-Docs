@@ -3,7 +3,7 @@
  * Plugin Name: Organized Docs
  * Plugin URI: http://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
  * Description: Easily create organized documentation for multiple products, organized by product, and by subsections within each product.
- * Version: 2.1-beta8
+ * Version: 2.1-beta9
  * Author: Isabel Castillo
  * Author URI: http://isabelcastillo.com
  * License: GPL2
@@ -1190,52 +1190,19 @@ class Isa_Organized_Docs{
 	}
 	
 	/**
-	 * For backwards compatibility, give all single Docs posts a default sort-order number of 99999
-	 * @since 1.1.8
-	 * @todo remove this back compatibility in version 2.1
+	 * For cleanup, remove old options.
+	 * @since 2.1
+	 * @todo remove this function in version 2.4, and del odocs_cleanup_twopointone on uninstall
 	 */
 	public function update_docs_sort_order_post_meta() {
 		global $post;
 		// Run this update only once
-		if ( get_option( 'odocs_update_sortorder_postmeta' ) != 'completed' ) {
-			$args = array(	'post_type' => 'isa_docs', 
-				'posts_per_page' => -1,
-			);
-			$all_docs = get_posts( $args );
-
-			foreach ($all_docs as $doc) {
-				$sort_order_value_check = get_post_meta( $doc->ID, '_odocs_meta_sortorder_key', true );
-
-				// if sort order value is empty, assign a default value
-				if( empty( $sort_order_value_check ) ) {
-					update_post_meta($doc->ID, '_odocs_meta_sortorder_key', 99999);
-				}
-			}
-			wp_reset_postdata();
-
-			// for cleanup, remove these options
-			delete_option( 'isa_organized_docs_plugin_version' );
-			delete_option( 'isa_organized_docs_plugin_name' );
-			delete_option( 'odocs_update_custom_tax_terms_meta' );
-			delete_option( 'odocs_bugfix_update_term_meta' );
-			delete_option( 'odocs_update_sortorder_meta' );
-			delete_option( 'odocs_update_sortorder_post_meta' );
+		if ( get_option( 'odocs_cleanup_twopointone' ) != 'completed' ) {
 			
-			update_option( 'odocs_update_sortorder_postmeta', 'completed' );
-		}
-		
-		/* Backwards compatibility for those who already enabled option to hide each article.
-		 *  Migrate the option to the new hide/list/toggle option.
-		 */
-	 
-		// Run this update only once
-		if ( get_option( 'odocs_update_disable_list_each' ) != 'completed' ) {
-			if ( get_option('od_disable_list_each_single') ) {
-				update_option( 'od_list_toggle', 'hide' );
-				update_option( 'od_widget_list_toggle', 'hide' );
-			}
-			delete_option( 'od_disable_list_each_single' );
-			update_option( 'odocs_update_disable_list_each', 'completed' );
+			delete_option( 'odocs_update_sortorder_postmeta' );
+			delete_option( 'odocs_update_disable_list_each' );
+			
+			update_option( 'odocs_cleanup_twopointone', 'completed' );
 		}
 	}
 }

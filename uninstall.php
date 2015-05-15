@@ -4,7 +4,22 @@
 if ( !defined( 'WP_UNINSTALL_PLUGIN' ) ) 
 	exit();
 
-$option_name = 'odocs_update_sortorder_meta';
+$od_options = array(
+	'od_rewrite_docs_slug',
+	'od_change_main_docs_title',
+	'od_disable_microdata',
+	'od_disable_menu_link',
+	'od_hide_printer_icon',
+	'od_hide_print_link',
+	'od_title_on_nav_links',
+	'od_delete_data_on_uninstall',
+	'od_widget_list_toggle',
+	'od_single_sort_order',
+	'od_single_sort_by',
+	'od_list_toggle',
+	'od_close_comments',
+	'od_enable_manage_comments'
+);
 
 /* Delete all custom terms for passed taxonomy, and the custom term meta options both on Single site and Multisite.
 */
@@ -66,7 +81,9 @@ if( get_option( 'od_delete_data_on_uninstall' ) ) {
 	// For Single site
 	if ( !is_multisite() ) {
 	
-		delete_option( $option_name );
+		foreach ( $od_options as $od_option ) {
+			delete_option( $od_option );// @test
+		}
 	
 		// delete Docs posts
 		$args = array(	'post_type' => 'isa_docs', 
@@ -86,7 +103,9 @@ if( get_option( 'od_delete_data_on_uninstall' ) ) {
 		foreach ( $blog_ids as $blog_id ) {
 			switch_to_blog( $blog_id );
 	
-			delete_option( $option_name );
+			foreach ( $od_options as $od_option ) {
+				delete_option( $od_option );// @test
+			}			
 		
 			// delete Docs posts
 			$args = array(	'post_type' => 'isa_docs', 
