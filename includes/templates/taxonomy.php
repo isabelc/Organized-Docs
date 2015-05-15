@@ -61,9 +61,9 @@ wp_enqueue_style('organized-docs'); ?>
 		// there are subTerms, do list subTerms with all its posts for each subTerm
 		
 		$list_each = get_option('od_list_toggle');
-		if ( 'toggle' == $list_each ) {
-			echo $Isa_Organized_Docs->inline_js();
-		}
+		// if ( 'toggle' == $list_each ) {
+		// 	echo $Isa_Organized_Docs->inline_js();
+		// }
 		
 		// sort $termchildren by custom subheading_sort_order numbers
 		$sorted_termchildren = $Isa_Organized_Docs->sort_terms( $termchildren, 'subheading_sort_order' );
@@ -117,7 +117,10 @@ wp_enqueue_style('organized-docs'); ?>
 				<?php } ?>
 				</ul><?php
 			}
-		} // end foreach ( $sorted_termchildren as $child_id => $order )
+		}
+		if ( 'toggle' == $list_each ) {
+			echo $Isa_Organized_Docs->inline_js();
+		}		
 
 	}// end check for empty $termchildren
 	do_action( 'organized_docs_content_bottom' ); ?>

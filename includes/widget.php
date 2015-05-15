@@ -52,18 +52,11 @@ class DocsSectionContents extends WP_Widget {
 		
 		// sort $termchildren by custom subheading_sort_order numbers
 		$sorted_termchildren = $Isa_Organized_Docs->sort_terms( $termchildren, 'subheading_sort_order' );
-		
 
-		// @test move this down to lowest point to see if this makes it run after "window onload."
-		// @todo both here & in taxonomy.php
-		
 		$list_each = get_option('od_widget_list_toggle');
-		if ( 'toggle' == $list_each ) {
-			echo $Isa_Organized_Docs->inline_js();
-		}
 
 		if ($sorted_termchildren) {
-	
+
 			foreach ( $sorted_termchildren as $child_id => $order ) {
 				$termobject = get_term_by( 'id', $child_id, 'isa_docs_category' );
 				
@@ -117,6 +110,9 @@ class DocsSectionContents extends WP_Widget {
 			}
 		}
 		echo $args['after_widget'];
+		if ( 'toggle' == $list_each ) {
+			echo $Isa_Organized_Docs->inline_js();
+		}		
 	}
 
 	/**

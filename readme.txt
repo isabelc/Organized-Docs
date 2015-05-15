@@ -46,9 +46,10 @@ This is no longer an issue since version 2.0.
 == Changelog ==
 
 = 2.1 =
-* New - The CSS have been rewritten to leave a more neutral for the Docs nav menu and the Table of Contents widget. The entire layout has been made compatible with Twenty Fifteen theme. Please see the documentation, under What's New, for a list of all CSS changes.
-* Tweak - Use an HTML entity for the print icon instead of Font Awesome. There is no more option to include Font Awesome.
-* Fix - dynamic_css() sas adding empty style tag to head in some cases.
+* New - The CSS has been rewritten to leave a more neutral style for the Docs nav menu and the Table of Contents widget. The entire layout has been made compatible with Twenty Fifteen theme, as well as remaining compatible with Twenty Fourteen, Twenty Thirteen, and Twenty Twelve. Please see the documentation, under What's New, for a list of all CSS changes.
+* Optimization - The toggle option now uses pure JavaScript. There is no jQuery dependency.
+* Optimization - Use an HTML entity for the print icon instead of Font Awesome. There is no more option to include Font Awesome.
+* Fix - dynamic_css() was adding empty style tag to head in some cases.
 
 = 2.0.4 =
 * New - option to toggle the list of individual Docs articles on the top-level category pages.
