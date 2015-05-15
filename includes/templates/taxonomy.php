@@ -79,7 +79,11 @@ wp_enqueue_style('organized-docs'); ?>
 			// only list all posts if not hidden by option
 			
 			if( $list_each != 'hide' ) { ?>
-				<ul><?php
+				<ul<?php
+				if ( 'toggle' == $list_each ) {
+					echo ' style="display:none"';
+				}
+				?>><?php
 				global $post;
 				// orderby custom option
 				$single_sort_by = get_option('od_single_sort_by');

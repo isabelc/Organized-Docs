@@ -53,6 +53,10 @@ class DocsSectionContents extends WP_Widget {
 		// sort $termchildren by custom subheading_sort_order numbers
 		$sorted_termchildren = $Isa_Organized_Docs->sort_terms( $termchildren, 'subheading_sort_order' );
 		
+
+		// @test move this down to lowest point to see if this makes it run after "window onload."
+		// @todo both here & in taxonomy.php
+		
 		$list_each = get_option('od_widget_list_toggle');
 		if ( 'toggle' == $list_each ) {
 			echo $Isa_Organized_Docs->inline_js();
@@ -68,7 +72,11 @@ class DocsSectionContents extends WP_Widget {
 				
 				// only list all posts if not disabled with setting
 				if( $list_each != 'hide' ) { ?>
-				<ul><?php
+				<ul<?php
+				if ( 'toggle' == $list_each ) {
+					echo ' style="display:none"';
+				}
+				?>><?php
 				// nest a loop through each child cat's posts
 				global $post;
 				// orderby custom option

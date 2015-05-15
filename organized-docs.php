@@ -3,7 +3,7 @@
  * Plugin Name: Organized Docs
  * Plugin URI: http://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
  * Description: Easily create organized documentation for multiple products, organized by product, and by subsections within each product.
- * Version: 2.1-beta4
+ * Version: 2.1-beta6
  * Author: Isabel Castillo
  * Author URI: http://isabelcastillo.com
  * License: GPL2
@@ -1080,7 +1080,7 @@ class Isa_Organized_Docs{
 		$theme = wp_get_theme();
 
 		if( ( 'Twenty Fifteen' == $theme->name ) || ( 'Twenty Fifteen' == $theme->parent_theme ) ) {
-			echo '<style>.widget_docs_section_contents >h3 {border-bottom: 1px solid rgba(51, 51, 51, 0.1)}</style>';
+			echo '<style>.widget_docs_section_contents >h3 {border-bottom: 1px solid rgba(51, 51, 51, 0.1)}.widget_docs_section_contents .widget {margin-bottom:20px;}</style>';
 		} 
 		elseif( ( 'Twenty Fourteen' == $theme->name ) || ( 'Twenty Fourteen' == $theme->parent_theme ) ) {
 			echo '<style>#docs-content-sidebar .widget a,#docs-content-sidebar .widget-title{color:inherit}#docs-content-sidebar .widget-title{border-top:5px solid #000;font-weight:900;margin:0 0 18px;padding-top:7px}.single-isa_docs #docs-content-sidebar .widget_docs_section_contents>.widget-title{padding-top:7px}.single-isa_docs #docs-primary{margin:0 0 0 20% !important}#isa-docs-item-title{margin:0 !important}@media screen and (max-device-width:768px){body.single-isa_docs #docs-primary {margin: 0 !important;}body.single-isa_docs #docs-content-sidebar ul {margin-left:0;}.single-isa_docs #docs-content-sidebar .widget.well {padding-left:0;}}</style>';
@@ -1185,7 +1185,20 @@ class Isa_Organized_Docs{
 	* @since 2.0.4
 	*/
 	public function inline_js() {
-		$js = '<script>jQuery(document).ready(function(){jQuery( ".docs-sub-heading" ).click(function() {jQuery(this).next().slideToggle();}).next().hide();});</script>';
+		$js = '<script>/* @test isa */
+(function() {
+   
+var titles = document.querySelectorAll(".docs-sub-heading");
+var i = titles.length;
+while (i--) {
+    titles[i].setAttribute("style", "cursor:pointer");
+}
+
+})();
+		function toggleDocs(e){if(e.target&&("docs-sub-heading"==e.target.className||"widget-title docs-sub-heading"==e.target.className)){var t=e.target.nextElementSibling;t.style.display="none"==t.style.display?"block":"none"}}
+
+
+		document.addEventListener("click",toggleDocs,!0);</script>';
 		
 		return $js;
 	}
