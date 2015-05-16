@@ -31,35 +31,36 @@ if ( ! get_option('od_disable_microdata') ) {
 	
 	// Display a list of subTerms, within a specified Term, AND show all the posts within each of those subTerms on archive page
 		
-	// get current term id on category or archive page
+	/************************************************************
 
-	// do only top level terms
+
+@todo check if i still need this func: isa_term_top_parent_id()
+
+
+
+
+	************************************************************/
 	
-	$terms = get_terms( 'isa_docs_category' );
-					
-	// need simple array of term ids to sort
-	$term_ids = array();
-	foreach ( $terms as $single_term_object ) {
-		$term_ids[] = $single_term_object->term_id;
-	}
 
-	// sort terms by custom sort-order meta
 	global $Isa_Organized_Docs;
-	$sorted_term_ids = $Isa_Organized_Docs->sort_terms( $term_ids, 'main_doc_item_sort_order' );
 
-	$count = count( $sorted_term_ids );
-	if ( $count > 0 ) {
-		echo '<ul id="organized-docs-main">';
-		foreach ( $sorted_term_ids as $sorted_term_id => $sorted_term_id_order ) {
-			if( $sorted_term_id == $Isa_Organized_Docs->isa_term_top_parent_id( $sorted_term_id ) ) {
-				// this is a top parent
-				$top_parent_term = get_term( $sorted_term_id, 'isa_docs_category');
-				echo '<li><a href="' . get_term_link( $sorted_term_id, 'isa_docs_category' ).'" title="' . esc_attr( $top_parent_term->name ) . '">' . $top_parent_term->name . '</a></li>';
-			}
-				        
-		}
-		echo '</ul>';
-	} // end if ( $count > 0 
+	$sorted_terms = $Isa_Organized_Docs->get_sorted_main_item_terms();
+
+	$count = count( $sorted_terms );
+	if ( $count > 0 ) { ?>
+		
+		<ul id="organized-docs-main">
+
+		<?php foreach ( $sorted_terms as $id => $name ) { ?>
+
+			<li><a href="<?php echo get_term_link( $id, 'isa_docs_category' ); ?>" title="<?php echo esc_attr( $name ); ?>"><?php echo $name; ?></a></li>
+
+		<?php } ?>
+
+		</ul>
+		
+		<?php
+	}
 	do_action( 'organized_docs_main_content_bottom' ); ?>
 	</div><!-- .isa-docs-archive-content -->
 	</div><!-- .docs-entry-content -->

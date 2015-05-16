@@ -50,6 +50,7 @@ This is no longer an issue since version 2.0.
 * Optimization - The toggle option now uses pure JavaScript. There is no jQuery dependency.
 * Optimization - Use an HTML entity for the print icon instead of Font Awesome. There is no more option to include Font Awesome.
 * Fix - dynamic_css() was adding empty style tag to head in some cases.
+* Tweak - Renamed the function sort_terms to sort_terms_custom.
 
 = 2.0.4 =
 * New - option to toggle the list of individual Docs articles on the top-level category pages.

@@ -82,7 +82,7 @@ if( get_option( 'od_delete_data_on_uninstall' ) ) {
 	if ( !is_multisite() ) {
 	
 		foreach ( $od_options as $od_option ) {
-			delete_option( $od_option );// @test
+			delete_option( $od_option );
 		}
 	
 		// delete Docs posts
@@ -104,7 +104,7 @@ if( get_option( 'od_delete_data_on_uninstall' ) ) {
 			switch_to_blog( $blog_id );
 	
 			foreach ( $od_options as $od_option ) {
-				delete_option( $od_option );// @test
+				delete_option( $od_option );
 			}			
 		
 			// delete Docs posts

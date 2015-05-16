@@ -27,7 +27,8 @@
  * You should have received a copy of the GNU General Public License
  * along with Organized Docs. If not, see <http://www.gnu.org/licenses/>.
  */
-if(!class_exists('Isa_Organized_Docs')) {
+
+if ( ! class_exists( 'Isa_Organized_Docs' ) ) {
 class Isa_Organized_Docs{
 
 	private static $instance = null;
@@ -300,7 +301,7 @@ class Isa_Organized_Docs{
 		// get term children and sort them by custom sort oder
 		$termchildren =  get_term_children( $top_level_parent_term_id, 'isa_docs_category' );
 		if($termchildren) {
-			$sorted_termchildren = $this->sort_terms( $termchildren, 'subheading_sort_order' );
+			$sorted_termchildren = $this->sort_terms_custom( $termchildren, 'subheading_sort_order' );
 			if($sorted_termchildren) {
 			
 				foreach ( $sorted_termchildren as $sorted_termchild_id => $sorted_termchild_order ) { 
@@ -533,10 +534,14 @@ class Isa_Organized_Docs{
 	 * 
 	 * @param array $term_ids to sort
 	 * @param int|string $term_meta_key key that holds our custom term_meta value
-	 * @return array
+	 * @return array of sorted terms with term ids as key and sort order number as value
 	 * @since 1.1.5
 	 */
-	public function sort_terms( $term_ids, $term_meta_key ) {
+	public function sort_terms_custom( $term_ids, $term_meta_key ) {
+
+		if ( empty( $term_ids ) ) {
+			return;
+		}
 
 		$ordered_terms = array();
 		$new_order_numbers = array();
@@ -600,6 +605,59 @@ class Isa_Organized_Docs{
 		}
 
 	}
+
+/************************************************************
+*
+* @todo new function 
+
+	SEEMS TO BE WORKING FINE, BUT RUN ANOTHER TEST.
+*
+************************************************************/
+	/**
+	 * Get the sorted main, top-level terms.
+	 * @since 2.1
+	 * @return array of sorted term ids with their names
+	 */
+	public function get_sorted_main_item_terms() {
+
+		$args = array(
+				'fields' => 'id=>name',				
+				'parent' => 0,// only top level terms
+		);
+
+		$terms = get_terms( 'isa_docs_category', $args );
+
+		if ( empty( $terms ) ) {
+			return;
+		}
+
+		$sort_by = get_option('od_main_top_sort_by');
+
+		if ( 'title' != $sort_by ) {
+
+			// need simple array of term ids to sort by custom meta
+			$term_ids = array();
+			foreach ( $terms as $k => $v ) {
+				$term_ids[] = $k;
+			}
+
+			$sorted_term_ids = $this->sort_terms_custom( $term_ids, 'main_doc_item_sort_order' );
+
+			// rebuild the terms array in new order
+			$terms = array();
+			foreach ( $sorted_term_ids as $term_id => $order ) {
+				$term_object = get_term( $term_id, 'isa_docs_category' );
+
+				if ( ! is_wp_error( $term_object  ) ) {
+					$terms[$term_id] = $term_object->name;
+				}
+			}
+
+		}
+
+		return $terms;
+	}
+
 
 	/**
 	 * Adds a sort-order meta box to the Docs edit screen.
@@ -779,6 +837,14 @@ class Isa_Organized_Docs{
 			'od_main_setting_section'
 		);
 	 	register_setting( 'organized-docs-settings', 'od_change_main_docs_title' );
+		add_settings_field(
+			'od_main_top_sort_by',
+			__( 'Main Items Sort Order', 'organized-docs' ),
+			array( $this, 'main_top_sort_by_setting_callback' ),
+			'organized-docs-settings',
+			'od_main_setting_section'
+		);
+	 	register_setting( 'organized-docs-settings', 'od_main_top_sort_by' );
 		add_settings_field(
 			'od_disable_microdata',
 			__( 'Disable Microdata', 'organized-docs' ),
@@ -1037,16 +1103,34 @@ class Isa_Organized_Docs{
 		$selected_option = get_option('od_single_sort_by');
 		$items = array(
 				"custom sort order number"	=> __( 'custom sort order number', 'organized-docs' ),
-				"title - alphabetical"		=> __( 'title - alphabetical', 'organized-docs' ),
+				"title - alphabetical"		=> __( 'title - alpha/numeric', 'organized-docs' ),
 				"date"						=> __( 'date', 'organized-docs' ) );
 
-		echo "<select id = 'od_single_sort_by' name = 'od_single_sort_by'>";
+		echo "<select id='od_single_sort_by' name='od_single_sort_by'>";
 
 		foreach($items as $key => $val) {
 			$selected = ( $selected_option == $key ) ? ' selected = "selected"' : '';
 			echo "<option value='$key' $selected>$val</option>";
 		}
-		echo '</select><p class="description">' . __( 'Choose how to sort single docs.', 'organized-docs' ) . '</p>';
+		echo '</select><p class="description">' . __( 'How to sort single docs.', 'organized-docs' ) . '</p>';
+	}
+
+	/**
+	 * Callback function for setting to sort main top-level doc items
+	 * @since 2.1
+	 */
+	public function main_top_sort_by_setting_callback() {
+		$selected_option = get_option('od_main_top_sort_by');
+		$items = array(
+				"custom sort order number"	=> __( 'custom sort order number', 'organized-docs' ),
+				"title"		=> __( 'title - alpha/numeric', 'organized-docs' )
+				);
+		echo "<select id='od_main_top_sort_by' name='od_main_top_sort_by'>";
+		foreach($items as $key => $val) {
+			$selected = ( $selected_option == $key ) ? ' selected = "selected"' : '';
+			echo "<option value='$key' $selected>$val</option>";
+		}
+		echo '</select><p class="description">' . __( 'How to sort the main, top-level Doc items on the main Docs page.', 'organized-docs' ) . '</p>';
 	}
 	
 	/**
@@ -1056,7 +1140,7 @@ class Isa_Organized_Docs{
 	public function single_sort_order_setting_callback() {
 		$selected_option = get_option('od_single_sort_order');
 		$items = array("ASC", "DESC");
-		echo "<select id = 'od_single_sort_order' name = 'od_single_sort_order'>";
+		echo "<select id='od_single_sort_order' name='od_single_sort_order'>";
 
 		foreach($items as $item) {
 			$selected = ( $selected_option == $item ) ? ' selected = "selected"' : '';

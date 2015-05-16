@@ -51,7 +51,7 @@ class DocsSectionContents extends WP_Widget {
 		$termchildren =  get_term_children( $top_level_parent_term_id, 'isa_docs_category' );
 		
 		// sort $termchildren by custom subheading_sort_order numbers
-		$sorted_termchildren = $Isa_Organized_Docs->sort_terms( $termchildren, 'subheading_sort_order' );
+		$sorted_termchildren = $Isa_Organized_Docs->sort_terms_custom( $termchildren, 'subheading_sort_order' );
 
 		$list_each = get_option('od_widget_list_toggle');
 
