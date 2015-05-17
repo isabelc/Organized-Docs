@@ -18,7 +18,6 @@ $od_options = array(
 	'od_single_sort_by',
 	'od_list_toggle',
 	'od_close_comments',
-	'od_enable_manage_comments'
 );
 
 /* Delete all custom terms for passed taxonomy, and the custom term meta options both on Single site and Multisite.
