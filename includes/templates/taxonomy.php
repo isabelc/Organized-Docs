@@ -1,7 +1,8 @@
 <?php
-/*
+/**
 * The template for displaying Docs category taxonomy archives
-* @package	Organized Docs
+* @package Organized Docs
+* @version 2.1.1
 * @since 2.0
 */
 get_header();

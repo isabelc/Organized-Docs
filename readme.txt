@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=me%40
 Tags: documentation, docs, organize documentation, organized documentation, instruction guides, wiki
 Requires at least: 4.0
 Tested up to: 4.2.2
-Stable Tag: 2.1.1
+Stable tag: 2.1.1
 License: GNU Version 2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -63,6 +63,7 @@ This is no longer an issue since version 2.0.
 = 2.1.1 =
 * New - Option to show last updated date on single Docs articles.
 * Tweak - Better handling of the Disable Comments on Docs option.
+* Tweak - Updated the version in template files.
 
 = 2.1 =
 * New - All 4 template files have been updated. If you are using a custom template file for Docs in your theme, you must update the file for Docs to work properly. Please see the documentation, under What's New, for an easy link to grab the new template files.

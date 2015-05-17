@@ -2,6 +2,7 @@
 /**
  * The Docs Sidebar for Single Docs
  * @package	Organized Docs
+ * @version 2.1.1
  * @since 2.0
  */
 ?>
