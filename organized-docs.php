@@ -1,32 +1,32 @@
 <?php
 /*
- Plugin Name: Organized Docs
- Plugin URI: http://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
- Description: Easily create organized documentation for multiple products, organized by product, and by subsections within each product.
- Version: 2.1.1
- Author: Isabel Castillo
- Author URI: http://isabelcastillo.com
- License: GPL2
- Text Domain: organized-docs
- Domain Path: languages
+Plugin Name: Organized Docs
+Plugin URI: http://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
+Description: Easily create organized documentation for multiple products, organized by product, and by subsections within each product.
+Version: 2.1.1
+Author: Isabel Castillo
+Author URI: http://isabelcastillo.com
+License: GPL2
+Text Domain: organized-docs
+Domain Path: languages
  
- Copyright 2013 - 2015 Isabel Castillo
+Copyright 2013 - 2015 Isabel Castillo
  
- This file is part of Organized Docs.
+This file is part of Organized Docs.
  
- Organized Docs is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 2 of the License, or
- any later version.
+Organized Docs is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+any later version.
  
- Organized Docs is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- GNU General Public License for more details.
+Organized Docs is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
  
- You should have received a copy of the GNU General Public License
- along with Organized Docs. If not, see <http://www.gnu.org/licenses/>.
- */
+You should have received a copy of the GNU General Public License
+along with Organized Docs. If not, see <http://www.gnu.org/licenses/>.
+*/
 
 if ( ! class_exists( 'Isa_Organized_Docs' ) ) {
 class Isa_Organized_Docs{
