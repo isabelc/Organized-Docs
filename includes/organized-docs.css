@@ -4,12 +4,6 @@
 * @todo 
 
 
-add option to add updated date to top or bottom of single docs article...
-
-
-
-
-
 .post-type-archive-isa_docs .docs-site-content{width:700px;max-width:100%;margin-left:auto;margin-right:auto}
 
 .tax-isa_docs_category .docs-content-area{width:940px;max-width:100%;margin-left:auto;margin-right:auto}
@@ -28,22 +22,6 @@ body.single article ol ul li {
 }
 
 Update version in template files!!!!
-
-
-
-/* @todo should only apply to archive page (main), tax pages, and sidebar !!! */
-/*
-#docs-primary ul {list-style: none;}
-*/
-
-
-
-/*.isa-docs-archive-content ul, #organized-docs-menu ul, #docs-content-sidebar ul {
-	list-style: none;
-}
-
-*/
-
 
 
 /*https://wordpress.org/plugins/screen-reader-text-theme-support/*/
@@ -90,12 +68,11 @@ Update version in template files!!!!
 
 /* Universal Docs */
 
-#docs-primary ul {list-style: none;}
-
 #docs-primary a{text-decoration:none}
-
 #docs-primary article {padding-top:0;}
-
+.isa-docs-archive-content ul, #organized-docs-menu ul, #docs-content-sidebar ul {
+	list-style: none;
+}
 
 
 /* Main Docs page */
