@@ -34,14 +34,28 @@ For support or to report bugs, use the support forum link above, or use [GitHub]
 4.  See [How To Set Up Categories For Docs](http://isabelcastillo.com/docs/how-to-set-up-categories)
 == Frequently Asked Questions ==
 
+= Why is the layout all messed up? = 
+
+The Organized Docs layout is compatible with these default WordPress themes: Twenty Fifteen, Twenty Fourteen, Twenty Thirteen, and Twenty Twelve.
+
+On other themes, the layout may look all messed up. It’s very easy to fix this by copying the template files into your theme. Once you have copied them, make the necessary changes to the HTML to make it match your own theme, while leaving the important Organized Docs loop stuff intact.
+
+See how to [Customize The Docs Template Files](http://isabelcastillo.com/docs/customize-the-docs-template-files).
+
+
 = Why does the Table of Contents widget appear multiple times on the same page? =
 
 This is no longer an issue since version 2.0.
 
 == Screenshots ==
-1. Back-end Admin screen – Organized Docs WordPress Plugin
-2. All Docs For 1 Product
-3. Single docs post with Table of Contents
+1. Main Docs page on 2015 theme showing all main, top-level items/products
+2. All Docs for 1 product on 2015 theme
+3. All Docs for 1 product on 2014 theme
+4. All Docs for 1 product on 2013 theme
+5. A single Docs article with Table of Contents on 2015 theme
+6. A single Docs article with Table of Contents on 2014 theme
+7. A single Docs article with Table of Contents on 2013 theme
+8. Back-end Docs Admin screen
 
 == Changelog ==
 
