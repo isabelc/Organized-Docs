@@ -53,13 +53,14 @@ if ( ! get_option('od_disable_microdata') ) {
 	</div><!-- .docs-entry-content -->
 
 	<?php
-	
 	$Isa_Organized_Docs->updated_on( 'below' );
-
 	$Isa_Organized_Docs->organized_docs_post_nav(); 
-	// If comments are open or we have at least one comment, load up the comment template.
-	if ( comments_open() || get_comments_number() ) {
-		comments_template();
+
+	if ( ! get_option( 'od_close_comments' ) ) {
+		// If comments are open or we have at least one comment, load up the comment template.
+		if ( comments_open() || get_comments_number() ) {
+			comments_template();
+		}
 	}
 	?>
 </article><!-- #post-## -->
