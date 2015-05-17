@@ -3,7 +3,7 @@
  * Plugin Name: Organized Docs
  * Plugin URI: http://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
  * Description: Easily create organized documentation for multiple products, organized by product, and by subsections within each product.
- * Version: 2.1-beta9
+ * Version: 2.1
  * Author: Isabel Castillo
  * Author URI: http://isabelcastillo.com
  * License: GPL2
@@ -606,13 +606,6 @@ class Isa_Organized_Docs{
 
 	}
 
-/************************************************************
-*
-* @todo new function 
-
-	SEEMS TO BE WORKING FINE, BUT RUN ANOTHER TEST.
-*
-************************************************************/
 	/**
 	 * Get the sorted main, top-level terms.
 	 * @since 2.1
@@ -680,10 +673,8 @@ class Isa_Organized_Docs{
 	 * @since 1.1.5
 	 */
 	public function odocs_sort_oder_box( $post ) {
-	
 		wp_nonce_field( 'odocs_sort_oder_box', 'odocs_sort_oder_box_nonce' );
-	
-		/*
+			/*
 		 * Use get_post_meta() to retrieve an existing value
 		 * from the database and use the value for the form.
 		 */
@@ -1072,7 +1063,7 @@ class Isa_Organized_Docs{
 			$selected = ( $selected_option == $key ) ? ' selected = "selected"' : '';
 			echo "<option value='$key' $selected>$val</option>";
 		}
-		echo '</select><p class="description">' . __('On the top-level category pages, choose whether to list each article under its sub-heading, or hide the list of articles and only show sub-headings, or toggle the list when clicking a sub-heading.', 'organized-docs') . '</p>';// @todo make new .pot file.
+		echo '</select><p class="description">' . __('On the top-level category pages, choose whether to list each article under its sub-heading, or hide the list of articles and only show sub-headings, or toggle the list when clicking a sub-heading.', 'organized-docs') . '</p>';
 
 	}
 	

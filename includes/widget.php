@@ -39,7 +39,7 @@ class DocsSectionContents extends WP_Widget {
 		$doc_categories = wp_get_object_terms( $post->ID, 'isa_docs_category' );
 		
 		if ( ! $doc_categories ) {
-			// cat has not been assigned
+			// cat has not been assigned yet
 			return;
 		}
 			

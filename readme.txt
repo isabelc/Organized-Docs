@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=me%40
 Tags: documentation, docs, organize documentation, organized documentation, instruction guides, wiki
 Requires at least: 4.0
 Tested up to: 4.2.2
-Stable Tag: 2.0.4
+Stable Tag: 2.1
 License: GNU Version 2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -46,11 +46,14 @@ This is no longer an issue since version 2.0.
 == Changelog ==
 
 = 2.1 =
+* New - All 4 template files have been updated. If you are using a custom template file for Docs in your theme, you must update the file for Docs to work properly. Please see the documentation, under What's New, for an easy link to grab the new template files.
+* New - Option to sort main, top-level Doc items by alphanumerical order.
 * New - The CSS has been rewritten to leave a more neutral style for the Docs nav menu and the Table of Contents widget. The entire layout has been made compatible with Twenty Fifteen theme, as well as remaining compatible with Twenty Fourteen, Twenty Thirteen, and Twenty Twelve. Please see the documentation, under What's New, for a list of all CSS changes.
 * Optimization - The toggle option now uses pure JavaScript. There is no jQuery dependency.
 * Optimization - Use an HTML entity for the print icon instead of Font Awesome. There is no more option to include Font Awesome.
 * Fix - dynamic_css() was adding empty style tag to head in some cases.
 * Tweak - Renamed the function sort_terms to sort_terms_custom.
+* Tweak - Updated .pot translation file.
 
 = 2.0.4 =
 * New - option to toggle the list of individual Docs articles on the top-level category pages.
@@ -168,6 +171,10 @@ Bug fix: Custom sort-order for Categories was not saving.
 * Initial release.
 
 == Upgrade Notice ==
+
+= 2.1 =
+All 4 template files have been updated. If you update, you must also update your custom template files!
+
 = 2.0.4 =
 Removed several PHP warnings that occurred when viewing a single Doc while a category was not assigned to the Doc.
 
