@@ -3,7 +3,7 @@
  * Plugin Name: Organized Docs
  * Plugin URI: http://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
  * Description: Easily create organized documentation for multiple products, organized by product, and by subsections within each product.
- * Version: 2.1
+ * Version: 2.1.1-beta1
  * Author: Isabel Castillo
  * Author URI: http://isabelcastillo.com
  * License: GPL2
@@ -47,7 +47,7 @@ class Isa_Organized_Docs{
 			add_action( 'init', array( $this, 'setup_docs_taxonomy'), 0 );
 			add_action( 'init', array( $this, 'create_docs_cpt') );
 			add_action( 'init', array( $this, 'create_docs_menu_item') );
-			add_action( 'init', array( $this, 'update_docs_sort_order_post_meta' ) );
+			add_action( 'init', array( $this, 'cleanup_old_options' ) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'register_style') );
 			add_action( 'widgets_init', array( $this, 'register_widgets') );
 			add_filter( 'template_include', array( $this, 'docs_template' ) );
@@ -876,7 +876,9 @@ class Isa_Organized_Docs{
 			'od_single_post_setting_section'
 		);
 	 	register_setting( 'organized-docs-settings', 'od_title_on_nav_links' );
-	 	add_settings_field(
+
+
+	 	add_settings_field(// @todo remove
 			'od_enable_manage_comments',
 			__( 'Enable Comments Control', 'organized-docs' ),
 			array( $this, 'enable_manage_comments_setting_callback' ),
@@ -884,7 +886,9 @@ class Isa_Organized_Docs{
 			'od_single_post_setting_section'
 		);
 	 	register_setting( 'organized-docs-settings', 'od_enable_manage_comments' );
-	 	add_settings_field(
+	 	
+
+	 	add_settings_field(// @todo change type to checkmark
 			'od_close_comments',
 			__( 'Disable Comments on Single Docs?', 'organized-docs' ),
 			array( $this, 'close_comments_setting_callback' ),
@@ -892,6 +896,8 @@ class Isa_Organized_Docs{
 			'od_single_post_setting_section'
 		);
 	 	register_setting( 'organized-docs-settings', 'od_close_comments' );
+	 	
+
 	 	add_settings_field(
 			'od_list_toggle',
 			__( 'List Each Single Title?', 'organized-docs' ),
@@ -916,6 +922,14 @@ class Isa_Organized_Docs{
 			'od_single_post_setting_section'
 		);
 	 	register_setting( 'organized-docs-settings', 'od_single_sort_order' );
+		add_settings_field(
+			'od_show_updated_date',
+			__( 'Show Updated Date', 'organized-docs' ),
+			array( $this, 'show_updated_date_setting_callback' ),
+			'organized-docs-settings',
+			'od_single_post_setting_section'
+		);
+		register_setting( 'organized-docs-settings', 'od_show_updated_date' );// @test
 	 	add_settings_field(
 			'od_delete_data_on_uninstall',
 			__( 'Remove Data on Uninstall?', 'organized-docs' ),
@@ -1140,6 +1154,26 @@ class Isa_Organized_Docs{
 		echo "</select>";
 		echo '<p class="description">' . __( 'Choose ascending or descending sort order.', 'organized-docs' ) . '</p>';
 	}
+
+	/**
+	 * Callback function for setting to sort main top-level doc items
+	 * @since 2.1.1 @test
+	 */
+	public function show_updated_date_setting_callback() {
+		$selected_option = get_option('od_show_updated_date');
+		$items = array(
+				'none'	=> __( 'Do not show the date', 'organized-docs' ),
+				'above'		=> __( 'Show the date above the article', 'organized-docs' ),
+				'below'		=> __( 'Show the date below the article', 'organized-docs' )
+				);
+		echo "<select id='od_show_updated_date' name='od_show_updated_date'>";
+		foreach($items as $key => $val) {
+			$selected = ( $selected_option == $key ) ? ' selected = "selected"' : '';
+			echo "<option value='$key' $selected>$val</option>";
+		}
+		echo '</select><p class="description">' . __( 'Whether to show the last updated date on single Docs articles.', 'organized-docs' ) . '</p>';
+	}
+
 	/**
 	 * Callback function for setting to remove data on uninstall
 	 * @since 1.1.9
@@ -1253,6 +1287,26 @@ class Isa_Organized_Docs{
 		$out .= '</div></nav>';
 		echo $out;
 	}
+	/**
+	 * Template tag to show the last Updated date on single posts.
+	 * @param string $loc location of the tag, whether above or below the article
+	 */
+	public function updated_on( $loc ) {
+
+		if ( get_option('od_show_updated_date') == $loc ) {
+
+			$time_string = '<time class="updated" datetime="%1$s">%2$s</time>';
+
+			$time_string = sprintf( $time_string,
+				esc_attr( get_the_modified_date( 'c' ) ),
+				get_the_modified_date()
+			);
+			printf( '<span class="updated-on">%1$s %2$s</span>',
+				__( 'Updated on', 'organized-docs' ),
+				$time_string
+			);
+		}
+	}
 
 	/**
 	* Small inline js for optional toggle. Will only be included if toggle option is enabled.
@@ -1266,19 +1320,30 @@ class Isa_Organized_Docs{
 	
 	/**
 	 * For cleanup, remove old options.
-	 * @since 2.1
+	 * @since 2.1.1
 	 * @todo remove this function in version 2.4, and del odocs_cleanup_twopointone on uninstall
 	 */
-	public function update_docs_sort_order_post_meta() {
+	public function cleanup_old_options() {
 		global $post;
+
+		
 		// Run this update only once
+		// @todo remove this block in version 2.4, and del odocs_cleanup_twopointone on uninstall
 		if ( get_option( 'odocs_cleanup_twopointone' ) != 'completed' ) {
-			
 			delete_option( 'odocs_update_sortorder_postmeta' );
 			delete_option( 'odocs_update_disable_list_each' );
-			
 			update_option( 'odocs_cleanup_twopointone', 'completed' );
 		}
+
+		// Run this update only once
+		// @todo remove this block in version 2.5, and del odocs_cleanup_twopointoneone on uninstall
+		if ( get_option( 'odocs_cleanup_twopointoneone' ) != 'completed' ) {
+	
+			delete_option( 'od_dont_load_fa' );// @todo add to readme -- cleanup
+			
+			update_option( 'odocs_cleanup_twopointoneone', 'completed' );
+		}
+
 	}
 }
 }
