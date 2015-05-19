@@ -1,9 +1,9 @@
 === Organized Docs ===
 Contributors: isabel104
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=me%40isabelcastillo%2ecom
-Tags: documentation, docs, organize documentation, organized documentation, instruction guides, wiki
+Tags: documentation, docs, organized documentation, instruction guides, easy docs
 Requires at least: 4.0
-Tested up to: 4.2.2
+Tested up to: 4.2.3
 Stable tag: 2.1.1
 License: GNU Version 2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -12,13 +12,21 @@ Easily create organized documentation for multiple products, organized by produc
 
 == Description ==
 
-Create documentation for multiple items, for example, for multiple software products. This is for you if you need to create documentation for multiple products, and must have the docs organized neatly, by product. The main "Docs Page" will list all the products. Clicking on a product will take you to the docs only for that product.
+Create documentation for multiple items, for example, for multiple software products. This is for you if you need to create documentation for any number of products, and must have the docs organized neatly by product. 
 
-Each product's docs is further organized into subsections. The subsections list each individual article in that docs section. 
+**Built-in SEO**
 
-The single docs posts will have a Docs Table of Contents widget added to the sidebar. This will show a Table of Contents for docs pertaining only to the product which this current single doc belongs to. 
+Documentation articles will have schema.org microdata. It adds **TechArticle** microdata to single Docs, and **CollectionPage** microdata to Docs archives.
 
-Demo [Organized Docs on a default WordPress theme](http://smartestthemes.com/organized-docs-wordpress-plugin/docs/)
+**Documentation With a User-Friendly Structure For Your Visitors**
+
+The main "Docs Page" will list all the products. Clicking on a product will take you to the docs only for that product.
+
+Each product's docs are organized into subsections. The subsections list each individual article in that docs section. 
+
+A single docs post will have a Table of Contents widget added to the sidebar. This will show a Table of Contents for docs pertaining only to the product which this current single doc belongs to. 
+
+See a live demo of [Organized Docs on a default WordPress theme](http://smartestthemes.com/organized-docs-wordpress-plugin/docs/)
 
 [Setup Instructions](http://isabelcastillo.com/docs/how-to-set-up-categories)
 
@@ -32,6 +40,8 @@ For support or to report bugs, use the support forum link above, or use [GitHub]
 2.  In your WordPress dashboard, go to "Plugins -> Add New", and click "Upload".
 3.  Upload the plugin file and activate it.
 4.  See [How To Set Up Categories For Docs](http://isabelcastillo.com/docs/how-to-set-up-categories)
+5.  Create your Docs articles. Visit your website at `www.your-webiste.com/docs/` to see your Docs.
+
 == Frequently Asked Questions ==
 
 = Why is the layout all messed up? = 
@@ -41,6 +51,10 @@ The Organized Docs layout is compatible with these default WordPress themes: Twe
 On other themes, the layout may look all messed up. It’s very easy to fix this by copying the template files into your theme. Once you have copied them, make the necessary changes to the HTML to make it match your own theme, while leaving the important Organized Docs loop stuff intact.
 
 See how to [Customize The Docs Template Files](http://isabelcastillo.com/docs/customize-the-docs-template-files).
+
+= Where do I see the Docs on the front end? =
+
+Visit your website at `www.your-webiste.com/docs/` to see your Docs. Alternatively, add individual Doc products (categories) to your Menu in your dashboard --> Appearance --> Menus. This last method is better for you if you are only documenting one product on the site (rather than multiple products).
 
 
 = Why does the Table of Contents widget appear multiple times on the same page? =
