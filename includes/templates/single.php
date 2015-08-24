@@ -2,7 +2,7 @@
 /**
  * The template for displaying Organized Docs Single posts.
  * @package	Organized Docs
- * @version 2.1.1
+ * @version 2.2
  * @since 2.0
  */
 get_header(); 
