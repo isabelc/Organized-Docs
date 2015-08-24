@@ -12,17 +12,28 @@ Easily create organized documentation for multiple products, organized by produc
 
 == Description ==
 
-Create documentation for multiple items, for example, for multiple software products. This is for you if you need to create documentation for any number of products, and must have the docs organized neatly by product. 
+Create documentation for any number of products, organized by product, and by sub-headings within each product. You can use this to create instruction guides for just about anything.
+
+This is for you if any of these apply:
+
+* You need to create software documentation.
+* You need to create documentation for one or multiple products, and must have the docs organized neatly, by product. 
+* You need to write instruction guides for virtually anything, whether it be products, games, topics, etc. You can label them as "Instructions" instead of "Docs".
+* You don't want to create a separate website for your docs. You simply want to add them on to your current WordPress site.
 
 **Built-in SEO**
-Documentation articles will have schema.org microdata. It adds **TechArticle** microdata to single Docs, and **CollectionPage** microdata to Docs archives.
+
+Documentation articles will have schema.org microdata. It adds **TechArticle** microdata to single Docs, and **CollectionPage** microdata to Docs archives. You can disable the microdata.
 
 **Documentation With a User-Friendly Structure For Your Visitors**
+
 The main "Docs Page" will list all the products. Clicking on a product will take you to the docs only for that product.
 
 Each product's docs are organized into subsections. The subsections list each individual article in that docs section. 
 
 A single docs post will have a Table of Contents widget added to the sidebar. This will show a Table of Contents for docs pertaining only to the product which this current single doc belongs to. 
+
+Organized Docs works on **Multisite** WordPress installations, as well as regular WordPress sites.
 
 See a live demo of [Organized Docs on a default WordPress theme](http://smartestthemes.com/organized-docs-wordpress-plugin/docs/)
 
