@@ -8,15 +8,8 @@
 get_header();
 
 $schema = '';
-$schema_inner = '';
-$itemprop_name = '';
-	
 if ( ! get_option('od_disable_microdata') ) {
 	$schema = ' itemscope itemtype="http://schema.org/CollectionPage"';
-	
-	$schema_inner = ' itemscope itemtype="http://schema.org/TechArticle"';
-	$itemprop_name = ' itemprop="name"';
-
 } ?>
 <section id="docs-primary" class="docs-content-area" <?php if($schema) echo $schema; ?>>
 <div id="docs-content" class="docs-site-content" role="main">
@@ -79,7 +72,7 @@ wp_enqueue_style('organized-docs'); ?>
 			<ul>
 			<?php while ( $the_query->have_posts() ) {
 				$the_query->the_post(); ?>
-				<li <?php if($schema_inner) echo $schema_inner; ?>><a href="<?php echo get_permalink($post->ID); ?>" <?php if($itemprop_name) echo $itemprop_name; ?>><?php echo get_the_title(); ?></a></li>
+				<li><a href="<?php echo get_permalink($post->ID); ?>"><?php echo get_the_title(); ?></a></li>
 			<?php } ?>
 			</ul><?php
 	 	else : ?>
@@ -131,7 +124,7 @@ wp_enqueue_style('organized-docs'); ?>
 				);
 				$postlist = get_posts( $args );
 				foreach ( $postlist as $single_post ) { ?>
-					<li <?php if($schema_inner) echo $schema_inner; ?>><a href="<?php echo get_permalink($single_post->ID); ?>" title="<?php echo esc_attr( $single_post->post_title ); ?>" <?php if($itemprop_name) echo $itemprop_name; ?>><?php echo $single_post->post_title; ?></a></li>
+					<li><a href="<?php echo get_permalink($single_post->ID); ?>" title="<?php echo esc_attr( $single_post->post_title ); ?>"><?php echo $single_post->post_title; ?></a></li>
 				<?php } ?>
 				</ul><?php
 			}

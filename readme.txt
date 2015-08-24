@@ -85,6 +85,7 @@ This is no longer an issue since version 2.0.
 
 = 2.2 =
 * Fix - The taxonomy page for a sub-category was only showing a max of 10 posts. Now it shows all posts for that sub-category.
+* Tweak - Updated structured data microdata properties.
 
 = 2.1.1 =
 * New - Option to show last updated date on single Docs articles.

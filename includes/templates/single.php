@@ -13,7 +13,7 @@ $article_body = '';
 	
 if ( ! get_option('od_disable_microdata') ) {
 	$schema = ' itemscope itemtype="http://schema.org/TechArticle"';
-	$itemprop_name = ' itemprop="name"';
+	$itemprop_name = ' itemprop="headline"';
 	$article_body = ' itemprop="articleBody"';
 } ?>
 <div id="docs-primary" <?php if($schema) echo $schema; ?>>
@@ -62,7 +62,14 @@ if ( ! get_option('od_disable_microdata') ) {
 			comments_template();
 		}
 	}
-	?>
+
+	if ( has_post_thumbnail() ) {
+		$image_url = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ) );
+		?><meta itemprop="image" content="<?php echo $image_url[0]; ?>"><?php
+	} else {
+		?><meta itemprop="image" content="<?php echo plugins_url( '/organized-docs.png', dirname( __FILE__ ) ); ?>"><?php 
+	}
+	?><meta itemprop="datePublished" content="<?php the_time('c'); ?>">
 </article><!-- #post-## -->
 </div><!-- #docs-content -->
 <?php $sidebar = $Isa_Organized_Docs->get_template_hierarchy( 'sidebar' );
