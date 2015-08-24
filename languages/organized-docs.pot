@@ -1,0 +1,467 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Organized Docs\n"
+"POT-Creation-Date: 2015-05-16 18:58-0500\n"
+"PO-Revision-Date: 2015-05-16 18:59-0500\n"
+"Last-Translator: Isabel Castillo <me@isabelcastillo.com>\n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_x;_ex;esc_attr_e\n"
+"X-Poedit-SearchPath-0: /var/www/html/wp-content/plugins/organized-docs\n"
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:92
+msgid "Setup Instructions"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:110
+msgid "docs"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:112
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:124
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:157
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:167
+#: /var/www/html/wp-content/plugins/organized-docs/includes/templates/archive.php:24
+msgid "Docs"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:113
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:125
+msgid "Doc"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:126
+msgid "Add New"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:127
+msgid "Add New Doc"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:128
+msgid "All Docs"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:129
+msgid "Edit"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:130
+msgid "Edit Doc"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:131
+msgid "New Doc"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:132
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:133
+msgid "View Doc"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:134
+msgid "Search Docs"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:135
+msgid "No docs found"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:136
+msgid "No docs found in Trash"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:137
+msgid "Parent Docs"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:362
+msgid "Docs Widget Area"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:363
+msgid "Sidebar for single Organized Docs article"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:377
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:387
+msgid "Docs Categories"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:378
+msgid "Docs Category"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:379
+msgid "Search Docs Categories"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:380
+msgid "All Docs Categories"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:381
+msgid "Docs Parent Category"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:382
+msgid "Docs Parent Category:"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:383
+msgid "Edit Docs Category"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:384
+msgid "Update Docs Category"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:385
+msgid "Add New Docs Category"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:386
+msgid "New Docs Category Name"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:391
+msgid "docs/category"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:413
+msgid "Name"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:414
+msgid "Categories"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:415
+msgid "Parent"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:417
+msgid "Date"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:466
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:495
+msgid "Sort Order Number for a Top-level Item"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:468
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:498
+msgid ""
+"If this is a Top-level Item (a main Docs Item, i.e. the item that has docs), "
+"give this item a number to order it on the main Docs page. Number 1 will "
+"appear first, while greater numbers appear lower. Numbers do not have to be "
+"consecutive; for example, you could number them like, 10, 20, 35, 45, etc. "
+"This would leave room in between to insert new Top-level Items later without "
+"having to change all current numbers."
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:468
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:498
+msgid "Leave blank if this is is not a Top-level Item."
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:471
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:502
+msgid "Sort Order Number for Sub-heading"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:473
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:505
+msgid ""
+"If this is a Sub-heading, give this Sub-heading a number to order it under "
+"its Parent. Number 1 will appear first, while greater numbers appear lower. "
+"Numbers do not have to be consecutive; for example, you could number them "
+"like, 10, 20, 35, 45, etc. This would leave room in between to insert new "
+"sub-headings later without having to change all current numbers."
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:473
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:505
+msgid "Leave blank if this is is not a sub-heading."
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:662
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:913
+msgid "Sort Order"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:684
+msgid ""
+"Give this Doc a number to order it under its Sub-heading. Number 1 will "
+"appear first, while greater numbers appear lower. Numbers do not have to be "
+"consecutive; for example, you could number them like, 10, 20, 35, 45, etc. "
+"This would leave room in between to insert new Docs later without having to "
+"change all current numbers."
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:761
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:769
+msgid "Organized Docs Settings"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:761
+msgid "Settings"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:787
+msgid "Main Settings"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:793
+msgid "Top Level Category Pages"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:799
+msgid "Single Post Settings"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:805
+msgid "Table of Contents Widget"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:811
+msgid "Uninstall Settings"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:817
+msgid "Change The Main Docs Slug"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:825
+msgid "Change The Main Docs Page Title"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:833
+msgid "Main Items Sort Order"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:841
+msgid "Disable Microdata"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:849
+msgid "Disable Docs Menu Link"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:857
+msgid "Remove Printer Icon"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:865
+msgid "Remove Print Link"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:873
+msgid "Title on nav links?"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:881
+msgid "Enable Comments Control"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:889
+msgid "Disable Comments on Single Docs?"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:897
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:929
+msgid "List Each Single Title?"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:905
+msgid "Sort Single Docs By ..."
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:921
+msgid "Remove Data on Uninstall?"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:949
+msgid ""
+"These settings are for the top-level item pages. These are pages which list "
+"all Docs for that top-level item."
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:957
+msgid "These settings are for the single Docs posts."
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:972
+msgid ""
+"This setting refers to when you uninstall (delete) the plugin. This does not "
+"refer to simply deactivating the plugin."
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:979
+msgid ""
+"Change the default Docs slug from \"docs\" to something you prefer. Leave "
+"blank for default. Every time you change this option, you must refresh "
+"permalinks and clear all caches to see the effects. To refresh permalinks, "
+"go to Settings - Permalinks, and click Save Changes twice."
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:986
+msgid ""
+"Change the page title that is displayed on the main Docs page. Leave blank "
+"for default \"Docs\"."
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:994
+msgid ""
+"Check this box to disable the schema.org microdata. Default adds TechArticle "
+"to single Docs, and CollectionPage to Docs archives."
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:1001
+msgid ""
+"Check this box to disable the Docs menu link that gets automatically added "
+"to your menu. You can still add your own link in Appearances -> Menus."
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:1008
+msgid ""
+"Check this box to remove only the printer icon from single Docs, but leave "
+"the Print link."
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:1015
+msgid "Check this box to remove the Print link altogether from single Docs."
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:1022
+msgid ""
+"Check this box to show the post titles instead of \"Previous\" and \"Next\" "
+"on the nav links on the bottom of single Docs."
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:1030
+msgid ""
+"Check this box to turn on the ability to use the next option. This is here "
+"because managing comments is heavy. You should turn this off after you see "
+"that your next option has taken effect."
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:1041
+msgid "No"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:1043
+msgid "Yes"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:1055
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:1077
+msgid "list"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:1056
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:1078
+msgid "hide"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:1057
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:1079
+msgid "toggle"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:1066
+msgid ""
+"On the top-level category pages, choose whether to list each article under "
+"its sub-heading, or hide the list of articles and only show sub-headings, or "
+"toggle the list when clicking a sub-heading."
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:1086
+msgid ""
+"In the Table of Contents widget, choose whether to list each article under "
+"its sub-heading, or hide the list of articles and only show sub-headings, or "
+"toggle the list when clicking a sub-heading."
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:1096
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:1116
+msgid "custom sort order number"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:1097
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:1117
+msgid "title - alpha/numeric"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:1098
+msgid "date"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:1106
+msgid "How to sort single docs."
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:1124
+msgid "How to sort the main, top-level Doc items on the main Docs page."
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:1141
+msgid "Choose ascending or descending sort order."
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:1148
+msgid ""
+"Check this box if you would like Organized Docs to completely remove all of "
+"its data when the plugin is deleted. This would include all Docs posts, Docs "
+"categories, subheadings, and sort order numbers."
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:1244
+msgid "Post navigation"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:1246
+msgid "&larr; Previous"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/organized-docs.php:1250
+msgid "Next &rarr;"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/includes/widget.php:15
+msgid "Organized Docs Section Contents"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/includes/widget.php:16
+msgid ""
+"Shows list of documentation articles for 1 item (top-level docs category). "
+"Works on single Docs sidebar."
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/includes/widget.php:30
+#: /var/www/html/wp-content/plugins/organized-docs/includes/widget.php:135
+msgid "Table of Contents"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/includes/widget.php:136
+msgid "Title:"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/includes/templates/single.php:31
+msgid "Print"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/includes/templates/single.php:46
+msgid "Pages:"
+msgstr ""
+
+#: /var/www/html/wp-content/plugins/organized-docs/includes/templates/taxonomy.php:56
+msgid "Error 404 - Not Found"
+msgstr ""
