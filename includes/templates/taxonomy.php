@@ -2,7 +2,7 @@
 /**
 * The template for displaying Docs category taxonomy archives
 * @package Organized Docs
-* @version 2.1.1
+* @version 2.2
 * @since 2.0
 */
 get_header();
@@ -43,13 +43,42 @@ wp_enqueue_style('organized-docs'); ?>
 	// get term children
 	$termchildren =  get_term_children( $curr_termID, 'isa_docs_category' );
 
+	// orderby custom option
+	$single_sort_by = get_option('od_single_sort_by');
+	$orderby_order = get_option('od_single_sort_order');
+					
+	if ( 'date' == $single_sort_by ) {
+		$orderby = 'date';
+	} elseif ( 'title - alphabetical' == $single_sort_by ) {
+		$orderby = 'title';
+	} else {
+		$orderby = 'meta_value_num';
+	}
 	
 	if ( empty($termchildren) ) {
-		// there are no child terms, do regular term loop to list posts within current term
-		if ( have_posts() ) : ?>
+		// there are no child terms, do regular term loop to list ALL posts within current term
+		$args = array(
+					'post_type' => 'isa_docs', 
+					'posts_per_page' => -1,
+					'tax_query' => array(
+							array(
+								'taxonomy' => 'isa_docs_category',
+								'field' => 'id',
+								'terms' => $curr_termID
+							)
+						),
+					'orderby' => $orderby,
+					'meta_key' => '_odocs_meta_sortorder_key',
+					'order' => $orderby_order
+		);
+
+		$the_query = new WP_Query( $args );
+
+		if ( $the_query->have_posts() ) : ?>
+
 			<ul>
-			<?php while ( have_posts() ) {
-				the_post(); ?>
+			<?php while ( $the_query->have_posts() ) {
+				$the_query->the_post(); ?>
 				<li <?php if($schema_inner) echo $schema_inner; ?>><a href="<?php echo get_permalink($post->ID); ?>" <?php if($itemprop_name) echo $itemprop_name; ?>><?php echo get_the_title(); ?></a></li>
 			<?php } ?>
 			</ul><?php
@@ -57,6 +86,8 @@ wp_enqueue_style('organized-docs'); ?>
 			<h2><?php _e( 'Error 404 - Not Found', 'organized-docs' ); ?></h2>
 			<?php 
 		endif;
+		wp_reset_postdata();
+
 	} else {
 	
 		// there are subTerms, do list subTerms with all its posts for each subTerm
@@ -83,17 +114,6 @@ wp_enqueue_style('organized-docs'); ?>
 				}
 				?>><?php
 				global $post;
-				// orderby custom option
-				$single_sort_by = get_option('od_single_sort_by');
-				$orderby_order = get_option('od_single_sort_order');
-					
-				if ( 'date' == $single_sort_by ) {
-					$orderby = 'date';
-				} elseif ( 'title - alphabetical' == $single_sort_by ) {
-					$orderby = 'title';
-				} else {
-					$orderby = 'meta_value_num';
-				}
 				
 				// prep nested loop
 				$args = array(	'post_type' => 'isa_docs', 
