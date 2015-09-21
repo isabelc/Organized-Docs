@@ -88,6 +88,7 @@ This is no longer an issue since version 2.0.
 * New - Added filters to the microdata output.
 * New - Added several actions to the single template.
 * New - Added a new action to allow insertion of more meta fields on Docs Categories.
+* Tweak - Cleanup unused variables.
 
 = 2.2 =
 * Fix - The taxonomy page for a sub-category was only showing a max of 10 posts. Now it shows all posts for that sub-category.

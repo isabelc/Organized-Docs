@@ -241,7 +241,6 @@ class Isa_Organized_Docs{
 	 */
 	public function organized_docs_archive_section_heading() {
 		// get top level parent term on custom taxonomy archive
-		$taxonomy = get_query_var( 'taxonomy' );
 		$queried_object = get_queried_object();
 		$curr_term_id =  (int) $queried_object->term_id;
 		$top_level_parent_term_id = $this->isa_term_top_parent_id( $curr_term_id );
@@ -274,7 +273,6 @@ class Isa_Organized_Docs{
 		if ( is_tax( 'isa_docs_category' ) ) {
 		
 			// need regular current term id, only used to compare w/ top level term id later
-			$taxonomy = get_query_var( 'taxonomy' );
 			$queried_object = get_queried_object();
 			$curr_term_id = (int) $queried_object->term_id;
 			$top_level_parent_term_id = $this->isa_term_top_parent_id( $curr_term_id );

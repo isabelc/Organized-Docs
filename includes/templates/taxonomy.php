@@ -30,8 +30,6 @@ wp_enqueue_style('organized-docs'); ?>
 	// get current term id on docs category taxonomy page
 	$term = get_term_by( 'slug', get_query_var( 'term' ), get_query_var( 'taxonomy' ) );
 	$curr_termID = $term->term_id;
-	$curr_term_name = $term->name;
-
 	do_action( 'organized_docs_microdata_cat', $curr_termID );
 	
 	// get term children
