@@ -115,8 +115,6 @@ class DocsSectionContents extends WP_Widget {
 					}
 					?>><?php
 					// nest a loop through each child cat's posts
-					global $post; // @test need
-
 					$query_args = array(	'post_type' => 'isa_docs', 
 								'posts_per_page' => -1,
 								'order' => 'ASC',
