@@ -254,7 +254,7 @@ class Isa_Organized_Docs{
 
 		$heading .= '<h1 id="isa-docs-item-title" class="entry-title"';
 		if ( ! get_option('od_disable_microdata') ) {
-			$heading .= ' itemprop="name"';
+			$heading .= apply_filters( 'od_microdata_name_filter', ' itemprop="name"' );
 		}
 		$heading .= '>';
 		$heading .= $top_term_name . '</h1></a>';
@@ -287,6 +287,7 @@ class Isa_Organized_Docs{
 				$curr_term_id = (int)$first_cat->term_id;
 				// need regular current cat id, only used to compare w/ top level cat id
 				$top_level_parent_term_id = $this->isa_term_top_parent_id( $curr_term_id );
+				do_action( 'organized_docs_microdata_single', $top_level_parent_term_id );
 			} else {
 				// cat is not assigned
 				return;
@@ -471,7 +472,10 @@ class Isa_Organized_Docs{
 			<input type="text" name="term_meta[subheading_sort_order]" id="term_meta[subheading_sort_order]" value="">
 			<p class="description"><?php _e( 'If this is a Sub-heading, give this Sub-heading a number to order it under its Parent. Number 1 will appear first, while greater numbers appear lower. Numbers do not have to be consecutive; for example, you could number them like, 10, 20, 35, 45, etc. This would leave room in between to insert new sub-headings later without having to change all current numbers.', 'organized-docs' ) . ' <em>' . _e( 'Leave blank if this is is not a sub-heading.', 'organized-docs' ) . '</em>'; ?></p>
 		</div>
-	<?php
+		<?php
+		do_action( 'odocs_taxonomy_meta_fields_after' );
+
+
 	}
 
 	/** 
@@ -504,7 +508,8 @@ class Isa_Organized_Docs{
 				<p class="description"><?php _e( 'If this is a Sub-heading, give this Sub-heading a number to order it under its Parent. Number 1 will appear first, while greater numbers appear lower. Numbers do not have to be consecutive; for example, you could number them like, 10, 20, 35, 45, etc. This would leave room in between to insert new sub-headings later without having to change all current numbers.', 'organized-docs' ) . ' <em>'. _e( 'Leave blank if this is is not a sub-heading.', 'organized-docs' ) . '</em>'; ?></p>
 			</td>
 		</tr>
-	<?php
+		<?php
+		do_action( 'odocs_taxonomy_edit_meta_fields_after', $term );
 	}
 
 	/** 
