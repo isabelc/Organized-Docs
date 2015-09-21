@@ -9,7 +9,8 @@ get_header();
 
 $schema = '';
 if ( ! get_option('od_disable_microdata') ) {
-	$schema = ' itemscope itemtype="http://schema.org/CollectionPage"';
+	$type = apply_filters( 'od_category_schema_type', 'CollectionPage' );
+	$schema = ' itemscope itemtype="http://schema.org/' . $type . '"';
 } ?>
 <section id="docs-primary" class="docs-content-area" <?php if($schema) echo $schema; ?>>
 <div id="docs-content" class="docs-site-content" role="main">
@@ -27,11 +28,11 @@ wp_enqueue_style('organized-docs'); ?>
 	// Display a list of subTerms, within a specified Term, AND show all the posts within each of those subTerms on archive page
 		
 	// get current term id on docs category taxonomy page
-
 	$term = get_term_by( 'slug', get_query_var( 'term' ), get_query_var( 'taxonomy' ) );
-
 	$curr_termID = $term->term_id;
 	$curr_term_name = $term->name;
+
+	do_action( 'organized_docs_microdata_cat', $curr_termID );
 	
 	// get term children
 	$termchildren =  get_term_children( $curr_termID, 'isa_docs_category' );

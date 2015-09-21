@@ -10,11 +10,23 @@ global $Isa_Organized_Docs;
 $schema = '';
 $itemprop_name = '';
 $article_body = '';
-	
+$schema_date = '';
+$schema_img = '';
+
 if ( ! get_option('od_disable_microdata') ) {
-	$schema = ' itemscope itemtype="http://schema.org/TechArticle"';
+
+	if ( has_post_thumbnail() ) {
+		$image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ) );
+		$imgurl = $image[0];
+	} else {
+		$imgurl = plugins_url( '/organized-docs.png', dirname( __FILE__ ) );
+	}
+	$schema_img = apply_filters( 'od_single_schema_img', '<meta itemprop="image" content="' . $imgurl . '">' );
+
+	$schema = ' itemscope itemtype="http://schema.org/' . apply_filters( 'od_single_schema_type', 'TechArticle' ) . '"';
 	$itemprop_name = ' itemprop="headline"';
-	$article_body = ' itemprop="articleBody"';
+	$article_body = apply_filters( 'od_single_schema_itemprop_body', ' itemprop="articleBody"' );
+	$schema_date = apply_filters( 'od_single_schema_date', '<meta itemprop="datePublished" content="' . get_the_time('c') . '">' );
 } ?>
 <div id="docs-primary" <?php if($schema) echo $schema; ?>>
 <div id="docs-content" role="main">
@@ -62,14 +74,9 @@ if ( ! get_option('od_disable_microdata') ) {
 			comments_template();
 		}
 	}
-
-	if ( has_post_thumbnail() ) {
-		$image_url = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ) );
-		?><meta itemprop="image" content="<?php echo $image_url[0]; ?>"><?php
-	} else {
-		?><meta itemprop="image" content="<?php echo plugins_url( '/organized-docs.png', dirname( __FILE__ ) ); ?>"><?php 
-	}
-	?><meta itemprop="datePublished" content="<?php the_time('c'); ?>">
+	echo $schema_date;
+	echo $schema_img;
+	?>
 </article><!-- #post-## -->
 </div><!-- #docs-content -->
 <?php $sidebar = $Isa_Organized_Docs->get_template_hierarchy( 'sidebar' );
