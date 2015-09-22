@@ -18,6 +18,7 @@ if ( ! get_option('od_disable_microdata') ) {
 <?php do_action( 'organized_docs_content_before' ); ?>
 <div class="docs-entry-content">
 <?php global $Isa_Organized_Docs;
+do_action( 'organized_docs_tax_top' );
 echo $Isa_Organized_Docs->organized_docs_archive_section_heading();
 echo $Isa_Organized_Docs->organized_docs_content_nav();
 wp_enqueue_style('organized-docs'); ?>

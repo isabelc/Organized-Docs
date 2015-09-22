@@ -86,7 +86,7 @@ This is no longer an issue since version 2.0.
 = 2.3 =
 * New - List ALL posts in the Table of Contents sidebar widget even if not assigned to a child category. This is useful if you use the plugin for books--simply list each post under the book title without using subheadings.
 * New - Added filters to the microdata output.
-* New - Added several actions to the single template.
+* New - Added several actions to the single template and taxonomy template.
 * New - Added a new action to allow insertion of more meta fields on Docs Categories.
 * Tweak - Cleanup unused variables.
 

@@ -31,7 +31,8 @@ if ( ! get_option('od_disable_microdata') ) {
 <div id="docs-primary" <?php if($schema) echo $schema; ?>>
 <div id="docs-content" role="main">
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<?php 
+	<?php
+	do_action( 'organized_docs_single_top' );
 	echo $Isa_Organized_Docs->organized_docs_single_section_heading();
 	echo $Isa_Organized_Docs->organized_docs_content_nav();
 	wp_enqueue_style('organized-docs');
