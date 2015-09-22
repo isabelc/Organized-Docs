@@ -66,6 +66,7 @@ if ( ! get_option('od_disable_microdata') ) {
 	</div><!-- .docs-entry-content -->
 
 	<?php
+	do_action( 'organized_docs_single_after_content' );
 	$Isa_Organized_Docs->updated_on( 'below' );
 	$Isa_Organized_Docs->organized_docs_post_nav(); 
 
