@@ -3,8 +3,8 @@ Contributors: isabel104
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=me%40isabelcastillo%2ecom
 Tags: documentation, docs, organized documentation, instruction guides, easy docs
 Requires at least: 4.0
-Tested up to: 4.3
-Stable tag: 2.2
+Tested up to: 4.3.1
+Stable tag: 2.3
 License: GNU Version 2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -84,10 +84,11 @@ This is no longer an issue since version 2.0.
 == Changelog ==
 
 = 2.3 =
-* New - List ALL posts in the Table of Contents sidebar widget even if not assigned to a child category. This is useful if you use the plugin for books--simply list each post under the book title without using subheadings.
+* New - List ALL posts in the Table of Contents sidebar widget even if not assigned to a child category. This is useful if you use the plugin for books. It will now simply list each post under the book title without using subheadings.
 * New - Added filters to the microdata output.
 * New - Added several actions to the single template and taxonomy template.
 * New - Added a new action to allow insertion of more meta fields on Docs Categories.
+* Maintenance - Updated language .pot file.
 * Tweak - Cleanup unused variables.
 
 = 2.2 =

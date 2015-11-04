@@ -3,7 +3,7 @@
 Plugin Name: Organized Docs
 Plugin URI: http://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
 Description: Easily create organized documentation for multiple products, organized by product, and by subsections within each product.
-Version: 2.3-beta3
+Version: 2.3-beta5.2
 Author: Isabel Castillo
 Author URI: http://isabelcastillo.com
 License: GPL2
@@ -767,7 +767,7 @@ class Isa_Organized_Docs{
 	 * @since 1.1.9
 	 */
 	public function settings_page_callback() {
-		echo '<div class="wrap"><div id="icon-tools" class="icon32"></div>';
+		echo '<div class="wrap">';
 			echo '<h1>' . __( 'Organized Docs Settings', 'organized-docs' ) . '</h1>'; ?>
 			<form method="POST" action="options.php">
 			<?php
@@ -822,7 +822,7 @@ class Isa_Organized_Docs{
 			'od_main_setting_section'
 		);
 	 	register_setting( 'organized-docs-settings', 'od_rewrite_docs_slug' );
-		add_settings_field(
+	 	add_settings_field(
 			'od_change_main_docs_title',
 			__( 'Change The Main Docs Page Title', 'organized-docs' ),
 			array( $this, 'change_main_docs_title_setting_callback' ),
@@ -830,7 +830,7 @@ class Isa_Organized_Docs{
 			'od_main_setting_section'
 		);
 	 	register_setting( 'organized-docs-settings', 'od_change_main_docs_title' );
-		add_settings_field(
+	 	add_settings_field(
 			'od_main_top_sort_by',
 			__( 'Main Items Sort Order', 'organized-docs' ),
 			array( $this, 'main_top_sort_by_setting_callback' ),
@@ -838,7 +838,7 @@ class Isa_Organized_Docs{
 			'od_main_setting_section'
 		);
 	 	register_setting( 'organized-docs-settings', 'od_main_top_sort_by' );
-		add_settings_field(
+	 	add_settings_field(
 			'od_disable_microdata',
 			__( 'Disable Microdata', 'organized-docs' ),
 			array( $this, 'disable_microdata_setting_callback' ),
@@ -846,7 +846,7 @@ class Isa_Organized_Docs{
 			'od_main_setting_section'
 		);
 	 	register_setting( 'organized-docs-settings', 'od_disable_microdata' );
-		add_settings_field(
+	 	add_settings_field(
 			'od_disable_menu_link',
 			__( 'Disable Docs Menu Link', 'organized-docs' ),
 			array( $this, 'disable_menu_link_setting_callback' ),
@@ -902,7 +902,7 @@ class Isa_Organized_Docs{
 			'od_single_post_setting_section'
 		);
 	 	register_setting( 'organized-docs-settings', 'od_single_sort_by' );
-		add_settings_field(
+	 	add_settings_field(
 			'od_single_sort_order',
 			__( 'Sort Order', 'organized-docs' ),
 			array( $this, 'single_sort_order_setting_callback' ),
@@ -910,7 +910,7 @@ class Isa_Organized_Docs{
 			'od_single_post_setting_section'
 		);
 	 	register_setting( 'organized-docs-settings', 'od_single_sort_order' );
-		add_settings_field(
+	 	add_settings_field(
 			'od_show_updated_date',
 			__( 'Show Updated Date', 'organized-docs' ),
 			array( $this, 'show_updated_date_setting_callback' ),
