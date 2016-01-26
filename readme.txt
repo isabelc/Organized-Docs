@@ -27,7 +27,7 @@ Documentation articles will have schema.org microdata. It adds **TechArticle** m
 
 **Documentation With a User-Friendly Structure For Your Visitors**
 
-The main "Docs PPageage" will list all the products. Clicking on a product will take you to the docs only for that product.
+The main "Docs Page" will list all the products. Clicking on a product will take you to the docs only for that product.
 
 Each product's docs are organized into subsections. The subsections list each individual article in that docs section. 
 
