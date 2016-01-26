@@ -58,7 +58,7 @@ class DocsSectionContents extends WP_Widget {
 		} else {
 			$orderby = 'meta_value_num';
 		}
-
+		$list_each = '';
 		// get term children
 		$termchildren =  get_term_children( $top_level_parent_term_id, 'isa_docs_category' );
  
