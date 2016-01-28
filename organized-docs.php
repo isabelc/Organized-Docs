@@ -3,7 +3,7 @@
 Plugin Name: Organized Docs
 Plugin URI: http://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
 Description: Easily create organized documentation for multiple products, organized by product, and by subsections within each product.
-Version: 2.3.1
+Version: 2.3.2-beta1
 Author: Isabel Castillo
 Author URI: http://isabelcastillo.com
 License: GPL2
@@ -1244,11 +1244,8 @@ class Isa_Organized_Docs{
 	 * @param string $loc location of the tag, whether above or below the article
 	 */
 	public function updated_on( $loc ) {
-
 		if ( get_option('od_show_updated_date') == $loc ) {
-
-			$time_string = '<time class="updated" datetime="%1$s">%2$s</time>';
-
+			$time_string = '<meta itemprop="dateModified" content="%1$s" />%2$s';
 			$time_string = sprintf( $time_string,
 				esc_attr( get_the_modified_date( 'c' ) ),
 				get_the_modified_date()
