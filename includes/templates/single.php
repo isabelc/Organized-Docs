@@ -2,31 +2,49 @@
 /**
  * The template for displaying Organized Docs Single posts.
  * @package	Organized Docs
- * @version 2.2
+ * @version 2.3.2
  * @since 2.0
  */
 get_header(); 
 global $Isa_Organized_Docs; 
 $schema = '';
+$schema_main_entity = '';
 $itemprop_name = '';
 $article_body = '';
 $schema_date = '';
 $schema_img = '';
+$pub;
 
 if ( ! get_option('od_disable_microdata') ) {
-
-	if ( has_post_thumbnail() ) {
-		$image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ) );
-		$imgurl = $image[0];
-	} else {
-		$imgurl = plugins_url( '/organized-docs.png', dirname( __FILE__ ) );
-	}
-	$schema_img = apply_filters( 'od_single_schema_img', '<meta itemprop="image" content="' . $imgurl . '">' );
-
 	$schema = ' itemscope itemtype="http://schema.org/' . apply_filters( 'od_single_schema_type', 'TechArticle' ) . '"';
+	$schema_main_entity = '<meta itemscope itemprop="mainEntityOfPage" itemType="https://schema.org/WebPage" itemid="' . get_the_permalink() . '" />';	
 	$itemprop_name = ' itemprop="headline"';
 	$article_body = apply_filters( 'od_single_schema_itemprop_body', ' itemprop="articleBody"' );
 	$schema_date = apply_filters( 'od_single_schema_date', '<meta itemprop="datePublished" content="' . get_the_time('c') . '">' );
+
+	if ( has_post_thumbnail() ) {
+		$image = wp_get_attachment_image_src( get_post_thumbnail_id() );
+		$img_url = $image[0];
+		$width = $img[1];
+		$height = $img[2];
+	} else {
+		$img_url = apply_filters( 'od_schema_img', plugins_url( '/organized-docs.png', dirname( __FILE__ ) ) );
+		$width = apply_filters( 'od_schema_img_width', '128' );
+		$height = apply_filters( 'od_schema_img_height', '128' );
+	}
+	$schema_img = '<span itemprop="image" itemscope itemtype="https://schema.org/ImageObject"><meta itemprop="url" content="' . $img_url . '"><meta itemprop="width" content="' . $width . '"><meta itemprop="height" content="' . $height . '"></span>';
+
+	$pub_logo = apply_filters( 'od_schema_pub_logo', false );
+	$pub_logo_width = apply_filters( 'od_schema_pub_logo_width', '' );
+	$pub_logo_height = apply_filters( 'od_schema_pub_logo_height', '' );
+	$pub_name = apply_filters( 'od_schema_pub_name', '' );
+
+	if ( ! empty( $pub_logo ) ) {
+		$pub = '<span itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="' . $pub_name . '"><span itemprop="logo" itemscope itemtype="https://schema.org/ImageObject"><meta itemprop="url" content="' . $pub_logo . '"><meta itemprop="width" content="' . $pub_logo_width . '"><meta itemprop="height" content="' . $pub_logo_height . '"></span></span>';
+
+	}
+	$schema_auth = '<span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">' . apply_filters( 'od_schema_author', get_the_author() ) . '</span></span>';
+
 } ?>
 <div id="docs-primary" <?php if($schema) echo $schema; ?>>
 <div id="docs-content" role="main">
@@ -78,6 +96,9 @@ if ( ! get_option('od_disable_microdata') ) {
 	}
 	echo $schema_date;
 	echo $schema_img;
+	echo $schema_main_entity;
+	echo $pub;
+	echo $schema_auth;
 	?>
 </article><!-- #post-## -->
 </div><!-- #docs-content -->

@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=me%40
 Tags: documentation, docs, organized documentation, instruction guides, easy docs
 Requires at least: 4.0
 Tested up to: 4.4.1
-Stable tag: 2.3.1
+Stable tag: 2.3.2
 License: GNU Version 2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -82,6 +82,10 @@ This is no longer an issue since version 2.0.
 8. Back-end Docs Admin screen
 
 == Changelog ==
+
+= 2.3.2 =
+* New - Added support for author to Docs post type.
+* Maintenance - Updated microdata with new schema.org guidelines for TechArticle.
 
 = 2.3.1 =
 * Maintenance - Fixed a PHP warning for undeclared variable.

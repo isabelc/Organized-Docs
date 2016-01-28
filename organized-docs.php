@@ -10,7 +10,7 @@ License: GPL2
 Text Domain: organized-docs
 Domain Path: languages
  
-Copyright 2013 - 2015 Isabel Castillo
+Copyright 2013 - 2016 Isabel Castillo
  
 This file is part of Organized Docs.
  
@@ -135,7 +135,7 @@ class Isa_Organized_Docs{
 						'not_found_in_trash' => __( 'No docs found in Trash','organized-docs' ),
 						'parent' => __( 'Parent Docs','organized-docs' ),
 					),
-	        	'supports' => array( 'title', 'editor', 'thumbnail', 'comments' ),
+	        	'supports' => array( 'title', 'editor', 'author', 'thumbnail', 'comments' ),
 				'has_archive' => true,
 				'menu_icon'=> 'dashicons-book',
 	        );
