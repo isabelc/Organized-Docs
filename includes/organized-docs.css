@@ -1,0 +1,151 @@
+﻿/* Universal Docs */
+
+#docs-primary a{text-decoration:none}
+#docs-primary article {padding-top:0;}
+.isa-docs-archive-content ul, #organized-docs-menu ul, #docs-content-sidebar ul {
+	list-style: none;
+}
+
+
+/* Main Docs page */
+
+#isa-docs-main-title{margin-top:1.7em;padding-top:1em;}
+
+#isa-docs-main-title,
+ul#organized-docs-main li{margin-left:0;padding-left:1em}
+
+/* Archives */
+
+.isa-docs-archive-content{margin:36px;}
+.isa-docs-archive-content:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+.isa-docs-archive-content li{line-height:1.9em}
+.isa-docs-archive-content .toggle-ul {padding-left:7%;background-color: #F7F8FA}
+
+/* Menu */
+
+#isa-docs-item-title{
+	background-color:#F7F8FA;
+	margin: 1.7em 0 0 0;
+	padding:1em 0 0 36px;
+	font-size:1.7em;
+	
+}
+
+
+#organized-docs-menu{background-color:#F7F8FA;margin:0 auto 2em 0;max-width:1600px;width:100%}
+
+#organized-docs-menu>ul{margin:0;padding:0 40px 0 16px}
+
+#organized-docs-menu li{display:inline-block;position:relative}
+
+#organized-docs-menu li a{color:#141412;display:block;font-size:15px;line-height:1;padding:15px 20px;}
+
+#organized-docs-menu li.active-docs-item {background-color: #ddd;font-style:italic}
+
+#organized-docs-menu li a:hover{background-color: #ddd;	}
+
+
+
+/* Single */
+.single-isa_docs #docs-primary{
+	width:100%;
+	max-width: 1100px;
+	position:relative;
+	display:block;
+	margin:0 auto;
+	background-color:#fff;/* TwentyFifteen compat */
+}
+
+.single-isa_docs #docs-content{
+	width:65%;
+	display:inline-block;
+	vertical-align:top
+}
+.single-isa_docs #docs-primary article{
+	
+	/* TwentyFifteen compat */
+	box-shadow: none;
+	margin-left: 0;
+	
+	
+}
+.single-isa_docs #isa-docs-item-title{margin-top:0;}
+
+
+#docs-content .updated-on {margin:16px 0;display:block;font-style:italic;}
+
+#docs-content-sidebar{
+	margin:0;
+	padding:0;
+	width:34%;
+	display:inline-block;
+	vertical-align:top;
+
+
+}
+
+#docs-content .post-navigation{margin-top:64px}
+#docs-content .post-navigation .nav-links a{display:block}
+
+p#odd-print-button{text-align:right}
+
+/* widget */
+.organized-docs-active-side-item>a{background-color: #ddd;font-style:italic}
+
+#docs-content-sidebar li {
+	margin:0;
+	padding: 0;
+}
+
+#docs-content-sidebar .widget.well {
+	
+	padding-left: 10%;
+	padding-right: 0;
+	margin-left:0;
+	margin-right:0;
+	
+	
+	
+}
+#docs-content-sidebar .widget_docs_section_contents > .widget-title{
+	padding-top:20%;/* TwentyFifteen compat */
+}
+
+
+
+@media screen and (max-device-width:768px){
+
+	#isa-docs-main-title,#isa-docs-item-title{margin-top:0;}
+	.isa-docs-archive-content{margin:10px}
+
+	.isa-docs-archive-content .docs-sub-heading,
+	.isa-docs-archive-content .docs-sub-heading + ul {
+		padding-left:8%;
+	}
+	
+
+	.single-isa_docs #docs-content
+	{
+	 width:100%;
+	display:block;
+	}
+	
+
+	.single-isa_docs #docs-content-sidebar{
+	 width:90%;
+	 margin-left:auto;margin-right:auto;
+		display:block;
+	}
+
+	#odd-print-button,
+	.single-isa_docs .docs-entry-content,
+	.single-isa_docs .entry-title{margin:15px 28px;}
+
+	.single-isa_docs #docs-content-sidebar .widget li{line-height:2em}
+}
+
+@media print{.comments-link,p#odd-print-button{display:none}}

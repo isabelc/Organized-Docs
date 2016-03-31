@@ -1,0 +1,479 @@
+# Copyright (C) 2015 Organized Docs
+# This file is distributed under the same license as the Organized Docs package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Organized Docs 2.2\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/organized-docs\n"
+"POT-Creation-Date: 2015-11-04 01:57:39+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: includes/templates/archive.php:25 organized-docs.php:111
+#: organized-docs.php:123 organized-docs.php:156 organized-docs.php:166
+msgid "Docs"
+msgstr ""
+
+#: includes/templates/single.php:31
+msgid "Print"
+msgstr ""
+
+#: includes/templates/single.php:47
+msgid "Pages:"
+msgstr ""
+
+#: includes/templates/taxonomy.php:79
+msgid "Error 404 - Not Found"
+msgstr ""
+
+#: includes/widget.php:15
+msgid "Organized Docs Section Contents"
+msgstr ""
+
+#: includes/widget.php:16
+msgid ""
+"Shows list of documentation articles for 1 item (top-level docs category). "
+"Works on single Docs sidebar."
+msgstr ""
+
+#: includes/widget.php:30 includes/widget.php:135
+msgid "Table of Contents"
+msgstr ""
+
+#: includes/widget.php:136
+msgid "Title:"
+msgstr ""
+
+#: organized-docs.php:91
+msgid "Setup Instructions"
+msgstr ""
+
+#. translators: URL slug
+#: organized-docs.php:109
+msgctxt "URL slug"
+msgid "docs"
+msgstr ""
+
+#: organized-docs.php:112 organized-docs.php:124
+msgid "Doc"
+msgstr ""
+
+#: organized-docs.php:125
+msgid "Add New"
+msgstr ""
+
+#: organized-docs.php:126
+msgid "Add New Doc"
+msgstr ""
+
+#: organized-docs.php:127
+msgid "All Docs"
+msgstr ""
+
+#: organized-docs.php:128
+msgid "Edit"
+msgstr ""
+
+#: organized-docs.php:129
+msgid "Edit Doc"
+msgstr ""
+
+#: organized-docs.php:130
+msgid "New Doc"
+msgstr ""
+
+#: organized-docs.php:131 organized-docs.php:132
+msgid "View Doc"
+msgstr ""
+
+#: organized-docs.php:133
+msgid "Search Docs"
+msgstr ""
+
+#: organized-docs.php:134
+msgid "No docs found"
+msgstr ""
+
+#: organized-docs.php:135
+msgid "No docs found in Trash"
+msgstr ""
+
+#: organized-docs.php:136
+msgid "Parent Docs"
+msgstr ""
+
+#: organized-docs.php:361
+msgid "Docs Widget Area"
+msgstr ""
+
+#: organized-docs.php:362
+msgid "Sidebar for single Organized Docs article"
+msgstr ""
+
+#: organized-docs.php:376 organized-docs.php:386
+msgid "Docs Categories"
+msgstr ""
+
+#: organized-docs.php:377
+msgid "Docs Category"
+msgstr ""
+
+#: organized-docs.php:378
+msgid "Search Docs Categories"
+msgstr ""
+
+#: organized-docs.php:379
+msgid "All Docs Categories"
+msgstr ""
+
+#: organized-docs.php:380
+msgid "Docs Parent Category"
+msgstr ""
+
+#: organized-docs.php:381
+msgid "Docs Parent Category:"
+msgstr ""
+
+#: organized-docs.php:382
+msgid "Edit Docs Category"
+msgstr ""
+
+#: organized-docs.php:383
+msgid "Update Docs Category"
+msgstr ""
+
+#: organized-docs.php:384
+msgid "Add New Docs Category"
+msgstr ""
+
+#: organized-docs.php:385
+msgid "New Docs Category Name"
+msgstr ""
+
+#. translators: URL slug
+#: organized-docs.php:390
+msgctxt "URL slug"
+msgid "docs/category"
+msgstr ""
+
+#: organized-docs.php:412
+msgid "Name"
+msgstr ""
+
+#: organized-docs.php:413
+msgid "Categories"
+msgstr ""
+
+#: organized-docs.php:414
+msgid "Parent"
+msgstr ""
+
+#: organized-docs.php:416
+msgid "Date"
+msgstr ""
+
+#: organized-docs.php:465 organized-docs.php:494
+msgid "Sort Order Number for a Top-level Item"
+msgstr ""
+
+#: organized-docs.php:467 organized-docs.php:497
+msgid ""
+"If this is a Top-level Item (a main Docs Item, i.e. the item that has docs), "
+"give this item a number to order it on the main Docs page. Number 1 will "
+"appear first, while greater numbers appear lower. Numbers do not have to be "
+"consecutive; for example, you could number them like, 10, 20, 35, 45, etc. "
+"This would leave room in between to insert new Top-level Items later without "
+"having to change all current numbers."
+msgstr ""
+
+#: organized-docs.php:467 organized-docs.php:497
+msgid "Leave blank if this is is not a Top-level Item."
+msgstr ""
+
+#: organized-docs.php:470 organized-docs.php:501
+msgid "Sort Order Number for Sub-heading"
+msgstr ""
+
+#: organized-docs.php:472 organized-docs.php:504
+msgid ""
+"If this is a Sub-heading, give this Sub-heading a number to order it under "
+"its Parent. Number 1 will appear first, while greater numbers appear lower. "
+"Numbers do not have to be consecutive; for example, you could number them "
+"like, 10, 20, 35, 45, etc. This would leave room in between to insert new "
+"sub-headings later without having to change all current numbers."
+msgstr ""
+
+#: organized-docs.php:472 organized-docs.php:504
+msgid "Leave blank if this is is not a sub-heading."
+msgstr ""
+
+#: organized-docs.php:661 organized-docs.php:904
+msgid "Sort Order"
+msgstr ""
+
+#: organized-docs.php:683
+msgid ""
+"Give this Doc a number to order it under its Sub-heading. Number 1 will "
+"appear first, while greater numbers appear lower. Numbers do not have to be "
+"consecutive; for example, you could number them like, 10, 20, 35, 45, etc. "
+"This would leave room in between to insert new Docs later without having to "
+"change all current numbers."
+msgstr ""
+
+#: organized-docs.php:760 organized-docs.php:768
+msgid "Organized Docs Settings"
+msgstr ""
+
+#: organized-docs.php:760
+msgid "Settings"
+msgstr ""
+
+#: organized-docs.php:786
+msgid "Main Settings"
+msgstr ""
+
+#: organized-docs.php:792
+msgid "Top Level Category Pages"
+msgstr ""
+
+#: organized-docs.php:798
+msgid "Single Post Settings"
+msgstr ""
+
+#: organized-docs.php:804
+msgid "Table of Contents Widget"
+msgstr ""
+
+#: organized-docs.php:810
+msgid "Uninstall Settings"
+msgstr ""
+
+#: organized-docs.php:816
+msgid "Change The Main Docs Slug"
+msgstr ""
+
+#: organized-docs.php:824
+msgid "Change The Main Docs Page Title"
+msgstr ""
+
+#: organized-docs.php:832
+msgid "Main Items Sort Order"
+msgstr ""
+
+#: organized-docs.php:840
+msgid "Disable Microdata"
+msgstr ""
+
+#: organized-docs.php:848
+msgid "Disable Docs Menu Link"
+msgstr ""
+
+#: organized-docs.php:856
+msgid "Remove Printer Icon"
+msgstr ""
+
+#: organized-docs.php:864
+msgid "Remove Print Link"
+msgstr ""
+
+#: organized-docs.php:872
+msgid "Title on nav links?"
+msgstr ""
+
+#: organized-docs.php:880
+msgid "Disable Comments on Single Docs?"
+msgstr ""
+
+#: organized-docs.php:888 organized-docs.php:928
+msgid "List Each Single Title?"
+msgstr ""
+
+#: organized-docs.php:896
+msgid "Sort Single Docs By ..."
+msgstr ""
+
+#: organized-docs.php:912
+msgid "Show Updated Date"
+msgstr ""
+
+#: organized-docs.php:920
+msgid "Remove Data on Uninstall?"
+msgstr ""
+
+#: organized-docs.php:949
+msgid ""
+"These settings are for the top-level item pages. These are pages which list "
+"all Docs for that top-level item."
+msgstr ""
+
+#: organized-docs.php:957
+msgid "These settings are for the single Docs posts."
+msgstr ""
+
+#: organized-docs.php:972
+msgid ""
+"This setting refers to when you uninstall (delete) the plugin. This does not "
+"refer to simply deactivating the plugin."
+msgstr ""
+
+#: organized-docs.php:979
+msgid ""
+"Change the default Docs slug from \"docs\" to something you prefer. Leave "
+"blank for default. Every time you change this option, you must refresh "
+"permalinks and clear all caches to see the effects. To refresh permalinks, "
+"go to Settings - Permalinks, and click Save Changes twice."
+msgstr ""
+
+#: organized-docs.php:986
+msgid ""
+"Change the page title that is displayed on the main Docs page. Leave blank "
+"for default \"Docs\"."
+msgstr ""
+
+#: organized-docs.php:994
+msgid ""
+"Check this box to disable the schema.org microdata. Default adds TechArticle "
+"to single Docs, and CollectionPage to Docs archives."
+msgstr ""
+
+#: organized-docs.php:1001
+msgid ""
+"Check this box to disable the Docs menu link that gets automatically added "
+"to your menu. You can still add your own link in Appearances -> Menus."
+msgstr ""
+
+#: organized-docs.php:1008
+msgid ""
+"Check this box to remove only the printer icon from single Docs, but leave "
+"the Print link."
+msgstr ""
+
+#: organized-docs.php:1015
+msgid "Check this box to remove the Print link altogether from single Docs."
+msgstr ""
+
+#: organized-docs.php:1022
+msgid ""
+"Check this box to show the post titles instead of \"Previous\" and \"Next\" "
+"on the nav links on the bottom of single Docs."
+msgstr ""
+
+#: organized-docs.php:1030
+msgid ""
+"Check this box disable comments on all Docs articles. This overrides comment "
+"settings on individual Docs posts."
+msgstr ""
+
+#: organized-docs.php:1041 organized-docs.php:1063
+msgid "list"
+msgstr ""
+
+#: organized-docs.php:1042 organized-docs.php:1064
+msgid "hide"
+msgstr ""
+
+#: organized-docs.php:1043 organized-docs.php:1065
+msgid "toggle"
+msgstr ""
+
+#: organized-docs.php:1052
+msgid ""
+"On the top-level category pages, choose whether to list each article under "
+"its sub-heading, or hide the list of articles and only show sub-headings, or "
+"toggle the list when clicking a sub-heading."
+msgstr ""
+
+#: organized-docs.php:1072
+msgid ""
+"In the Table of Contents widget, choose whether to list each article under "
+"its sub-heading, or hide the list of articles and only show sub-headings, or "
+"toggle the list when clicking a sub-heading."
+msgstr ""
+
+#: organized-docs.php:1082 organized-docs.php:1102
+msgid "custom sort order number"
+msgstr ""
+
+#: organized-docs.php:1083 organized-docs.php:1103
+msgid "title - alpha/numeric"
+msgstr ""
+
+#: organized-docs.php:1084
+msgid "date"
+msgstr ""
+
+#: organized-docs.php:1092
+msgid "How to sort single docs."
+msgstr ""
+
+#: organized-docs.php:1110
+msgid "How to sort the main, top-level Doc items on the main Docs page."
+msgstr ""
+
+#: organized-docs.php:1127
+msgid "Choose ascending or descending sort order."
+msgstr ""
+
+#: organized-docs.php:1137
+msgid "Do not show the date"
+msgstr ""
+
+#: organized-docs.php:1138
+msgid "Show the date above the article"
+msgstr ""
+
+#: organized-docs.php:1139
+msgid "Show the date below the article"
+msgstr ""
+
+#: organized-docs.php:1146
+msgid "Whether to show the last updated date on single Docs articles."
+msgstr ""
+
+#: organized-docs.php:1154
+msgid ""
+"Check this box if you would like Organized Docs to completely remove all of "
+"its data when the plugin is deleted. This would include all Docs posts, Docs "
+"categories, subheadings, and sort order numbers."
+msgstr ""
+
+#: organized-docs.php:1227
+msgid "Post navigation"
+msgstr ""
+
+#: organized-docs.php:1229
+msgid "&larr; Previous"
+msgstr ""
+
+#: organized-docs.php:1233
+msgid "Next &rarr;"
+msgstr ""
+
+#: organized-docs.php:1254
+msgid "Updated on"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Organized Docs"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Easily create organized documentation for multiple products, organized by "
+"product, and by subsections within each product."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Isabel Castillo"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://isabelcastillo.com"
+msgstr ""
