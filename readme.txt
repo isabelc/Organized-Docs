@@ -83,6 +83,9 @@ This is no longer an issue since version 2.0.
 
 == Changelog ==
 
+= 2.3.3 =
+* Fix - Fixed PHP noticed for Undefined variable pub.
+
 = 2.3.2 =
 * New - Added support for author to Docs post type.
 * Maintenance - Updated microdata with new schema.org guidelines for TechArticle and for Accelerated Mobile Pages project.

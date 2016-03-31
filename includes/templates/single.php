@@ -2,7 +2,7 @@
 /**
  * The template for displaying Organized Docs Single posts.
  * @package	Organized Docs
- * @version 2.3.2
+ * @version 2.3.3
  * @since 2.0
  */
 get_header(); 
@@ -13,7 +13,7 @@ $itemprop_name = '';
 $article_body = '';
 $schema_date = '';
 $schema_img = '';
-$pub;
+$pub = '';
 
 if ( ! get_option('od_disable_microdata') ) {
 	$schema = ' itemscope itemtype="http://schema.org/' . apply_filters( 'od_single_schema_type', 'TechArticle' ) . '"';
