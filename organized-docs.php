@@ -209,7 +209,6 @@ class Isa_Organized_Docs{
 		}
 	}
 
-
 	/**
 	 * Returns the top category item as a heading for docs single posts.
 	 */

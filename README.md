@@ -5,3 +5,5 @@ WordPress plugin: easily create organized documentation for multiple products, o
 
 
 See [documentation](http://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin)
+
+Get this plugin at [WordPress.org](https://wordpress.org/plugins/organized-docs/)
