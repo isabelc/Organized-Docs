@@ -816,14 +816,6 @@ class Isa_Organized_Docs{
 		);
 	 	register_setting( 'organized-docs-settings', 'od_disable_microdata' );
 	 	add_settings_field(
-			'od_disable_menu_link',
-			__( 'Disable Docs Menu Link', 'organized-docs' ),
-			array( $this, 'disable_menu_link_setting_callback' ),
-			'organized-docs-settings',
-			'od_main_setting_section'
-		);
-	 	register_setting( 'organized-docs-settings', 'od_disable_menu_link' );
-	 	add_settings_field(
 			'od_hide_printer_icon',
 			__( 'Remove Printer Icon', 'organized-docs' ),
 			array( $this, 'hide_printer_icon_setting_callback' ),
@@ -965,13 +957,7 @@ class Isa_Organized_Docs{
 	public function disable_microdata_setting_callback() {
 		echo '<label for="od_disable_microdata"><input name="od_disable_microdata" id="od_disable_microdata" type="checkbox" value="1" class="code" ' . checked( 1, get_option( 'od_disable_microdata' ), false ) . ' /> ' . __( 'Check this box to disable the schema.org microdata. Default adds TechArticle to single Docs, and CollectionPage to Docs archives.', 'organized-docs' ) . '</label>';
 	}
-	/**
-	 * Callback function for setting to disable menu link
-	 * @since 2.0.2
-	 */
-	public function disable_menu_link_setting_callback() {
-		echo '<label for="od_disable_menu_link"><input name="od_disable_menu_link" id="od_disable_menu_link" type="checkbox" value="1" class="code" ' . checked( 1, get_option( 'od_disable_menu_link' ), false ) . ' /> ' . __( 'Check this box to disable the Docs menu link that gets automatically added to your menu. You can still add your own link in Appearances -> Menus.', 'organized-docs' ) . '</label>';
-	}
+
 	/**
 	 * Callback function for setting to hide printer icon
 	 * @since 1.2.0
@@ -1266,6 +1252,12 @@ class Isa_Organized_Docs{
 			update_option( 'odocs_cleanup_twopointonepointone', 'completed' );
 		}
 
+		// Run this update only once
+		// @todo remove this block in version 2.5, and del odocs_cleanup_twopointfive on uninstall
+		if ( get_option( 'odocs_cleanup_twopointfive' ) != 'completed' ) {
+			delete_option( 'od_disable_menu_link' );
+			update_option( 'odocs_cleanup_twopointfive', 'completed' );
+		}
 	}
 }
 }
