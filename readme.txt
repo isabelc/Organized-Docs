@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=me%40
 Tags: documentation, docs, organized documentation, instruction guides, easy docs
 Requires at least: 4.0
 Tested up to: 4.5
-Stable tag: 2.3.3
+Stable tag: 2.4
 License: GNU Version 2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -83,7 +83,7 @@ This is no longer an issue since version 2.0.
 
 == Changelog ==
 
-= 2.3.3 =
+= 2.4 =
 * Fix - Fixed PHP noticed for Undefined variable pub.
 
 = 2.3.2 =

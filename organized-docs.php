@@ -1227,35 +1227,12 @@ class Isa_Organized_Docs{
 	 * @since 2.1.1
 	 */
 	public function cleanup_old_options() {
-		// Run this update only once
-		// @todo remove this block in version 2.4, and del odocs_cleanup_twopointone on uninstall
-		if ( get_option( 'odocs_cleanup_twopointone' ) != 'completed' ) {
-			delete_option( 'odocs_update_sortorder_postmeta' );
-			delete_option( 'odocs_update_disable_list_each' );
-			update_option( 'odocs_cleanup_twopointone', 'completed' );
-		}
-
-		// Run this update only once
-		// @todo remove this block in version 2.5, and del odocs_cleanup_twopointonepointone on uninstall
-		if ( get_option( 'odocs_cleanup_twopointonepointone' ) != 'completed' ) {
-
-			// migrate the close_comments option from radio to checkbox
-			if ( get_option( 'od_close_comments' ) == 2 ) {
-				update_option( 'od_close_comments', '1' );
-			} else {
-				delete_option( 'od_close_comments' );
-			}
-
-			delete_option( 'od_dont_load_fa' );
-			delete_option( 'od_enable_manage_comments' );
-			
-			update_option( 'odocs_cleanup_twopointonepointone', 'completed' );
-		}
-
-		// Run this update only once
+		// Run this cleanup only once
 		// @todo remove this block in version 2.5, and del odocs_cleanup_twopointfive on uninstall
 		if ( get_option( 'odocs_cleanup_twopointfive' ) != 'completed' ) {
 			delete_option( 'od_disable_menu_link' );
+			delete_option( 'odocs_cleanup_twopointone' );
+			delete_option( 'odocs_cleanup_twopointonepointone' );
 			update_option( 'odocs_cleanup_twopointfive', 'completed' );
 		}
 	}

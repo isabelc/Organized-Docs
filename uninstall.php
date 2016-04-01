@@ -1,14 +1,13 @@
 <?php
-
 //if uninstall not called from WordPress exit, or if they did not opt in to delete data
-if ( !defined( 'WP_UNINSTALL_PLUGIN' ) ) 
+if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) 
 	exit();
 
 $od_options = array(
 	'od_rewrite_docs_slug',
 	'od_change_main_docs_title',
+	'od_main_top_sort_by',
 	'od_disable_microdata',
-	'od_disable_menu_link',
 	'od_hide_printer_icon',
 	'od_hide_print_link',
 	'od_title_on_nav_links',
