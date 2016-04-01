@@ -6,14 +6,6 @@
 	list-style: none;
 }
 
-
-/* Main Docs page */
-
-#isa-docs-main-title{margin-top:1.7em;padding-top:1em;}
-
-#isa-docs-main-title,
-ul#organized-docs-main li{margin-left:0;padding-left:1em}
-
 /* Archives */
 
 .isa-docs-archive-content{margin:36px;}
@@ -119,7 +111,7 @@ p#odd-print-button{text-align:right}
 
 @media screen and (max-device-width:768px){
 
-	#isa-docs-main-title,#isa-docs-item-title{margin-top:0;}
+	#isa-docs-item-title{margin-top:0;}
 	.isa-docs-archive-content{margin:10px}
 
 	.isa-docs-archive-content .docs-sub-heading,
