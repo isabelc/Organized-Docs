@@ -25,8 +25,8 @@ if ( ! get_option('od_disable_microdata') ) {
 	if ( has_post_thumbnail() ) {
 		$image = wp_get_attachment_image_src( get_post_thumbnail_id() );
 		$img_url = $image[0];
-		$width = $img[1];
-		$height = $img[2];
+		$width = $image[1];
+		$height = $image[2];
 	} else {
 		$img_url = apply_filters( 'od_schema_img', plugins_url( '/organized-docs.png', dirname( __FILE__ ) ) );
 		$width = apply_filters( 'od_schema_img_width', '128' );
