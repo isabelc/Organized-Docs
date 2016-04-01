@@ -1241,3 +1241,4 @@ class Isa_Organized_Docs{
 $Isa_Organized_Docs = Isa_Organized_Docs::get_instance();
 register_deactivation_hook(__FILE__, array('Isa_Organized_Docs', 'deactivate')); 
 register_activation_hook(__FILE__, array('Isa_Organized_Docs', 'activate'));
+include ISA_ORGANIZED_DOCS_PATH . 'includes/shortcode.php';
