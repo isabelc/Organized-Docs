@@ -165,13 +165,11 @@ class Isa_Organized_Docs{
 		return $file;
 	}
 	/**
-	 * Returns template file
+	 * Returns template file @test what happens if they go to their /docs/ main  now that template is gone? 
 	 */
 	public function docs_template( $template ) {
 		if ( is_tax( 'isa_docs_category' ) ) {
 			return $this->get_template_hierarchy( 'taxonomy' );
-		} elseif ( is_post_type_archive( 'isa_docs' ) ) {
-			return $this->get_template_hierarchy( 'archive' );
 		} elseif (is_singular('isa_docs')) {
 			return $this->get_template_hierarchy( 'single' );
 		} else {
@@ -792,14 +790,6 @@ class Isa_Organized_Docs{
 		);
 	 	register_setting( 'organized-docs-settings', 'od_rewrite_docs_slug' );
 	 	add_settings_field(
-			'od_change_main_docs_title',
-			__( 'Change The Main Docs Page Title', 'organized-docs' ),
-			array( $this, 'change_main_docs_title_setting_callback' ),
-			'organized-docs-settings',
-			'od_main_setting_section'
-		);
-	 	register_setting( 'organized-docs-settings', 'od_change_main_docs_title' );
-	 	add_settings_field(
 			'od_main_top_sort_by',
 			__( 'Main Items Sort Order', 'organized-docs' ),
 			array( $this, 'main_top_sort_by_setting_callback' ),
@@ -941,13 +931,6 @@ class Isa_Organized_Docs{
 	 */
 	public function rewrite_docs_slug_setting_callback() {
 		echo '<input name="od_rewrite_docs_slug" id="od_rewrite_docs_slug" value="' . get_option('od_rewrite_docs_slug'). '" type="text" class="regular-text" /><p class="description">' . __( 'Change the default Docs slug from "docs" to something you prefer. Leave blank for default. Every time you change this option, you must refresh permalinks and clear all caches to see the effects. To refresh permalinks, go to Settings - Permalinks, and click Save Changes twice.', 'organized-docs' );
-	}
-	/**
-	 * Callback function for setting to change Docs slug
-	 * @since 2.0
-	 */
-	public function change_main_docs_title_setting_callback() {
-		echo '<input name="od_change_main_docs_title" id="od_change_main_docs_title" value="' . get_option('od_change_main_docs_title'). '" type="text" class="regular-text" /><p class="description">' . __( 'Change the page title that is displayed on the main Docs page. Leave blank for default "Docs".', 'organized-docs' );
 	}
 	
 	/**
