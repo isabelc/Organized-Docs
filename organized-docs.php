@@ -3,7 +3,7 @@
 Plugin Name: Organized Docs
 Plugin URI: http://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
 Description: Easily create organized documentation for multiple products, organized by product, and by subsections within each product.
-Version: 2.3.3
+Version: 2.4-alpha1
 Author: Isabel Castillo
 Author URI: http://isabelcastillo.com
 License: GPL2
@@ -46,7 +46,6 @@ class Isa_Organized_Docs{
 			add_filter( 'plugin_action_links', array( $this, 'support_link' ), 2, 2 );
 			add_action( 'init', array( $this, 'setup_docs_taxonomy'), 0 );
 			add_action( 'init', array( $this, 'create_docs_cpt') );
-			add_action( 'init', array( $this, 'create_docs_menu_item') );
 			add_action( 'init', array( $this, 'cleanup_old_options' ) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'register_style') );
 			add_action( 'widgets_init', array( $this, 'register_widgets') );
@@ -147,36 +146,7 @@ class Isa_Organized_Docs{
 	public function register_style() {
 		wp_register_style( 'organized-docs', plugins_url( 'includes/organized-docs.css' , __FILE__ ) );
 	}
-	/**
-	 * adds Docs menu item to wp_menu_nav
-	 */
-	function docs_menu_link($items, $args) {
-		$newitems = $items;
-		$custom_title = get_option('od_change_main_docs_title');
-		$docs_title = $custom_title ? sanitize_text_field( $custom_title ) : __('Docs', 'organized-docs');
-		$newitems .= '<li class="docs"><a title="'. esc_attr($docs_title) . '" href="'. get_post_type_archive_link( 'isa_docs' ) .'">' . apply_filters( 'organized_docs_menu_label',$docs_title ) . '</a></li>';
-		return $newitems;
-	}
-	/** 
-	 * Adds Docs menu item to wp_page_menu.
-	 */
-	public function docs_page_menu_link( $menu ) {
-		$newmenu = $menu;
-		$custom_title = get_option('od_change_main_docs_title');
-		$docs_title = $custom_title ? sanitize_text_field( $custom_title ) : __('Docs', 'organized-docs');
-		$newitems = '<li class="docs"><a title="'. esc_attr( $docs_title ) . '" href="'. get_post_type_archive_link( 'isa_docs' ) .'">'. apply_filters( 'organized_docs_menu_label',$docs_title ) . '</a></li>';
-	    $newmenu = str_replace( '</ul></div>', $newitems . '</ul></div>', $newmenu );
-	    return $newmenu;
-	}
-	/**
-	 * Allow the creation of the docs menu item
-	 */
-	public function create_docs_menu_item() {
-		if (! get_option('od_disable_menu_link')) {
-			add_filter('wp_nav_menu_items', array( $this, 'docs_menu_link' ), 10, 2);
-			add_filter( 'wp_page_menu', array( $this, 'docs_page_menu_link' ), 95 );
-		}
-	}
+	
 	/**
 	 * Get the custom template if is set
 	 * @since 2.0
