@@ -27,7 +27,10 @@ class DocsSectionContents extends WP_Widget {
 		if ( ! is_singular('isa_docs') )
 			return;
 		
-		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Table of Contents', 'organized-docs' ) : $instance['title'], $instance, $this->id_base );		
+		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? __( 'Table of Contents', 'organized-docs' ) : $instance['title'], $instance, $this->id_base );	
+
+		do_action('organized_docs_before_widget');
+
 		echo $args['before_widget'];
 		if ( $title ) {
 			echo '<h3 class="widget-title">'. $title . '</h3>';
