@@ -53,6 +53,7 @@ if ( ! get_option('od_disable_microdata') ) {
 	do_action( 'organized_docs_single_top' );
 	echo $Isa_Organized_Docs->organized_docs_single_section_heading();
 	echo $Isa_Organized_Docs->organized_docs_content_nav();
+	do_action( 'organized_docs_single_after_nav');
 	wp_enqueue_style('organized-docs');
 	if ( ! get_option('od_hide_print_link') ) { ?>
 		<p id="odd-print-button">
