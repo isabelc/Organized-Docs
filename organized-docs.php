@@ -3,7 +3,7 @@
 Plugin Name: Organized Docs
 Plugin URI: http://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
 Description: Easily create organized documentation for multiple products, organized by product, and by subsections within each product.
-Version: 2.4-alpha1
+Version: 2.4
 Author: Isabel Castillo
 Author URI: http://isabelcastillo.com
 License: GPL2
@@ -63,7 +63,7 @@ class Isa_Organized_Docs{
 			add_action( 'save_post', array( $this, 'save_postdata' ) );
 			add_action('admin_menu', array( $this, 'submenu_page' ) );
 			add_action('wp_head', array( $this, 'dynamic_css' ) );
-    }
+	}
 	/** 
 	* Only upon plugin activation, flush rewrite rules for custom post types.
 	*/
@@ -102,43 +102,47 @@ class Isa_Organized_Docs{
 	 * Add isa_docs CPT.
 	 */
 	public static function create_docs_cpt() {
+
+		// @todo remove option...
+
 		$slug_rewrite = get_option('od_rewrite_docs_slug');
-		// slugify
 /* translators: URL slug */
 		$slug = $slug_rewrite ? sanitize_title($slug_rewrite) : _x( 'docs', 'URL slug', 'organized-docs' );
+
 		$args = array(
-		      	'label' => __( 'Docs','organized-docs' ),
-		      	'singular_label' => __('Doc','organized-docs'),
-		      	'public' => true,
-		      	'show_ui' => true,
-		      	'capability_type' => 'post',
-		      	'hierarchical' => false,
-		      	'rewrite' => array(
-						'slug' => $slug,
+				'label'				=> __( 'Docs','organized-docs' ),
+				'singular_label'	=> __('Doc','organized-docs'),
+				'public'			=> true,
+				'show_ui'			=> true,
+				'capability_type'	=> 'post',
+				'hierarchical'		=> false,
+				'rewrite'			=> array(
+						'slug' => $slug,// @test
 						'with_front' => false,
 					),
-	        	'exclude_from_search' => false,
-        		'labels' => array(
-						'name' => __( 'Docs','organized-docs' ),
-						'singular_name' => __( 'Doc','organized-docs' ),
-						'add_new' => __( 'Add New','organized-docs' ),
-						'add_new_item' => __( 'Add New Doc','organized-docs' ),
-						'all_items' => __( 'All Docs','organized-docs' ),
-						'edit' => __( 'Edit','organized-docs' ),
-						'edit_item' => __( 'Edit Doc','organized-docs' ),
-						'new_item' => __( 'New Doc','organized-docs' ),
-						'view' => __( 'View Doc','organized-docs' ),
-						'view_item' => __( 'View Doc','organized-docs' ),
-						'search_items' => __( 'Search Docs','organized-docs' ),
-						'not_found' => __( 'No docs found','organized-docs' ),
-						'not_found_in_trash' => __( 'No docs found in Trash','organized-docs' ),
-						'parent' => __( 'Parent Docs','organized-docs' ),
+				'exclude_from_search' => false,
+				'labels'			=> array(
+						'name'					=> __( 'Docs','organized-docs' ),
+						'singular_name' 		=> __( 'Doc','organized-docs' ),
+						'add_new'				=> __( 'Add New','organized-docs' ),
+						'add_new_item'			=> __( 'Add New Doc','organized-docs' ),
+						'all_items'				=> __( 'All Docs','organized-docs' ),
+						'edit'					=> __( 'Edit','organized-docs' ),
+						'edit_item'				=> __( 'Edit Doc','organized-docs' ),
+						'new_item'				=> __( 'New Doc','organized-docs' ),
+						'view'					=> __( 'View Doc','organized-docs' ),
+						'view_item'				=> __( 'View Doc','organized-docs' ),
+						'search_items'			=> __( 'Search Docs','organized-docs' ),
+						'not_found'				=> __( 'No docs found','organized-docs' ),
+						'not_found_in_trash'	=> __( 'No docs found in Trash','organized-docs' ),
+						'parent'				=> __( 'Parent Docs','organized-docs' ),
 					),
-	        	'supports' => array( 'title', 'editor', 'author', 'thumbnail', 'comments' ),
-				'has_archive' => true,
-				'menu_icon'=> 'dashicons-book',
-	        );
-    	register_post_type( 'isa_docs' , $args );
+				'supports'		=> array( 'title', 'editor', 'author', 'thumbnail', 'comments' ),
+				'has_archive'	=> true,
+				'menu_icon'		=> 'dashicons-book'
+			);
+		register_post_type( 'isa_docs' , $args );
+
 	} // end create_docs_cpt
 	/** 
 	 * Add stylesheet
@@ -168,8 +172,11 @@ class Isa_Organized_Docs{
 	 * Returns template file
 	 */
 	public function docs_template( $template ) {
+
 		if ( is_tax( 'isa_docs_category' ) ) {
 			return $this->get_template_hierarchy( 'taxonomy' );
+		} elseif ( is_post_type_archive( 'isa_docs' ) ) {// @test now
+			return $this->get_template_hierarchy( 'archive' );
 		} elseif (is_singular('isa_docs')) {
 			return $this->get_template_hierarchy( 'single' );
 		} else {
@@ -323,14 +330,14 @@ class Isa_Organized_Docs{
 	 */
 	public function sidebar(){
 		register_sidebar(array(
-	        'id' => 'isa_organized_docs',
-	        'name' => __( 'Docs Widget Area', 'organized-docs' ),
-	        'description' => __( 'Sidebar for single Organized Docs article', 'organized-docs' ),
-	        'before_widget' => '<li id="%1$s" class="widget %2$s">',
-	        'after_widget' => '</li>',
-	        'before_title' => '<h3 class="widget-title">',
-	        'after_title' => '</h3>'
-	    ));
+			'id' => 'isa_organized_docs',
+			'name' => __( 'Docs Widget Area', 'organized-docs' ),
+			'description' => __( 'Sidebar for single Organized Docs article', 'organized-docs' ),
+			'before_widget' => '<li id="%1$s" class="widget %2$s">',
+			'after_widget' => '</li>',
+			'before_title' => '<h3 class="widget-title">',
+			'after_title' => '</h3>'
+		));
 	}
 
 	/**
@@ -353,7 +360,8 @@ class Isa_Organized_Docs{
 		);
 		$custom_slug = get_option('od_rewrite_docs_slug');
 /* translators: URL slug */
-		$docs_slug = $custom_slug ? sanitize_title($custom_slug) . '/category'  : _x( 'docs/category', 'URL slug', 'organized-docs' );
+		$docs_slug = $custom_slug ? sanitize_title( $custom_slug ) . '/category'  : _x( 'isa_docs/category', 'URL slug', 'organized-docs' );
+
 		$category_args = apply_filters( 'isa_docs_category_args', array(
 			'hierarchical'		=> true,
 			'labels'			=> apply_filters('isa_docs_category_labels', $category_labels),
@@ -650,7 +658,7 @@ class Isa_Organized_Docs{
 		$value = get_post_meta( $post->ID, '_odocs_meta_sortorder_key', true );
 			
 		echo '<label for="odocs_single_sort_order">';
-		       _e( "Give this Doc a number to order it under its Sub-heading. Number 1 will appear first, while greater numbers appear lower. Numbers do not have to be consecutive; for example, you could number them like, 10, 20, 35, 45, etc. This would leave room in between to insert new Docs later without having to change all current numbers.", 'organized-docs' );
+			   _e( "Give this Doc a number to order it under its Sub-heading. Number 1 will appear first, while greater numbers appear lower. Numbers do not have to be consecutive; for example, you could number them like, 10, 20, 35, 45, etc. This would leave room in between to insert new Docs later without having to change all current numbers.", 'organized-docs' );
 		echo '</label> ';
 		echo '<input type="text" id="odocs_single_sort_order" name="odocs_single_sort_order" value="' . esc_attr( $value ) . '" size="25" />';
 	
@@ -701,6 +709,14 @@ class Isa_Organized_Docs{
 	 * @since 1.1.5
 	 */
 	public function sort_single_docs($query) {
+
+
+		// if ( is_admin() || ! $query->is_main_query() )
+// @test maybe add			return;
+		if ( ! $query->is_main_query() )
+			return;
+
+
 		if( is_tax('isa_docs_category') && $query->is_main_query() && isset( $query->query_vars['meta_key'] ) ) {
 
 			// orderby custom option
@@ -718,6 +734,13 @@ class Isa_Organized_Docs{
 			$query->query_vars['orderby'] = $orderby;
 			$query->query_vars['meta_key'] = '_odocs_meta_sortorder_key';
 			$query->query_vars['order'] = $orderby_order;
+
+		} elseif ( is_post_type_archive( 'isa_docs' ) ) {
+
+			// error_log('in parse_query...');
+			// error_log( print_r( $query, true));// @test remove 
+
+
 		}
 		return $query;
 	}
@@ -750,8 +773,8 @@ class Isa_Organized_Docs{
 	 * @since 1.1.9
 	 */
 	public function settings_api_init() {
-	 	
-	 	add_settings_section(
+		
+		add_settings_section(
 			'od_main_setting_section',
 			__( 'Main Settings', 'organized-docs' ),
 			array( $this, 'main_setting_section_callback' ),
@@ -763,7 +786,7 @@ class Isa_Organized_Docs{
 			array( $this, 'toplevel_setting_section_callback' ),
 			'organized-docs-settings'
 		);
-	 	add_settings_section(
+		add_settings_section(
 			'od_single_post_setting_section',
 			__( 'Single Post Settings', 'organized-docs' ),
 			array( $this, 'single_setting_section_callback' ),
@@ -775,7 +798,7 @@ class Isa_Organized_Docs{
 			array( $this, 'widget_setting_section_callback' ),
 			'organized-docs-settings'
 		);		
-	 	add_settings_section(
+		add_settings_section(
 			'od_uninstall_setting_section',
 			__( 'Uninstall Settings', 'organized-docs' ),
 			array( $this, 'uninstall_setting_section_callback' ),
@@ -788,80 +811,80 @@ class Isa_Organized_Docs{
 			'organized-docs-settings',
 			'od_main_setting_section'
 		);
-	 	register_setting( 'organized-docs-settings', 'od_rewrite_docs_slug' );
-	 	add_settings_field(
+		register_setting( 'organized-docs-settings', 'od_rewrite_docs_slug' );
+		add_settings_field(
 			'od_main_top_sort_by',
 			__( 'Main Items Sort Order', 'organized-docs' ),
 			array( $this, 'main_top_sort_by_setting_callback' ),
 			'organized-docs-settings',
 			'od_main_setting_section'
 		);
-	 	register_setting( 'organized-docs-settings', 'od_main_top_sort_by' );
-	 	add_settings_field(
+		register_setting( 'organized-docs-settings', 'od_main_top_sort_by' );
+		add_settings_field(
 			'od_disable_microdata',
 			__( 'Disable Microdata', 'organized-docs' ),
 			array( $this, 'disable_microdata_setting_callback' ),
 			'organized-docs-settings',
 			'od_main_setting_section'
 		);
-	 	register_setting( 'organized-docs-settings', 'od_disable_microdata' );
-	 	add_settings_field(
+		register_setting( 'organized-docs-settings', 'od_disable_microdata' );
+		add_settings_field(
 			'od_hide_printer_icon',
 			__( 'Remove Printer Icon', 'organized-docs' ),
 			array( $this, 'hide_printer_icon_setting_callback' ),
 			'organized-docs-settings',
 			'od_single_post_setting_section'
 		);
-	 	register_setting( 'organized-docs-settings', 'od_hide_printer_icon' );
-	 	add_settings_field(
+		register_setting( 'organized-docs-settings', 'od_hide_printer_icon' );
+		add_settings_field(
 			'od_hide_print_link',
 			__( 'Remove Print Link', 'organized-docs' ),
 			array( $this, 'hide_print_link_setting_callback' ),
 			'organized-docs-settings',
 			'od_single_post_setting_section'
 		);
-	 	register_setting( 'organized-docs-settings', 'od_hide_print_link' );
-	 	add_settings_field(
+		register_setting( 'organized-docs-settings', 'od_hide_print_link' );
+		add_settings_field(
 			'od_title_on_nav_links',
 			__( 'Title on nav links?', 'organized-docs' ),
 			array( $this, 'title_nav_links_setting_callback' ),
 			'organized-docs-settings',
 			'od_single_post_setting_section'
 		);
-	 	register_setting( 'organized-docs-settings', 'od_title_on_nav_links' );
-	 	add_settings_field(
+		register_setting( 'organized-docs-settings', 'od_title_on_nav_links' );
+		add_settings_field(
 			'od_close_comments',
 			__( 'Disable Comments on Single Docs?', 'organized-docs' ),
 			array( $this, 'close_comments_setting_callback' ),
 			'organized-docs-settings',
 			'od_single_post_setting_section'
 		);
-	 	register_setting( 'organized-docs-settings', 'od_close_comments' );
-	 	add_settings_field(
+		register_setting( 'organized-docs-settings', 'od_close_comments' );
+		add_settings_field(
 			'od_list_toggle',
 			__( 'List Each Single Title?', 'organized-docs' ),
 			array( $this, 'list_toggle_setting_callback' ),
 			'organized-docs-settings',
 			'od_toplevel_setting_section'
 		);
-	 	register_setting( 'organized-docs-settings', 'od_list_toggle' );
-	 	add_settings_field(
+		register_setting( 'organized-docs-settings', 'od_list_toggle' );
+		add_settings_field(
 			'od_single_sort_by',
 			__( 'Sort Single Docs By ...', 'organized-docs' ),
 			array( $this, 'single_sort_by_setting_callback' ),
 			'organized-docs-settings',
 			'od_single_post_setting_section'
 		);
-	 	register_setting( 'organized-docs-settings', 'od_single_sort_by' );
-	 	add_settings_field(
+		register_setting( 'organized-docs-settings', 'od_single_sort_by' );
+		add_settings_field(
 			'od_single_sort_order',
 			__( 'Sort Order', 'organized-docs' ),
 			array( $this, 'single_sort_order_setting_callback' ),
 			'organized-docs-settings',
 			'od_single_post_setting_section'
 		);
-	 	register_setting( 'organized-docs-settings', 'od_single_sort_order' );
-	 	add_settings_field(
+		register_setting( 'organized-docs-settings', 'od_single_sort_order' );
+		add_settings_field(
 			'od_show_updated_date',
 			__( 'Show Updated Date', 'organized-docs' ),
 			array( $this, 'show_updated_date_setting_callback' ),
@@ -869,22 +892,22 @@ class Isa_Organized_Docs{
 			'od_single_post_setting_section'
 		);
 		register_setting( 'organized-docs-settings', 'od_show_updated_date' );
-	 	add_settings_field(
+		add_settings_field(
 			'od_delete_data_on_uninstall',
 			__( 'Remove Data on Uninstall?', 'organized-docs' ),
 			array( $this, 'delete_data_setting_callback' ),
 			'organized-docs-settings',
 			'od_uninstall_setting_section'
 		);
-	 	register_setting( 'organized-docs-settings', 'od_delete_data_on_uninstall' );
-	 	add_settings_field(
+		register_setting( 'organized-docs-settings', 'od_delete_data_on_uninstall' );
+		add_settings_field(
 			'od_widget_list_toggle',
 			__( 'List Each Single Title?', 'organized-docs' ),
 			array( $this, 'widget_list_toggle_setting_callback' ),
 			'organized-docs-settings',
 			'od_widget_setting_section'
 		);
-	 	register_setting( 'organized-docs-settings', 'od_widget_list_toggle' );
+		register_setting( 'organized-docs-settings', 'od_widget_list_toggle' );
 	}
 
 	/**
@@ -923,8 +946,9 @@ class Isa_Organized_Docs{
 	 * @since 1.1.9
 	 */
 	public function uninstall_setting_section_callback() {
- 		echo '<p>' . __('This setting refers to when you uninstall (delete) the plugin. This does not refer to simply deactivating the plugin.', 'organized-docs') . '</p>';
+		echo '<p>' . __('This setting refers to when you uninstall (delete) the plugin. This does not refer to simply deactivating the plugin.', 'organized-docs') . '</p>';
 	}
+	
 	/**
 	 * Callback function for setting to change Docs slug
 	 * @since 2.0
@@ -1204,7 +1228,7 @@ class Isa_Organized_Docs{
 		$js = '<script>(function() {var titles = document.querySelectorAll(".docs-sub-heading");var i = titles.length;while (i--) {titles[i].setAttribute("style", "cursor:pointer");}var uls = document.querySelectorAll(".docs-sub-heading + ul");var i = uls.length;while (i--) {uls[i].className = "toggle-ul";}})();function toggleDocs(e){if(e.target&&("docs-sub-heading"==e.target.className||"widget-title docs-sub-heading"==e.target.className)){var t=e.target.nextElementSibling;t.style.display="none"==t.style.display?"block":"none"}}document.addEventListener("click",toggleDocs,!0);</script>';
 		return $js;
 	}
-	
+
 	/**
 	 * For cleanup, remove old options.
 	 * @since 2.1.1
@@ -1224,4 +1248,3 @@ class Isa_Organized_Docs{
 $Isa_Organized_Docs = Isa_Organized_Docs::get_instance();
 register_deactivation_hook(__FILE__, array('Isa_Organized_Docs', 'deactivate')); 
 register_activation_hook(__FILE__, array('Isa_Organized_Docs', 'activate'));
-include ISA_ORGANIZED_DOCS_PATH . 'includes/shortcode.php';

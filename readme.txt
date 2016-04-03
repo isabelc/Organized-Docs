@@ -45,11 +45,11 @@ For support or to report bugs, use the support forum link above, or use [GitHub]
 
 == Installation ==
 
-1.  Download the plugin file (`.zip`).
-2.  In your WordPress dashboard, go to "Plugins -> Add New", and click "Upload".
-3.  Upload the plugin file and activate it.
-4.  See [How To Set Up Categories For Docs](http://isabelcastillo.com/docs/how-to-set-up-categories)
-5.  Create your Docs articles. Visit your website at `www.your-webiste.com/docs/` to see your Docs.
+1.  In your WordPress dashboard, go to "Plugins -> Add New", and search for "organized docs".
+2.  Click to install and then Activate the plugin.
+3.  See [How To Set Up Categories For Docs](http://isabelcastillo.com/docs/how-to-set-up-categories)
+4.  Create your Docs articles in your WordPress dashboard --> Docs --> Add New.
+5.  Add Docs to your site's menu [with these steps](http://isabelcastillo.com/docs/how-to-add-docs-to-your-websites-menu).
 
 == Frequently Asked Questions ==
 
@@ -60,15 +60,6 @@ The Organized Docs layout is compatible with these default WordPress themes: Twe
 On other themes, the layout may look all messed up. It’s very easy to fix this by copying the template files into your theme. Once you have copied them, make the necessary changes to the HTML to make it match your own theme, while leaving the important Organized Docs loop stuff intact.
 
 See how to [Customize The Docs Template Files](http://isabelcastillo.com/docs/customize-the-docs-template-files).
-
-= Where do I see the Docs on the front end? =
-
-Visit your website at `www.your-webiste.com/docs/` to see your Docs. Alternatively, add individual Doc products (categories) to your Menu in your dashboard --> Appearance --> Menus. This last method is better for you if you are only documenting one product on the site (rather than multiple products).
-
-
-= Why does the Table of Contents widget appear multiple times on the same page? =
-
-This is no longer an issue since version 2.0.
 
 == Screenshots ==
 
@@ -85,6 +76,7 @@ This is no longer an issue since version 2.0.
 
 = 2.4 =
 * Fix - Fixed PHP noticed for Undefined variable pub.
+* Tweak - No more automatically created menu item for "Docs." 
 
 = 2.3.2 =
 * New - Added support for author to Docs post type.
