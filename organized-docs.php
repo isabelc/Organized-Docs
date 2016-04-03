@@ -103,21 +103,19 @@ class Isa_Organized_Docs{
 	 */
 	public static function create_docs_cpt() {
 
-		// @todo remove option...
-
 		$slug_rewrite = get_option('od_rewrite_docs_slug');
 /* translators: URL slug */
 		$slug = $slug_rewrite ? sanitize_title($slug_rewrite) : _x( 'docs', 'URL slug', 'organized-docs' );
 
 		$args = array(
 				'label'				=> __( 'Docs','organized-docs' ),
-				'singular_label'	=> __('Doc','organized-docs'),
+				'singular_label'	=> __( 'Doc','organized-docs' ),
 				'public'			=> true,
 				'show_ui'			=> true,
 				'capability_type'	=> 'post',
 				'hierarchical'		=> false,
 				'rewrite'			=> array(
-						'slug' => $slug,// @test
+						'slug' => $slug,
 						'with_front' => false,
 					),
 				'exclude_from_search' => false,
@@ -175,7 +173,7 @@ class Isa_Organized_Docs{
 
 		if ( is_tax( 'isa_docs_category' ) ) {
 			return $this->get_template_hierarchy( 'taxonomy' );
-		} elseif ( is_post_type_archive( 'isa_docs' ) ) {// @test now
+		} elseif ( is_post_type_archive( 'isa_docs' ) ) {
 			return $this->get_template_hierarchy( 'archive' );
 		} elseif (is_singular('isa_docs')) {
 			return $this->get_template_hierarchy( 'single' );
@@ -360,7 +358,7 @@ class Isa_Organized_Docs{
 		);
 		$custom_slug = get_option('od_rewrite_docs_slug');
 /* translators: URL slug */
-		$docs_slug = $custom_slug ? sanitize_title( $custom_slug ) . '/category'  : _x( 'isa_docs/category', 'URL slug', 'organized-docs' );
+		$docs_slug = $custom_slug ? sanitize_title( $custom_slug ) . '/category'  : _x( 'docs/category', 'URL slug', 'organized-docs' );
 
 		$category_args = apply_filters( 'isa_docs_category_args', array(
 			'hierarchical'		=> true,
@@ -709,14 +707,6 @@ class Isa_Organized_Docs{
 	 * @since 1.1.5
 	 */
 	public function sort_single_docs($query) {
-
-
-		// if ( is_admin() || ! $query->is_main_query() )
-// @test maybe add			return;
-		if ( ! $query->is_main_query() )
-			return;
-
-
 		if( is_tax('isa_docs_category') && $query->is_main_query() && isset( $query->query_vars['meta_key'] ) ) {
 
 			// orderby custom option
@@ -734,12 +724,6 @@ class Isa_Organized_Docs{
 			$query->query_vars['orderby'] = $orderby;
 			$query->query_vars['meta_key'] = '_odocs_meta_sortorder_key';
 			$query->query_vars['order'] = $orderby_order;
-
-		} elseif ( is_post_type_archive( 'isa_docs' ) ) {
-
-			// error_log('in parse_query...');
-			// error_log( print_r( $query, true));// @test remove 
-
 
 		}
 		return $query;
