@@ -74,8 +74,11 @@ See how to [Customize The Docs Template Files](http://isabelcastillo.com/docs/cu
 
 == Changelog ==
 
+= 2.4.1 =
+* Tweak - Add better CSS for single Docs post navigation links.
+
 = 2.4 =
-* New - No more automatically created menu item for "Docs." If you have not previously done so, you may want to add the main Docs page to your site menu. See http://isabelcastillo.com/docs/how-to-add-docs-to-your-websites-menu
+* New - No more automatically created menu item for "Docs." If you have not previously done so, you may want to add the main Docs page to your site menu. See http://isabelcastillo.com/docs/no-more-menu-item
 * New - Added action hook in the single.php template file: organized_docs_single_after_nav
 * New - Added action hook in the widget.php template file: organized_docs_before_widget. This lets you add custom content above the sidebar Table of Contents widget.
 * Fix - Fixed PHP noticed for Undefined variable pub.

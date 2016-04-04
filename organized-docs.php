@@ -3,7 +3,7 @@
 Plugin Name: Organized Docs
 Plugin URI: http://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
 Description: Easily create organized documentation for multiple products, organized by product, and by subsections within each product.
-Version: 2.4
+Version: 2.4.1-beta1
 Author: Isabel Castillo
 Author URI: http://isabelcastillo.com
 License: GPL2
@@ -1176,11 +1176,11 @@ class Isa_Organized_Docs{
 		$out = '<nav class="navigation post-navigation" role="navigation"><h1 class="screen-reader-text">' . __( 'Post navigation', 'organized-docs' ). '</h1><div class="nav-links">';
 		if ( !empty($previd) ) {
 			$anchor_prev = $titleon ? '&larr; ' . $titles[$thisindex-1] : __( '&larr; Previous', 'organized-docs' );
-			$out .= '<span class="meta-nav"><a rel="prev" href="' . get_permalink($previd) . '">' . $anchor_prev. '</a></span>';
+			$out .= '<span class="meta-nav nav-previous"><a rel="prev" href="' . get_permalink($previd) . '">' . $anchor_prev. '</a></span>';
 		}
 		if ( !empty($nextid) ) {
 			$anchor_next = $titleon ? $titles[$thisindex+1] . ' &rarr;' : __( 'Next &rarr;', 'organized-docs' );
-			$out .= '<span class="meta-nav"><a rel="next" href="' . get_permalink($nextid) . '">' . $anchor_next . '</a></span>';
+			$out .= '<span class="meta-nav nav-next"><a rel="next" href="' . get_permalink($nextid) . '">' . $anchor_next . '</a></span>';
 		}
 		$out .= '</div></nav>';
 		echo $out;
