@@ -21,7 +21,6 @@
 	margin: 0;
 	padding:1em 0 0 36px;
 	font-size:1.7em;
-	
 }
 
 #organized-docs-menu{background-color:#F7F8FA;margin:0 auto 2em 0;max-width:1600px;width:100%}
@@ -47,12 +46,9 @@
 	vertical-align:top
 }
 .single-isa_docs #docs-primary article{
-	
 	/* TwentyFifteen compat */
 	box-shadow: none;
 	margin-left: 0;
-	
-	
 }
 
 #docs-content .updated-on {margin:16px 0;display:block;font-style:italic;}
@@ -76,12 +72,10 @@ p#odd-print-button{text-align:right}
 }
 
 #docs-content-sidebar .widget.well {
-	
 	padding-left: 10%;
 	padding-right: 0;
 	margin-left:0;
 	margin-right:0;
-	
 }
 #docs-content-sidebar .widget_docs_section_contents > .widget-title{
 	padding-top:20%;/* TwentyFifteen compat */
