@@ -23,7 +23,7 @@ if ( ! get_option('od_disable_microdata') ) {
 				<?php 
 				$custom_title = get_option('od_change_main_docs_title');
 				$page_title = $custom_title ? sanitize_text_field( $custom_title ) : __('Docs', 'organized-docs');
-				echo apply_filters( 'od_docs_main_title', $page_title ); ?>
+				echo $page_title; ?>
 			</h1>
 			<?php wp_enqueue_style('organized-docs'); ?>
 			
