@@ -37,7 +37,7 @@ Organized Docs works on **Multisite** WordPress installations, as well as regula
 
 See a live demo of [Organized Docs on a default WordPress theme](http://smartestthemes.com/organized-docs-wordpress-plugin/docs/)
 
-[Setup Instructions](http://isabelcastillo.com/docs/how-to-set-up-categories)
+[Setup Instructions](http://isabelcastillo.com/docs/decide-how-to-organize-your-docs)
 
 [Documentation](http://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin)
 
@@ -49,7 +49,7 @@ For support or to report bugs, use the support forum link above, or use [GitHub]
 2.  Click to install and then Activate the plugin.
 3.  See [How To Set Up Categories For Docs](http://isabelcastillo.com/docs/how-to-set-up-categories)
 4.  Create your Docs articles in your WordPress dashboard --> Docs --> Add New.
-5.  Add Docs to your site's menu [with these steps](http://isabelcastillo.com/docs/how-to-add-docs-to-your-websites-menu).
+5.  Add the main Docs page to your site's menu [with these steps](http://isabelcastillo.com/docs/how-to-add-docs-to-your-websites-menu).
 
 == Frequently Asked Questions ==
 
@@ -75,8 +75,12 @@ See how to [Customize The Docs Template Files](http://isabelcastillo.com/docs/cu
 == Changelog ==
 
 = 2.4 =
+* New - No more automatically created menu item for "Docs." If you have not previously done so, you may want to add the main Docs page to your site menu. See http://isabelcastillo.com/docs/how-to-add-docs-to-your-websites-menu
+* New - Added action hook in the single.php template file: organized_docs_single_after_nav
+* New - Added action hook in the widget.php template file: organized_docs_before_widget. This lets you add custom content above the sidebar Table of Contents widget.
 * Fix - Fixed PHP noticed for Undefined variable pub.
-* Tweak - No more automatically created menu item for "Docs." 
+* Tweak - Deleted filter hook: od_docs_main_title. Instead, you can edit the Main Docs page title in settings.
+* Tweak - Removed CSS ids: #isa-docs-main-title and ul#organized-docs-main
 
 = 2.3.2 =
 * New - Added support for author to Docs post type.
