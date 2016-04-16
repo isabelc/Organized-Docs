@@ -2,7 +2,7 @@
 /**
  * The template for displaying Organized Docs Single posts.
  * @package	Organized Docs
- * @version 2.3.3
+ * @version 2.4.1
  * @since 2.0
  */
 get_header(); 
@@ -43,8 +43,6 @@ if ( ! get_option('od_disable_microdata') ) {
 		$pub = '<span itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="' . $pub_name . '"><span itemprop="logo" itemscope itemtype="https://schema.org/ImageObject"><meta itemprop="url" content="' . $pub_logo . '"><meta itemprop="width" content="' . $pub_logo_width . '"><meta itemprop="height" content="' . $pub_logo_height . '"></span></span>';
 
 	}
-	$schema_auth = '<span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">' . apply_filters( 'od_schema_author', get_the_author() ) . '</span></span>';
-
 } ?>
 <div id="docs-primary" <?php if($schema) echo $schema; ?>>
 <div id="docs-content" role="main">
@@ -89,17 +87,26 @@ if ( ! get_option('od_disable_microdata') ) {
 	$Isa_Organized_Docs->updated_on( 'below' );
 	$Isa_Organized_Docs->organized_docs_post_nav(); 
 
+	$author_name = apply_filters( 'od_author_name', get_the_author() );
+	if ( apply_filters( 'od_display_author', false ) ) {
+		$author = 'By <span itemprop="name">' . $author_name . '</span>';
+	} else {
+		$author = '<meta itemprop="name" content="' . $author_name . '">';
+	}
+	$schema_auth = '<span id="od-author" itemprop="author" itemscope itemtype="http://schema.org/Person">' . $author . '</span>';
+
+	echo $schema_date;
+	echo $schema_img;
+	echo $schema_main_entity;
+	echo $pub;
+	echo $schema_auth;
+
 	if ( ! get_option( 'od_close_comments' ) ) {
 		// If comments are open or we have at least one comment, load up the comment template.
 		if ( comments_open() || get_comments_number() ) {
 			comments_template();
 		}
 	}
-	echo $schema_date;
-	echo $schema_img;
-	echo $schema_main_entity;
-	echo $pub;
-	echo $schema_auth;
 	?>
 </article><!-- #post-## -->
 </div><!-- #docs-content -->
