@@ -35,8 +35,6 @@ A single docs post will have a Table of Contents widget added to the sidebar. Th
 
 Organized Docs works on **Multisite** WordPress installations, as well as regular WordPress sites.
 
-See a live demo of [Organized Docs on a default WordPress theme](http://smartestthemes.com/organized-docs-wordpress-plugin/docs/)
-
 [Setup Instructions](http://isabelcastillo.com/docs/decide-how-to-organize-your-docs)
 
 [Documentation](http://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin)
