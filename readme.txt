@@ -3,8 +3,8 @@ Contributors: isabel104
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=me%40isabelcastillo%2ecom
 Tags: documentation, docs, organized documentation, instruction guides, easy docs
 Requires at least: 4.0
-Tested up to: 4.5
-Stable tag: 2.4.1
+Tested up to: 4.6
+Stable tag: 2.4.2
 License: GNU Version 2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -71,6 +71,9 @@ See how to [Customize The Docs Template Files](http://isabelcastillo.com/docs/cu
 8. Back-end Docs Admin screen
 
 == Changelog ==
+
+= 2.4.2 2016-08-22 =
+* Fix - Restore the missing option to Change The Main Docs Page Title.
 
 = 2.4.1 =
 * BREAKING CHANGE - Changed the filter named od_schema_author to od_author_name. If you are using that filter, you must update the name.

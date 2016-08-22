@@ -3,7 +3,7 @@
 Plugin Name: Organized Docs
 Plugin URI: http://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
 Description: Easily create organized documentation for multiple products, organized by product, and by subsections within each product.
-Version: 2.4.1
+Version: 2.4.2
 Author: Isabel Castillo
 Author URI: http://isabelcastillo.com
 License: GPL2
@@ -804,6 +804,12 @@ class Isa_Organized_Docs{
 			'od_main_setting_section'
 		);
 		register_setting( 'organized-docs-settings', 'od_main_top_sort_by' );
+		add_settings_field( 'od_change_main_docs_title', __( 'Change The Main Docs Page Title', 'organized-docs' ),
+			array( $this, 'change_main_docs_title_setting_callback' ),
+			'organized-docs-settings',
+			'od_main_setting_section'
+		);
+		register_setting( 'organized-docs-settings', 'od_change_main_docs_title' );
 		add_settings_field(
 			'od_disable_microdata',
 			__( 'Disable Microdata', 'organized-docs' ),
@@ -940,7 +946,15 @@ class Isa_Organized_Docs{
 	public function rewrite_docs_slug_setting_callback() {
 		echo '<input name="od_rewrite_docs_slug" id="od_rewrite_docs_slug" value="' . get_option('od_rewrite_docs_slug'). '" type="text" class="regular-text" /><p class="description">' . __( 'Change the default Docs slug from "docs" to something you prefer. Leave blank for default. Every time you change this option, you must refresh permalinks and clear all caches to see the effects. To refresh permalinks, go to Settings - Permalinks, and click Save Changes twice.', 'organized-docs' );
 	}
-	
+
+	/**
+	 * Callback function for setting to change Docs slug
+	 * @since 2.4.2
+	 */
+	public function change_main_docs_title_setting_callback() {
+		echo '<input name="od_change_main_docs_title" id="od_change_main_docs_title" value="' . get_option('od_change_main_docs_title'). '" type="text" class="regular-text" /><p class="description">' . __( 'Change the page title that is displayed on the main Docs page. Leave blank for default "Docs".', 'organized-docs' );
+	}
+
 	/**
 	 * Callback function for setting to disable microdata
 	 * @since 2.0
