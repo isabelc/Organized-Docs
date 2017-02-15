@@ -1,7 +1,7 @@
 === Organized Docs ===
 Contributors: isabel104
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=me%40isabelcastillo%2ecom
-Tags: documentation, docs, organized documentation, instruction guides, easy docs
+Tags: documentation, docs, organized documentation, instruction guides, easy docs, organized docs
 Requires at least: 4.0
 Tested up to: 4.7.2
 Stable tag: 2.4.2
