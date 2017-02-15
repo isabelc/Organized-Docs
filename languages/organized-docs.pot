@@ -363,7 +363,7 @@ msgstr ""
 
 #: organized-docs.php:1030
 msgid ""
-"Check this box disable comments on all Docs articles. This overrides comment "
+"Check this box to disable comments on all Docs articles. This overrides comment "
 "settings on individual Docs posts."
 msgstr ""
 

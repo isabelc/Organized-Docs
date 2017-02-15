@@ -3,7 +3,7 @@
 Plugin Name: Organized Docs
 Plugin URI: https://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
 Description: Create organized documentation for multiple products, organized by product, and by subsections within each product.
-Version: 2.4.2
+Version: 2.5.alpha1
 Author: Isabel Castillo
 Author URI: https://isabelcastillo.com
 License: GPL2
@@ -990,7 +990,7 @@ class Isa_Organized_Docs{
 	 * @since 1.2.2
 	 */
 	public function close_comments_setting_callback() {
-		echo '<label for="od_close_comments"><input name="od_close_comments" id="od_close_comments" type="checkbox" value="1" class="code" ' . checked( 1, get_option( 'od_close_comments' ), false ) . ' /> ' . __( 'Check this box disable comments on all Docs articles. This overrides comment settings on individual Docs posts.', 'organized-docs' ) . '</label>';
+		echo '<label for="od_close_comments"><input name="od_close_comments" id="od_close_comments" type="checkbox" value="1" class="code" ' . checked( 1, get_option( 'od_close_comments' ), false ) . ' /> ' . __( 'Check this box to disable comments on all Docs articles. This overrides comment settings on individual Docs posts.', 'organized-docs' ) . '</label>';
 	}
 
 	/**
