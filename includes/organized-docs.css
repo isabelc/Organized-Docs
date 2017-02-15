@@ -4,7 +4,11 @@
 .isa-docs-archive-content ul, #organized-docs-menu ul, #docs-content-sidebar ul {
 	list-style: none;
 }
-
+/* Main Docs page */
+.docs-archive-template .docs-entry-content {
+	max-width: 720px;
+	margin: 0 auto;
+}
 /* Archives */
 .isa-docs-archive-content{margin:36px;}
 .isa-docs-archive-content:after {
