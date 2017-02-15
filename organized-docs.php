@@ -46,7 +46,6 @@ class Isa_Organized_Docs{
 			add_filter( 'plugin_action_links', array( $this, 'support_link' ), 2, 2 );
 			add_action( 'init', array( $this, 'setup_docs_taxonomy'), 0 );
 			add_action( 'init', array( $this, 'create_docs_cpt') );
-			add_action( 'init', array( $this, 'cleanup_old_options' ) );
 			add_action( 'init', array( $this, 'load_textdomain' ) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'register_scripts') );
 			add_action( 'widgets_init', array( $this, 'register_widgets') );
@@ -1256,21 +1255,6 @@ class Isa_Organized_Docs{
 	public function inline_js() {
 		$js = '<script>(function() {var titles = document.querySelectorAll(".docs-sub-heading");var i = titles.length;while (i--) {titles[i].setAttribute("style", "cursor:pointer");}var uls = document.querySelectorAll(".docs-sub-heading + ul");var i = uls.length;while (i--) {uls[i].className = "toggle-ul";}})();function toggleDocs(e){if(e.target&&("docs-sub-heading"==e.target.className||"widget-title docs-sub-heading"==e.target.className)){var t=e.target.nextElementSibling;t.style.display="none"==t.style.display?"block":"none"}}document.addEventListener("click",toggleDocs,!0);</script>';
 		return $js;
-	}
-
-	/**
-	 * For cleanup, remove old options.
-	 * @since 2.1.1
-	 */
-	public function cleanup_old_options() {
-		// Run this cleanup only once
-		// @todo remove this block in version 2.5, and del odocs_cleanup_twopointfive on uninstall
-		if ( get_option( 'odocs_cleanup_twopointfive' ) != 'completed' ) {
-			delete_option( 'od_disable_menu_link' );
-			delete_option( 'odocs_cleanup_twopointone' );
-			delete_option( 'odocs_cleanup_twopointonepointone' );
-			update_option( 'odocs_cleanup_twopointfive', 'completed' );
-		}
 	}
 }
 }
