@@ -35,6 +35,10 @@ A single docs post will have a Table of Contents widget added to the sidebar. Th
 
 Organized Docs works on **Multisite** WordPress installations, as well as regular WordPress sites.
 
+**To Consider**
+
+This plugin focuses on 2 priorities: a user-friendly docs structure for your visitors, and fast, optimized pagespeed both on the front and back ends of your site (a very light footprint). So, we omit features that focus on backend ease and bloating. So, there is no drag-and-drop ordering of docs. This plugin uses WordPress's default categories to classify your docs rather than creating a whole new interface for docs.
+
 [Setup Instructions](https://isabelcastillo.com/docs/decide-how-to-organize-your-docs)
 
 For support or to report bugs, use the support forum link above, or use [GitHub](https://github.com/isabelc/Organized-Docs). Forking welcome.
