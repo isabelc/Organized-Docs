@@ -30,8 +30,6 @@ if ( ! get_option('od_disable_microdata') ) {
 			<div class="isa-docs-archive-content">
 			<?php do_action( 'organized_docs_main_content_after_nav' ); 
 			
-			// Display a list of subTerms, within a specified Term, AND show all the posts within each of those subTerms on archive page
-
 			global $Isa_Organized_Docs;
 			$sorted_terms = $Isa_Organized_Docs->get_sorted_main_item_terms();
 			$count = count( $sorted_terms );
@@ -40,9 +38,35 @@ if ( ! get_option('od_disable_microdata') ) {
 				<ul id="organized-docs-main">
 
 				<?php foreach ( $sorted_terms as $id => $name ) { ?>
+					<li>
+					<?php
+					/* If the term only has 1 post under it, then link directly to the post.
+					 * Otherwise, link to the tax archive page. */
 
-					<li><a href="<?php echo get_term_link( $id, 'isa_docs_category' ); ?>" title="<?php echo esc_attr( $name ); ?>"><?php echo $name; ?></a></li>
+					if ( $Isa_Organized_Docs->count_cat_posts( $id ) < 2 ) {
 
+						$args = array(
+							'post_type'			=> 'isa_docs',
+							'tax_query'			=> array(
+									array(
+										'taxonomy' => 'isa_docs_category',
+										'terms'    => $id,
+									),
+							),
+						);
+						$the_post = get_posts( $args );
+						?>
+						<a href="<?php esc_url( the_permalink( $the_post[0] ) ); ?>"><?php echo esc_html( $the_post[0]->post_title ); ?></a>
+						<?php
+
+					} else { ?>
+	
+						<a href="<?php echo esc_url( get_term_link( $id, 'isa_docs_category' ) ); ?>"><?php echo esc_html( $name ); ?></a>
+
+					<?php } ?>
+
+					</li>
+				
 				<?php } ?>
 
 				</ul>
