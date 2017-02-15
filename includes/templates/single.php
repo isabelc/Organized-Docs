@@ -17,7 +17,7 @@ $pub = '';
 
 if ( ! get_option('od_disable_microdata') ) {
 	$schema = ' itemscope itemtype="http://schema.org/' . apply_filters( 'od_single_schema_type', 'TechArticle' ) . '"';
-	$schema_main_entity = '<meta itemscope itemprop="mainEntityOfPage" itemType="https://schema.org/WebPage" itemid="' . get_the_permalink() . '" />';	
+	$schema_main_entity = '<meta itemscope itemprop="mainEntityOfPage" itemType="https://schema.org/WebPage" itemid="' . esc_url( get_the_permalink() ) . '" />';	
 	$itemprop_name = ' itemprop="headline"';
 	$article_body = apply_filters( 'od_single_schema_itemprop_body', ' itemprop="articleBody"' );
 	$schema_date = apply_filters( 'od_single_schema_date', '<meta itemprop="datePublished" content="' . get_the_time('c') . '">' );
@@ -32,7 +32,7 @@ if ( ! get_option('od_disable_microdata') ) {
 		$width = apply_filters( 'od_schema_img_width', '128' );
 		$height = apply_filters( 'od_schema_img_height', '128' );
 	}
-	$schema_img = '<span itemprop="image" itemscope itemtype="https://schema.org/ImageObject"><meta itemprop="url" content="' . $img_url . '"><meta itemprop="width" content="' . $width . '"><meta itemprop="height" content="' . $height . '"></span>';
+	$schema_img = '<span itemprop="image" itemscope itemtype="https://schema.org/ImageObject"><meta itemprop="url" content="' . esc_attr( $img_url ) . '"><meta itemprop="width" content="' . esc_attr( $width ) . '"><meta itemprop="height" content="' . esc_attr( $height ) . '"></span>';
 
 	$pub_logo = apply_filters( 'od_schema_pub_logo', false );
 	$pub_logo_width = apply_filters( 'od_schema_pub_logo_width', '' );
@@ -40,7 +40,7 @@ if ( ! get_option('od_disable_microdata') ) {
 	$pub_name = apply_filters( 'od_schema_pub_name', '' );
 
 	if ( ! empty( $pub_logo ) ) {
-		$pub = '<span itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="' . $pub_name . '"><span itemprop="logo" itemscope itemtype="https://schema.org/ImageObject"><meta itemprop="url" content="' . $pub_logo . '"><meta itemprop="width" content="' . $pub_logo_width . '"><meta itemprop="height" content="' . $pub_logo_height . '"></span></span>';
+		$pub = '<span itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="' . esc_attr( $pub_name ) . '"><span itemprop="logo" itemscope itemtype="https://schema.org/ImageObject"><meta itemprop="url" content="' . esc_attr( $pub_logo ) . '"><meta itemprop="width" content="' . esc_attr( $pub_logo_width ) . '"><meta itemprop="height" content="' . esc_attr( $pub_logo_height ) . '"></span></span>';
 
 	}
 } ?>
@@ -93,7 +93,7 @@ if ( ! get_option('od_disable_microdata') ) {
 	} else {
 		$author = '<meta itemprop="name" content="' . $author_name . '">';
 	}
-	$schema_auth = '<span id="od-author" itemprop="author" itemscope itemtype="http://schema.org/Person">' . $author . '</span>';
+	$schema_auth = '<span id="od-author" itemprop="author" itemscope itemtype="http://schema.org/Person">' . esc_html( $author ) . '</span>';
 
 	echo $schema_date;
 	echo $schema_img;

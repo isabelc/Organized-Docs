@@ -229,14 +229,14 @@ class Isa_Organized_Docs{
 		$top_term_link = get_term_link( $top_term );
 		$top_term_name = empty( $top_term->name ) ? '' : $top_term->name;
 	
-		$heading = '<a href="' . $top_term_link  . '" title="' . esc_attr( $top_term_name ) . '">';
+		$heading = '<a href="' . esc_url( $top_term_link )  . '">';
 
 		$heading .= '<h1 id="isa-docs-item-title" class="entry-title"';
 		if ( ! get_option('od_disable_microdata') ) {
 			$heading .= apply_filters( 'od_microdata_name_filter', ' itemprop="name"' );
 		}
 		$heading .= '>';
-		$heading .= $top_term_name . '</h1></a>';
+		$heading .= esc_html( $top_term_name ) . '</h1></a>';
 	
 		return $heading;
 
@@ -291,7 +291,7 @@ class Isa_Organized_Docs{
 					if ( $termobject->term_id == $curr_term_id ) {
 						$docs_menu .= ' active-docs-item current_page_item';
 					}
-					$docs_menu .= '"><a href="' . get_term_link( $termobject ) . '" title="' . esc_attr( $termobject->name ) . '">' . $termobject->name . '</a></li>';
+					$docs_menu .= '"><a href="' . esc_url( get_term_link( $termobject ) ) . '">' . esc_html( $termobject->name ) . '</a></li>';
 			
 				}
 			}

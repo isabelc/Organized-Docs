@@ -72,7 +72,7 @@ wp_enqueue_style('organized-docs'); ?>
 			<ul>
 			<?php while ( $the_query->have_posts() ) {
 				$the_query->the_post(); ?>
-				<li><a href="<?php echo get_permalink($post->ID); ?>"><?php echo get_the_title(); ?></a></li>
+				<li><a href="<?php echo esc_url( get_permalink($post->ID) ); ?>"><?php echo esc_html( get_the_title() ); ?></a></li>
 			<?php } ?>
 			</ul><?php
 	 	else : ?>
@@ -96,7 +96,7 @@ wp_enqueue_style('organized-docs'); ?>
 
 			//Display the sub Term information 
 			?>
-			<h2 class="docs-sub-heading"><?php echo $termobject->name; ?></h2>
+			<h2 class="docs-sub-heading"><?php echo esc_html( $termobject->name ); ?></h2>
 			<?php
 			// only list all posts if not hidden by option
 			
@@ -124,7 +124,7 @@ wp_enqueue_style('organized-docs'); ?>
 				);
 				$postlist = get_posts( $args );
 				foreach ( $postlist as $single_post ) { ?>
-					<li><a href="<?php echo get_permalink($single_post->ID); ?>" title="<?php echo esc_attr( $single_post->post_title ); ?>"><?php echo $single_post->post_title; ?></a></li>
+					<li><a href="<?php echo esc_url( get_permalink($single_post->ID) ); ?>"><?php echo esc_html( $single_post->post_title ); ?></a></li>
 				<?php } ?>
 				</ul><?php
 			}
