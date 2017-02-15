@@ -3,7 +3,7 @@ Contributors: isabel104
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=me%40isabelcastillo%2ecom
 Tags: documentation, docs, organized documentation, instruction guides, easy docs
 Requires at least: 4.0
-Tested up to: 4.7
+Tested up to: 4.7.2
 Stable tag: 2.4.2
 License: GNU Version 2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
