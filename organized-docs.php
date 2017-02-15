@@ -3,7 +3,7 @@
 Plugin Name: Organized Docs
 Plugin URI: https://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
 Description: Create organized documentation for multiple products, organized by product, and by subsections within each product.
-Version: 2.5.alpha1
+Version: 2.5.alpha2
 Author: Isabel Castillo
 Author URI: https://isabelcastillo.com
 License: GPL2
@@ -170,11 +170,10 @@ class Isa_Organized_Docs{
 	 * Returns template file
 	 */
 	public function docs_template( $template ) {
-
 		if ( is_tax( 'isa_docs_category' ) ) {
 			return $this->get_template_hierarchy( 'taxonomy' );
 		} elseif ( is_post_type_archive( 'isa_docs' ) ) {
-			return $this->get_template_hierarchy( 'archive' );
+			return $this->get_template_hierarchy( 'archive' );	
 		} elseif (is_singular('isa_docs')) {
 			return $this->get_template_hierarchy( 'single' );
 		} else {
@@ -184,18 +183,24 @@ class Isa_Organized_Docs{
 
 	/**
 	 * Returns the top category item as a heading for docs single posts.
+	 * Returns nothing if there is only 1 Doc for this cat
 	 */
 	public function organized_docs_single_section_heading() {
 		global $post;
 		$heading = '';
-		// get top level parent term on single
 
+		// get top level parent term on single
 		$doc_categories = wp_get_object_terms( $post->ID, 'isa_docs_category' );
 		if ( $doc_categories ) {
 			$first_cat = $doc_categories[0]; // first category
 			$curr_term_id = $first_cat->term_id;
 			$top_level_parent_term_id = $this->isa_term_top_parent_id( $curr_term_id );
 			
+			// On single docs that have only 1 doc under its parent category, hide the category heading
+			if ( $this->count_cat_posts( $top_level_parent_term_id ) < 2 ) {
+				return;
+			}
+	
 			$top_term = get_term( $top_level_parent_term_id, 'isa_docs_category' );
 		
 			$top_term_link = get_term_link( $top_term );
@@ -235,7 +240,7 @@ class Isa_Organized_Docs{
 	}
 
 	/**
-	 * Returns dynamic menu for Docs. Lists only subterms of top level parent of current term, on Docs taxonomy archive and on Docs single, but nothing on the main Docs parent archive.  
+	 * Returns dynamic menu for Docs. Lists only subterms of top level parent of current term, on Docs taxonomy archive and on Docs single, but nothing on the main Docs archive.  
 	 */
 	public function organized_docs_content_nav() { 
 
@@ -1215,6 +1220,29 @@ class Isa_Organized_Docs{
 				$time_string
 			);
 		}
+	}
+
+	/**
+	 * Get the total count of posts, including grandchildren, for a top level docs category
+	 * @param $term_id int the ID of the top level parent category
+	 * @return $count int Number of posts
+	 * @since 2.5
+	 */
+	public function count_cat_posts( $term_id ) {
+		$args = array(
+			'posts_per_page'	=> -1,
+			'post_type'			=> 'isa_docs',
+			'fields'			=> 'ids',
+			'tax_query'			=> array(
+					array(
+						'taxonomy' => 'isa_docs_category',
+						'terms'    => $term_id,
+					),
+			),
+		);
+
+		$posts = get_posts( $args );
+		return $posts ? count( $posts ) : 0;
 	}
 
 	/**
