@@ -35,9 +35,7 @@ A single docs post will have a Table of Contents widget added to the sidebar. Th
 
 Organized Docs works on **Multisite** WordPress installations, as well as regular WordPress sites.
 
-[Setup Instructions](http://isabelcastillo.com/docs/decide-how-to-organize-your-docs)
-
-[Documentation](http://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin)
+[Setup Instructions](https://isabelcastillo.com/docs/decide-how-to-organize-your-docs)
 
 For support or to report bugs, use the support forum link above, or use [GitHub](https://github.com/isabelc/Organized-Docs). Forking welcome.
 
@@ -45,9 +43,9 @@ For support or to report bugs, use the support forum link above, or use [GitHub]
 
 1.  In your WordPress dashboard, go to "Plugins -> Add New", and search for "organized docs".
 2.  Click to install and then Activate the plugin.
-3.  See [How To Set Up Categories For Docs](http://isabelcastillo.com/docs/how-to-set-up-categories)
+3.  See [How To Set Up Categories For Docs](https://isabelcastillo.com/docs/how-to-set-up-categories)
 4.  Create your Docs articles in your WordPress dashboard --> Docs --> Add New.
-5.  Add the main Docs page to your site's menu [with these steps](http://isabelcastillo.com/docs/how-to-add-docs-to-your-websites-menu).
+5.  Add the main Docs page to your site's menu [with these steps](https://isabelcastillo.com/docs/how-to-add-docs-to-your-websites-menu).
 
 == Frequently Asked Questions ==
 
@@ -57,7 +55,7 @@ The Organized Docs layout is compatible with these default WordPress themes: Twe
 
 On other themes, the layout may look all messed up. It’s very easy to fix this by copying the template files into your theme. Once you have copied them, make the necessary changes to the HTML to make it match your own theme, while leaving the important Organized Docs loop stuff intact.
 
-See how to [Customize The Docs Template Files](http://isabelcastillo.com/docs/customize-the-docs-template-files).
+See how to [Customize The Docs Template Files](https://isabelcastillo.com/docs/customize-the-docs-template-files).
 
 == Screenshots ==
 
@@ -77,11 +75,11 @@ See how to [Customize The Docs Template Files](http://isabelcastillo.com/docs/cu
 
 = 2.4.1 =
 * BREAKING CHANGE - Changed the filter named od_schema_author to od_author_name. If you are using that filter, you must update the name.
-* New - Updated template single.php to just add a filter which you can use to display the author on single docs. See http://isabelcastillo.com/docs/display-author-single-docs
+* New - Updated template single.php to just add a filter which you can use to display the author on single docs. See https://isabelcastillo.com/docs/display-author-single-docs
 * Tweak - Add better CSS for single Docs post navigation links.
 
 = 2.4 =
-* New - No more automatically created menu item for "Docs." If you have not previously done so, you may want to add the main Docs page to your site menu. See http://isabelcastillo.com/docs/no-more-menu-item
+* New - No more automatically created menu item for "Docs." If you have not previously done so, you may want to add the main Docs page to your site menu. See https://isabelcastillo.com/docs/no-more-menu-item
 * New - Added action hook in the single.php template file: organized_docs_single_after_nav
 * New - Added action hook in the widget.php template file: organized_docs_before_widget. This lets you add custom content above the sidebar Table of Contents widget.
 * Fix - Fixed PHP noticed for Undefined variable pub.
@@ -214,7 +212,7 @@ Bug fix: Custom sort-order for Categories was not saving.
 * Tweak: added links to 2 demos in the description.
 * Maintenance: updated plugin URL in readme.
 * Maintenance: tested and passed for WP 3.9 compatibility.
-* Maintenance: Removed CSS styling for docs-template for better compatibility with Twenty Fourteen Theme. See http://isabelcastillo.com/docs/page-is-too-wide-and-not-centered-since-updating-to-1-1-5
+* Maintenance: Removed CSS styling for docs-template for better compatibility with Twenty Fourteen Theme. See https://isabelcastillo.com/docs/page-is-too-wide-and-not-centered-since-updating-to-1-1-5
 
 = 1.1.4 =
 * Maintenance: removed unused icons.

@@ -461,7 +461,7 @@ msgid "Organized Docs"
 msgstr ""
 
 #. Plugin URI of the plugin/theme
-msgid "http://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin"
+msgid "https://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin"
 msgstr ""
 
 #. Description of the plugin/theme
@@ -475,5 +475,5 @@ msgid "Isabel Castillo"
 msgstr ""
 
 #. Author URI of the plugin/theme
-msgid "http://isabelcastillo.com"
+msgid "https://isabelcastillo.com"
 msgstr ""

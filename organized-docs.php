@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Organized Docs
-Plugin URI: http://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
+Plugin URI: https://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
 Description: Easily create organized documentation for multiple products, organized by product, and by subsections within each product.
 Version: 2.4.2
 Author: Isabel Castillo
-Author URI: http://isabelcastillo.com
+Author URI: https://isabelcastillo.com
 License: GPL2
 Text Domain: organized-docs
 Domain Path: languages
@@ -87,7 +87,7 @@ class Isa_Organized_Docs{
 	public function support_link($actions, $file) {
 		$od_path = plugin_basename(__FILE__);
 		if(false !== strpos($file, $od_path))
-		 $actions['settings'] = '<a href="http://isabelcastillo.com/docs/how-to-set-up-categories" target="_blank">'. __( 'Setup Instructions', 'organized-docs' ) . '</a>';
+		 $actions['settings'] = '<a href="https://isabelcastillo.com/docs/how-to-set-up-categories" target="_blank">'. __( 'Setup Instructions', 'organized-docs' ) . '</a>';
 
 		return $actions; 
 	}
