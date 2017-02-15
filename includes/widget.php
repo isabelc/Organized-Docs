@@ -35,6 +35,7 @@ class DocsSectionContents extends WP_Widget {
 		if ( $title ) {
 			echo '<h3 class="widget-title">'. $title . '</h3>';
 		}
+
 		// get current term id
 		global $post, $Isa_Organized_Docs;
 		$current_single_postID = $post->ID;// to highlight current item below
@@ -66,37 +67,68 @@ class DocsSectionContents extends WP_Widget {
 		$termchildren =  get_term_children( $top_level_parent_term_id, 'isa_docs_category' );
  
 		if ( empty($termchildren) ) {
-			// there are no child terms, do regular term loop to list ALL posts within current term
-			$query_args = array(
-						'post_type' => 'isa_docs', 
-						'posts_per_page' => -1,
-						'tax_query' => array(
-								array(
-									'taxonomy' => 'isa_docs_category',
-									'field' => 'id',
-									'terms' => $curr_term_id
-								)
-							),
-						'orderby' => $orderby,
-						'meta_key' => '_odocs_meta_sortorder_key',
-						'order' => $orderby_order
-			);
-			$the_query = new WP_Query( $query_args );
-			if ( $the_query->have_posts() ) : ?>
 
-				<aside class="widget well"><ul>
-				<?php while ( $the_query->have_posts() ) {
-					$the_query->the_post();
-					echo '<li';
-						if( $post->ID == $current_single_postID ) 
-							echo ' class="organized-docs-active-side-item"';
-						echo '><a href="' . get_permalink( $post->ID ) . '" title="' . esc_attr( $post->post_title ) . '">' . $post->post_title . '</a></li>';   
+			/* There are no child terms. 
+			 * This happens when docs are assigned directly to the top level category, rather than to sub-categories.
+			 *
+			 * Do regular term loop to list ALL posts within current term,
+			 * unless its top level category only has 1 post under it...
+			 * If cat has only 1 post under it, then show "jump-links" to jump down on this page,
+			 * rather than show the link to same current page.
+			 */
+			
+			$only_one = ( $Isa_Organized_Docs->count_cat_posts( $top_level_parent_term_id ) < 2 );
 
-				} ?>
-				</ul></aside><?php
-			endif;
-			wp_reset_postdata();
+			if ( $only_one ) {
+				wp_enqueue_script( 'organized-docs' );
+
+				// The category for this post only has this 1 post under it
+
+				// Rather than show the link to same current page, use JS to find the h2#docs- and show links to those
+				?>
+				
+				<aside class="widget well"><ul id="odocs-only-one"></ul></aside><?php
+
+
+			} else {
+
+				// Do regular term loop to list ALL posts within current term
+
+				$query_args = array(
+							'post_type' => 'isa_docs', 
+							'posts_per_page' => -1,
+							'tax_query' => array(
+									array(
+										'taxonomy' => 'isa_docs_category',
+										'field' => 'id',
+										'terms' => $curr_term_id
+									)
+								),
+							'orderby' => $orderby,
+							'meta_key' => '_odocs_meta_sortorder_key',
+							'order' => $orderby_order
+				);
+				$the_query = new WP_Query( $query_args );
+				if ( $the_query->have_posts() ) : ?>
+
+					<aside class="widget well"><ul>
+					<?php while ( $the_query->have_posts() ) {
+						$the_query->the_post();
+						echo '<li';
+							if( $post->ID == $current_single_postID ) 
+								echo ' class="organized-docs-active-side-item"';
+							echo '><a href="' . get_permalink( $post->ID ) . '" title="' . esc_attr( $post->post_title ) . '">' . $post->post_title . '</a></li>';   
+
+					} ?>
+					</ul></aside><?php
+				endif;
+				wp_reset_postdata();
+			}
+
 		} else {
+
+			// We have term children
+
 			// sort $termchildren by custom subheading_sort_order numbers
 			$sorted_termchildren = $Isa_Organized_Docs->sort_terms_custom( $termchildren, 'subheading_sort_order' );
 
