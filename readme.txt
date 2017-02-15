@@ -8,7 +8,7 @@ Stable tag: 2.4.2
 License: GNU Version 2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Easily create organized documentation for multiple products, organized by product and by subsections within each product.
+Create organized documentation for multiple products, organized by product and by subsections within each product.
 
 == Description ==
 
