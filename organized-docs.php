@@ -47,11 +47,11 @@ class Isa_Organized_Docs{
 			add_action( 'init', array( $this, 'setup_docs_taxonomy'), 0 );
 			add_action( 'init', array( $this, 'create_docs_cpt') );
 			add_action( 'init', array( $this, 'cleanup_old_options' ) );
+			add_action( 'init', array( $this, 'load_textdomain' ) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'register_style') );
 			add_action( 'widgets_init', array( $this, 'register_widgets') );
 			add_filter( 'template_include', array( $this, 'docs_template' ) );
 			add_action( 'wp_loaded', array( $this, 'sidebar' ) );
-			add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
 			add_filter( 'parse_query', array( $this, 'sort_single_docs' ) );
 			add_filter( 'manage_edit-isa_docs_columns', array( $this, 'manage_edit_docs_columns') );
 			add_action( 'manage_isa_docs_posts_custom_column', array( $this, 'manage_docs_columns' ), 10, 2 );
