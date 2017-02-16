@@ -89,11 +89,11 @@ if ( ! get_option('od_disable_microdata') ) {
 
 	$author_name = apply_filters( 'od_author_name', get_the_author() );
 	if ( apply_filters( 'od_display_author', false ) ) {
-		$author = 'By <span itemprop="name">' . $author_name . '</span>';
+		$author = 'By <span itemprop="name">' . esc_html( $author_name ) . '</span>';
 	} else {
-		$author = '<meta itemprop="name" content="' . $author_name . '">';
+		$author = '<meta itemprop="name" content="' . esc_attr( $author_name ) . '">';
 	}
-	$schema_auth = '<span id="od-author" itemprop="author" itemscope itemtype="http://schema.org/Person">' . esc_html( $author ) . '</span>';
+	$schema_auth = '<span id="od-author" itemprop="author" itemscope itemtype="http://schema.org/Person">' . $author . '</span>';
 
 	echo $schema_date;
 	echo $schema_img;
