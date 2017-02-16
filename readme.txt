@@ -79,6 +79,7 @@ See how to [Customize The Docs Template Files](https://isabelcastillo.com/docs/c
 * Fix - Fixed typo on the setting to disable comments.
 * Tweak - textdomain should be loaded on the init action rather than on the plugins_loaded action.
 * Tweak - Much escaping.
+* Tweak - Moved the CSS file to the assets directory.
 * Code refactor - The method name `Isa_Organized_Docs::register_style` was changed to `Isa_Organized_Docs::register_scripts`
 
 = 2.4.2 2016-08-22 =
@@ -248,6 +249,8 @@ Bug fix: Custom sort-order for Categories was not saving.
 * Initial release.
 
 == Upgrade Notice ==
+= 2.5 =
+New feature for Docs that have only 1 post for their category.
 
 = 2.1 =
 All 4 template files have been updated. If you update, you must also update your custom template files!
