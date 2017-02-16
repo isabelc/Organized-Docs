@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=me%40
 Tags: documentation, docs, organized documentation, instruction guides, easy docs, organized docs
 Requires at least: 4.0
 Tested up to: 4.7.2
-Stable tag: 2.5.1
+Stable tag: 2.5.2
 License: GNU Version 2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -73,6 +73,9 @@ See how to [Customize The Docs Template Files](https://isabelcastillo.com/docs/c
 8. Back-end Docs Admin screen
 
 == Changelog ==
+= 2.5.2 =
+* Fix - Fixed improperly escaped author name.
+
 = 2.5.1 =
 * Tweak - remove duplicate .css file
 
@@ -252,6 +255,9 @@ Bug fix: Custom sort-order for Categories was not saving.
 * Initial release.
 
 == Upgrade Notice ==
+= 2.5.2 =
+New feature for Docs that have only 1 post for their category.
+
 = 2.5 =
 New feature for Docs that have only 1 post for their category.
 
