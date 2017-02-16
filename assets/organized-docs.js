@@ -1,5 +1,4 @@
 // Add jump-links to each h2#docs- heading on the page
-
 var nodes= document.body.getElementsByTagName('h2'),
 L= nodes.length, ids= [], titles= [], temp;
 for ( var i = 0; i < L; i++ ) {

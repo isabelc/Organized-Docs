@@ -147,7 +147,7 @@ class Isa_Organized_Docs{
 	 */
 	public function register_scripts() {
 		$url = plugin_dir_url( __FILE__ );
-		wp_register_style( 'organized-docs', $url . 'includes/organized-docs.css' );
+		wp_register_style( 'organized-docs', $url . 'assets/organized-docs.css' );
 		wp_register_script( 'organized-docs', $url . 'assets/organized-docs.js', array(), null, true );
 	}
 	
