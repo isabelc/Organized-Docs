@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=me%40
 Tags: documentation, docs, organized documentation, instruction guides, easy docs, organized docs
 Requires at least: 4.0
 Tested up to: 4.7.2
-Stable tag: 2.4.2
+Stable tag: 2.5
 License: GNU Version 2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -73,6 +73,13 @@ See how to [Customize The Docs Template Files](https://isabelcastillo.com/docs/c
 8. Back-end Docs Admin screen
 
 == Changelog ==
+= 2.5 =
+* New - For Docs that only have 1 post for the top-level Docs category, there is a much improved display because there are cases where you only need 1 Doc page. (1) The main Docs page will link to the actual post, rather than linking to the category archive. (2) The Table of Contents sidebar for this post will not link to its own page; rather, it will show links that jump down to subheadings on the same page. (3) The redundant category heading will not be shown on this single Docs post, since there are no other posts in the category. Again, these 3 changes only apply to top-level Docs categories that have only 1 doc. See https://isabelcastillo.com/docs/creating-docs#jl-one
+* Fix - Bettery alignment on docs archives pages. This is mainly a fix for Twenty Sixteen and Twenty Seventeen themes, but all full/wide width themes will have improved display.
+* Fix - Fixed typo on the setting to disable comments.
+* Tweak - textdomain should be loaded on the init action rather than on the plugins_loaded action.
+* Tweak - Much escaping.
+* Code refactor - The method name `Isa_Organized_Docs::register_style` was changed to `Isa_Organized_Docs::register_scripts`
 
 = 2.4.2 2016-08-22 =
 * Fix - Restore the missing option to Change The Main Docs Page Title.
