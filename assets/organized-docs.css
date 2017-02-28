@@ -70,7 +70,6 @@ p#odd-print-button{text-align:right}
 	margin-left:0;
 	margin-right:0;
 }
-
 /* 2017 Compat */
 #docs-content-sidebar .widget_docs_section_contents > .widget-title{
 	padding: 10%;
@@ -87,7 +86,16 @@ p#odd-print-button{text-align:right}
     margin-bottom: 1.5em;
     text-transform: uppercase;
 }
+.widget_docs_section_contents .docs-subheading {
+    border:0;
+    margin-bottom:36px;
+    font-weight:700;
+    text-transform: uppercase;
+}
 
+.widget_docs_section_contents li + .docs-subheading {
+    margin-top:24px;
+}
 @media screen and (max-device-width:768px){
 
 	.isa-docs-archive-content{margin:10px}
