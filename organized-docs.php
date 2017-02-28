@@ -3,7 +3,7 @@
 Plugin Name: Organized Docs
 Plugin URI: https://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
 Description: Create organized documentation for multiple products, organized by product, and by subsections within each product.
-Version: 2.5.2
+Version: 2.5.3.alpha2
 Author: Isabel Castillo
 Author URI: https://isabelcastillo.com
 License: GPL2
@@ -259,7 +259,7 @@ class Isa_Organized_Docs{
 		} else { // is single, get top level term id on single
 			global $post;
 			$doc_categories = wp_get_object_terms( $post->ID, 'isa_docs_category' );
-			if ($doc_categories) {
+			if ( $doc_categories ) {
 				$first_cat = $doc_categories[0]; // first category
 				$curr_term_id = (int)$first_cat->term_id;
 				// need regular current cat id, only used to compare w/ top level cat id
@@ -277,22 +277,27 @@ class Isa_Organized_Docs{
 		
 		// get term children and sort them by custom sort oder
 		$termchildren =  get_term_children( $top_level_parent_term_id, 'isa_docs_category' );
-		if($termchildren) {
-			$sorted_termchildren = $this->sort_terms_custom( $termchildren, 'subheading_sort_order' );
-			if($sorted_termchildren) {
-			
-				foreach ( $sorted_termchildren as $sorted_termchild_id => $sorted_termchild_order ) { 
 
-					$termobject = get_term_by( 'id', $sorted_termchild_id, 'isa_docs_category' );
-					$docs_menu .= '<li class="menu-item';
+		// don't output anything if there are no child cats
+		if ( ! $termchildren ) {
+			return;
+		}
+
+		$sorted_termchildren = $this->sort_terms_custom( $termchildren, 'subheading_sort_order' );
+
+		if ( $sorted_termchildren ) {
 			
-					// if current term id matches an id of a child term in menu, then give it active class
-					if ( $termobject->term_id == $curr_term_id ) {
-						$docs_menu .= ' active-docs-item current_page_item';
-					}
-					$docs_menu .= '"><a href="' . esc_url( get_term_link( $termobject ) ) . '">' . esc_html( $termobject->name ) . '</a></li>';
+			foreach ( $sorted_termchildren as $sorted_termchild_id => $sorted_termchild_order ) { 
+
+				$termobject = get_term_by( 'id', $sorted_termchild_id, 'isa_docs_category' );
+				$docs_menu .= '<li class="menu-item';
 			
+				// if current term id matches an id of a child term in menu, then give it active class
+				if ( $termobject->term_id == $curr_term_id ) {
+					$docs_menu .= ' active-docs-item current_page_item';
 				}
+				$docs_menu .= '"><a href="' . esc_url( get_term_link( $termobject ) ) . '">' . esc_html( $termobject->name ) . '</a></li>';
+		
 			}
 		}
 		
