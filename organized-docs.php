@@ -1135,7 +1135,11 @@ class Isa_Organized_Docs{
 	public function dynamic_css() {
 		$theme = wp_get_theme();
 
-		if( ( 'Twenty Fifteen' == $theme->name ) || ( 'Twenty Fifteen' == $theme->parent_theme ) ) {
+		if( ( 'Twenty Sixteen' == $theme->name ) || ( 'Twenty Sixteen' == $theme->parent_theme ) ) {
+			echo '<style>.widget_docs_section_contents, .widget_docs_section_contents .widget {border:0}.widget_docs_section_contents {padding-top:0}</style>';
+		} 
+
+		elseif( ( 'Twenty Fifteen' == $theme->name ) || ( 'Twenty Fifteen' == $theme->parent_theme ) ) {
 			echo '<style>#isa-docs-main-title {padding: 36px 36px 0}.single-isa_docs #docs-primary article{box-shadow: none;margin-left: 0}.single-isa_docs #docs-primary{background-color:#fff}#docs-content-sidebar li.widget {padding:0}#docs-primary #docs-content-sidebar > ul {margin:0}.widget_docs_section_contents >h3 {border-bottom: 1px solid rgba(51, 51, 51, 0.1)}</style>';
 		} 
 		elseif( ( 'Twenty Fourteen' == $theme->name ) || ( 'Twenty Fourteen' == $theme->parent_theme ) ) {
