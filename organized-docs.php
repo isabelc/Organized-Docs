@@ -48,6 +48,7 @@ class Isa_Organized_Docs{
 			add_action( 'init', array( $this, 'create_docs_cpt') );
 			add_action( 'init', array( $this, 'load_textdomain' ) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'register_scripts') );
+			add_action( 'wp_enqueue_scripts', array( $this, 'inline_css' ), 999 );
 			add_action( 'widgets_init', array( $this, 'register_widgets') );
 			add_filter( 'template_include', array( $this, 'docs_template' ) );
 			add_action( 'wp_loaded', array( $this, 'sidebar' ) );
@@ -61,7 +62,7 @@ class Isa_Organized_Docs{
 			add_action( 'add_meta_boxes', array( $this, 'add_sort_order_box' ) );
 			add_action( 'save_post', array( $this, 'save_postdata' ) );
 			add_action('admin_menu', array( $this, 'submenu_page' ) );
-			add_action('wp_head', array( $this, 'dynamic_css' ) );
+
 	}
 	/** 
 	* Only upon plugin activation, flush rewrite rules for custom post types.
@@ -143,13 +144,35 @@ class Isa_Organized_Docs{
 	} // end create_docs_cpt
 	
 	/** 
-	 * Add stylesheet
+	 * Register stylesheet and script
 	 */
 	public function register_scripts() {
 		$url = plugin_dir_url( __FILE__ );
 		wp_register_style( 'organized-docs', $url . 'assets/organized-docs.css' );
 		wp_register_script( 'organized-docs', $url . 'assets/organized-docs.js', array(), null, true );
 	}
+
+	/** 
+	 * Add CSS for default WP themes
+	 * @since 2.5.3
+	 */
+	public function inline_css() {
+		$css = array(
+			'twentysixteen-style' => '.widget_docs_section_contents, .widget_docs_section_contents .widget {border:0}.widget_docs_section_contents {padding-top:0}',
+
+			'twentyfifteen-style' => '#isa-docs-main-title {padding: 36px 36px 0}.single-isa_docs #docs-primary article{box-shadow: none;margin-left: 0}.single-isa_docs #docs-primary{background-color:#fff}#docs-content-sidebar li.widget {padding:0}#docs-primary #docs-content-sidebar > ul {margin:0}#docs-primary #docs-content-sidebar .widget_docs_section_contents > .widget-title{margin-top:20%;border-bottom: 1px solid rgba(51, 51, 51, 0.1)}',
+
+			'twentyfourteen-style' => '#isa-docs-main-title {padding: 36px 36px 0}#docs-content-sidebar .widget a,#docs-content-sidebar .widget-title{color:inherit}#docs-content-sidebar .widget-title{border-top:5px solid #000;font-weight:900;padding-top:7px}#docs-primary #docs-content-sidebar .widget_docs_section_contents > .widget-title {margin-top: 0}#docs-content-sidebar .widget_docs_section_contents {background:#fff}.single-isa_docs #docs-primary{margin:0 0 0 20% !important}@media screen and (max-device-width:768px){body.single-isa_docs #docs-primary {margin: 0 !important;}body.single-isa_docs #docs-content-sidebar ul {margin-left:0;}.single-isa_docs #docs-content-sidebar .widget.well {padding-left:0;}}',
+
+			'twentythirteen-style' => 'post-type-archive-isa_docs #docs-content,.tax-isa_docs_category #docs-content{margin:0 auto;max-width:604px;width:100%}.single-isa_docs #docs-content #isa-docs-item-title{margin-top:20px}#docs-content #isa-docs-item-title,#docs-content #organized-docs-menu,#docs-content .toggle-ul{background-color:rgba(247,245,231,.7)}#docs-content-sidebar .widget_docs_section_contents{padding:20px}#docs-primary #docs-content-sidebar .widget_docs_section_contents>.widget-title{padding-top:0}@media screen and (max-device-width:768px){#docs-content-sidebar>ul{padding-left:0}#organized-docs-menu ul{display:block}}',
+
+			'twentytwelve-style' => '.docs-sub-heading{line-height:1.9}.docs-entry-content{line-height:1.62}#docs-content .entry-title{font-size:28px;line-height:1.9}#docs-primary #docs-content-sidebar .widget_docs_section_contents>.widget-title{padding-top:0}#docs-content-sidebar .widget_docs_section_contents{padding:0 30px}#docs-content .post-navigation a{margin:36px 0}'
+			);
+
+		foreach( $css as $handle => $data ) {
+			wp_add_inline_style( $handle, $data );
+		}
+	}	
 	
 	/**
 	 * Get the custom template if is set
@@ -1128,36 +1151,11 @@ class Isa_Organized_Docs{
 	public function delete_data_setting_callback() {
 		echo '<label for="od_delete_data_on_uninstall"><input name="od_delete_data_on_uninstall" id="od_delete_data_on_uninstall" type="checkbox" value="1" class="code" ' . checked( 1, get_option( 'od_delete_data_on_uninstall' ), false ) . ' /> ' . __( 'Check this box if you would like Organized Docs to completely remove all of its data when the plugin is deleted. This would include all Docs posts, Docs categories, subheadings, and sort order numbers.', 'organized-docs' ) . '</label>';
 	}
-	/**
-	 * Optionally add theme compat CSS for 2012, 2013, and 2014.
-	 * @since 1.2.1
-	 */
-	public function dynamic_css() {
-		$theme = wp_get_theme();
 
-		if( ( 'Twenty Sixteen' == $theme->name ) || ( 'Twenty Sixteen' == $theme->parent_theme ) ) {
-			echo '<style>.widget_docs_section_contents, .widget_docs_section_contents .widget {border:0}.widget_docs_section_contents {padding-top:0}</style>';
-		} 
-
-		elseif( ( 'Twenty Fifteen' == $theme->name ) || ( 'Twenty Fifteen' == $theme->parent_theme ) ) {
-			echo '<style>#isa-docs-main-title {padding: 36px 36px 0}.single-isa_docs #docs-primary article{box-shadow: none;margin-left: 0}.single-isa_docs #docs-primary{background-color:#fff}#docs-content-sidebar li.widget {padding:0}#docs-primary #docs-content-sidebar > ul {margin:0}.widget_docs_section_contents >h3 {border-bottom: 1px solid rgba(51, 51, 51, 0.1)}</style>';
-		} 
-		elseif( ( 'Twenty Fourteen' == $theme->name ) || ( 'Twenty Fourteen' == $theme->parent_theme ) ) {
-			echo '<style>#docs-content-sidebar .widget a,#docs-content-sidebar .widget-title{color:inherit}#docs-content-sidebar .widget-title{border-top:5px solid #000;font-weight:900;margin:0 0 18px;padding-top:7px}.single-isa_docs #docs-content-sidebar .widget_docs_section_contents>.widget-title{padding-top:7px}.single-isa_docs #docs-primary{margin:0 0 0 20% !important}@media screen and (max-device-width:768px){body.single-isa_docs #docs-primary {margin: 0 !important;}body.single-isa_docs #docs-content-sidebar ul {margin-left:0;}.single-isa_docs #docs-content-sidebar .widget.well {padding-left:0;}}</style>';
-		}
-		elseif( ( 'Twenty Thirteen' == $theme->name ) || ( 'Twenty Thirteen' == $theme->parent_theme ) ) {
-			echo '<style>.post-type-archive-isa_docs #docs-content,.tax-isa_docs_category #docs-content{margin:0 auto;max-width:604px;width:100%}.single-isa_docs #docs-content #isa-docs-item-title{margin-top:20px}#docs-content #isa-docs-item-title,#docs-content #organized-docs-menu,#docs-content .toggle-ul{background-color:rgba(247,245,231,.7)}#docs-content-sidebar .widget_docs_section_contents{padding:20px}#docs-primary #docs-content-sidebar .widget_docs_section_contents>.widget-title{padding-top:0}@media screen and (max-device-width:768px){#docs-content-sidebar>ul{padding-left:0}#organized-docs-menu ul{display:block}}</style>';
-		}
-		elseif( ( 'Twenty Twelve' == $theme->name ) || ( 'Twenty Twelve' == $theme->parent_theme ) ) {
-			echo '<style>.docs-sub-heading{line-height:1.9}.docs-entry-content{line-height:1.62}#docs-content .entry-title{font-size:28px;line-height:1.9}#docs-primary #docs-content-sidebar .widget_docs_section_contents>.widget-title{padding-top:0}#docs-content-sidebar .widget_docs_section_contents{padding:0 30px}#docs-content .post-navigation a{margin:36px 0}</style>';
-		}
-
-	}
 	/**
 	* Displays prev/next nav links for single docs
 	* @since 2.0.3
 	*/
-	
 	public function organized_docs_post_nav() {
 		global $post;
 		$term_list = wp_get_post_terms($post->ID, 'isa_docs_category', array("fields" => "slugs"));
