@@ -1136,7 +1136,7 @@ class Isa_Organized_Docs{
 		$theme = wp_get_theme();
 
 		if( ( 'Twenty Fifteen' == $theme->name ) || ( 'Twenty Fifteen' == $theme->parent_theme ) ) {
-			echo '<style>.widget_docs_section_contents >h3 {border-bottom: 1px solid rgba(51, 51, 51, 0.1)}.widget_docs_section_contents .widget {margin-bottom:20px;}</style>';
+			echo '<style>#isa-docs-main-title {padding: 36px 36px 0}.single-isa_docs #docs-primary article{box-shadow: none;margin-left: 0}.single-isa_docs #docs-primary{background-color:#fff}#docs-content-sidebar li.widget {padding:0}#docs-primary #docs-content-sidebar > ul {margin:0}.widget_docs_section_contents >h3 {border-bottom: 1px solid rgba(51, 51, 51, 0.1)}</style>';
 		} 
 		elseif( ( 'Twenty Fourteen' == $theme->name ) || ( 'Twenty Fourteen' == $theme->parent_theme ) ) {
 			echo '<style>#docs-content-sidebar .widget a,#docs-content-sidebar .widget-title{color:inherit}#docs-content-sidebar .widget-title{border-top:5px solid #000;font-weight:900;margin:0 0 18px;padding-top:7px}.single-isa_docs #docs-content-sidebar .widget_docs_section_contents>.widget-title{padding-top:7px}.single-isa_docs #docs-primary{margin:0 0 0 20% !important}@media screen and (max-device-width:768px){body.single-isa_docs #docs-primary {margin: 0 !important;}body.single-isa_docs #docs-content-sidebar ul {margin-left:0;}.single-isa_docs #docs-content-sidebar .widget.well {padding-left:0;}}</style>';
