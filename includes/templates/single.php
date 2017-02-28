@@ -2,7 +2,7 @@
 /**
  * The template for displaying Organized Docs Single posts.
  * @package	Organized Docs
- * @version 2.4.1
+ * @version 2.5.3
  * @since 2.0
  */
 get_header(); 
@@ -93,7 +93,7 @@ if ( ! get_option('od_disable_microdata') ) {
 	} else {
 		$author = '<meta itemprop="name" content="' . esc_attr( $author_name ) . '">';
 	}
-	$schema_auth = '<span id="od-author" itemprop="author" itemscope itemtype="http://schema.org/Person">' . $author . '</span>';
+	$schema_auth = '<span class="od-author" itemprop="author" itemscope itemtype="http://schema.org/Person">' . $author . '</span>';
 
 	echo $schema_date;
 	echo $schema_img;
