@@ -102,7 +102,6 @@ class Isa_Organized_Docs{
 	 * Add isa_docs CPT.
 	 */
 	public static function create_docs_cpt() {
-
 		$slug_rewrite = get_option('od_rewrite_docs_slug');
 /* translators: URL slug */
 		$slug = $slug_rewrite ? sanitize_title($slug_rewrite) : _x( 'docs', 'URL slug', 'organized-docs' );
@@ -141,15 +140,16 @@ class Isa_Organized_Docs{
 			);
 		register_post_type( 'isa_docs' , $args );
 
-	} // end create_docs_cpt
+	}
 	
 	/** 
-	 * Register stylesheet and script
+	 * Register stylesheet and scripts
 	 */
 	public function register_scripts() {
 		$url = plugin_dir_url( __FILE__ );
 		wp_register_style( 'organized-docs', $url . 'assets/organized-docs.css' );
 		wp_register_script( 'organized-docs', $url . 'assets/organized-docs.js', array(), null, true );
+		wp_register_script( 'organized-docs-toggle', $url . 'assets/organized-docs-toggle.js', array(), null, true );
 	}
 
 	/** 
@@ -1252,16 +1252,6 @@ class Isa_Organized_Docs{
 
 		$posts = get_posts( $args );
 		return $posts ? count( $posts ) : 0;
-	}
-
-	/**
-	* Small inline js for optional toggle. Will only be included if toggle option is enabled.
-	* @return string
-	* @since 2.0.4
-	*/
-	public function inline_js() {
-		$js = '<script>(function() {var titles = document.querySelectorAll(".docs-sub-heading");var i = titles.length;while (i--) {titles[i].setAttribute("style", "cursor:pointer");}var uls = document.querySelectorAll(".docs-sub-heading + ul");var i = uls.length;while (i--) {uls[i].className = "toggle-ul";}})();function toggleDocs(e){if(e.target&&("docs-sub-heading"==e.target.className||"widget-title docs-sub-heading"==e.target.className)){var t=e.target.nextElementSibling;t.style.display="none"==t.style.display?"block":"none"}}document.addEventListener("click",toggleDocs,!0);</script>';
-		return $js;
 	}
 }
 }

@@ -2,7 +2,7 @@
 /**
 * The template for displaying Docs category taxonomy archives
 * @package Organized Docs
-* @version 2.2
+* @version 2.5.3
 * @since 2.0
 */
 get_header();
@@ -130,7 +130,7 @@ wp_enqueue_style('organized-docs'); ?>
 			}
 		}
 		if ( 'toggle' == $list_each ) {
-			echo $Isa_Organized_Docs->inline_js();
+			wp_enqueue_script( 'organized-docs-toggle' );
 		}		
 
 	}// end check for empty $termchildren

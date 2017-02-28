@@ -180,7 +180,7 @@ class DocsSectionContents extends WP_Widget {
 		}
 		echo $args['after_widget'];
 		if ( 'toggle' == $list_each ) {
-			echo $Isa_Organized_Docs->inline_js();
+			wp_enqueue_script( 'organized-docs-toggle' );
 		}		
 	}
 
