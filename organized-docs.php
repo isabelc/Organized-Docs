@@ -3,7 +3,7 @@
 Plugin Name: Organized Docs
 Plugin URI: https://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
 Description: Create organized documentation for multiple products, organized by product, and by subsections within each product.
-Version: 2.5.3.alpha2
+Version: 2.5.3.alpha3
 Author: Isabel Castillo
 Author URI: https://isabelcastillo.com
 License: GPL2
@@ -660,7 +660,6 @@ class Isa_Organized_Docs{
 		return $terms;
 	}
 
-
 	/**
 	 * Adds a sort-order meta box to the Docs edit screen.
 	 * @since 1.1.5
@@ -784,6 +783,7 @@ class Isa_Organized_Docs{
 		);
 		$active_tab = isset( $_GET['tab'] ) && array_key_exists( $_GET['tab'], $settings_tabs ) ? sanitize_text_field( $_GET['tab'] ) : 'main';
 		echo '<div class="wrap wrap-' . $active_tab . '">';
+		settings_errors();
 		echo '<h1 class="nav-tab-wrapper clear">';
 		foreach ( $settings_tabs as $tab_id => $tab_name ) {
 
@@ -799,7 +799,7 @@ class Isa_Organized_Docs{
 			echo '</a>';
 		}
 		echo '</h1>';
-		echo '<div id="tab_container" class="' . $active_tab . '">';
+		echo '<div id="tab_container" class="' . esc_attr( $active_tab ) . '">';
 			?>
 			<form method="POST" action="options.php">
 			<?php
@@ -810,7 +810,7 @@ class Isa_Organized_Docs{
 			</form>
 		<?php
 		echo '</div><!-- #tab_container-->';
-		echo '</div>';
+		echo '</div><!-- .wrap -->';
 	}
 
 	/**
