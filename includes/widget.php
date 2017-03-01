@@ -140,10 +140,8 @@ class DocsSectionContents extends WP_Widget {
 					$termobject = get_term_by( 'id', $child_id, 'isa_docs_category' );
 					
 					//Display the sub Term information, in open widget container ?>
-					<aside class="widget well"><h3 class="widget-title docs-sub-heading"><?php echo $termobject->name; ?></h3><?php
-					
-					// only list all posts if not disabled with setting
-					if( $list_each != 'hide' ) { ?>
+					<aside class="widget well">
+					<h3 class="widget-title docs-sub-heading"><?php echo $termobject->name; ?></h3>
 					<ul<?php
 					if ( 'toggle' == $list_each ) {
 						echo ' style="display:none"';
@@ -172,7 +170,6 @@ class DocsSectionContents extends WP_Widget {
 							echo '><a href="' . get_permalink( $single_post->ID ) . '" title="' . esc_attr( $single_post->post_title ) . '">' . $single_post->post_title . '</a></li>';   
 					} ?>
 					</ul>
-					<?php } ?>
 					</aside><?php
 				}
 			}

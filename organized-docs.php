@@ -46,6 +46,7 @@ class Isa_Organized_Docs{
 			add_action( 'init', array( $this, 'setup_docs_taxonomy'), 0 );
 			add_action( 'init', array( $this, 'create_docs_cpt') );
 			add_action( 'init', array( $this, 'load_textdomain' ) );
+			add_action( 'admin_init', array( $this, 'upgrade_options' ) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'register_scripts') );
 			add_action( 'wp_enqueue_scripts', array( $this, 'inline_css' ), 999 );
 			add_action( 'widgets_init', array( $this, 'register_widgets') );
@@ -67,7 +68,6 @@ class Isa_Organized_Docs{
 	* Only upon plugin activation, flush rewrite rules for custom post types.
 	*/
 	public static function activate() { 
-
 		self::setup_docs_taxonomy();
 		self::create_docs_cpt();
 		flush_rewrite_rules();
@@ -140,7 +140,6 @@ class Isa_Organized_Docs{
 		register_post_type( 'isa_docs' , $args );
 
 	}
-	
 	/** 
 	 * Register stylesheet and scripts
 	 */
@@ -267,7 +266,6 @@ class Isa_Organized_Docs{
 	 * Returns dynamic menu for Docs. Lists only subterms of top level parent of current term, on Docs taxonomy archive and on Docs single, but nothing on the main Docs archive.  
 	 */
 	public function organized_docs_content_nav() { 
-
 		if ( is_post_type_archive( 'isa_docs' ) ) 
 			return;
 
@@ -701,7 +699,6 @@ class Isa_Organized_Docs{
 	 * @since 1.1.5
 	 */
 	public function save_postdata( $post_id ) {
-	
 		/*
 		* We need to verify this came from the our screen and with proper authorization,
 		* because save_post can be triggered at other times.
@@ -1051,10 +1048,8 @@ class Isa_Organized_Docs{
 	 */
 	public function list_toggle_setting_callback() {
 		$selected_option = get_option('od_list_toggle');
-		
 		$items = array(
 			"list"		=> __( 'list', 'organized-docs' ),
-			"hide"		=> __( 'hide', 'organized-docs' ),
 			"toggle"	=> __( 'toggle', 'organized-docs' )
 			);
 		
@@ -1069,16 +1064,14 @@ class Isa_Organized_Docs{
 	}
 	
 	/**
-	 * Callback function for setting to list, toggle, or hide individual articles in widget.
+	 * Callback function for setting to list all or toggle individual articles in widget.
 	 * @since 2.0.4
 	 */
 	public function widget_list_toggle_setting_callback() {
 		$selected_option = get_option('od_widget_list_toggle');
 		$items = array(
 			"list"		=> __( 'list', 'organized-docs' ),
-			"hide"		=> __( 'hide', 'organized-docs' ),
 			"toggle"	=> __( 'toggle', 'organized-docs' ));		
-		
 		echo "<select id='od_widget_list_toggle' name='od_widget_list_toggle'>";
 		foreach($items as $key => $val) {
 			$selected = ( $selected_option == $key ) ? ' selected = "selected"' : '';
@@ -1271,6 +1264,26 @@ class Isa_Organized_Docs{
 
 		$posts = get_posts( $args );
 		return $posts ? count( $posts ) : 0;
+	}
+
+	/**
+	 * Upgrade options that have been changed.
+	 * @since 2.5.3
+	 * @todo At some point in the future, remove this and delete the odocs_upgrade_two_five option on uninstall.
+	 */
+	public function upgrade_options() {
+		// Run this update only once
+		if ( get_option( 'odocs_upgrade_two_five' ) != 'completed' ) {
+			$keys = array( 'od_list_toggle', 'od_widget_list_toggle' );
+			// If any list_toggle options are set to 'hide', update them to 'toggle'
+			foreach ( $keys as $k ) {
+				$option = get_option( $k );
+				if ( 'hide' == $option ) {
+					update_option( $k, 'toggle' );
+				}
+			}
+			update_option( 'odocs_upgrade_two_five', 'completed' );
+		}
 	}
 }
 }

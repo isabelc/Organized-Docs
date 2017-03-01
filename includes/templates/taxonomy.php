@@ -97,19 +97,15 @@ wp_enqueue_style('organized-docs'); ?>
 			//Display the sub Term information 
 			?>
 			<h2 class="docs-sub-heading"><?php echo esc_html( $termobject->name ); ?></h2>
-			<?php
-			// only list all posts if not hidden by option
-			
-			if( $list_each != 'hide' ) { ?>
-				<ul<?php
-				if ( 'toggle' == $list_each ) {
-					echo ' style="display:none"';
-				}
-				?>><?php
-				global $post;
+			<ul<?php
+			if ( 'toggle' == $list_each ) {
+				echo ' style="display:none"';
+			}
+			?>><?php
+			global $post;
 				
-				// prep nested loop
-				$args = array(	'post_type' => 'isa_docs', 
+			// prep nested loop
+			$args = array(	'post_type' => 'isa_docs', 
 							'posts_per_page' => -1,
 							'tax_query' => array(
 									array(
@@ -121,13 +117,12 @@ wp_enqueue_style('organized-docs'); ?>
 							'orderby' => $orderby,
 							'meta_key' => '_odocs_meta_sortorder_key',
 							'order' => $orderby_order
-				);
-				$postlist = get_posts( $args );
-				foreach ( $postlist as $single_post ) { ?>
-					<li><a href="<?php echo esc_url( get_permalink($single_post->ID) ); ?>"><?php echo esc_html( $single_post->post_title ); ?></a></li>
-				<?php } ?>
-				</ul><?php
-			}
+			);
+			$postlist = get_posts( $args );
+			foreach ( $postlist as $single_post ) { ?>
+				<li><a href="<?php echo esc_url( get_permalink($single_post->ID) ); ?>"><?php echo esc_html( $single_post->post_title ); ?></a></li>
+			<?php } ?>
+			</ul><?php
 		}
 		if ( 'toggle' == $list_each ) {
 			wp_enqueue_script( 'organized-docs-toggle' );
