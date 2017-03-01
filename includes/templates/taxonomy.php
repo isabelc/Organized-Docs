@@ -2,7 +2,7 @@
 /**
 * The template for displaying Docs category taxonomy archives
 * @package Organized Docs
-* @version 2.5.3
+* @version 2.6
 * @since 2.0
 */
 get_header();

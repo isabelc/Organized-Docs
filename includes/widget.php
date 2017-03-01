@@ -49,7 +49,7 @@ class DocsSectionContents extends WP_Widget {
 			
 		$first_term = $doc_categories[0];
 		$curr_term_id = $first_term->term_id;
-		$top_level_parent_term_id = $Isa_Organized_Docs->isa_term_top_parent_id( $curr_term_id );
+		$top_level_parent_term_id = $Isa_Organized_Docs->term_top_parent_id( $curr_term_id );
 
 		// orderby custom option
 		$single_sort_by = get_option('od_single_sort_by');

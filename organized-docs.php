@@ -3,7 +3,7 @@
 Plugin Name: Organized Docs
 Plugin URI: https://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
 Description: Create organized documentation for multiple products, organized by product, and by subsections within each product.
-Version: 2.5.3.alpha3
+Version: 2.6.alpha3
 Author: Isabel Castillo
 Author URI: https://isabelcastillo.com
 License: GPL2
@@ -29,7 +29,6 @@ along with Organized Docs. If not, see <http://www.gnu.org/licenses/>.
 */
 if ( ! class_exists( 'Isa_Organized_Docs' ) ) {
 class Isa_Organized_Docs{
-
 	private static $instance = null;
 	public static function get_instance() {
 		if ( null == self::$instance ) {
@@ -62,6 +61,8 @@ class Isa_Organized_Docs{
 			add_action( 'add_meta_boxes', array( $this, 'add_sort_order_box' ) );
 			add_action( 'save_post', array( $this, 'save_postdata' ) );
 			add_action('admin_menu', array( $this, 'submenu_page' ) );
+			add_action( 'organized_docs_single_after_content', array( $this, 'add_schema_properties' ) );
+			add_action( 'organized_docs_single_after_content', array( $this, 'maybe_add_author' ) );
 
 	}
 	/** 
@@ -152,7 +153,7 @@ class Isa_Organized_Docs{
 
 	/** 
 	 * Add CSS for default WP themes
-	 * @since 2.5.3
+	 * @since 2.6
 	 */
 	public function inline_css() {
 		$css = array(
@@ -217,7 +218,7 @@ class Isa_Organized_Docs{
 		if ( $doc_categories ) {
 			$first_cat = $doc_categories[0]; // first category
 			$curr_term_id = $first_cat->term_id;
-			$top_level_parent_term_id = $this->isa_term_top_parent_id( $curr_term_id );
+			$top_level_parent_term_id = $this->term_top_parent_id( $curr_term_id );
 			
 			// On single docs that have only 1 doc under its parent category, hide the category heading
 			if ( $this->count_cat_posts( $top_level_parent_term_id ) < 2 ) {
@@ -243,7 +244,7 @@ class Isa_Organized_Docs{
 		// get top level parent term on custom taxonomy archive
 		$queried_object = get_queried_object();
 		$curr_term_id =  (int) $queried_object->term_id;
-		$top_level_parent_term_id = $this->isa_term_top_parent_id( $curr_term_id );
+		$top_level_parent_term_id = $this->term_top_parent_id( $curr_term_id );
 		$top_term = get_term( $top_level_parent_term_id, 'isa_docs_category' );
 	
 		$top_term_link = get_term_link( $top_term );
@@ -274,7 +275,7 @@ class Isa_Organized_Docs{
 			// need regular current term id, only used to compare w/ top level term id later
 			$queried_object = get_queried_object();
 			$curr_term_id = (int) $queried_object->term_id;
-			$top_level_parent_term_id = $this->isa_term_top_parent_id( $curr_term_id );
+			$top_level_parent_term_id = $this->term_top_parent_id( $curr_term_id );
 		
 		} else { // is single, get top level term id on single
 			global $post;
@@ -283,7 +284,7 @@ class Isa_Organized_Docs{
 				$first_cat = $doc_categories[0]; // first category
 				$curr_term_id = (int)$first_cat->term_id;
 				// need regular current cat id, only used to compare w/ top level cat id
-				$top_level_parent_term_id = $this->isa_term_top_parent_id( $curr_term_id );
+				$top_level_parent_term_id = $this->term_top_parent_id( $curr_term_id );
 				do_action( 'organized_docs_microdata_single', $top_level_parent_term_id );
 			} else {
 				// cat is not assigned
@@ -325,14 +326,64 @@ class Isa_Organized_Docs{
 
 		return $docs_menu;
 	
-	} // end organized_docs_content_nav()
+	}
 
+	/**
+	 * Get structured data markup
+	 * @return array $schema
+	 * @since 2.6
+	 */
+	public function schema_markup() {
+		$schema = array( 'type' => '', 'name' => '', 'body' => '', 'properties' => '' );
+		if ( ! get_option('od_disable_microdata') ) {
+			$schema['type'] = ' itemscope itemtype="http://schema.org/' . apply_filters( 'od_single_schema_type', 'TechArticle' ) . '"';
+			$schema['name'] = ' itemprop="headline"';
+			$schema['body'] = apply_filters( 'od_single_schema_itemprop_body', ' itemprop="articleBody"' );
+			// datePublished
+			$schema['properties'] .= apply_filters( 'od_single_schema_date', '<meta itemprop="datePublished" content="' . get_the_time('c') . '">' );
+			// image
+			if ( $img_id = get_post_thumbnail_id() ) {
+				$image = wp_get_attachment_image_src( $img_id );
+				$img_url = $image[0];
+				$width = $image[1];
+				$height = $image[2];
+			} else {
+				$img_url = apply_filters( 'od_schema_img', plugins_url( '/organized-docs.png', dirname( __FILE__ ) ) );
+				$width = apply_filters( 'od_schema_img_width', '128' );
+				$height = apply_filters( 'od_schema_img_height', '128' );
+			}
+			$schema['properties'] .= '<span itemprop="image" itemscope itemtype="https://schema.org/ImageObject"><meta itemprop="url" content="' . esc_attr( $img_url ) . '"><meta itemprop="width" content="' . esc_attr( $width ) . '"><meta itemprop="height" content="' . esc_attr( $height ) . '"></span>';
+		} 
+		return $schema;
+	}
+	/**
+	 * Display the schema item properties. Hooked from the single.php bottom.
+	 * @since 2.6
+	 */
+	public function add_schema_properties() {
+		echo $this->schema_markup()['properties'];
+	}
+	/**
+	 * Allow the author to be displayed on single Docs with a filter.
+	 * @since 2.6
+	 */
+	public function maybe_add_author() {
+		global $post;
+		if ( empty( $post ) ) {
+			return;
+		}
+		if ( apply_filters( 'od_display_author', false ) ) {
+			echo '<span class="od-author">By ' .
+			esc_html( apply_filters( 'od_author_name', get_the_author_meta( 'display_name', $post->post_author ) ) ) .
+			'</span>';
+		}
+	}
 	/** 
 	* Returns ID of top-level parent term of the passed term, or returns the passed term if it is a top-level term.
 	* @param    string      $termid      Term ID to be checked
 	* @return   string      $termParent  ID of top-level parent term
 	*/
-	public function isa_term_top_parent_id( $termid ) {
+	public function term_top_parent_id( $termid ) {
 		$termParent = '';
 		while ($termid) {
 			$term = get_term( $termid, 'isa_docs_category' );
@@ -349,10 +400,8 @@ class Isa_Organized_Docs{
 	 * register widget
 	 */
 	public function register_widgets() {
-	
 		include ISA_ORGANIZED_DOCS_PATH . 'includes/widget.php';
 		register_widget('DocsSectionContents');
-	
 	}
 
 	/**
@@ -438,7 +487,7 @@ class Isa_Organized_Docs{
 						$first_cat = $doc_categories[0]; // first category
 		
 						$curr_term_id = $first_cat->term_id;
-						$top_level_parent_term_id = $this->isa_term_top_parent_id( $curr_term_id );
+						$top_level_parent_term_id = $this->term_top_parent_id( $curr_term_id );
 							
 						$top_term = get_term( $top_level_parent_term_id, 'isa_docs_category' );
 					
@@ -1268,7 +1317,7 @@ class Isa_Organized_Docs{
 
 	/**
 	 * Upgrade options that have been changed.
-	 * @since 2.5.3
+	 * @since 2.6
 	 * @todo At some point in the future, remove this and delete the odocs_upgrade_two_five option on uninstall.
 	 */
 	public function upgrade_options() {

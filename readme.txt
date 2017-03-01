@@ -70,9 +70,18 @@ See how to [Customize The Docs Template Files](https://isabelcastillo.com/docs/c
 5. A single Docs article with Table of Contents on 2015 theme
 6. A single Docs article with Table of Contents on 2014 theme
 7. A single Docs article with Table of Contents on 2013 theme
-8. Back-end Docs Admin screen
 
 == Changelog ==
+
+= 2.6 =
+* New - Update styles for Twenty Seventeen and Twenty Sixteen theme compatibility.
+* New - Added up/down arrows to toggle headings, if toggle is enabled.
+* New - Split settings page into tabs for less clutter.
+* New - The "hide" option has been removed from the "List Each Single Title?" option for the "Top Level Category Pages" and for the Table of Contents widget. If you had either of those settings set to "hide," they have been now updated to "toggle".
+* New - Added support for subheadings links only for pages that have only 1 post for their top-level Docs category.
+* Fix - Show "Setting Saved" message on the settings page when settings are updated.
+* Tweak - Change #od-author to .od-author in the structured data meta tag so as not to create an extra microdata property id.
+
 = 2.5.2 =
 * Fix - Fixed improperly escaped author name.
 
