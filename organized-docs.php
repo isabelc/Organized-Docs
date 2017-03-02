@@ -3,7 +3,7 @@
 Plugin Name: Organized Docs
 Plugin URI: https://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
 Description: Create organized documentation for multiple products, organized by product, and by subsections within each product.
-Version: 2.6.alpha3
+Version: 2.6.alpha4
 Author: Isabel Castillo
 Author URI: https://isabelcastillo.com
 License: GPL2
@@ -61,9 +61,6 @@ class Isa_Organized_Docs{
 			add_action( 'add_meta_boxes', array( $this, 'add_sort_order_box' ) );
 			add_action( 'save_post', array( $this, 'save_postdata' ) );
 			add_action('admin_menu', array( $this, 'submenu_page' ) );
-			add_action( 'organized_docs_single_after_content', array( $this, 'add_schema_properties' ) );
-			add_action( 'organized_docs_single_after_content', array( $this, 'maybe_add_author' ) );
-
 	}
 	/** 
 	* Only upon plugin activation, flush rewrite rules for custom post types.
@@ -84,10 +81,11 @@ class Isa_Organized_Docs{
 	* display support link on plugin page
 	* @return void
 	*/
-	public function support_link($actions, $file) {
-		$od_path = plugin_basename(__FILE__);
-		if(false !== strpos($file, $od_path))
-		 $actions['settings'] = '<a href="https://isabelcastillo.com/docs/how-to-set-up-categories" target="_blank">'. __( 'Setup Instructions', 'organized-docs' ) . '</a>';
+	public function support_link( $actions, $file ) {
+		$od_path = plugin_basename( __FILE__ );
+		if ( false !== strpos( $file, $od_path ) ) {
+		 	$actions['settings'] = '<a href="https://isabelcastillo.com/docs/how-to-set-up-categories" target="_blank">' . __( 'Setup Instructions', 'organized-docs' ) . '</a>';
+		}
 
 		return $actions; 
 	}
@@ -98,11 +96,12 @@ class Isa_Organized_Docs{
 	public function load_textdomain() {
 		load_plugin_textdomain( 'organized-docs', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 	}
+	
 	/** 
 	 * Add isa_docs CPT.
 	 */
 	public static function create_docs_cpt() {
-		$slug_rewrite = get_option('od_rewrite_docs_slug');
+		$slug_rewrite = get_option( 'od_rewrite_docs_slug' );
 /* translators: URL slug */
 		$slug = $slug_rewrite ? sanitize_title($slug_rewrite) : _x( 'docs', 'URL slug', 'organized-docs' );
 
@@ -138,6 +137,7 @@ class Isa_Organized_Docs{
 				'has_archive'	=> true,
 				'menu_icon'		=> 'dashicons-book'
 			);
+
 		register_post_type( 'isa_docs' , $args );
 
 	}
@@ -174,14 +174,12 @@ class Isa_Organized_Docs{
 	}
 
 	/**
-	 * Get the custom template if is set
+	 * Get the custom template, if set
 	 * @since 2.0
 	 */
 	function get_template_hierarchy( $template ) {
-	 
-		$template_slug = rtrim( $template, '.php' );
-		$template = $template_slug . '.php';
-	 
+		$template = $template . '.php';
+
 		// Check if a custom template exists in the theme folder, if not, load the plugin template file
 		if ( $theme_file = locate_template( 'organized-docs/' . $template ) ) {
 			$file = $theme_file;
@@ -190,14 +188,15 @@ class Isa_Organized_Docs{
 		}
 		return $file;
 	}
+
 	/**
-	 * Returns template file
+	 * Returns a template file to use.
 	 */
 	public function docs_template( $template ) {
 		if ( is_tax( 'isa_docs_category' ) ) {
 			return $this->get_template_hierarchy( 'taxonomy' );
 		} elseif ( is_post_type_archive( 'isa_docs' ) ) {
-			return $this->get_template_hierarchy( 'archive' );	
+			return $this->get_template_hierarchy( 'archive' );
 		} elseif (is_singular('isa_docs')) {
 			return $this->get_template_hierarchy( 'single' );
 		} else {
@@ -328,56 +327,6 @@ class Isa_Organized_Docs{
 	
 	}
 
-	/**
-	 * Get structured data markup
-	 * @return array $schema
-	 * @since 2.6
-	 */
-	public function schema_markup() {
-		$schema = array( 'type' => '', 'name' => '', 'body' => '', 'properties' => '' );
-		if ( ! get_option('od_disable_microdata') ) {
-			$schema['type'] = ' itemscope itemtype="http://schema.org/' . apply_filters( 'od_single_schema_type', 'TechArticle' ) . '"';
-			$schema['name'] = ' itemprop="headline"';
-			$schema['body'] = apply_filters( 'od_single_schema_itemprop_body', ' itemprop="articleBody"' );
-			// datePublished
-			$schema['properties'] .= apply_filters( 'od_single_schema_date', '<meta itemprop="datePublished" content="' . get_the_time('c') . '">' );
-			// image
-			if ( $img_id = get_post_thumbnail_id() ) {
-				$image = wp_get_attachment_image_src( $img_id );
-				$img_url = $image[0];
-				$width = $image[1];
-				$height = $image[2];
-			} else {
-				$img_url = apply_filters( 'od_schema_img', plugins_url( '/organized-docs.png', dirname( __FILE__ ) ) );
-				$width = apply_filters( 'od_schema_img_width', '128' );
-				$height = apply_filters( 'od_schema_img_height', '128' );
-			}
-			$schema['properties'] .= '<span itemprop="image" itemscope itemtype="https://schema.org/ImageObject"><meta itemprop="url" content="' . esc_attr( $img_url ) . '"><meta itemprop="width" content="' . esc_attr( $width ) . '"><meta itemprop="height" content="' . esc_attr( $height ) . '"></span>';
-		} 
-		return $schema;
-	}
-	/**
-	 * Display the schema item properties. Hooked from the single.php bottom.
-	 * @since 2.6
-	 */
-	public function add_schema_properties() {
-		echo $this->schema_markup()['properties'];
-	}
-	/**
-	 * Allow the author to be displayed on single Docs with a filter.
-	 * @since 2.6
-	 */
-	public function maybe_add_author() {
-		global $post;
-		if ( empty( $post ) ) {
-			return;
-		}
-		if ( apply_filters( 'od_display_author', false ) ) {
-			echo '<span class="od-author">By ' .
-			esc_html( apply_filters( 'od_author_name', get_the_author_meta( 'display_name', $post->post_author ) ) ) .
-			'</span>';
-		}
-	}
 	/** 
 	* Returns ID of top-level parent term of the passed term, or returns the passed term if it is a top-level term.
 	* @param    string      $termid      Term ID to be checked
@@ -807,11 +756,11 @@ class Isa_Organized_Docs{
 		}
 		return $query;
 	}
+
 	/**
 	 * Add submenu page
 	 * @since 1.1.9
 	 */
-
 	public function submenu_page() {
 		add_submenu_page( 'edit.php?post_type=isa_docs', __( 'Organized Docs Settings', 'organized-docs' ), __('Settings', 'organized-docs'), 'manage_options', 'organized-docs-settings', array( $this, 'settings_page_callback' ) ); 
 	}
@@ -1046,7 +995,7 @@ class Isa_Organized_Docs{
 	}
 
 	/**
-	 * Callback function for setting to change Docs slug
+	 * Callback function for setting to change the main Docs page title
 	 * @since 2.4.2
 	 */
 	public function change_main_docs_title_setting_callback() {
@@ -1274,23 +1223,6 @@ class Isa_Organized_Docs{
 		$out .= '</div></nav>';
 		echo $out;
 	}
-	/**
-	 * Template tag to show the last Updated date on single posts.
-	 * @param string $loc location of the tag, whether above or below the article
-	 */
-	public function updated_on( $loc ) {
-		if ( get_option('od_show_updated_date') == $loc ) {
-			$time_string = '<meta itemprop="dateModified" content="%1$s" />%2$s';
-			$time_string = sprintf( $time_string,
-				esc_attr( get_the_modified_date( 'c' ) ),
-				get_the_modified_date()
-			);
-			printf( '<span class="updated-on">%1$s %2$s</span>',
-				__( 'Updated on', 'organized-docs' ),
-				$time_string
-			);
-		}
-	}
 
 	/**
 	 * Get the total count of posts, including grandchildren, for a top level docs category
@@ -1318,11 +1250,11 @@ class Isa_Organized_Docs{
 	/**
 	 * Upgrade options that have been changed.
 	 * @since 2.6
-	 * @todo At some point in the future, remove this and delete the odocs_upgrade_two_five option on uninstall.
+	 * @todo At some point in the future, remove this and delete the odocs_upgrade_two_six option on uninstall.
 	 */
 	public function upgrade_options() {
 		// Run this update only once
-		if ( get_option( 'odocs_upgrade_two_five' ) != 'completed' ) {
+		if ( get_option( 'odocs_upgrade_two_six' ) != 'completed' ) {
 			$keys = array( 'od_list_toggle', 'od_widget_list_toggle' );
 			// If any list_toggle options are set to 'hide', update them to 'toggle'
 			foreach ( $keys as $k ) {
@@ -1331,7 +1263,7 @@ class Isa_Organized_Docs{
 					update_option( $k, 'toggle' );
 				}
 			}
-			update_option( 'odocs_upgrade_two_five', 'completed' );
+			update_option( 'odocs_upgrade_two_six', 'completed' );
 		}
 	}
 }
@@ -1339,3 +1271,4 @@ class Isa_Organized_Docs{
 $Isa_Organized_Docs = Isa_Organized_Docs::get_instance();
 register_deactivation_hook(__FILE__, array('Isa_Organized_Docs', 'deactivate')); 
 register_activation_hook(__FILE__, array('Isa_Organized_Docs', 'activate'));
+include_once ISA_ORGANIZED_DOCS_PATH . 'includes/templating.php';
