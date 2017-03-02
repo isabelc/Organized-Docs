@@ -60,7 +60,11 @@ class Isa_Organized_Docs{
 			add_action( 'create_isa_docs_category', array( $this, 'save_taxonomy_custom_meta' ), 10, 2 );
 			add_action( 'add_meta_boxes', array( $this, 'add_sort_order_box' ) );
 			add_action( 'save_post', array( $this, 'save_postdata' ) );
-			add_action('admin_menu', array( $this, 'submenu_page' ) );
+			add_action( 'admin_menu', array( $this, 'submenu_page' ) );
+			add_action( 'organized_docs_single_top', array( $this, 'single_section_heading' ), 1 );
+			add_action( 'organized_docs_single_top', array( $this, 'content_nav' ) );
+			add_action( 'organized_docs_single_after_content', array( $this, 'insert_after_content' ) );
+			
 	}
 	/** 
 	* Only upon plugin activation, flush rewrite rules for custom post types.
@@ -199,12 +203,12 @@ class Isa_Organized_Docs{
 	}
 
 	/**
-	 * Returns the top category item as a heading for docs single posts.
+	 * Prints the top category item as a heading for docs single posts.
 	 * Returns nothing if there is only 1 Doc for this cat
+	 * @since 3.6
 	 */
-	public function organized_docs_single_section_heading() {
+	public function single_section_heading() {
 		global $post;
-		$heading = '';
 
 		// get top level parent term on single
 		$doc_categories = wp_get_object_terms( $post->ID, 'isa_docs_category' );
@@ -223,11 +227,19 @@ class Isa_Organized_Docs{
 			$top_term_link = get_term_link( $top_term );
 			$top_term_name = $top_term->name;
 		
-			$heading .= '<a href="' . $top_term_link  . '" title="' . esc_attr( $top_term_name ) . '"><h2 id="isa-docs-item-title">' . $top_term_name . '</h2></a>';
+			echo '<a href="' . esc_url( $top_term_link )  . '"><h2 id="isa-docs-item-title">' . esc_html( $top_term_name ) . '</h2></a>';
 		}
 	
-		return $heading;
+	}
 
+	/**
+	 * Prints the top category item as a heading for docs single posts.
+	 * Returns nothing if there is only 1 Doc for this cat
+	 * @deprecated since 3.6
+	 * @todo This will be removed soon.
+	 */
+	public function organized_docs_single_section_heading() {
+		return $this->single_section_heading();	
 	}
 
 	/**
@@ -257,9 +269,11 @@ class Isa_Organized_Docs{
 	}
 
 	/**
-	 * Returns dynamic menu for Docs. Lists only subterms of top level parent of current term, on Docs taxonomy archive and on Docs single, but nothing on the main Docs archive.  
+	 * Prints dynamic menu for Docs.
+	 * Lists only subterms of top level parent of current term, on Docs taxonomy archive and
+	 * on Docs single, but nothing on the main Docs archive.  
 	 */
-	public function organized_docs_content_nav() { 
+	public function content_nav() { 
 		if ( is_post_type_archive( 'isa_docs' ) ) 
 			return;
 
@@ -317,8 +331,16 @@ class Isa_Organized_Docs{
 		
 		$docs_menu .= '</ul></div>';
 
-		return $docs_menu;
+		echo $docs_menu;
 	
+	}
+
+	/**
+	 * @deprecated since 2.6
+	 * @todo will be removed soon.
+	 */
+	public function organized_docs_content_nav() {
+		return $this->content_nav();
 	}
 
 	/** 
@@ -338,7 +360,13 @@ class Isa_Organized_Docs{
 		}
 		return $termParent;
 	}
-	
+	/**
+	 * Insert "Updated" date and posts_nav after content, if enabled in settings.
+	 */
+	public function insert_after_content( $content ) {
+		echo odocs_updated_on( 'below' );
+		$this->post_nav();
+	}
 	/**
 	 * register widget
 	 */
@@ -1160,7 +1188,7 @@ class Isa_Organized_Docs{
 	* Displays prev/next nav links for single docs
 	* @since 2.0.3
 	*/
-	public function organized_docs_post_nav() {
+	public function post_nav() {
 		global $post;
 		$term_list = wp_get_post_terms($post->ID, 'isa_docs_category', array("fields" => "slugs"));
 		
@@ -1216,6 +1244,15 @@ class Isa_Organized_Docs{
 		}
 		$out .= '</div></nav>';
 		echo $out;
+	}
+
+	/**
+	* Displays prev/next nav links for single docs
+	* @deprecated since 2.6
+	* @todo This will be removed in a future update.
+	*/
+	public function organized_docs_post_nav() {
+		return $this->post_nav();
 	}
 
 	/**

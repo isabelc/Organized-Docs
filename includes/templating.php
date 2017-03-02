@@ -4,7 +4,7 @@
  */
 
 /**
- * Template tag to show the last Updated date on single Docs.
+ * Return the HTML for the last Updated date on single Docs.
  * @param string $loc location of the tag, whether above or below the article
  */
 function odocs_updated_on( $loc ) {
@@ -14,7 +14,7 @@ function odocs_updated_on( $loc ) {
 			esc_attr( get_the_modified_date( 'c' ) ),
 			get_the_modified_date()
 		);
-		printf( '<span class="updated-on">%1$s %2$s</span>',
+		return sprintf( '<p class="updated-on">%1$s %2$s</p>',
 			__( 'Updated on', 'organized-docs' ),
 			$time_string
 		);
@@ -89,4 +89,28 @@ function odocs_get_template_hierarchy( $template ) {
 		$file = dirname( __FILE__ ) . '/templates/' . $template;
 	}
 	return $file;
+}
+
+add_action( 'organized_docs_single_top', 'organized_docs_load_single_top', 10 );
+function organized_docs_load_single_top() {
+	wp_enqueue_style('organized-docs');
+	if ( ! get_option('od_hide_print_link') ) { ?>
+		<p id="odd-print-button">
+		<?php if ( ! get_option('od_hide_printer_icon') ) { ?>
+				<span>&#9113; </span>
+		<?php } ?>
+		<a href="javascript:window.print()" class="button"><?php _e( 'Print', 'organized-docs' ); ?></a>
+		</p>
+	<?php }
+}
+/**
+ * Insert "Updated" date before content, if enabled in settings.
+ */
+add_filter( 'the_content', 'odocs_insert_date_above_content' );
+function odocs_insert_date_above_content( $content ) {
+	// Check if we're inside the main query in a single Docs post.
+	if ( is_singular( 'isa_docs' ) && is_main_query() ) {
+		$content = odocs_updated_on( 'above' ) . $content;
+	}
+	return $content;
 }
