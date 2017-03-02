@@ -5,10 +5,11 @@
  * @version 2.6
  * @since 2.0
  */
-get_header(); 
+
+get_header();
 global $Isa_Organized_Docs; 
 ?>
-<div id="docs-primary" <?php echo $Isa_Organized_Docs->schema_markup()['type']; ?>>
+<div id="docs-primary" <?php echo odocs_schema_markup()['type']; ?>>
 <div id="docs-content" role="main">
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<?php
@@ -27,11 +28,11 @@ global $Isa_Organized_Docs;
 	<?php } ?>
 	
 	<header class="docs-entry-header">
-		<h1 class="entry-title" <?php echo $Isa_Organized_Docs->schema_markup()['name']; ?>><?php the_title(); ?></h1>
-		<?php $Isa_Organized_Docs->updated_on( 'above' ); ?>
+		<h1 class="entry-title" <?php echo odocs_schema_markup()['name']; ?>><?php the_title(); ?></h1>
+		<?php odocs_updated_on( 'above' ); ?>
 	</header>
 
-	<div class="docs-entry-content" <?php echo $Isa_Organized_Docs->schema_markup()['body']; ?>>
+	<div class="docs-entry-content" <?php echo odocs_schema_markup()['body']; ?>>
 		<?php
 		$content = apply_filters( 'the_content', $post->post_content );
 		$content = str_replace( ']]>', ']]&gt;', $content );
@@ -47,7 +48,7 @@ global $Isa_Organized_Docs;
 	</div><!-- .docs-entry-content -->
 
 	<?php
-	$Isa_Organized_Docs->updated_on( 'below' );
+	odocs_updated_on( 'below' );
 	do_action( 'organized_docs_single_after_content' );
 	$Isa_Organized_Docs->organized_docs_post_nav(); 
 
@@ -60,7 +61,7 @@ global $Isa_Organized_Docs;
 	?>
 </article><!-- #post-## -->
 </div><!-- #docs-content -->
-<?php $sidebar = $Isa_Organized_Docs->get_template_hierarchy( 'sidebar' );
+<?php $sidebar = odocs_get_template_hierarchy( 'sidebar' );
 include_once $sidebar; ?>
 </div><!-- #docs-primary -->
 <?php get_footer();
