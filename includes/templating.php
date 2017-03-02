@@ -74,3 +74,19 @@ function odocs_maybe_add_author() {
 		'</span>';
 	}
 }
+
+/**
+ * Get the custom template from theme, if set
+ * @since 2.6
+ */
+function odocs_get_template_hierarchy( $template ) {
+	$template = $template . '.php';
+
+	// Check if a custom template exists in the theme folder, if not, load the plugin template file
+	if ( $theme_file = locate_template( 'organized-docs/' . $template ) ) {
+		$file = $theme_file;
+	} else {
+		$file = dirname( __FILE__ ) . '/includes/templates/' . $template;
+	}
+	return $file;
+}
