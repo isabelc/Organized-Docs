@@ -86,7 +86,7 @@ function odocs_get_template_hierarchy( $template ) {
 	if ( $theme_file = locate_template( 'organized-docs/' . $template ) ) {
 		$file = $theme_file;
 	} else {
-		$file = dirname( __FILE__ ) . '/includes/templates/' . $template;
+		$file = dirname( __FILE__ ) . '/templates/' . $template;
 	}
 	return $file;
 }
