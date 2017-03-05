@@ -1,6 +1,6 @@
 <?php
 /**
- * Adds Docs Section Contents widget
+ * Adds Docs Table of Contents widget
  * Shows list of documentation articles for 1 item (top-level docs category). Works only on single Docs.
  * @package	Organized Docs
  * @extends	WP_Widget
@@ -12,7 +12,7 @@ class DocsSectionContents extends WP_Widget {
 	public function __construct() {
 		parent::__construct(
 	 		'docs_section_contents',
-			__( 'Organized Docs Section Contents', 'organized-docs' ),
+			__( 'Organized Docs Table of Contents', 'organized-docs' ),
 			array( 'description' => __( 'Shows list of documentation articles for 1 item (top-level docs category). Works on single Docs sidebar.', 'organized-docs' ), )
 		);
 	}

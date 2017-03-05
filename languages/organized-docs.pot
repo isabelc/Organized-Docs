@@ -30,7 +30,7 @@ msgid "Error 404 - Not Found"
 msgstr ""
 
 #: includes/widget.php:15
-msgid "Organized Docs Section Contents"
+msgid "Organized Docs Table of Contents"
 msgstr ""
 
 #: includes/widget.php:16
