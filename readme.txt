@@ -37,19 +37,18 @@ Organized Docs works on **Multisite** WordPress installations, as well as regula
 
 **To Consider**
 
-This plugin focuses on 2 priorities: a user-friendly docs structure for your visitors, and fast, optimized pagespeed both on the front and back ends of your site (a very light footprint). So, we omit features that focus on backend ease and bloating. So, there is no drag-and-drop ordering of docs. This plugin uses WordPress's default categories to classify your docs rather than creating a whole new interface for docs.
+This plugin focuses on 2 priorities: a user-friendly docs structure for your visitors, and fast, optimized pagespeed both on the front and back ends of your site (a very light footprint). So, we omit features that focus on backend ease and bloating. So, there is no drag-and-drop ordering of docs. This plugin uses categories to classify your docs rather than creating a whole new interface for docs.
 
-[Setup Instructions](https://isabelcastillo.com/docs/decide-how-to-organize-your-docs)
+[Quick Start Guide](https://isabelcastillo.com/docs/creating-docs)
 
-For support or to report bugs, use the support forum link above, or use [GitHub](https://github.com/isabelc/Organized-Docs). Forking welcome.
+For support, use the support forum link above.
 
 == Installation ==
 
 1.  In your WordPress dashboard, go to "Plugins -> Add New", and search for "organized docs".
 2.  Click to install and then Activate the plugin.
-3.  See [How To Set Up Categories For Docs](https://isabelcastillo.com/docs/how-to-set-up-categories)
-4.  Create your Docs articles in your WordPress dashboard --> Docs --> Add New.
-5.  Add the main Docs page to your site's menu [with these steps](https://isabelcastillo.com/docs/how-to-add-docs-to-your-websites-menu).
+3.  Create your Docs articles in your WordPress dashboard --> Docs --> Add New. See the [Quick Start Guide](https://isabelcastillo.com/docs/creating-docs) for more info.
+4.  Add the main Docs page to your site's menu [with these steps](https://isabelcastillo.com/docs/how-to-add-docs-to-your-websites-menu).
 
 == Frequently Asked Questions ==
 
@@ -89,7 +88,7 @@ See how to [Customize The Docs Template Files](https://isabelcastillo.com/docs/c
 * Tweak - remove duplicate .css file
 
 = 2.5 =
-* New - For Docs that only have 1 post for the top-level Docs category, there is a much improved display because there are cases where you only need 1 Doc page. (1) The main Docs page will link to the actual post, rather than linking to the category archive. (2) The Table of Contents sidebar for this post will not link to its own page; rather, it will show links that jump down to subheadings on the same page. (3) The redundant category heading will not be shown on this single Docs post, since there are no other posts in the category. Again, these 3 changes only apply to top-level Docs categories that have only 1 doc. See https://isabelcastillo.com/docs/creating-docs#jl-one
+* New - For Docs that only have 1 post for the top-level Docs category, there is a much improved display because there are cases where you only need 1 Doc page. (1) The main Docs page will link to the actual post, rather than linking to the category archive. (2) The Table of Contents sidebar for this post will not link to its own page; rather, it will show links that jump down to subheadings on the same page. (3) The redundant category heading will not be shown on this single Docs post, since there are no other posts in the category. Again, these 3 changes only apply to top-level Docs categories that have only 1 doc. See https://isabelcastillo.com/docs/jump-links
 * Fix - Bettery alignment on docs archives pages. This is mainly a fix for Twenty Sixteen and Twenty Seventeen themes, but all full/wide width themes will have improved display.
 * Fix - Fixed typo on the setting to disable comments.
 * Tweak - textdomain should be loaded on the init action rather than on the plugins_loaded action.

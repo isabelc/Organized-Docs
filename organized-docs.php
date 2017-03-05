@@ -88,7 +88,7 @@ class Isa_Organized_Docs{
 	public function support_link( $actions, $file ) {
 		$od_path = plugin_basename( __FILE__ );
 		if ( false !== strpos( $file, $od_path ) ) {
-		 	$actions['settings'] = '<a href="https://isabelcastillo.com/docs/how-to-set-up-categories" target="_blank">' . __( 'Setup Instructions', 'organized-docs' ) . '</a>';
+		 	$actions['settings'] = '<a href="https://isabelcastillo.com/docs/creating-docs" target="_blank" rel="nofollow">' . __( 'Quick Start Guide', 'organized-docs' ) . '</a>';
 		}
 
 		return $actions; 
