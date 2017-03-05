@@ -6,10 +6,7 @@
  * @since 2.0
  */
 
-get_header();
-
-global $Isa_Organized_Docs; 
-?>
+get_header(); ?>
 <div id="docs-primary" <?php echo odocs_schema_markup()['type']; ?>>
 
 	<div id="docs-content" role="main">
