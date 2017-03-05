@@ -114,3 +114,36 @@ function odocs_insert_date_above_content( $content ) {
 	}
 	return $content;
 }
+
+/**
+ * Wrapper for get_posts to fetch Docs by terms
+ */
+function odocs_query_docs( $terms, $top = '' ) {
+	// orderby custom option
+	$single_sort_by = get_option('od_single_sort_by');
+	$orderby_order = get_option('od_single_sort_order');
+					
+	if ( 'date' == $single_sort_by ) {
+		$orderby = 'date';
+	} elseif ( 'title - alphabetical' == $single_sort_by ) {
+		$orderby = 'title';
+	} else {
+		$orderby = 'meta_value_num';
+	}
+
+	$args = array(	'post_type' => 'isa_docs', 
+					'posts_per_page' => -1,
+					'tax_query' => array(
+							array(
+								'taxonomy' => 'isa_docs_category',
+								'field' => 'id',
+								'terms' => $terms,
+								'include_children' => ( ! $top )
+							)
+						),
+					'orderby' => $orderby,
+					'meta_key' => '_odocs_meta_sortorder_key',
+					'order' => $orderby_order
+	);
+	return get_posts( $args );
+}

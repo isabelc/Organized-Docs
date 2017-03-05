@@ -188,7 +188,7 @@ class Isa_Organized_Docs{
 	}
 
 	/**
-	 * Returns a template file to use.
+	 * Use our templates for displaying Docs, unless overriden with custom Docs templates in theme.
 	 */
 	public function docs_template( $template ) {
 		if ( is_tax( 'isa_docs_category' ) ) {
@@ -205,7 +205,7 @@ class Isa_Organized_Docs{
 	/**
 	 * Prints the top category item as a heading for docs single posts.
 	 * Returns nothing if there is only 1 Doc for this cat
-	 * @since 3.6
+	 * @since 2.6
 	 */
 	public function single_section_heading() {
 		global $post;
@@ -235,7 +235,7 @@ class Isa_Organized_Docs{
 	/**
 	 * Prints the top category item as a heading for docs single posts.
 	 * Returns nothing if there is only 1 Doc for this cat
-	 * @deprecated since 3.6
+	 * @deprecated since 2.6
 	 * @todo This will be removed soon.
 	 */
 	public function organized_docs_single_section_heading() {

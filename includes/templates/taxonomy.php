@@ -26,7 +26,8 @@ wp_enqueue_style('organized-docs'); ?>
 <div class="isa-docs-archive-content">
 	<?php do_action( 'organized_docs_content_after_nav' ); 
 	
-	// Display a list of subTerms, within a specified Term, AND show all the posts within each of those subTerms on archive page
+	/* Display a list of subTerms, within a specified Parent Cat, AND show all the posts within
+	   each of those subTerms on archive page */
 		
 	// get current term id on docs category taxonomy page
 	$term = get_term_by( 'slug', get_query_var( 'term' ), get_query_var( 'taxonomy' ) );
@@ -36,55 +37,36 @@ wp_enqueue_style('organized-docs'); ?>
 	// get term children
 	$termchildren =  get_term_children( $curr_termID, 'isa_docs_category' );
 
-	// orderby custom option
-	$single_sort_by = get_option('od_single_sort_by');
-	$orderby_order = get_option('od_single_sort_order');
-					
-	if ( 'date' == $single_sort_by ) {
-		$orderby = 'date';
-	} elseif ( 'title - alphabetical' == $single_sort_by ) {
-		$orderby = 'title';
-	} else {
-		$orderby = 'meta_value_num';
-	}
-	
-	if ( empty($termchildren) ) {
+	if ( empty( $termchildren ) ) {
 		// there are no child terms, do regular term loop to list ALL posts within current term
-		$args = array(
-					'post_type' => 'isa_docs', 
-					'posts_per_page' => -1,
-					'tax_query' => array(
-							array(
-								'taxonomy' => 'isa_docs_category',
-								'field' => 'id',
-								'terms' => $curr_termID
-							)
-						),
-					'orderby' => $orderby,
-					'meta_key' => '_odocs_meta_sortorder_key',
-					'order' => $orderby_order
-		);
+		$docs = odocs_query_docs( $curr_termID );
+		if ( empty( $docs[0] ) ) { ?>
+			<h2><?php _e( 'Error 404 - Not Found', 'organized-docs' ); ?></h2>
+			<?php continue;
+		}
+		?>
+		<ul>
+			<?php foreach ( $docs as $single_doc ) { ?>
+				<li><a href="<?php echo esc_url( get_permalink( $single_doc->ID ) ); ?>"><?php echo esc_html( $single_doc->post_title ); ?></a></li>
+			<?php } ?>
+		</ul>
+	<?php
+	} else {
+	
+		// There are subTerms, do list each subTerm with all its posts under each subTerm.
 
-		$the_query = new WP_Query( $args );
-
-		if ( $the_query->have_posts() ) : ?>
-
+		// But first, list any orphaned posts not assiged to a subTerm and only assiged directly to a parent cat
+		$orphans = odocs_query_docs( $curr_termID, true );
+		if ( ! empty( $orphans[0] ) ) {
+			?>
 			<ul>
-			<?php while ( $the_query->have_posts() ) {
-				$the_query->the_post(); ?>
-				<li><a href="<?php echo esc_url( get_permalink($post->ID) ); ?>"><?php echo esc_html( get_the_title() ); ?></a></li>
+			<?php
+			foreach ( $orphans as $orphan ) { ?>
+				<li><a href="<?php echo esc_url( get_permalink( $orphan->ID ) ); ?>"><?php echo esc_html( $orphan->post_title ); ?></a></li>
 			<?php } ?>
 			</ul><?php
-	 	else : ?>
-			<h2><?php _e( 'Error 404 - Not Found', 'organized-docs' ); ?></h2>
-			<?php 
-		endif;
-		wp_reset_postdata();
+		}
 
-	} else {
-	
-		// there are subTerms, do list subTerms with all its posts for each subTerm
-		
 		$list_each = get_option('od_list_toggle');
 		
 		// sort $termchildren by custom subheading_sort_order numbers
@@ -101,24 +83,13 @@ wp_enqueue_style('organized-docs'); ?>
 			if ( 'toggle' == $list_each ) {
 				echo ' style="display:none"';
 			}
-			?>><?php
-			global $post;
-				
-			// prep nested loop
-			$args = array(	'post_type' => 'isa_docs', 
-							'posts_per_page' => -1,
-							'tax_query' => array(
-									array(
-										'taxonomy' => 'isa_docs_category',
-										'field' => 'id',
-										'terms' => $termobject->term_id
-									)
-								),
-							'orderby' => $orderby,
-							'meta_key' => '_odocs_meta_sortorder_key',
-							'order' => $orderby_order
-			);
-			$postlist = get_posts( $args );
+			?>>
+			<?php
+			$postlist = odocs_query_docs( $termobject->term_id );
+			if ( empty( $postlist[0] ) ) {
+				continue;
+			}
+
 			foreach ( $postlist as $single_post ) { ?>
 				<li><a href="<?php echo esc_url( get_permalink($single_post->ID) ); ?>"><?php echo esc_html( $single_post->post_title ); ?></a></li>
 			<?php } ?>

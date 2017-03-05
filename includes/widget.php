@@ -66,7 +66,7 @@ class DocsSectionContents extends WP_Widget {
 		// get term children
 		$termchildren =  get_term_children( $top_level_parent_term_id, 'isa_docs_category' );
  
-		if ( empty($termchildren) ) {
+		if ( empty( $termchildren ) ) {
 
 			/* There are no child terms. 
 			 * This happens when docs are assigned directly to the top level category, rather than to sub-categories.
@@ -93,48 +93,45 @@ class DocsSectionContents extends WP_Widget {
 			} else {
 
 				// Do regular term loop to list ALL posts within current term
-
-				$query_args = array(
-							'post_type' => 'isa_docs', 
-							'posts_per_page' => -1,
-							'tax_query' => array(
-									array(
-										'taxonomy' => 'isa_docs_category',
-										'field' => 'id',
-										'terms' => $curr_term_id
-									)
-								),
-							'orderby' => $orderby,
-							'meta_key' => '_odocs_meta_sortorder_key',
-							'order' => $orderby_order
-				);
-				$the_query = new WP_Query( $query_args );
-				if ( $the_query->have_posts() ) : ?>
-
+				$the_query = odocs_query_docs( $curr_term_id );
+				if ( ! empty( $the_query[0] ) ) { ?>
 					<aside class="widget well"><ul>
-					<?php while ( $the_query->have_posts() ) {
-						$the_query->the_post();
+					<?php 
+					foreach ( $the_query as $single_doc ) {
 						echo '<li';
-							if( $post->ID == $current_single_postID ) 
-								echo ' class="organized-docs-active-side-item"';
-							echo '><a href="' . get_permalink( $post->ID ) . '" title="' . esc_attr( $post->post_title ) . '">' . $post->post_title . '</a></li>';   
-
-					} ?>
+						if ( $single_doc->ID == $current_single_postID ) {
+							echo ' class="organized-docs-active-side-item"';
+						}
+						echo '><a href="' . esc_url( get_permalink( $single_doc->ID ) ) . '">' . esc_html( $single_doc->post_title ) . '</a></li>';
+					}
+					?>
 					</ul></aside><?php
-				endif;
-				wp_reset_postdata();
+				}
 			}
 
 		} else {
 
 			// We have term children
 
+			// First, list any orphaned posts not assiged to a child cat and only assiged directly to a parent cat
+			$orphans = odocs_query_docs( $top_level_parent_term_id, true );
+			if ( ! empty( $orphans[0] ) ) {
+				?>
+				<aside class="widget well"><ul>
+				<?php
+				foreach ( $orphans as $orphan ) { ?>
+					<li><a href="<?php echo esc_url( get_permalink( $orphan->ID ) ); ?>"><?php echo esc_html( $orphan->post_title ); ?></a></li>
+				<?php } ?>
+				</ul></aside><?php
+			}
+
+
 			// sort $termchildren by custom subheading_sort_order numbers
 			$sorted_termchildren = $Isa_Organized_Docs->sort_terms_custom( $termchildren, 'subheading_sort_order' );
 
 			$list_each = get_option('od_widget_list_toggle');
 
-			if ($sorted_termchildren) {
+			if ( $sorted_termchildren ) {
 
 				foreach ( $sorted_termchildren as $child_id => $order ) {
 					$termobject = get_term_by( 'id', $child_id, 'isa_docs_category' );
@@ -147,28 +144,16 @@ class DocsSectionContents extends WP_Widget {
 						echo ' style="display:none"';
 					}
 					?>><?php
-					// nest a loop through each child cat's posts
-					$query_args = array(	'post_type' => 'isa_docs', 
-								'posts_per_page' => -1,
-								'order' => 'ASC',
-								'tax_query' => array(
-											array(
-												'taxonomy' => 'isa_docs_category',
-												'field' => 'id',
-												'terms' => $termobject->term_id
-												)
-											),
-								'orderby' => $orderby,
-								'meta_key' => '_odocs_meta_sortorder_key',
-								'order' => $orderby_order
-						);
-					$postlist = get_posts( $query_args );
-					foreach ( $postlist as $single_post ) {
-							echo '<li';
-							if( $single_post->ID == $current_single_postID ) 
-								echo ' class="organized-docs-active-side-item"';
-							echo '><a href="' . get_permalink( $single_post->ID ) . '" title="' . esc_attr( $single_post->post_title ) . '">' . $single_post->post_title . '</a></li>';   
-					} ?>
+					$postlist = odocs_query_docs( $termobject->term_id );
+					if ( ! empty( $postlist[0] ) ) {
+						foreach ( $postlist as $single_post ) {
+								echo '<li';
+								if( $single_post->ID == $current_single_postID ) 
+									echo ' class="organized-docs-active-side-item"';
+								echo '><a href="' . esc_url( get_permalink( $single_post->ID ) ) . '" title="' . esc_attr( $single_post->post_title ) . '">' . esc_html( $single_post->post_title ) . '</a></li>';   
+						}
+					}
+					?>
 					</ul>
 					</aside><?php
 				}
