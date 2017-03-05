@@ -1,7 +1,7 @@
 === Organized Docs ===
 Contributors: isabel104
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=me%40isabelcastillo%2ecom
-Tags: documentation, docs, organized documentation, instruction guides, easy docs, organized docs
+Tags: documentation, docs, documentor, organized documentation, instruction guides, organized docs
 Requires at least: 4.0
 Tested up to: 4.7.2
 Stable tag: 2.5.2
@@ -20,6 +20,8 @@ This is for you if any of these apply:
 * You need to create documentation for one or multiple products, and must have the docs organized neatly, by product. 
 * You need to write instruction guides for virtually anything, whether it be products, games, topics, etc. You can label them as "Instructions" instead of "Docs".
 * You don't want to create a separate website for your docs. You simply want to add them on to your current WordPress site.
+
+This plugin organizes your documentation articles into a visitor-friendly, browse-able format that fits right into your WordPress site. This takes the headache out of organizing documentation articles and instruction guides.
 
 **Built-in SEO**
 
