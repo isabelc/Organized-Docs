@@ -40,17 +40,16 @@ wp_enqueue_style('organized-docs'); ?>
 	if ( empty( $termchildren ) ) {
 		// there are no child terms, do regular term loop to list ALL posts within current term
 		$docs = odocs_query_docs( $curr_termID );
-		if ( empty( $docs[0] ) ) { ?>
+		if ( ! empty( $docs[0] ) ) { ?>
+			<ul>
+				<?php foreach ( $docs as $single_doc ) { ?>
+					<li><a href="<?php echo esc_url( get_permalink( $single_doc->ID ) ); ?>"><?php echo esc_html( $single_doc->post_title ); ?></a></li>
+				<?php } ?>
+			</ul>
+		<?php } else { ?>
 			<h2><?php _e( 'Error 404 - Not Found', 'organized-docs' ); ?></h2>
-			<?php continue;
-		}
-		?>
-		<ul>
-			<?php foreach ( $docs as $single_doc ) { ?>
-				<li><a href="<?php echo esc_url( get_permalink( $single_doc->ID ) ); ?>"><?php echo esc_html( $single_doc->post_title ); ?></a></li>
-			<?php } ?>
-		</ul>
-	<?php
+		<?php }
+
 	} else {
 	
 		// There are subTerms, do list each subTerm with all its posts under each subTerm.
