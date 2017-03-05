@@ -2,11 +2,11 @@
 /**
 * The template for displaying the main Docs page
 * @package	Organized Docs
-* @version 2.1.1
+* @version 2.5
 * @since 2.0
 */
-get_header(); 
 
+get_header();
 $schema = '';
 $itemprop_name = '';
 if ( ! get_option('od_disable_microdata') ) {
