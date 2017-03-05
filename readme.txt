@@ -3,8 +3,8 @@ Contributors: isabel104
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=me%40isabelcastillo%2ecom
 Tags: documentation, docs, documentor, organized documentation, instruction guides, organized docs
 Requires at least: 4.0
-Tested up to: 4.7.2
-Stable tag: 2.5.2
+Tested up to: 4.8-alpha-40147
+Stable tag: 2.6
 License: GNU Version 2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -58,7 +58,7 @@ For support, use the support forum link above.
 
 The Organized Docs layout is compatible with these default WordPress themes: Twenty Fifteen, Twenty Fourteen, Twenty Thirteen, and Twenty Twelve.
 
-On other themes, the layout may look all messed up. It’s very easy to fix this by copying the template files into your theme. Once you have copied them, make the necessary changes to the HTML to make it match your own theme, while leaving the important Organized Docs loop stuff intact.
+On other themes, the layout may look all messed up. You can fix this by copying the template files into your theme. Once you have copied them, make the necessary changes to the HTML to make it match your own theme, while leaving the important Organized Docs loop stuff intact.
 
 See how to [Customize The Docs Template Files](https://isabelcastillo.com/docs/customize-the-docs-template-files).
 
@@ -79,6 +79,11 @@ See how to [Customize The Docs Template Files](https://isabelcastillo.com/docs/c
 * New - Added up/down arrows to toggle headings, if toggle is enabled.
 * New - Split settings page into tabs for less clutter.
 * New - The "hide" option has been removed from the "List Each Single Title?" option for the "Top Level Category Pages" and for the Table of Contents widget. If you had either of those settings set to "hide," they have been now updated to "toggle".
+* New - 2 template files have been changed: `taxonomy.php` and `single.php`. If you're using custom template files for Docs, you should update these to match the new ones.
+* New - Removed action hook from the single.php template file: `organized_docs_single_after_nav`
+* New - Changed widget name to Docs Table of Contents.
+* New - Removed the "Publisher" item property since TechArticle structured data schema doesn't require it.
+* New - Show orphan docs on archives and Table of Contens even if it's not assigned to child category (subheading) but is assigned directly to the parent category.
 * New - Added support for subheadings links only for pages that have only 1 post for their top-level Docs category.
 * Fix - Show "Setting Saved" message on the settings page when settings are updated.
 * Tweak - Change #od-author to .od-author in the structured data meta tag so as not to create an extra microdata property id.
