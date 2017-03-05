@@ -8,7 +8,6 @@
 
 get_header(); ?>
 <div id="docs-primary" <?php echo odocs_schema_markup()['type']; ?>>
-
 	<div id="docs-content" role="main">
 		<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 			<?php do_action( 'organized_docs_single_top' ); ?>
