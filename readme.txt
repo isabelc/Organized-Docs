@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=me%40
 Tags: documentation, docs, documentor, organized documentation, instruction guides, organized docs
 Requires at least: 4.0
 Tested up to: 4.8-alpha-40147
-Stable tag: 2.6
+Stable tag: 2.6.1
 License: GNU Version 2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -73,6 +73,9 @@ See how to [Customize The Docs Template Files](https://isabelcastillo.com/docs/c
 7. A single Docs article with Table of Contents on 2013 theme
 
 == Changelog ==
+
+= 2.6.1 =
+* Tweak - Improved CSS styles for single Docs.
 
 = 2.6 =
 * New - Update styles for Twenty Seventeen and Twenty Sixteen theme compatibility.
@@ -270,6 +273,9 @@ Bug fix: Custom sort-order for Categories was not saving.
 * Initial release.
 
 == Upgrade Notice ==
+= 2.6.1 =
+Improved CSS styles for single Docs.
+
 = 2.5.2 =
 New feature for Docs that have only 1 post for their category.
 
