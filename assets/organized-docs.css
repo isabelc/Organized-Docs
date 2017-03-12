@@ -46,10 +46,19 @@
 .single-isa_docs #docs-content{
 	width:65%;
 	display:inline-block;
-	vertical-align:top
+	vertical-align:top;
+}
+#docs-content .updated-on {margin:16px 0;display:block;font-style:italic;}
+#odd-print-button,
+.single-isa_docs .docs-entry-content,
+.single-isa_docs .entry-title,
+#docs-primary #docs-content .docs-entry-content + .updated-on,
+.single-isa_docs .post-navigation,
+.single-isa_docs #comments,
+.single-isa_docs #respond{
+	margin:15px 28px;
 }
 
-#docs-content .updated-on {margin:16px 0;display:block;font-style:italic;}
 #docs-content-sidebar{
 	margin:0;
 	padding:0;
@@ -119,11 +128,6 @@ p#odd-print-button{text-align:right}
 	#docs-content-sidebar > ul {
 	    margin-left: 0;
 	}
-
-	#odd-print-button,
-	.single-isa_docs .docs-entry-content,
-	.single-isa_docs .entry-title{margin:15px 28px;}
-
 	.single-isa_docs #docs-content-sidebar .widget li{line-height:2em}
 }
 
