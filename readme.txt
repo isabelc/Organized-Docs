@@ -1,10 +1,10 @@
 === Organized Docs ===
 Contributors: isabel104
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=me%40isabelcastillo%2ecom
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=R7BHLMCQ437SS
 Tags: documentation, docs, documentor, organized documentation, instruction guides, organized docs
 Requires at least: 4.0
-Tested up to: 4.8-alpha-40147
-Stable tag: 2.6.1
+Tested up to: 4.8-alpha-40555
+Stable tag: 2.6.2
 License: GNU Version 2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -73,6 +73,9 @@ See how to [Customize The Docs Template Files](https://isabelcastillo.com/docs/c
 7. A single Docs article with Table of Contents on 2013 theme
 
 == Changelog ==
+
+= 2.6.2 =
+* Fix - Only set meta_key arg if orderyby is = meta_value_num. Prematurely setting meta_key arg was causing the Table of Contents to be empty and missing navigation on docs posts if child categories were not set, and if the orderby for single docs was set to date or title. That is, this issue had only affected docs posts in which the single doc was attached to a top-level category without creating sub-categories (child categories), and if the 'orderby' setting for Single Docs was set to date or title. This was a very small, if any, number of use cases.
 
 = 2.6.1 =
 * Tweak - Improved CSS styles for single Docs.
