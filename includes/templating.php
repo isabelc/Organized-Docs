@@ -142,8 +142,11 @@ function odocs_query_docs( $terms, $top = '' ) {
 							)
 						),
 					'orderby' => $orderby,
-					'meta_key' => '_odocs_meta_sortorder_key',
 					'order' => $orderby_order
 	);
+	if ( 'meta_value_num' == $orderby ) {
+		$args['meta_key'] = '_odocs_meta_sortorder_key';
+	}
+
 	return get_posts( $args );
 }
