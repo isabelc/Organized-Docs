@@ -3,14 +3,14 @@
 Plugin Name: Organized Docs
 Plugin URI: https://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
 Description: Create organized documentation for multiple products, organized by product, and by subsections within each product.
-Version: 2.6.3.alpha.3
+Version: 2.6.3
 Author: Isabel Castillo
 Author URI: https://isabelcastillo.com
 License: GPL2
 Text Domain: organized-docs
 Domain Path: languages
  
-Copyright 2013 - 2017 Isabel Castillo
+Copyright 2013-2018 Isabel Castillo
  
 This file is part of Organized Docs.
  
