@@ -3,7 +3,7 @@
 Plugin Name: Organized Docs
 Plugin URI: https://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
 Description: Create organized documentation for multiple products, organized by product, and by subsections within each product.
-Version: 2.6.2
+Version: 2.6.3.alpha.3
 Author: Isabel Castillo
 Author URI: https://isabelcastillo.com
 License: GPL2
@@ -820,7 +820,7 @@ class Isa_Organized_Docs{
 			?>
 			<form method="POST" action="options.php">
 			<?php
-			settings_fields( 'organized-docs-settings' );
+			settings_fields( 'organized-docs-settings_' . $active_tab );
 			do_action( 'organized_docs_settings_tab_' . $active_tab );
 			do_settings_sections( 'organized-docs-settings-' . $active_tab );
 			submit_button(); ?>
@@ -870,7 +870,7 @@ class Isa_Organized_Docs{
 			'organized-docs-settings-main',
 			'od_main_setting_section'
 		);
-		register_setting( 'organized-docs-settings', 'od_change_main_docs_title' );
+		register_setting( 'organized-docs-settings_main', 'od_change_main_docs_title' );
 		add_settings_field(
 			'od_main_top_sort_by',
 			__( 'Main Items Sort Order', 'organized-docs' ),
@@ -878,7 +878,7 @@ class Isa_Organized_Docs{
 			'organized-docs-settings-main',
 			'od_main_setting_section'
 		);
-		register_setting( 'organized-docs-settings', 'od_main_top_sort_by' );
+		register_setting( 'organized-docs-settings_main', 'od_main_top_sort_by' );
 		add_settings_field(
 			'od_rewrite_docs_slug',
 			__( 'Change The Main Docs Slug', 'organized-docs' ),
@@ -886,7 +886,7 @@ class Isa_Organized_Docs{
 			'organized-docs-settings-main',
 			'od_main_setting_section'
 		);
-		register_setting( 'organized-docs-settings', 'od_rewrite_docs_slug' );
+		register_setting( 'organized-docs-settings_main', 'od_rewrite_docs_slug' );
 		add_settings_field(
 			'od_hide_printer_icon',
 			__( 'Remove Printer Icon', 'organized-docs' ),
@@ -894,7 +894,7 @@ class Isa_Organized_Docs{
 			'organized-docs-settings-single',
 			'od_single_post_setting_section'
 		);
-		register_setting( 'organized-docs-settings', 'od_hide_printer_icon' );
+		register_setting( 'organized-docs-settings_single', 'od_hide_printer_icon' );
 		add_settings_field(
 			'od_hide_print_link',
 			__( 'Remove Print Link', 'organized-docs' ),
@@ -902,7 +902,7 @@ class Isa_Organized_Docs{
 			'organized-docs-settings-single',
 			'od_single_post_setting_section'
 		);
-		register_setting( 'organized-docs-settings', 'od_hide_print_link' );
+		register_setting( 'organized-docs-settings_single', 'od_hide_print_link' );
 		add_settings_field(
 			'od_title_on_nav_links',
 			__( 'Title on nav links?', 'organized-docs' ),
@@ -910,7 +910,7 @@ class Isa_Organized_Docs{
 			'organized-docs-settings-single',
 			'od_single_post_setting_section'
 		);
-		register_setting( 'organized-docs-settings', 'od_title_on_nav_links' );
+		register_setting( 'organized-docs-settings_single', 'od_title_on_nav_links' );
 		add_settings_field(
 			'od_close_comments',
 			__( 'Disable Comments on Single Docs?', 'organized-docs' ),
@@ -918,7 +918,7 @@ class Isa_Organized_Docs{
 			'organized-docs-settings-single',
 			'od_single_post_setting_section'
 		);
-		register_setting( 'organized-docs-settings', 'od_close_comments' );
+		register_setting( 'organized-docs-settings_single', 'od_close_comments' );
 		add_settings_field(
 			'od_list_toggle',
 			__( 'List Each Single Title?', 'organized-docs' ),
@@ -926,7 +926,7 @@ class Isa_Organized_Docs{
 			'organized-docs-settings-top',
 			'od_toplevel_setting_section'
 		);
-		register_setting( 'organized-docs-settings', 'od_list_toggle' );
+		register_setting( 'organized-docs-settings_top', 'od_list_toggle' );
 		add_settings_field(
 			'od_single_sort_by',
 			__( 'Sort Single Docs By ...', 'organized-docs' ),
@@ -934,7 +934,7 @@ class Isa_Organized_Docs{
 			'organized-docs-settings-single',
 			'od_single_post_setting_section'
 		);
-		register_setting( 'organized-docs-settings', 'od_single_sort_by' );
+		register_setting( 'organized-docs-settings_single', 'od_single_sort_by' );
 		add_settings_field(
 			'od_single_sort_order',
 			__( 'Sort Order', 'organized-docs' ),
@@ -942,7 +942,7 @@ class Isa_Organized_Docs{
 			'organized-docs-settings-single',
 			'od_single_post_setting_section'
 		);
-		register_setting( 'organized-docs-settings', 'od_single_sort_order' );
+		register_setting( 'organized-docs-settings_single', 'od_single_sort_order' );
 		add_settings_field(
 			'od_show_updated_date',
 			__( 'Show Updated Date', 'organized-docs' ),
@@ -950,7 +950,7 @@ class Isa_Organized_Docs{
 			'organized-docs-settings-single',
 			'od_single_post_setting_section'
 		);
-		register_setting( 'organized-docs-settings', 'od_show_updated_date' );
+		register_setting( 'organized-docs-settings_single', 'od_show_updated_date' );
 		add_settings_field(
 			'od_disable_microdata',
 			__( 'Disable Structured Data', 'organized-docs' ),
@@ -958,7 +958,7 @@ class Isa_Organized_Docs{
 			'organized-docs-settings-misc',
 			'od_misc_setting_section'
 		);
-		register_setting( 'organized-docs-settings', 'od_disable_microdata' );		
+		register_setting( 'organized-docs-settings_misc', 'od_disable_microdata' );		
 		add_settings_field(
 			'od_delete_data_on_uninstall',
 			__( 'Remove Data on Uninstall?', 'organized-docs' ),
@@ -966,7 +966,7 @@ class Isa_Organized_Docs{
 			'organized-docs-settings-misc',
 			'od_misc_setting_section'
 		);
-		register_setting( 'organized-docs-settings', 'od_delete_data_on_uninstall' );
+		register_setting( 'organized-docs-settings_misc', 'od_delete_data_on_uninstall' );
 		add_settings_field(
 			'od_widget_list_toggle',
 			__( 'List Each Single Title?', 'organized-docs' ),
@@ -974,7 +974,7 @@ class Isa_Organized_Docs{
 			'organized-docs-settings-toc',
 			'od_widget_setting_section'
 		);
-		register_setting( 'organized-docs-settings', 'od_widget_list_toggle' );
+		register_setting( 'organized-docs-settings_toc', 'od_widget_list_toggle' );
 	}
 
 	/**
