@@ -17,6 +17,7 @@ $od_options = array(
 	'od_single_sort_by',
 	'od_list_toggle',
 	'od_close_comments',
+	'od_show_updated_date',
 	'odocs_cleanup_twopointfive'
 );
 
