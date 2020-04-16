@@ -3,7 +3,7 @@
 Plugin Name: Organized Docs
 Plugin URI: https://isabelcastillo.com/docs/category/organized-docs-wordpress-plugin
 Description: Create organized documentation for multiple products, organized by product, and by subsections within each product.
-Version: 2.6.3
+Version: 2.6.4.alpha-2
 Author: Isabel Castillo
 Author URI: https://isabelcastillo.com
 License: GPL2
@@ -1238,7 +1238,7 @@ class Isa_Organized_Docs{
 		$titleon = get_option( 'od_title_on_nav_links' );
 		$out = '<nav class="navigation post-navigation" role="navigation"><h1 class="screen-reader-text">' . __( 'Post navigation', 'organized-docs' ). '</h1><div class="nav-links">';
 		if ( !empty($previd) ) {
-			$anchor_prev = $titleon ? '&larr; ' . $titles[$thisindex-1] : __( '&larr; Previous', 'organized-docs' );
+			$anchor_prev = $titleon ? '&larr; ' . $titles[$thisindex-1] : __( '&larr; Previous Page', 'organized-docs' );
 			$out .= '<span class="meta-nav nav-previous"><a rel="prev" href="' . get_permalink($previd) . '">' . $anchor_prev. '</a></span>';
 		}
 		if ( !empty($nextid) ) {
